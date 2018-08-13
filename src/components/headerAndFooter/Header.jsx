@@ -22,8 +22,21 @@ export default class Header extends ViewBase {
 
   render() {
     return (
-      <div className="header">
+      <div className="header-wrap">
+          {/*顶部价格滚动栏*/}
+          <nav className="top">
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </nav>
+          {/*顶部菜单栏*/}
+          <nav className="header">
 
+          </nav>
       </div>
     )
   }

@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import "./common/css/common.styl";
 
+import "./common/css/common.styl";
 import Header from "./components/headerAndFooter/Header.jsx";
 import Footer from "./components/headerAndFooter/footer.jsx";
 import ArticleList from "./components/article/ArticleList";
@@ -38,18 +39,15 @@ export default class App extends Component {
     render() {
         return (
             <Router>
-                <div className="web-wrap">
+                <div className="router-wrap">
                     {/*<Header/>*/}
                     <Switch>
                         <Route component={header} />
                     </Switch>
-                    <div>
-                        <Switch>
-                          <Route path="/article" component={articleDetail}  />
-                          <Route path="/articlelist" component={articleList}  />
-
-                        </Switch>
-                    </div>
+                    <Switch>
+                      <Route path="/article" component={articleDetail}  />
+                      <Route path="/articlelist" component={articleList}  />
+                    </Switch>
                     {/*<Footer/>*/}
                     <Switch>
                         <Route component={footer} />
