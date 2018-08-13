@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ExchangeViewBase from "../ExchangeViewBase";
+import ViewBase from "../ViewBase";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,12 +8,13 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/article.styl"
+import "./stylus/articlelist.styl"
 
-export default class ArticleList extends ExchangeViewBase {
+export default class ArticleList extends ViewBase {
   constructor(props) {
     super(props);
     let { controller } = props;
+    console.log(controller);
     controller.setView(this);
     this.getArticleList = controller.getArticleList.bind(controller);
 
