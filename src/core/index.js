@@ -23,7 +23,7 @@ const RUNAPP = async (config) => {
   Storage.install(StorageConfig.storageList)
   WebSocketConfig.useWebSocket && Websocket.install(ServerConfig, WebSocketConfig.webSocketList)
   Loop.install(LoopTaskConfig);
-}
+};
 
 
 module.exports = {

@@ -14,9 +14,5 @@ export default class ExchangeControllerBase extends ControllerBase {
       '0wIDAQAB\n' +
       '-----END public-----')
   }
-  // /**
-  // search(){
-  //
-  // }
 
 }

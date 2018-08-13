@@ -1,38 +1,46 @@
 import React, { Component } from "react";
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect
 } from "react-router-dom";
 
-import {AsyncComponent} from './core'
-
-import "./common/css/base.styl";
-import "./common/css/reset.styl";
-import "./common/component/style/index.styl";
 import Header from "./components/headerAndFooter/Header.jsx";
 import Footer from "./components/headerAndFooter/footer.jsx";
 
 
-let loginController;
+const header = ({ match, history }) =>
+    <Header match={match} history={history}/>;
+
+
+const footer = ({ match, history }) =>
+    <Footer match={match} history={history}/>;
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { initDone: false };
-    let Loign = AsyncComponent(()=>import("./components/login/Login.jsx"), {controller:loginController});
-    let HomeComponent = AsyncComponent(()=>import("./components/home/Home.jsx"));
+    constructor(props) {
+        super(props);
+    }
 
-    let Routers = [
-      { path: "/home", component: HomeComponent }
-    ];
-  }
+    render() {
+        return (
+            <Router>
+                <div className="web-wrap">
+                    {/*<Header/>*/}
+                    <Switch>
+                        <Route component={header} />
+                    </Switch>
+                    <div>
+                        <Switch>
 
-
-  render() {
-    return (
-      <div>空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的</div>
-    );
-  }
+                        </Switch>
+                    </div>
+                    {/*<Footer/>*/}
+                    <Switch>
+                        <Route component={footer} />
+                    </Switch>
+                </div>
+            </Router>
+        );
+    }
 }
