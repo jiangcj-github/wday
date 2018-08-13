@@ -32,7 +32,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>空的</div>
+      <div>空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的空的</div>
     );
   }
 }
