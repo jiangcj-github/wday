@@ -1,0 +1,110 @@
+@import "./variable.styl"
+
+.notice-wrap
+  width 14.4rem
+  margin 0 auto
+  .hide
+    display none
+  .notice-nav
+    min-width 1.86rem
+    li
+      height .6rem
+      margin-right .28rem
+      line-height .6rem
+      a
+        display block
+        width 100%
+        padding-left .24rem
+        color $notice-font-content
+        border-left 0.04rem solid $notice-bg-main
+        &.active
+          border-left 0.04rem solid $notice-font-active
+          background $notice-bg-active
+          color $notice-font-active
+        &:hover
+          border-left 0.04rem solid $notice-font-active
+          background $notice-bg-active
+          color $notice-font-active
+
+  // 资讯公告
+  .notice-content
+    padding-left .3rem
+    border-left .01rem solid $notice-line-dark
+    h1
+      margin .3rem 0 .45rem
+      color $notice-font-content
+      font-size .2rem
+    h2
+      width 100%
+      text-align center
+      font-size .24rem
+      color $notice-font-title
+
+    .bulletin-wrap
+      dl
+        margin-bottom .44rem
+        dt
+          padding .16rem 0
+          border-bottom .01rem solid $notice-line-dark
+          color $notice-font-title
+        a
+          display block
+          border-bottom .01rem solid $notice-line-dark
+          &:last-of-type
+            border-bottom none
+        dd
+          padding .16rem 0
+          color $notice-font-content
+        i, em, span
+          display inline-block
+        i
+          width 6.9rem
+          padding-left .1rem
+        em
+          width 1.5rem
+        span
+          padding-right .1rem
+      .information-wrap
+        padding-bottom .3rem
+
+  // 联系我们
+  .contact-wrap
+    ul
+      li
+        margin-bottom .28rem
+        color $notice-font-active
+        &:first-child
+          color $notice-font-content
+
+  //  上币申请
+  .apply-wrap
+    max-width 9.6rem
+    p
+      color $notice-font-content
+      margin-bottom .28rem
+    span
+      display block
+      margin-bottom .44rem
+      color $notice-font-active
+    dl
+      dt
+        margin-bottom .14rem
+        color $notice-font-content
+      dd
+        position relative
+        padding .08rem 0 .08rem .15rem
+        color $notice-font-title
+        &:after
+          position absolute
+          top .12rem
+          left 0
+          width .05rem
+          height .05rem
+          border-radius 50%
+          content ''
+          background $notice-font-title
+.notice-wrap-container
+  min-width 100%
+  min-height 737px
+  background-color $notice-bg-main
+  padding 0.64rem 0 .68rem 1.2rem

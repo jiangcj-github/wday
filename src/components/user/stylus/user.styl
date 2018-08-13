@@ -1,0 +1,71 @@
+//@import "../../../common/css/variable.styl"
+
+.user-big-wrap
+  width 100%
+  background $user-bg-main
+.user-wrap
+  width 12rem
+  margin 0 auto
+  padding .2rem 0 0.68rem
+
+  .user-nav
+    width 1.8rem
+    li
+      height .6rem
+      margin-right .28rem
+      line-height .6rem
+      a
+        display block
+        width 100%
+        padding-left .24rem
+        color $user-slide-font-main
+        border-left 0.04rem solid $user-bg-main
+        &.active
+          border-left 0.04rem solid  $user-slide-font-active
+          background $user-slide-bg-active
+          color $user-slide-font-active
+        &:hover
+          border-left 0.04rem solid $user-slide-font-active
+          background $user-slide-bg-active
+          color $user-slide-font-active
+
+  .user-content
+    width 10.12rem
+    padding-left .3rem
+    border-left 1px solid $user-line-main
+    h1
+      margin .3rem 0 .16rem
+      color $user-title-main
+      font-size .2rem
+    h2
+      float left
+      font-size .15rem
+      color $user-title-second
+      width 1.5rem
+
+  // ip弹窗
+  .ip-popup
+    position fixed
+    //top 50%
+    //left 50%
+    //transform translateX(-50%) translateY(-50%)
+    left 0
+    right 0
+    top 0
+    bottom 0
+    margin auto
+    width 5rem
+    height 2rem
+    text-align center
+    line-height 2rem
+    background $user-bg-ipPopup
+    border-radius .05rem
+    img
+      position absolute
+      top .1rem
+      right .1rem
+      cursor pointer
+    p
+      color $user-font-normal
+
+

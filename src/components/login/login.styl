@@ -1,0 +1,122 @@
+@import "./variable.styl"
+
+.login-wrap
+  position absolute
+  left 50%
+  transform translateX(-50%)
+  margin-top 1rem
+  width 5rem
+  .hide
+    display none
+  .userAgree
+    color $login-bg-active
+  h1
+    padding-bottom .12rem
+    border-bottom 1px solid $login-bg-code
+    margin-bottom .3rem
+    span
+      padding .1rem .15rem
+      color $login-bg-active
+      font-size .16rem
+      cursor pointer
+      &.active
+        color $login-font-button
+        background $login-bg-active
+        border-radius (.04rem .04rem 0 0)
+  ul
+    margin-bottom .25rem
+    li
+      width 5rem
+      height .5rem
+      //margin-bottom .2rem
+      margin-bottom .3rem
+      input
+        width 5rem
+        height .5rem
+        border 1px solid $login-bg-code
+      .login-btn
+        width 5rem
+        height .5rem
+        background $login-bg-active
+        color $login-font-button
+        opacity .5
+      .can-click
+        opacity 1
+      em
+        display block
+        margin-top .03rem
+        font-size .12rem
+        color $login-font-negative
+    //.verify-li
+      //height .35rem
+      //background $login-bg-active
+    .send-code-li, .verify-li
+      .base-input-wrap
+        float left
+        input
+          width 3rem
+          border-right none
+          vertical-align top
+          border-radius (.02rem 0 0 .02rem)
+      .send-code-btn, .picture-btn
+        float left
+        width 2rem
+        height .5rem
+        background $login-bg-code
+        border none
+        border-radius (0 .02rem .02rem 0)
+      .picture-btn
+        text-align center
+        cursor pointer
+        img
+          width 1.5rem
+          height .5rem
+      .send-code-btn
+        background $login-bg-active
+        color $login-font-button
+    .pass-li
+      position relative
+      .base-input-wrap
+        input
+          padding-right .9rem
+      span
+        position absolute
+        top 50%
+        right .1rem
+        transform translateY(-50%)
+        cursor pointer
+        a
+         color $login-bg-active
+        &:before
+          position absolute
+          top -.08rem
+          left -.1rem
+          width .01rem
+          height .3rem
+          line-height .3rem
+          content ''
+          background-color #999
+  .checkbox-wrap
+    color $login-font-normal
+    //input
+    //  margin-right .1rem
+    //  vertical-align middle
+    p
+      display inline-block
+      position relative
+      top .02rem
+      margin-right .1rem
+      cursor pointer
+      span
+        display inline-block
+        width .14rem
+        height .14rem
+        border 1px solid $login-bg-active
+        border-radius .03rem
+      img
+        width .15rem
+        height .15rem
+
+
+
+
