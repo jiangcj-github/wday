@@ -16,14 +16,16 @@ export default class ArticleStore extends ExchangeStoreBase {
         title: "习近平谈如何打赢脱贫攻坚战",
         content: "坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进入全面小康社会是我们党的庄严承诺。",
         author: "赵四",
-        date: "18-01-11"
+        date: "18-01-11",
       },
       {
         id: 2,
         title: "最高法：妥善审理民间借贷纠纷案件 防范化解各类风险",
         content: "新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥善审理民间借贷案件的通知。",
         author: "赵四",
-        date: "18-01-11"
+        date: "18-01-11",
+        img: "https://bpic.588ku.com/element_banner/20/18/08/351737d428923be2f258e5b6b58c806d.jpg"
+
       },
       {
         id: 3,
@@ -36,5 +38,15 @@ export default class ArticleStore extends ExchangeStoreBase {
     return result;
   }
 
-
+  async getArticleDetail() {
+    let result =  {
+      id: 2,
+      title: "最高法：妥善审理民间借贷纠纷案件 防范化解各类风险",
+      content: "新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥善审理民间借贷案件的通知。",
+      author: "赵四",
+      date: "18-01-11",
+      img: "https://bpic.588ku.com/element_banner/20/18/08/351737d428923be2f258e5b6b58c806d.jpg"
+    }
+    return result;
+  }
 }

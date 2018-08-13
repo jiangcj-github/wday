@@ -10,6 +10,7 @@ import "./common/css/common.styl";
 import Header from "./components/headerAndFooter/Header.jsx";
 import Footer from "./components/headerAndFooter/footer.jsx";
 import ArticleList from "./components/article/ArticleList";
+import ArticleDetail from "./components/article/ArticleDetail";
 
 import ArticleController from "./class/article/ArticleController";
 
@@ -26,7 +27,8 @@ const footer = ({ match, history }) =>
 
 const articleList = ({ match, history }) =>
   <ArticleList match={match} history={history} controller={articleController} />;
-
+const articleDetail = ({ match, history }) =>
+  <ArticleDetail match={match} history={history} controller={articleController} />;
 
 export default class App extends Component {
     constructor(props) {
@@ -43,7 +45,9 @@ export default class App extends Component {
                     </Switch>
                     <div>
                         <Switch>
-                          <Route component={articleList}  />
+                          <Route path="/article" component={articleDetail}  />
+                          <Route path="/articlelist" component={articleList}  />
+
                         </Switch>
                     </div>
                     {/*<Footer/>*/}

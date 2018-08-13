@@ -10,8 +10,6 @@ export default class ConfigController extends ExchangeControllerBase {
 
   setView(view) {
     super.setView(view);
-    // view.setState({count: this.store.count})
-    // return this.store.data
   }
 
   async getArticleList() {
@@ -23,5 +21,13 @@ export default class ConfigController extends ExchangeControllerBase {
     return result;
   }
 
+  async getArticleDetail() {
+    let result = await this.store.getArticleDetail();
+    this.view.setState({
+      articleDetail: result
+    });
+    console.log(result);
+    return result;
+  }
 
 }
