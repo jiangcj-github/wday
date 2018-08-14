@@ -1,0 +1,25 @@
+@import "../resource/color.styl"
+
+.pagination-wrap
+  display flex
+  justify-content center
+
+  margin-top 100px
+  .pagination
+    user-select none
+    li
+      color $pagi-color-normal
+      cursor pointer
+      margin 0 15px
+      display inline-block
+      vertical-align top
+      font-size 14px
+      &:hover
+        color $pagi-color-hover
+      &.active
+        color $pagi-color-active
+        pointer-events none
+      &.omit
+        pointer-events none
+        cursor default
+        margin 0 5px

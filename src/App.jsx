@@ -6,6 +6,7 @@ import {
     Redirect
 } from "react-router-dom";
 import "./common/css/common.styl";
+import "./common/components/stylus/index.styl";
 
 import "./common/css/common.styl";
 import Header from "./components/headerAndFooter/Header.jsx";

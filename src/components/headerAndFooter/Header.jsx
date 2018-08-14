@@ -8,12 +8,16 @@ import {
   Switch
 } from 'react-router-dom'
 import ViewBase from "../ViewBase";
+import Login from "./children/Login"
+import Pagination from "../../common/components/Pagination"
 import './stylus/header.styl'
 
 export default class Header extends ViewBase {
   constructor(props) {
       super(props);
-      this.state = {}
+      this.state = {
+          showLogin: false,
+      }
   }
 
   async componentDidMount() {
@@ -21,6 +25,9 @@ export default class Header extends ViewBase {
   }
 
   render() {
+
+    let {showLogin} = this.state;
+
     return (
       <div className="header">
           {/*顶部价格滚动栏*/}
@@ -75,7 +82,7 @@ export default class Header extends ViewBase {
                           </div>
                       </div>
                       <img src=""/>
-                      <a>登录/注册</a>
+                      <a onClick={()=>this.setState({showLogin: true})}>登录/注册</a>
                       <div className="drop-wrap">
                           <img src=""/>
                           <ul className="drop">
@@ -86,6 +93,9 @@ export default class Header extends ViewBase {
                   </div>
               </div>
           </div>
+          {/*登录组件*/}
+          {showLogin && <Login onHide={()=>this.setState({showLogin: false})}/>}
+          <Pagination currentPage={6} total={801} pageSize={20}></Pagination>
       </div>
     )
   }
