@@ -20,11 +20,17 @@ export default class ArticleDetail extends ViewBase {
       articleDetail: {}
     };
     this.getArticleDetail = controller.getArticleDetail.bind(controller);
-
+    this.addFavourite = this.addFavourite.bind(this);
+    this.goodClick = this.goodClick.bind(this);
+    this.badClick = this.badClick.bind(this);
   }
 
   async componentDidMount() {
     await this.getArticleDetail();
+  }
+
+  addFavourite() {
+
   }
 
   goodClick() {
@@ -92,18 +98,22 @@ export default class ArticleDetail extends ViewBase {
                   }
                 </div>
                 <div className="article-fun">
-                  <img src="../../../static/web/icon.png" />
-                  <span className="article-love-span">点赞</span>
-                  <img src="../../../static/web/icon.png" />
-                  <span className="article-share-span">分享</span>
-                  <img src="../../../static/web/icon.png" />
-                  <span className="article-favorite-span">收藏</span>
+                  <div className="box">
+                    <img src="../../../static/web/icon.png" />
+                    <span className="article-love-span">点赞</span>
+                  </div>
+                  <div className="box">
+                    <img src="../../../static/web/icon.png" />
+                    <span className="article-share-span">分享</span>
+                  </div>
+                  <div className="box" onClick={this.addFavourite}>
+                    <img src="../../../static/web/icon.png" />
+                    <span className="article-favorite-span">收藏</span>
+                  </div>
                 </div>
               </div>
             </div> : null
         }
-
-
 
       </div>
     )
