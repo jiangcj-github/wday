@@ -1,10 +1,10 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
-import ArticleStore from "./ArticleStore";
+import NewsStore from "./NewsStore";
 
-export default class ArticleController extends ExchangeControllerBase {
+export default class NewsController extends ExchangeControllerBase {
   constructor(props) {
     super(props);
-    this.store = new ArticleStore();
+    this.store = new NewsStore();
 
   }
 
@@ -12,10 +12,10 @@ export default class ArticleController extends ExchangeControllerBase {
     super.setView(view);
   }
 
-  async getArticleList() {
-    let result = await this.store.getArticleList();
+  async getNewsList() {
+    let result = await this.store.getNewsList();
     this.view.setState({
-      articleList: result
+      newsList: result
     });
     console.log(result);
     return result;
@@ -25,6 +25,15 @@ export default class ArticleController extends ExchangeControllerBase {
     let result = await this.store.getArticleDetail();
     this.view.setState({
       articleDetail: result
+    });
+    console.log(result);
+    return result;
+  }
+
+  async getNewsDetail() {
+    let result = await this.store.getNewsDetail();
+    this.view.setState({
+      newsDetail: result
     });
     console.log(result);
     return result;
