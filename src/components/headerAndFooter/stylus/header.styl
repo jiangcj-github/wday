@@ -1,4 +1,95 @@
 @import "../resource/color.styl"
 @import "../resource/image.styl"
 
-//头部样式表
+.router-wrap
+  .container
+    padding-top 100px
+  .header
+    position fixed
+    top 0
+    left 0
+    right 0
+    .price
+      width 100%
+      background $header-bg-top
+      ul
+        width 1200px
+        margin 0 auto
+        line-height 40px
+        height 40px
+        white-space nowrap
+        li
+          display inline-block
+          vertical-align top
+          width 240px
+          img
+            width 24px
+            height auto
+            margin-right 8px
+          span
+            font-size 14px
+            color $_cccccc
+          i
+            font-size 14px
+            color $header-color-coin
+            margin-left 6px
+            &.down
+              color $header-color-down
+            &.up
+              color $header-color-up
+    .nav-wrap
+      width 100%
+      height 60px
+      background $header-bg-nav
+      box-shadow 0 2px 4px 0 $header-shadow-nav
+      .nav
+        width 1200px
+        margin 0 auto
+        height 60px
+        line-height 60px
+        .logo
+          font-size 30px
+          color $header-color-weight
+          letter-spacing 2.5px
+          margin-right 60px
+        .nav-left
+          display inline-block
+          vertical-align top
+          a
+            color $header-color-normal
+            margin-right 40px
+            font-size 16px
+            cursor pointer
+            &.active
+              color color $header-color-weight
+            &:hover
+              color $header-color-hover
+          input
+            margin-left 20px
+            background $header-input-bg
+            width 320px
+            height 36px
+            padding 8px 12px
+            outline 0
+            border-radius 4px
+            font-size 14px
+            color $header-color-weight
+            border 1px solid transparent
+            &::placeholder
+              font-size 14px
+              color $header-color-normal
+            &:focus
+              border 1px solid $header-color-normal
+              background transparent
+        .nav-right
+          float right
+          >a
+            font-size 16px
+            color $header-color-normal
+            cursor pointer
+            &:hover
+              color $header-color-hover
+          .drop-wrap
+            display inline-block
+            vertical-align top
+

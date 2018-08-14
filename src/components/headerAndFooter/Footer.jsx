@@ -23,53 +23,27 @@ export default class Footer extends ViewBase {
       <div className="footer-wrap">
           <div className="footer">
               {/*每日必读*/}
-              <h3>
+              <div className="logo">
                   <b>每日必读</b>
                   <small>meiribidu.com</small>
-              </h3>
+              </div>
               {/*商务合作，友情链接，社交媒体，免责条款*/}
               <div className="col">
                   <p>商务合作</p>
-                  <ul>
-                      <li>
-                          <span>电话：123456</span>
-                      </li>
-                      <li>
-                          <span>邮箱：123456@163.com</span>
-                      </li>
-                      <li>
-                          <span>Q Q：123456</span>
-                      </li>
-                      <li>
-                          <span>微信：123456</span>
-                      </li>
-                  </ul>
+                  <a>电话：123456</a>
+                  <a>邮箱：123456@163.com</a>
+                  <a>Q Q：123456</a>
+                  <a>微信：123456</a>
               </div>
               <div className="col">
                   <p>友情链接</p>
-                  <ul>
-                      <li>
-                          <img src=""/>
-                          <span>Token.so</span>
-                      </li>
-                      <li>
-                          <img src=""/>
-                          <span>QB.com</span>
-                      </li>
-                  </ul>
+                  <a><img src=""/>Token.so</a>
+                  <a><img src=""/>QB.com</a>
               </div>
               <div className="col">
                   <p>社交媒体</p>
-                  <ul>
-                      <li>
-                          <img src=""/>
-                          <span>QB.com</span>
-                      </li>
-                      <li>
-                          <img src=""/>
-                          <span>微博</span>
-                      </li>
-                  </ul>
+                  <a><img src=""/>QB.com</a>
+                  <a><img src=""/>微博</a>
               </div>
               <div className="col">
                   <p>免责条款</p>
@@ -77,6 +51,10 @@ export default class Footer extends ViewBase {
           </div>
           {/*备案*/}
           <div className="ba">© 2018 每日必读 | 京ICP备11017824号-4</div>
+          {/*右侧固定菜单*/}
+          <div className="rf">
+              <a><img src="/"/></a>
+          </div>
       </div>
     )
   }

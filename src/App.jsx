@@ -44,10 +44,13 @@ export default class App extends Component {
                     <Switch>
                         <Route component={header} />
                     </Switch>
-                    <Switch>
-                      <Route path="/article" component={articleDetail}  />
-                      <Route path="/articlelist" component={articleList}  />
-                    </Switch>
+                    {/*content*/}
+                    <div className="container">
+                        <Switch>
+                            <Route path="/article" component={articleDetail}  />
+                            <Route path="/articlelist" component={articleList}  />
+                        </Switch>
+                    </div>
                     {/*<Footer/>*/}
                     <Switch>
                         <Route component={footer} />
