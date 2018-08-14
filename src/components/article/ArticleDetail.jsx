@@ -28,17 +28,62 @@ export default class ArticleDetail extends ViewBase {
   }
 
   render() {
-    let {title, author, speak, date, topImg, content} = this.state.articleDetail;
+    let {title, author, speak, date, topImg, content, tags} = this.state.articleDetail;
+    console.log("tags", tags);
     return (
-      <div className="article-detail">
+      <div className="article-main">
         <div className="left-tool">
+          <div className="tool-icon">
+            <img src="../../../static/web/icon.png" />
 
+          </div>
+          <span className="article-love-span">点赞</span>
+          <div className="tool-icon">
+            <img src="../../../static/web/icon.png" />
+
+          </div>
+          <span className="article-share-span">分享</span>
+          <div className="tool-icon">
+            <img src="../../../static/web/icon.png" />
+
+          </div>
+          <span className="article-favorite-span">收藏</span>
         </div>
         {
-          title?<div className="article-content">
-            <h1>{title}</h1>
-
-          </div>:null
+          title ?
+            <div className="article-detail">
+              <h1>{title}</h1>
+              <div className="article-info">
+                <div className="article-author-info">
+                  <span className="author">{author}</span>
+                  <span className="speak">{speak}</span>
+                </div>
+                <div>
+                  <span className="date">{date}</span>
+                </div>
+              </div>
+              <img src={topImg} className="top-image" />
+              <div className="article-content">
+                {content}
+              </div>
+              <div className="article-bottom">
+                <div className="tag-place">
+                  {
+                    tags && tags.map((v, index) => (
+                      <span key={index} className="tag-name">{v}</span>
+                    ))
+                  }
+                </div>
+                <div className="article-fun">
+                  <img src="../../../static/web/icon.png" />
+                  <span className="article-love-span">点赞</span>
+                  <img src="../../../static/web/icon.png" />
+                  <span className="article-share-span">分享</span>
+                  <img src="../../../static/web/icon.png" />
+                  <span className="article-favorite-span">收藏</span>
+                </div>
+              </div>
+            </div> : null
         }
 
       </div>

@@ -31,12 +31,33 @@ export default class ArticleList extends ViewBase {
         <ul>
           {this.state && this.state.articleList && this.state.articleList.map((v,index) =>(
             <li key={index}>
-              <div className="article-title">
-                {v.title}
-              </div>
-              <div className="article-content">
-                {v.content}
-              </div>
+              /* 根据有无img 来切换不同的文章列表样式 */
+              {v.img ?
+                (
+                  <div className="article-has-img">
+                    <div>
+                      <p className="article-title">
+                        {v.title}
+                      </p>
+                      <p className="article-content">
+                        {v.content}
+                      </p>
+                    </div>
+                    <div>
+                      <img src={v.img}/>
+                    </div>
+                  </div>
+                ) :
+                (<div>
+                  <p className="article-title">
+                    {v.title}
+                  </p>
+                  <p className="article-content">
+                    {v.content}
+                  </p>
+                </div>)
+              }
+
               <div className="article-info">
                 <div>
                   <span className="article-author">{v.author}</span>

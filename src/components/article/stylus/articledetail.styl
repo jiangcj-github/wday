@@ -3,38 +3,86 @@
 
 //文章列表 样式表
 
-.article
-  width 43.5%
+
+.left-tool
+  background rebeccapurple
+  position fixed
+  left 15%
+  top 15%
+  padding 15px 15px 0 15px
+  text-align center
+  .tool-icon img
+    width 14px
+  span
+    display inline-block
+    margin 5px 0 20px 0
+
+.article-detail
+  width 52%
   background darkcyan
   padding 15px
-  li
-    border-bottom: 1px solid springgreen;
-    padding 15px 0
-  .article-has-img
-    display flex
-    justify-content space-between
-    margin-bottom 15px
-    img
-      width 200px
-      height 150px
-  .article-title
-    font-size 20px
-    line-height 28px
-  .article-content
-    font-size 14px
-    line-height 28px
+  margin auto
+
+
+  h1
+    font-size 24px
+    line-height 33px
+    padding 10px 0
   .article-info
     display flex
     justify-content space-between
-    span.article-author, span.article-date, span.article-favorite-span, span.article-read-span, span.article-love-span
+    margin-bottom 15px
+    .article-author-info
+      span.author
+        font-size 16px
+        line-height 22px
+        padding-right 15px
+      span.speak
+        font-size 14px
+        line-height 20px
+    span.date
       font-size 14px
       line-height 20px
-    span.article-date
-      padding-left 10px
-    span.article-read-span, span.article-love-span
-      padding-right 20px
     img
       width 14px
       height 14px
       vertical-align -1px
       margin-right 5px
+  img.top-image
+    width 100%
+  .article-content
+    font-size 16px
+    line-height 26px
+    margin-top 15px
+  .article-bottom
+    display flex
+    justify-content space-between
+    .tag-place
+      margin-top 25px
+      .tag-name
+        display inline-block
+        text-align center
+        font-size 14px
+        line-height 20px
+        background aqua
+        border-radius 100px
+        height 32px
+        min-width 60px
+        padding 5px
+        margin-right 15px
+    .article-fun
+      margin-top 30px
+      img
+        width 14px
+        height 14px
+        vertical-align -1px
+        margin-right 5px
+      span.article-author, span.article-date, span.article-favorite-span, span.article-read-span, span.article-love-span
+        font-size 14px
+        line-height 20px
+      span.article-date
+        padding-left 10px
+      span.article-read-span, span.article-love-span
+        padding-right 20px
+
+
