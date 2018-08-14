@@ -28,6 +28,16 @@ export default class NewsList extends ViewBase {
   render() {
     return (
       <div className="newsList">
+        <div className="date-card">
+          <div className="date-card-main">
+            <p className="month">7月</p>
+            <p className="day">05</p>
+          </div>
+          <div className="date-card-other">
+            <p className="date-is">今天</p>
+            <p className="week">星期五</p>
+          </div>
+        </div>
         <ul>
           {this.state && this.state.newsList && this.state.newsList.map((v,index) =>(
             <li key={index}>
