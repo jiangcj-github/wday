@@ -1,0 +1,93 @@
+.thumbs
+  display flex
+  justify-content space-between
+  width 15%
+
+  span.thumbs-good-span, span.thumbs-good-span-count, span.thumbs-bad-span, span.thumbs-bad-span-count
+    font-size 14px
+    line-height 20px
+
+  img
+    width 15px
+    vertical-align -2px
+  .thumbs-good, .thumbs-bad, .thumbs-share
+    cursor pointer
+    position relative
+
+  span.tip-good
+    position absolute
+    top -20px
+    left 20px
+    z-index 200
+    animation a1 2s
+    opacity 0
+  span.tip-bad
+    position absolute
+    top -20px
+    left 20px
+    z-index 200
+    animation a2 2s
+    opacity 0
+  .thumbs-share
+    .share-div
+      display none
+      position absolute
+      left -66px
+      width 150px
+      margin-top 15px
+      text-align center
+      z-index 200
+      box-shadow 0 0 10px 0
+      border-radius 2px
+      background #fff
+    .copyContent
+      margin 10px 0
+      padding 8px 0
+      img.thumbs-share-img
+        margin-right 10px
+      span.thumbs-share-span
+        font-size 14px
+        line-height 20px
+    .copyContent:hover
+      background red
+
+
+    span.little
+      position absolute
+      top -20px
+      left 64px
+      display block
+      height 0
+      width 0
+      font-size 0
+      line-height 0
+      border-color transparent transparent #666 transparent
+      border-style dashed dashed solid dashed
+      border-width 10px
+      .ii
+        position absolute
+        top -9px
+        left -10px
+        display block
+        height 0
+        width 0
+        font-size 0
+        line-height 0
+        border-color transparent transparent #fff transparent
+        border-style dashed dashed solid dashed
+        border-width 10px
+
+
+
+  .thumbs-share:hover .share-div
+    display block
+
+@keyframes a1
+  0% {top: -10px;color green; opacity: 0}
+  50% {top: -25px;color green;opacity: 1}
+  100% {top: -30px;color green;opacity: 0}
+@keyframes a2
+  0% {top: -10px;color red; opacity: 0}
+  50% {top: -25px;color red;opacity: 1}
+  100% {top: -30px;color red;opacity: 0}
+　

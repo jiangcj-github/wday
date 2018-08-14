@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom'
 
 import "./stylus/articleDetail.styl"
+import Thumbs from "../../common/component/thumbs";
 
 export default class ArticleDetail extends ViewBase {
   constructor(props) {
@@ -24,7 +25,14 @@ export default class ArticleDetail extends ViewBase {
 
   async componentDidMount() {
     await this.getArticleDetail();
+  }
 
+  goodClick() {
+    alert("我点了good");
+  }
+
+  badClick() {
+    alert("我点了bad");
   }
 
   render() {
@@ -49,6 +57,15 @@ export default class ArticleDetail extends ViewBase {
           </div>
           <span className="article-favorite-span">收藏</span>
         </div>
+        <Thumbs
+          goodCount = "12"
+          badCount = "222"
+          share = "link-content"
+          goodClicked = {false}
+          badClicked = {false}
+          goodClick = {this.goodClick}
+          badClick = {this.badClick}
+        />
         {
           title ?
             <div className="article-detail">
@@ -85,6 +102,8 @@ export default class ArticleDetail extends ViewBase {
               </div>
             </div> : null
         }
+
+
 
       </div>
     )
