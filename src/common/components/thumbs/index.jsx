@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ViewBase from "../../../components/ViewBase";
-import "./style/index.styl";
+import "../../components/stylus/thumbs.styl";
 
 /*
  利好、利空、分享

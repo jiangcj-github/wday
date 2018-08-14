@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 
 import "./stylus/articleDetail.styl"
-import Thumbs from "../../common/component/thumbs";
+import Thumbs from "../../common/components/thumbs/index";
 
 export default class ArticleDetail extends ViewBase {
   constructor(props) {
