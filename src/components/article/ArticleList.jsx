@@ -14,7 +14,6 @@ export default class ArticleList extends ViewBase {
   constructor(props) {
     super(props);
     let { controller } = props;
-    console.log(controller);
     controller.setView(this);
     this.getArticleList = controller.getArticleList.bind(controller);
 

@@ -15,7 +15,6 @@ export default class News extends ViewBase {
   constructor(props) {
     super(props);
     let { controller } = props;
-    console.log(controller);
     controller.setView(this);
     this.state = {
       newsDetail: {}

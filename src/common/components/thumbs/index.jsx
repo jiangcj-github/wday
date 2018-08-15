@@ -31,7 +31,6 @@ export default class Thumbs extends ViewBase {
   }
 
   changeGood(i) {
-    console.log(i);
     i.onclick = () => {
       let span = document.createElement("span");
       span.innerText = this.state.goodClicked ? "-1" : "+1";
@@ -51,7 +50,6 @@ export default class Thumbs extends ViewBase {
   }
 
   changeBad(i) {
-    console.log(i);
     i.onclick = () => {
       let span = document.createElement("span");
       span.innerText = this.state.badClicked ? "-1" : "+1";
@@ -71,7 +69,6 @@ export default class Thumbs extends ViewBase {
   }
 
   render() {
-    console.log(this.state.badClicked);
     return (
       <div className="thumbs">
         <div ref={this.changeGood} className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good"}>
