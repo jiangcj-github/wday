@@ -29,9 +29,11 @@ export default class ArticleDetail extends ViewBase {
   }
 
   async componentDidMount() {
-    // await this.getArticleDetail();
     let controller = new ArticleController();
-    // let result = await controller.getArticleDetail();
+    let result = await controller.getArticleDetail();
+    this.setState({
+      articleDetail: result
+    });
 
   }
 

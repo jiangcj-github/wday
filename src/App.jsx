@@ -30,13 +30,13 @@ const home = ({match, history}) =>
 
 
 const articleList = ({ match, history }) =>
-  <ArticleList match={match} history={history} controller={articleController} />;
+  <ArticleList match={match} history={history} />;
 const articleDetail = ({ match, history }) =>
-  <ArticleDetail match={match} history={history} controller={articleController} />;
+  <ArticleDetail match={match} history={history} />;
 const newsList = ({ match, history }) =>
-  <NewsList match={match} history={history} controller={newsController} />;
+  <NewsList match={match} history={history} />;
 const news = ({ match, history }) =>
-  <News match={match} history={history} controller={newsController} />;
+  <News match={match} history={history} />;
 
 export default class App extends Component {
     constructor(props) {

@@ -10,21 +10,23 @@ import {
 
 import "./stylus/news.styl"
 import Thumbs from "../../common/components/thumbs/index";
+import NewsController from "../../class/news/NewsController";
 
 export default class News extends ViewBase {
   constructor(props) {
     super(props);
-    let { controller } = props;
-    controller.setView(this);
     this.state = {
       newsDetail: {}
     }
-    this.getNewsDetail = controller.getNewsDetail.bind(controller);
 
   }
 
   async componentDidMount() {
-    await this.getNewsDetail();
+    let controller = new NewsController();
+    let result = await controller.getNewsDetail();
+    this.setState({
+      newsDetail: result
+    });
 
   }
 
@@ -51,8 +53,6 @@ export default class News extends ViewBase {
               <Thumbs />
             </div>
           </div>
-
-
 
         }
       </div>

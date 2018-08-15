@@ -9,19 +9,20 @@ import {
 } from 'react-router-dom'
 
 import "./stylus/articlelist.styl"
+import ArticleController from "../../class/article/ArticleController"
 
 export default class ArticleList extends ViewBase {
   constructor(props) {
     super(props);
-    let { controller } = props;
-    controller.setView(this);
-
-    this.getArticleList = controller.getArticleList.bind(controller);
-
   }
 
   async componentDidMount() {
-    await this.getArticleList();
+    let controller = new ArticleController();
+    let result = await controller.getArticleList();
+    console.log(result);
+    this.setState({
+      articleList: result
+    })
   }
 
   // 改变文章收藏状态

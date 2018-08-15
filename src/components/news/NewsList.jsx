@@ -9,22 +9,22 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/newslist.styl"
-import Thumbs from "../../common/components/thumbs/index";
+import "./stylus/newslist.styl";
+import NewsController from "../../class/news/NewsController";
 import NewsDayItem from "./NewsDayItem";
 
 export default class NewsList extends ViewBase {
   constructor(props) {
     super(props);
-    let {controller} = props;
-    console.log(controller);
-    controller.setView(this);
-    this.getNewsList = controller.getNewsList.bind(controller);
     this.setCard = this.setCard.bind(this);
   }
 
   async componentDidMount() {
-    await this.getNewsList();
+    let controller = new NewsController();
+    let result = await controller.getNewsList();
+    this.setState({
+      newsList: result
+    });
     console.log("refs -> ", this.refs);
     let arr = [];
     Object.keys(this.refs).forEach((v, index) => {
@@ -58,7 +58,6 @@ export default class NewsList extends ViewBase {
 
       }
     };
-
   }
 
   setCard(e) {
