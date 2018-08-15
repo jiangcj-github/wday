@@ -35,13 +35,16 @@ let common = {
   $_pop_link: "/static/web/icon_pop_link@3x.png",
 };
 
-let news = {};
+let news = {
+  $_news_next_normal: "/static/web/icon_next_normal@3x.png",
 
-export default function (){
-    return Object.assign({},
-        header,
-        footer,
-        article,
-        common
-    );
+};
+export default function () {
+  return Object.assign({},
+    news,
+    header,
+    footer,
+    article,
+    common
+  );
 }

@@ -14,6 +14,7 @@ import Footer from "./components/headerAndFooter/footer.jsx";
 import ArticleList from "./components/article/ArticleList";
 import NewsList from "./components/news/NewsList";
 import News from "./components/news/News";
+import NewsDayItem from "./components/news/NewsDayItem";
 import ArticleDetail from "./components/article/ArticleDetail";
 
 import ArticleController from "./class/article/ArticleController";
@@ -38,6 +39,8 @@ const newsList = ({ match, history }) =>
   <NewsList match={match} history={history} controller={newsController} />;
 const news = ({ match, history }) =>
   <News match={match} history={history} controller={newsController} />;
+const newsdayitem = ({ match, history }) =>
+  <NewsDayItem match={match} history={history} controller={newsController} />;
 
 export default class App extends Component {
     constructor(props) {
@@ -59,6 +62,7 @@ export default class App extends Component {
                             <Route path="/articlelist" component={articleList}  />
                             <Route path="/newslist" component={newsList}  />
                             <Route path="/news" component={news}  />
+                            <Route path="/newsdayitem" component={newsdayitem}  />
                         </Switch>
                     </div>
                     {/*<Footer/>*/}
