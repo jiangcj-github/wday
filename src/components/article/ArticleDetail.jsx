@@ -49,21 +49,14 @@ export default class ArticleDetail extends ViewBase {
     return (
       <div className="article-main">
         <div className="left-tool">
-          <div className="tool-icon">
-            <img src={this.imageDict.$_good_selected} />
-
-          </div>
-          <span className="article-love-span">点赞</span>
-          <div className="tool-icon">
-            <img src="../../../static/web/icon.png" />
-
-          </div>
+          <div className="love-div"></div>
+          <span className="article-love-span">赞</span>
+          <div className="share-div"></div>
           <span className="article-share-span">分享</span>
-          <div className="tool-icon">
-            <img src="../../../static/web/icon.png" />
-
+          <div className={ (this.state.favourite ? "isfav " : "notfav ") + "favourite"} >
+            <div className={ (this.state.favourite ? "isfav " : "notfav ") +"favourite-div" }></div>
+            <span className="favourite-span">收藏</span>
           </div>
-          <span className="article-favorite-span">收藏</span>
         </div>
 
         {
@@ -91,19 +84,23 @@ export default class ArticleDetail extends ViewBase {
                     ))
                   }
                 </div>
-                <div className="article-fun">
-                  <div className="box">
-                    <img src="../../../static/web/icon.png" />
-                    <span className="article-love-span">点赞</span>
+                <div className="right-info">
+
+                  <div className="love">
+                    <div className="love-div"></div>
+                    <span className="love-span">55</span>
                   </div>
-                  <div className="box">
-                    <img src="../../../static/web/icon.png" />
-                    <span className="article-share-span">分享</span>
+
+                  <div className="share">
+                    <div className="share-div"></div>
+                    <span className="share-span">66</span>
                   </div>
-                  <div className="box" onClick={this.addFavourite}>
-                    <img src="../../../static/web/icon.png" />
-                    <span className="article-favorite-span">收藏</span>
+
+                  <div className={ (this.state.favourite ? "isfav " : "notfav ") + "favourite"} >
+                    <div className={ (this.state.favourite ? "isfav " : "notfav ") +"favourite-div" }></div>
+                    <span className="favourite-span">收藏</span>
                   </div>
+
                 </div>
               </div>
             </div> : null

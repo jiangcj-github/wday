@@ -5,24 +5,62 @@
 
 
 .left-tool
-  background rebeccapurple
+  background: $_article_main_bg_color
+  box-shadow: 0 0 4px 0 rgba(204,204,204,0.50);
+  border-radius: 4px;
   position fixed
   left 15%
   top 20%
   padding 15px 15px 0 15px
   text-align center
-  .tool-icon img
-    width 14px
-  span
-    display inline-block
-    margin 5px 0 20px 0
+  .love-div
+    background-image $_icon_article_love
+    background-size cover
+    width 20px
+    height 20px
+    margin 5px 10px
+  .share-div
+    background-image $_icon_menu_share_normal
+    background-size cover
+    width 20px
+    height 20px
+    margin 5px 10px
+    &:hover
+      background-image $_icon_menu_share_hover
+  span.article-love-span, span.article-share-span, span.favourite-span
+    display block
+    margin 10px 0 20px 0
+    color $_article_color_light
+  .favourite
+    .favourite-div.notfav
+      background-image $_icon_article_favourite_normal
+      background-size contain
+      width 20px
+      height 20px
+      margin 5px 10px
+    .favourite-div.isfav
+      display inline-block
+      background-image $_icon_article_favourite_selected_normal
+      background-size contain
+      width 20px
+      height 20px
+      margin 5px 10px
+
+    &:hover span, .notfav:hover
+      color $_article_color_active
+    &:hover .favourite-div.notfav
+      background-image $_icon_article_favourite_normal_hover
+    &:hover .favourite-div.isfav
+      background-image $_icon_article_favourite_selected_hover
+  .favourite.isfav
+    color $_article_color_active
+
 
 .article-detail
   width 52%
-  background darkcyan
+  background $_article_main_bg_color
   padding 15px
-  margin auto
-
+  margin 15px auto
 
   h1
     font-size 24px
@@ -70,19 +108,65 @@
         min-width 60px
         padding 5px
         margin-right 15px
-    .article-fun
+        color $_article_color_light
+    .right-info
+      display flex
+      justify-content space-between
+      width 30%
       margin-top 30px
-      .box
-        display inline-block
-      img
-        width 14px
-        height 14px
-        vertical-align -1px
-        margin-right 5px
-      span.article-author, span.article-favorite-span, span.article-share-span, span.article-love-span
-        font-size 14px
-        line-height 20px
-      span.article-love-span, span.article-share-span
-        padding-right 20px
+      .love
+        .love-div
+          display inline-block
+          background-image $_icon_article_love
+          background-size cover
+          width 20px
+          height 20px
+          vertical-align -2px
+          margin-right 5px
+        .love-span
+          font-size 14px
+          color $_article_color_light
+      .share
+        .share-div
+          display inline-block
+          background-image $_icon_menu_share_normal
+          background-size cover
+          width 20px
+          height 20px
+          vertical-align -2px
+          margin-right 5px
+        .share-span
+          font-size 14px
+          color $_article_color_light
+      .favourite
+        span
+          color $_article_color_light
+        .favourite-div.notfav
+          display inline-block
+          background-image $_icon_article_favourite_normal
+          background-size contain
+          width 20px
+          height 20px
+          margin-right 5px
+          vertical-align -2px
 
+
+        .favourite-div.isfav
+          display inline-block
+          background-image $_icon_article_favourite_selected_normal
+          background-size contain
+          width 15px
+          height 15px
+          margin-right 5px
+          vertical-align -2px
+
+
+        &:hover span, .notfav:hover
+          color $_article_color_active
+        &:hover .favourite-div.notfav
+          background-image $_icon_article_favourite_normal_hover
+        &:hover .favourite-div.isfav
+          background-image $_icon_article_favourite_selected_hover
+      .favourite.isfav
+        color $_article_color_active
 
