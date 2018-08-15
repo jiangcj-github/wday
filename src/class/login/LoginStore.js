@@ -9,8 +9,8 @@ export default class LoginStore extends ExchangeStoreBase {
     }
 
     // 登陆
-    async login(params) {
-        return await this.Proxy.login(params);
+    login(params) {
+        return this.Proxy.login(params);
     }
 
     //获取图像验证码

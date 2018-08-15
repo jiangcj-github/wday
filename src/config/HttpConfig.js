@@ -22,11 +22,8 @@ export default {
   // httpPreHandler,
   // httpAfterHandler,
   login: [
-    {name: 'login', data: {url: '/login/', method: 'post'}, action: 'Login', actionBack: ''}, // 登录
-    {name: 'getImgCode', data: {url: '/login/', method: 'post'}, action: 'GetPicCode', actionBack: ''}, // 获取图像验证码
-    {name: 'getPhoneCode', data: {url: '/login/', method: 'post'}, action: 'GetPhoneCode', actionBack: ''}, // 获取手机验证码
-
-
-    {name: 'getNewsFlashInfo', data: {url: '/newsFlash/', method: 'post'}, action: 'GetNewsFlashInfo', actionBack: ''}, //
+    {name: 'login', data: {url: '/login', method: 'post'}, action: 'Login', actionBack: 'Loginr'}, // 登录
+    {name: 'getImgCode', data: {url: '/code', method: 'post'}, action: 'GetPicCode', actionBack: 'GetPicCoder'}, // 获取图像验证码
+    {name: 'getPhoneCode', data: {url: '/code', method: 'post'}, action: 'GetPhoneCode', actionBack: 'GetPhoneCoder'}, // 获取手机验证码
   ]
 }

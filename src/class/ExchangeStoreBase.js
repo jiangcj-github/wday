@@ -28,27 +28,27 @@ export default class ExchangeStoreBase extends StoreBase {
     //添加token
     if (!config.needToken) return
     // console.log(req.data.params)
-    if (!req.data.params.d.token) return
+    if (!req.data.params.data.token) return
     let headers = new Headers()
-    headers.set('token', req.data.params.d.token)
+    headers.set('token', req.data.params.data.token)
     req.data.headers = headers;
-    delete req.data.params.d.token
+    delete req.data.params.data.token
     // console.log('exchangeStoreBaseAfterHandler', app, req, res, config)
   }
 
   exchangeStoreBaseAfterHandler(app, req, res, config) {
     // console.log("res.result.ret", res.result.ret);
 
-    if (res.result.r !== 0) {
+    if (res.result.ret !== 0) {
       // res.result = Msg[res.result.ret]
-      res.result = res.result.d ? Object.assign(Msg[res.result.r], res.result.d) : Msg[res.result.r];
+      res.result = res.result.data ? Object.assign(Msg[res.result.ret], res.result.data) : Msg[res.result.ret];
       return
     }
-    if (res.result.a !== config.actionBack) {
+    if (res.result.action !== config.actionBack) {
       res.result = Msg[1];
       return
     }
-    res.result = res.result.d
+    res.result = res.result.data
     // console.log('exchangeStoreBaseAfterHandler', app, req, res, config)
   }
 

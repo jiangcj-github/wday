@@ -92,6 +92,27 @@ export default class ControllerBase {
       this.Loop[key].start();
   }
 
+    //倒计时方法
+    /*
+     *  key: 循环标识
+     *  count: 初始计数
+     *  func: 回调函数，没秒触发，接收一个参数
+     */
+    countDown(key, count, func) {
+        // console.log(this.Loop[key], view.state[state])
+        this.Loop[key].clear();
+        this.Loop[key].setDelayTime(1000);
+        this.Loop[key].set(async() => {
+            if(count<=0){
+                this.Loop[key].stop();
+                return;
+            }
+            count--;
+            func && func(count);
+        }, 1000);
+        this.Loop[key].start();
+    }
+
   /**
    * 复制到剪贴板
    * el: input, 或textarea表单元素
