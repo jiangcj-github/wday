@@ -94,7 +94,7 @@ export default class NewsList extends ViewBase {
         <div className="top-card">
           {
             this.state && this.state.cardMonth &&
-            <div className="hiddenCard">
+            <div className="hidden-card">
               <div className="date-card">
                 <div className="date-card-main">
                   <p className="month">{this.state && this.state.cardMonth}</p>
