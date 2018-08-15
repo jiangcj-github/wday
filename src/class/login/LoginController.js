@@ -2,10 +2,9 @@ import ExchangeControllerBase from '../ExchangeControllerBase'
 import LoginStore from './LoginStore'
 
 class LoginController extends ExchangeControllerBase {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.store = new LoginStore();
-        this.store.setController(this);
     }
 
     //登录

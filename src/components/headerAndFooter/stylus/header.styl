@@ -4,34 +4,39 @@
 
 .router-wrap
   .header
-    .price
+    .price-wrap
       background $header-bg-top
-      ul
+      height 40px
+      .price
         width 1200px
         margin 0 auto
         line-height 40px
         height 40px
-        white-space nowrap
-        li
-          display inline-block
-          vertical-align top
-          width 240px
-          img
-            width auto
-            height 24px
-            margin-right 8px
-            vertical-align -6px
-          span
-            font-size 14px
-            color $_cccccc
-          i
-            font-size 14px
-            color $header-color-coin
-            margin-left 6px
-            &.down
-              color $header-color-down
-            &.up
-              color $header-color-up
+        position relative
+        overflow hidden
+        ul
+          position absolute
+          white-space nowrap
+          li
+            display inline-block
+            vertical-align top
+            width 240px
+            img
+              width auto
+              height 24px
+              margin-right 8px
+              vertical-align -6px
+            span
+              font-size 14px
+              color $_cccccc
+            i
+              font-size 14px
+              color $header-color-coin
+              margin-left 6px
+              &.down
+                color $header-color-down
+              &.up
+                color $header-color-up
 
     .nav-wrap
       height 60px

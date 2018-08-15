@@ -4,7 +4,7 @@ import ControllerBase from '../core/ControllerBase'
 export default class ExchangeControllerBase extends ControllerBase {
   constructor() {
     super();
-    this.RSAsetPublicKey('-----BEGIN public-----\n' +
+    ControllerBase.RSAsetPublicKey('-----BEGIN public-----\n' +
       'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuUbv4zA0HU9hLW756Aqh\n' +
       'vDkq7uFF1whjooo06C3GYNnwtAQcFkIyLBp7HA0a+D95o7Tyv6LiSLFv7QrbzO1L\n' +
       '1ZmwP4HPsaBNJyuwUQAo+FLyLz08cMb96UvuVhUsDM33oJ0N2yoevCVxJJyZWQTh\n' +

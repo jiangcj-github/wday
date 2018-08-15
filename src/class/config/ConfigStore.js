@@ -3,10 +3,13 @@ import ExchangeStoreBase from '../ExchangeStoreBase'
 export default class ConfigStore extends ExchangeStoreBase {
   constructor(count) {
     super("config", "general");
-    let language = this.getQuery("language") === '0' ? "zh-CN" : this.getQuery("language") === '1' ? "en-US" : undefined;
+
+    //初始化语言
+    let language = ["zh-CN","en-US"][this.getQuery("language")] || undefined;
     language && this.Storage.language.set(language);
+
     this.state = {
-      language: this.Storage.language.get() || "en-US",
+      language: this.Storage.language.get() || "zh-CN",
     }
   }
 
