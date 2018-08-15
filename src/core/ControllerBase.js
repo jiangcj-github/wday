@@ -63,45 +63,50 @@ export default class ControllerBase {
     this.Loop[key].clear();
   }
 
-  /**
-   * 轮播方法
-   */
-  swiper(key, view, state, stateCache, criticalArr, speed, displayTime) {
-      this.Loop[key].clear();
-      this.Loop[key].setDelayTime(displayTime);
-      this.Loop[key].set(async () => {
-          let obj = {};
-          obj[state] = view.state[state] - speed;
-          obj[stateCache] = view.state[stateCache] - speed;
-          view.setState(obj);
-          if (view.state[state] === criticalArr[0]) {
-              view.state[stateCache] = criticalArr[criticalArr.length - 1];
-          }
-          if (view.state[stateCache] === criticalArr[0]) {
-              view.state[state] = criticalArr[criticalArr.length - 1];
-          }
-          if (
-              criticalArr.includes(view.state[state]) ||
-              criticalArr.includes(view.state[stateCache])
-          ) {
-              this.Loop[key].stop();
-              await this.Sleep(displayTime);
-              this.Loop[key].start();
-          }
-      }, 100);
-      this.Loop[key].start();
-  }
+    /**
+     *  轮播方法
+     *  key: 标识
+     *  layer:      显示层
+     *  layerCache:     缓冲层
+     *  layerArr:   边界数组，包含layer的最大和最小值，[min,max]
+     *  speed:  单次轮播量，每隔0.1秒layer变化量为speed
+     *  displayTime:    轮播间隔时间
+     *  func:   回调函数
+     */
+    swiper(key, layer, layerCache, layerArr, speed, displayTime, func) {
+        this.Loop[key].clear();
+        this.Loop[key].setDelayTime(displayTime);
+        this.Loop[key].set(async () => {
 
-    //倒计时方法
+            let obj = {};
+            layer -= speed;
+            layerCache -= speed;
+            func && func(layer,layerCache);
+
+            if(layer === layerArr[0]){
+                layerCache = layerArr[layerArr.length-1];
+            }
+            if(layerCache === layerArr[0]){
+                layer = layerArr[layerArr.length-1];
+            }
+            if(layerArr.includes(layer) || layerArr.includes[layerCache]){
+                this.Loop[key].stop();
+                await this.Sleep(displayTime);
+                this.Loop[key].start();
+            }
+        }, 100);
+        this.Loop[key].start();
+    }
+
     /*
-     *  key: 循环标识
+     *  倒计时方法
+     *  key: 标识
      *  count: 初始计数
-     *  func: 回调函数，没秒触发，接收一个参数
+     *  func: 回调函数，每秒触发，接收一个参数
      */
     countDown(key, count, func) {
-        // console.log(this.Loop[key], view.state[state])
         this.Loop[key].clear();
-        this.Loop[key].setDelayTime(1000);
+        this.Loop[key].setDelayTime(0);
         this.Loop[key].set(async() => {
             if(count<=0){
                 this.Loop[key].stop();

@@ -32,6 +32,10 @@ class LoginController extends ExchangeControllerBase {
 
     //获取手机验证码
     async getPhoneCode(phone){
+        if(!/^1[23456789]\d{9}$/.test(phone)){
+            return Promise.resolve({msg: "请输入正确的手机号"});
+        }
+        //
         let res = await this.store.getPhoneCode(phone);
         let data = {};
         if(res){

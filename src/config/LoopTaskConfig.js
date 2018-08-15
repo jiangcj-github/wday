@@ -18,11 +18,6 @@
 // },
 
 export default {
-  websocketHeartBreak:{},
   countDown: {},
-  verifyCountDown: {},
-  swiper: {},
   carousel: {},
-  activityH5:{},
-  userListener:{}
 }

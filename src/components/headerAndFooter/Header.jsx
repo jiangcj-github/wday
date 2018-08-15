@@ -20,14 +20,16 @@ export default class Header extends ViewBase {
           showLogin: false,
           top1: 0,
           top2: 40,
-          criticalArr: [0, 40]
       }
     }
 
     componentDidMount() {
-
+        let controller = ConfigController();
         //轮播
-        ConfigController().swiper( "carousel", this, "top1", "top2", this.state.criticalArr, 10, 3000);
+        let {top1, top2} = this.state;
+        controller.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
+            this.setState({top1: layer, top2: layerCache});
+        });
     }
 
     render() {
