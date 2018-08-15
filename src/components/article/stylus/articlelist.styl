@@ -18,52 +18,85 @@
     img
       width 200px
       height 150px
-  .article-title
-    font-size 20px
-    line-height 28px
-  .article-content
-    font-size 14px
-    line-height 28px
+    .article-title
+      font-size 20px
+      line-height 28px
+      margin-bottom 10px
+    .article-content
+      font-size 14px
+      line-height 28px
+
+  .article-no-img
+    margin-bottom 15px
+    .article-title
+      font-size 20px
+      line-height 28px
+      margin-bottom 10px
+    .article-content
+      font-size 14px
+      line-height 28px
+
+
   .article-info
     display flex
     justify-content space-between
+    margin 10px 0
+    .left-info
+      .article-author
+        margin-right 10px
     .right-info
       display flex
       justify-content space-between
-      .watch-div
-        display inline-block
-        background-image $_icon_article_watch
-        background-size contain
-        width 15px
-        height 15px
-      .watch-span
-        font-size 14px
-      .love-div
-        display inline-block
-        background-image $_icon_article_love
-        background-size contain
-        width 15px
-        height 15px
-      .love-span
-        font-size 14px
+      width 30%
+      .watch
+        .watch-div
+          display inline-block
+          background-image $_icon_article_watch
+          background-size contain
+          width 15px
+          height 15px
+          margin-right 5px
+          vertical-align -2px
+        .watch-span
+          font-size 14px
+      .love
+        .love-div
+          display inline-block
+          background-image $_icon_article_love
+          background-size contain
+          width 15px
+          height 15px
+          margin-right 5px
+          vertical-align -2px
 
+        .love-span
+          font-size 14px
       .favourite
-        display inline-block
-        background-image $_icon_article_love
-        background-size contain
-        width 15px
-        height 15px
+        .favourite-div.notfav
+          display inline-block
+          background-image $_icon_article_favourite_normal
+          background-size contain
+          width 15px
+          height 15px
+          margin-right 5px
+          vertical-align -2px
 
 
-    //span.article-author, span.article-date, span.article-favorite-span, span.article-read-span, span.article-love-span
-    //  font-size 14px
-    //  line-height 20px
-    //span.article-date
-    //  padding-left 10px
-    //span.article-read-span, span.article-love-span
-    //  padding-right 20px
-    //img
-    //  width 14px
-    //  height 14px
-    //  vertical-align -1px
-    //  margin-right 5px
+        .favourite-div.isfav
+          display inline-block
+          background-image $_icon_article_favourite_selected_normal
+          background-size contain
+          width 15px
+          height 15px
+          margin-right 5px
+          vertical-align -2px
+
+
+        &:hover, .notfav:hover
+          color $_article_color_active
+        &:hover .favourite-div.notfav
+          background-image $_icon_article_favourite_normal_hover
+        &:hover .favourite-div.isfav
+          background-image $_icon_article_favourite_selected_hover
+      .favourite.isfav
+        color $_article_color_active

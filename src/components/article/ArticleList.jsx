@@ -22,6 +22,10 @@ export default class ArticleList extends ViewBase {
 
   async componentDidMount() {
     await this.getArticleList();
+  }
+
+  // 改变文章收藏状态
+  changeFav(id) {
 
   }
 
@@ -48,7 +52,7 @@ export default class ArticleList extends ViewBase {
                     </div>
                   </div>
                 ) :
-                (<div>
+                (<div className="article-no-img">
                   <p className="article-title">
                     {v.title}
                   </p>
@@ -72,8 +76,8 @@ export default class ArticleList extends ViewBase {
                     <div className="love-div"></div>
                     <span className="love-span">55</span>
                   </div>
-                  <div className={ v.favourite ? "isfav " : "" + "favourite"}>
-                    <div className={ v.favourite ? "isfav " : "" + "favourite-div"}></div>
+                  <div className={ (v.favourite ? "isfav " : "notfav ") + "favourite"} onClick={this.changeFav.bind(v.id, this)}>
+                    <div className={ (v.favourite ? "isfav " : "notfav ") +"favourite-div" }></div>
                     <span className="favourite-span">收藏</span>
                   </div>
 
