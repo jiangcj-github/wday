@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 import ViewBase from "../ViewBase";
 import Login from "./children/Login"
-import Pagination from "../../common/components/Pagination"
+
 import './stylus/header.styl'
 
 export default class Header extends ViewBase {
@@ -17,6 +17,7 @@ export default class Header extends ViewBase {
       super(props);
       this.state = {
           showLogin: false,
+          showAlert: true,
       }
   }
 
@@ -26,7 +27,9 @@ export default class Header extends ViewBase {
 
   render() {
 
-    let {showLogin} = this.state;
+    let {showLogin,showAlert} = this.state;
+
+    console.log(this.imageDict)
 
     return (
       <div className="header">
@@ -34,27 +37,27 @@ export default class Header extends ViewBase {
           <div className="price">
               <ul>
                   <li>
-                      <img src=""/>
+                      <img src={this.imageDict.$icon_coin_five}/>
                       <span>USDT</span>
                       <i>$6,000(-5.2%)</i>
                   </li>
                   <li>
-                      <img src=""/>
+                      <img src={this.imageDict.$icon_coin_five}/>
                       <span>USDT</span>
                       <i>$6,000(-5.2%)</i>
                   </li>
                   <li>
-                      <img src=""/>
+                      <img src={this.imageDict.$icon_coin_five}/>
                       <span>USDT</span>
                       <i>$6,000(-5.2%)</i>
                   </li>
                   <li>
-                      <img src=""/>
+                      <img src={this.imageDict.$icon_coin_five}/>
                       <span>USDT</span>
                       <i>$6,000(-5.2%)</i>
                   </li>
                   <li>
-                      <img src=""/>
+                      <img src={this.imageDict.$icon_coin_five}/>
                       <span>USDT</span>
                       <i>$6,000(-5.2%)</i>
                   </li>
@@ -95,7 +98,6 @@ export default class Header extends ViewBase {
           </div>
           {/*登录组件*/}
           {showLogin && <Login onHide={()=>this.setState({showLogin: false})}/>}
-          <Pagination currentPage={6} total={801} pageSize={20}></Pagination>
       </div>
     )
   }
