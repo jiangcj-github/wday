@@ -10,6 +10,7 @@
     top 0
     left 0
     right 0
+    z-index 100
     .price
       width 100%
       background $header-bg-top
@@ -39,6 +40,7 @@
               color $header-color-down
             &.up
               color $header-color-up
+
     .nav-wrap
       width 100%
       height 60px
@@ -48,50 +50,138 @@
         width 1200px
         margin 0 auto
         height 60px
-        line-height 60px
+        display flex
+        align-items center
         .logo
-          font-size 30px
-          color $header-color-weight
-          letter-spacing 2.5px
+          width auto
+          height 30px
           margin-right 60px
+
         .nav-left
-          display inline-block
-          vertical-align top
+          flex-grow 1
+          display inline-flex
+          align-items center
           a
             color $header-color-normal
             margin-right 40px
             font-size 16px
             cursor pointer
             &.active
-              color color $header-color-weight
+              color $header-color-weight
             &:hover
               color $header-color-hover
-          input
+          .srch
             margin-left 20px
-            background $header-input-bg
-            width 320px
-            height 36px
-            padding 8px 12px
-            outline 0
-            border-radius 4px
-            font-size 14px
-            color $header-color-weight
-            border 1px solid transparent
-            &::placeholder
+            display inline-flex
+            align-items center
+            input
+              width 320px
+              height 36px
+              padding 8px 28px 8px 12px
+              outline 0
               font-size 14px
-              color $header-color-normal
-            &:focus
-              border 1px solid $header-color-normal
-              background transparent
+              color $header-color-weight
+              background $header-input-bg
+              border 1px solid transparent
+              border-radius 4px
+              &::placeholder
+                font-size 14px
+                color $header-color-normal
+              &:focus
+                background transparent
+                border-color $header-color-normal
+                +i
+                  background-image $header-search-hover
+            i
+              display inline-block
+              width 16px
+              height 16px
+              margin-left -28px
+              background no-repeat center center
+              background-size 100% 100%
+              background-image $header-search
+              cursor pointer
+
         .nav-right
-          float right
-          >a
-            font-size 16px
-            color $header-color-normal
-            cursor pointer
+          display inline-flex
+          align-items center
+          .ri
+            margin-left 40px
+            position relative
+            height 60px
+            line-height 60px
+            a
+              font-size 16px
+              color $header-color-normal
+              cursor pointer
+              &:hover
+                color $header-color-hover
+            .drop
+              display none
+              position absolute
+              left 50%
+              padding 8px 0
+              background $header-bg-nav
+              box-shadow 0 0 10px 0 $header-shadow-drop
+              border-radius 2px
+              z-index 100
+              margin-top 15px
+              &:before
+                content ""
+                display block
+                position absolute
+                left 50%
+                top -5px
+                margin-left -5px
+                width 10px
+                height 10px
+                background $header-bg-nav
+                transform rotate(45deg)
+                box-shadow -3px -3px 10px 0 $header-shadow-drop
+              &.wechat-drop
+                width 136px
+                margin-left -68px
+              &.person-drop
+                width 116px
+                margin-left -58px
+                li
+                  height 36px
+                  line-height 36px
+                  padding 0 20px
+                  cursor pointer
+                  img
+                    height 14px
+                    width auto
+                    margin-right 6px
+                    vertical-align -2px
+                  span
+                    color $header-color-light
+                    font-size 14px
+                  &:hover
+                    background $header-bg-drop-hover
+            i
+              display block
+              width 24px
+              height 24px
+              margin-top 18px
+              background no-repeat center center
+              background-size 100% 100%
+              cursor pointer
+              &.share
+                background-image $header-share
+              &.wechat
+                background-image $header-wechat
+              &.person
+                background-image $header-person
             &:hover
-              color $header-color-hover
-          .drop-wrap
-            display inline-block
-            vertical-align top
+              .share
+                background-image $header-share-hover
+              .wechat
+                background-image $header-wechat-hover
+              .person
+                background-image $header-person-hover
+              .drop
+                display block
+
+
 

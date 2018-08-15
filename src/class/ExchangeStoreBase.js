@@ -21,8 +21,8 @@ export default class ExchangeStoreBase extends StoreBase {
 
   exchangeStoreBasePreHandler(app, req, config) {
     let paramsObj = {
-      a: config.action,
-      d: req.data.params
+      action: config.action,
+      data: req.data.params
     }
     req.data.params = paramsObj
     //添加token

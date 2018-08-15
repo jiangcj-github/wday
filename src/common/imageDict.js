@@ -3,7 +3,13 @@
 //禁止跨模块引用，需要引用其他模块的图片，需要在自己的模块内重复声明变量。
 
 let header = {
-    $icon_coin_five : "/static/web/icon_coin_five@3x.png",
+    $icon_coin_five: "/static/web/icon_coin_five@3x.png",       //示例币种图标
+    $icon_logo: "/static/web/icon_logo_mrbd@3x.png",             //logo
+    $icon_menu_quit: "/static/web/icon_menu_quit@3x.png",       //退出
+    $icon_collect_big_normal: "/static/web/icon_collect_big_normal@3x.png",  //收藏
+};
+let footer = {
+    $icon_logo_white_mrbd: "/static/web/icon_logo_white_mrbd@3x.png",   //logo
 };
 
 let article = {
@@ -30,11 +36,12 @@ let common = {
 };
 
 let news = {};
-export default function () {
-  return Object.assign({},
 
-    header,
-    article,
-    common
-  );
+export default function (){
+    return Object.assign({},
+        header,
+        footer,
+        article,
+        common
+    );
 }

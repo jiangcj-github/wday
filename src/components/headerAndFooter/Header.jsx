@@ -29,8 +29,6 @@ export default class Header extends ViewBase {
 
     let {showLogin,showAlert} = this.state;
 
-    console.log(this.imageDict)
-
     return (
       <div className="header">
           {/*顶部价格滚动栏*/}
@@ -67,30 +65,45 @@ export default class Header extends ViewBase {
           <div className="nav-wrap">
               <div className="nav">
                   {/*logo*/}
-                  <a className="logo">每日必读</a>
+                  <img className="logo" src={this.imageDict.$icon_logo}/>
                   {/*左侧菜单项*/}
                   <div className="nav-left">
                       <a className="active">首页</a>
                       <a>项目库</a>
                       <a>快讯</a>
-                      <input type="text" placeholder="搜索ico项目、文章、快讯"/>
-                      <img src=""/>
+                      <p className="srch">
+                          <input type="text" placeholder="搜索ico项目、文章、快讯"/><i/>
+                      </p>
                   </div>
                   {/*右侧菜单项*/}
                   <div className="nav-right">
-                      <div className="drop-wrap">
-                          <img src=""/>
-                          <div className="drop">
-                              <img src=""/>
+                      {/*分享*/}
+                      <div className="ri">
+                          <i className="share"/>
+                      </div>
+                      {/*微信*/}
+                      <div className="ri">
+                          <i className="wechat"/>
+                          <div className="drop wechat-drop">
+
                           </div>
                       </div>
-                      <img src=""/>
-                      <a onClick={()=>this.setState({showLogin: true})}>登录/注册</a>
-                      <div className="drop-wrap">
-                          <img src=""/>
-                          <ul className="drop">
-                              <li>我的收藏</li>
-                              <li>退出</li>
+                      {/*登录/注册*/}
+                      <div className="ri">
+                          <a onClick={()=>this.setState({showLogin: true})}>登录/注册</a>
+                      </div>
+                      {/*个人中心*/}
+                      <div className="ri">
+                          <i className="person"/>
+                          <ul className="drop person-drop">
+                              <li>
+                                  <img src={this.imageDict.$icon_collect_big_normal}/>
+                                  <span>我的收藏</span>
+                              </li>
+                              <li>
+                                  <img src={this.imageDict.$icon_menu_quit}/>
+                                  <span>退出</span>
+                              </li>
                           </ul>
                       </div>
                   </div>

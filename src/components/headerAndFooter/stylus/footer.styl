@@ -9,19 +9,19 @@
     height 244px
     background $footer-bg
     position relative
+
     .footer
       width 1200px
       margin 0 auto
       white-space: nowrap;
+      overflow hidden
       .logo
         margin-top 60px
         float left
         width 372px
-        b
-          font-size 38px
-          color $footer-color-weight
-          display block
-          letter-spacing 3.2px
+        img
+          height 37px
+          width auto
         small
           font-size 16px
           color $footer-color-weight
@@ -48,8 +48,29 @@
             width 20px
             height auto
             margin-right 6px
+          &.img-link
+            padding-left 26px
+            background no-repeat 0 center
+            background-size auto 100%
+            &.qb
+              background-image $footer-qb
+              background-size 20px auto
+              padding-left 26px
+            &.tw
+              background-image $footer-tw
+              padding-left 24px
+            &.wb
+              background-image $footer-wb
+              padding-left 24px
           &:hover
             color $footer-color-hover
+            &.qb
+              background-image $footer-qb-hover
+            &.tw
+              background-image $footer-tw-hover
+            &.wb
+              background-image $footer-wb-hover
+
     .ba
       text-align center
       position absolute
@@ -58,6 +79,7 @@
       color $footer-color-ba
       left 0
       right 0
+
     .rf
       position fixed
       right 20px

@@ -8,6 +8,7 @@ import {
     Switch
 } from 'react-router-dom'
 import ViewBase from "../../ViewBase";
+import LoginController from "../../../class/login/LoginController"
 
 export default class Login extends ViewBase {
     constructor(props) {
@@ -22,6 +23,22 @@ export default class Login extends ViewBase {
             errImgCode: "",
             errPhoneCode: "",
         };
+    };
+
+    async login(){
+        let {phone, imgCode,phoneCode} = this.state;
+        let {onHide} = this.props;
+
+        let controller = LoginController();
+        let res = await controller.login(phone,imgCode,phoneCode);
+        console.log(res);
+    }
+
+    componentDidMount() {
+        let controller = LoginController();
+        controller.getImgCode().then(res=>{
+            console.log(res);
+        });
     }
 
     render() {
@@ -55,7 +72,7 @@ export default class Login extends ViewBase {
                         {errPhoneCode && <i className="err">短信验证码错误</i>}
                     </div>
                     {/*提交按钮*/}
-                    <a className="submit" onClick={onHide}>注册/登录</a>
+                    <a className="submit" onClick={this.login.bind(this)}>注册/登录</a>
                     {/*关闭按钮*/}
                     <a className="close" onClick={onHide}/>
                 </div>

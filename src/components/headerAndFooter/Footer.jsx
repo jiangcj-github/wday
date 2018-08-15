@@ -24,10 +24,10 @@ export default class Footer extends ViewBase {
           <div className="footer">
               {/*每日必读*/}
               <div className="logo">
-                  <b>每日必读</b>
+                  <img src={this.imageDict.$icon_logo_white_mrbd}/>
                   <small>meiribidu.com</small>
               </div>
-              {/*商务合作，友情链接，社交媒体，免责条款*/}
+              {/*商务合作*/}
               <div className="col">
                   <p>商务合作</p>
                   <a>电话：123456</a>
@@ -35,16 +35,19 @@ export default class Footer extends ViewBase {
                   <a>Q Q：123456</a>
                   <a>微信：123456</a>
               </div>
+              {/*友情链接*/}
               <div className="col">
                   <p>友情链接</p>
-                  <a><img src=""/>Token.so</a>
-                  <a><img src=""/>QB.com</a>
+                  <a>Token.so</a>
+                  <a className="img-link qb">QB.com</a>
               </div>
+              {/*社交媒体*/}
               <div className="col">
                   <p>社交媒体</p>
-                  <a><img src=""/>QB.com</a>
-                  <a><img src=""/>微博</a>
+                  <a className="img-link tw">Twitter</a>
+                  <a className="img-link wb">微博</a>
               </div>
+              {/*免责条款*/}
               <div className="col">
                   <p>免责条款</p>
               </div>

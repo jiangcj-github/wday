@@ -50,7 +50,7 @@ export default class App extends Component {
                 <div className="router-wrap">
                     {/*<Header/>*/}
                     <Switch>
-                        {/*<Route component={header} />*/}
+                        <Route component={header} />
                     </Switch>
                     {/*content*/}
                     <div className="container">

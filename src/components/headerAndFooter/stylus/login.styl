@@ -30,12 +30,14 @@
         letter-spacing 3.2px
 
       .group
-        height 62px
-        line-height 62px
+        height 52px
+        margin-top 10px
         border-bottom 1px solid $_eeeeee
         position relative
         display flex
+        align-items center
         input
+          align-self stretch
           color $login-color-weight
           font-size 14px
           outline 0
@@ -61,7 +63,6 @@
         img
           width 80px
           height 40px
-          margin-top 11px
           cursor pointer
 
       .submit
@@ -82,13 +83,17 @@
       .close
         width 16px
         height 16px
-        background no-repeat 100% 100% center center;
+        background no-repeat center center;
+        background-size 100% 100%
+        background-image $_icon_pop_cancel_normal
         position absolute
         left 100%
         top 0
         margin-left 20px
-        margin-top -20px
+        margin-top -36px
         cursor pointer
+        &:hover
+          background-image $_icon_pop_cancel_hover
 
 
 
