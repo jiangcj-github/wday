@@ -32,8 +32,7 @@ let common = {
 let news = {};
 export default function () {
   return Object.assign({},
-    imageDict,
-    login,
+
     header,
     article,
     common
