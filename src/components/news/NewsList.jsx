@@ -39,7 +39,7 @@ export default class NewsList extends ViewBase {
     window.onscroll = () => {
       arr.forEach((v, index) => {
         // 这里可以直接取传入给组件的值
-        if (document.documentElement.scrollTop > v.value ) {
+        if (document.documentElement.scrollTop > v.value) {
           console.log("card change");
           this.setState({
             cardMonth: this.refs[v.name].state.cardMonth,
@@ -51,7 +51,7 @@ export default class NewsList extends ViewBase {
           });
         }
       });
-      if(document.documentElement.scrollTop < 100) {
+      if(document.documentElement.scrollTop < 115) {
         this.setState({
           cardMonth: ""
         });
@@ -86,11 +86,13 @@ export default class NewsList extends ViewBase {
   render() {
     return (
       <div>
-        <NewsDayItem ref="test" news={""} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
-        <NewsDayItem ref="test2" news={""} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
-        <NewsDayItem ref="test3" news={""} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
-
         <div className="news-list">
+          <NewsDayItem ref="test" news={""} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
+          <NewsDayItem ref="test2" news={""} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
+          <NewsDayItem ref="test3" news={""} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
+        </div>
+
+        <div className="top-card">
           {
             this.state && this.state.cardMonth &&
             <div className="hiddenCard">
@@ -103,9 +105,9 @@ export default class NewsList extends ViewBase {
                   <p className="date-is">{this.state && this.state.cardDayis}</p>
                   <p className="week">{this.state && this.state.cardWeek}</p>
                 </div>
-                <div className="jump">
-                  <img src={this.imageDict.$_news_next_normal} />
-                </div>
+                {/*<div className="jump">*/}
+                  {/*<img src={this.imageDict.$_news_next_normal} />*/}
+                {/*</div>*/}
               </div>
             </div>
           }

@@ -15,6 +15,7 @@ export default class ArticleList extends ViewBase {
     super(props);
     let { controller } = props;
     controller.setView(this);
+
     this.getArticleList = controller.getArticleList.bind(controller);
 
   }
@@ -30,6 +31,7 @@ export default class ArticleList extends ViewBase {
         <ul>
           {this.state && this.state.articleList && this.state.articleList.map((v,index) =>(
             <li key={index}>
+              {/* 根据是否有文章大图 切换显示 */}
               {v.img ?
                 (
                   <div className="article-has-img">
@@ -55,19 +57,26 @@ export default class ArticleList extends ViewBase {
                   </p>
                 </div>)
               }
-
+              {/* 文章信息，作者 时间 点赞数量及收藏等 */}
               <div className="article-info">
-                <div>
+                <div className="left-info">
                   <span className="article-author">{v.author}</span>
                   <span className="article-date">{v.date}</span>
                 </div>
-                <div>
-                  <img src="../../../static/web/icon.png" />
-                  <span className="article-read-span">10.1k</span>
-                  <img src="../../../static/web/icon.png" />
-                  <span className="article-love-span">20.2k</span>
-                  <img src="../../../static/web/icon.png" />
-                  <span className="article-favorite-span">收藏</span>
+                <div className="right-info">
+                  <div className="watch">
+                    <div className="watch-div"></div>
+                    <span className="watch-span">66</span>
+                  </div>
+                  <div className="love">
+                    <div className="love-div"></div>
+                    <span className="love-span">55</span>
+                  </div>
+                  <div className={ v.favourite ? "isfav " : "" + "favourite"}>
+                    <div className={ v.favourite ? "isfav " : "" + "favourite-div"}></div>
+                    <span className="favourite-span">收藏</span>
+                  </div>
+
                 </div>
               </div>
             </li>

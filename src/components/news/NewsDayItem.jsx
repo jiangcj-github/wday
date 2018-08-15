@@ -13,7 +13,7 @@ import Thumbs from "../../common/components/thumbs/index";
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
     super(props);
-    let {cardMonth, cardDay, cardDayis, cardWeek, news} = props;
+    let {cardMonth, cardDay, cardDayis, cardWeek, news, showList} = props;
     // this.state = {
     //   cardMonth: "7yue",
     //   cardDay: "02",
@@ -28,6 +28,7 @@ export default class NewsDayItem extends ViewBase {
         cardDayis: cardDayis,
         cardWeek: cardWeek,
         news: news,
+        showList: false,
         newsTitle: "aaaa",
         newsContent: "正如多名评论人士所报道的那样，该计划可能有助于缓解比特币巨头的一些可疑现金流问题正如多名评论人士所报道的那样，该计划可能有助于缓解比特币巨头的一些可疑现金流问题。",
       };
@@ -46,9 +47,12 @@ export default class NewsDayItem extends ViewBase {
             <p className="date-is">{this.state && this.state.cardDayis}</p>
             <p className="week">{this.state && this.state.cardWeek}</p>
           </div>
-          <div className="jump">
-            <img src={this.imageDict.$_news_next_normal} />
-          </div>
+          {
+            this.state && this.state.showList &&
+            <div className="jump">
+            <img src={this.imageDict.$_news_next_normal}/>
+            </div>
+          }
         </div>
         {/* 每天的快讯*/}
         <div className="news-item">

@@ -5,10 +5,11 @@
 
 .article
   width 43.5%
-  background darkcyan
+  background $_article_main_bg_color
+  margin 15px auto
   padding 15px
   li
-    border-bottom: 1px solid springgreen;
+    border-bottom: 1px solid $_article_main_line_color
     padding 15px 0
   .article-has-img
     display flex
@@ -26,15 +27,43 @@
   .article-info
     display flex
     justify-content space-between
-    span.article-author, span.article-date, span.article-favorite-span, span.article-read-span, span.article-love-span
-      font-size 14px
-      line-height 20px
-    span.article-date
-      padding-left 10px
-    span.article-read-span, span.article-love-span
-      padding-right 20px
-    img
-      width 14px
-      height 14px
-      vertical-align -1px
-      margin-right 5px
+    .right-info
+      display flex
+      justify-content space-between
+      .watch-div
+        display inline-block
+        background-image $_icon_article_watch
+        background-size contain
+        width 15px
+        height 15px
+      .watch-span
+        font-size 14px
+      .love-div
+        display inline-block
+        background-image $_icon_article_love
+        background-size contain
+        width 15px
+        height 15px
+      .love-span
+        font-size 14px
+
+      .favourite
+        display inline-block
+        background-image $_icon_article_love
+        background-size contain
+        width 15px
+        height 15px
+
+
+    //span.article-author, span.article-date, span.article-favorite-span, span.article-read-span, span.article-love-span
+    //  font-size 14px
+    //  line-height 20px
+    //span.article-date
+    //  padding-left 10px
+    //span.article-read-span, span.article-love-span
+    //  padding-right 20px
+    //img
+    //  width 14px
+    //  height 14px
+    //  vertical-align -1px
+    //  margin-right 5px
