@@ -8,7 +8,9 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/articleDetail.styl"
+import "./stylus/articleDetail.styl";
+import "./resource/image.styl";
+
 import Thumbs from "../../common/components/thumbs/index";
 
 export default class ArticleDetail extends ViewBase {
@@ -48,7 +50,7 @@ export default class ArticleDetail extends ViewBase {
       <div className="article-main">
         <div className="left-tool">
           <div className="tool-icon">
-            <img src="../../../static/web/icon.png" />
+            <img src={this.imageDict.$_good_selected} />
 
           </div>
           <span className="article-love-span">点赞</span>
@@ -63,15 +65,7 @@ export default class ArticleDetail extends ViewBase {
           </div>
           <span className="article-favorite-span">收藏</span>
         </div>
-        <Thumbs
-          goodCount = "12"
-          badCount = "222"
-          share = "link-content"
-          goodClicked = {false}
-          badClicked = {false}
-          goodClick = {this.goodClick}
-          badClick = {this.badClick}
-        />
+
         {
           title ?
             <div className="article-detail">

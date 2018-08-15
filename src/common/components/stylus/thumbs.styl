@@ -1,9 +1,60 @@
+@import "../resource/color.styl"
+@import "../resource/image.styl"
+
 .thumbs
   display flex
   justify-content space-between
-  span.thumbs-good-span, span.thumbs-good-span-count, span.thumbs-bad-span, span.thumbs-bad-span-count
-    font-size 14px
-    line-height 20px
+
+  div.thumbs-good
+    .good-div.normal
+      display inline-block
+      width 15px
+      height 15px
+      vertical-align -2px
+      background-image $_good_normal
+      background-size cover
+    .good-div.clicked
+      display inline-block
+      width 15px
+      height 15px
+      vertical-align -2px
+      background-image $_good_clicked
+      background-size cover
+
+  div.thumbs-good.clicked, div.thumbs-good:hover
+    color $thumbs-color-active
+  div.thumbs-good:hover
+    .good-div.normal
+      background-image $_good_hover
+    .good-div.clicked
+      background-image $_good_clicked_hover
+
+
+
+  div.thumbs-bad
+    .bad-div.normal
+      display inline-block
+      width 15px
+      height 15px
+      vertical-align -2px
+      background-image $_bad_normal
+      background-size cover
+    .bad-div.clicked
+      display inline-block
+      width 15px
+      height 15px
+      vertical-align -2px
+      background-image $_bad_clicked
+      background-size cover
+
+  div.thumbs-bad.clicked, div.thumbs-bad:hover
+    color $thumbs-color-active-bad
+  div.thumbs-bad:hover
+    .bad-div.normal
+      background-image $_bad_hover
+    .bad-div.clicked
+      background-image $_bad_clicked_hover
+
 
   img
     width 15px
@@ -28,6 +79,14 @@
     opacity 0
   .thumbs-share
     line-height 20px
+    .thumbs-share-div
+      background-image $_share_normal
+      background-size cover
+      width 15px
+      height 15px
+      &:hover
+        background-image $_share_hover
+
     .share-div
       display none
       position absolute

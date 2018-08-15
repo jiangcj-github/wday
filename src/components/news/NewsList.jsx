@@ -31,13 +31,6 @@ export default class NewsList extends ViewBase {
     doms.forEach((item, index) => {
 
       if(document.documentElement.scrollTop >= item.offsetTop + 100) {
-        console.log("has");
-        // console.log({
-        //   cardMonth: item.querySelector(".month").innerText,
-        //   cardDay: item.querySelector(".day").innerText,
-        //   cardDayis: item.querySelector(".date-is").innerText,
-        //   cardWeek: item.querySelector(".week").innerText,
-        // });
         this.setState({
           cardMonth: item.querySelector(".month").innerText,
           cardDay: item.querySelector(".day").innerText,
