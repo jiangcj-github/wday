@@ -26,5 +26,9 @@ export default {
     {name: 'logout', data: {url: '/login', method: 'post'}, action: 'Logout', actionBack: 'Logoutr'}, // 登录
     {name: 'getImgCode', data: {url: '/code', method: 'post'}, action: 'GetPicCode', actionBack: 'GetPicCoder'}, // 获取图像验证码
     {name: 'getPhoneCode', data: {url: '/code', method: 'post'}, action: 'GetPhoneCode', actionBack: 'GetPhoneCoder'}, // 获取手机验证码
+  ],
+  article: [
+    {name: 'getArticleList', data: {url: '/home', method: 'post'}, action: 'aaa', actionBack: 'GetArcicler'}, // 获取文章列表
+
   ]
 }

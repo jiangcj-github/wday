@@ -16,14 +16,6 @@ export default class Home extends ViewBase {
         //设置导航栏菜单
         this.bus.emit("selectItem","home");
 
-      // // 隐藏快讯的fixed 抓狂
-      // window.onscroll = ()=> {
-      //   let card = document.querySelector(".hidden-card");
-      //   if(card) {
-      //     card.style.visibility = "hidden";
-      //   }
-      //
-      // }
     }
 
     render() {

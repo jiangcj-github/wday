@@ -31,52 +31,52 @@ export default class Thumbs extends ViewBase {
   }
 
   changeGood(i) {
-    // i.onclick = () => {
-    //   let span = document.createElement("span");
-    //   span.innerText = this.state.goodClicked ? "-1" : "+1";
-    //   span.className = "tip-good";
-    //   i.append(span);
-    //
-    //   setTimeout(() => {
-    //     i.removeChild(span);
-    //   }, 2000);
-    //   this.setState({
-    //     goodClicked: !this.state.goodClicked,
-    //     badClicked: false
-    //   });
-    //   // 点利好的回调
-    //   this.state.clickGoodDo();
-    // }
+    i.persist();
+    let span = document.createElement("span");
+    span.innerText = this.state.goodClicked ? "-1" : "+1";
+    span.className = "tip-good";
+    i.target.append(span);
+
+    setTimeout(() => {
+      i.target.removeChild(span);
+    }, 2000);
+    this.setState({
+      goodClicked: !this.state.goodClicked,
+      badClicked: false
+    });
+    // 点利好的回调
+    // this.state.clickGoodDo();
+
   }
 
   changeBad(i) {
-    // i.onclick = () => {
-    //   let span = document.createElement("span");
-    //   span.innerText = this.state.badClicked ? "-1" : "+1";
-    //   span.className = "tip-bad";
-    //   i.append(span);
-    //
-    //   setTimeout(() => {
-    //     i.removeChild(span);
-    //   }, 2000);
-    //   this.setState({
-    //     badClicked: !this.state.badClicked,
-    //     goodClicked: false
-    //   });
-    //   // 点利空的回调
-    //   this.state.clickBadDo();
-    // }
+    i.persist();
+    let span = document.createElement("span");
+    span.innerText = this.state.badClicked ? "-1" : "+1";
+    span.className = "tip-bad";
+    i.target.append(span);
+    setTimeout(() => {
+      i.target.removeChild(span);
+    }, 2000);
+    this.setState({
+      badClicked: !this.state.badClicked,
+      goodClicked: false
+    });
+    // 点利空的回调
+    // this.state.clickBadDo();
+
   }
 
   render() {
     return (
       <div className="thumbs">
-        <div ref={this.changeGood} className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good"}>
+        <div onClick={this.changeGood} className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good"}>
           <div className={(this.state.goodClicked ? "clicked " : "normal ") + "good-div"}></div>
           <span className="thumbs-good-span">利好 {this.state.goodCount}</span>
         </div>
 
-        <div ref={this.changeBad} className={(this.state.badClicked ? "clicked " : "normal ") + "thumbs-bad"}>
+        <div onClick={this.changeBad.bind(this)}
+             className={(this.state.badClicked ? "clicked " : "normal ") + "thumbs-bad"}>
           <div className={(this.state.badClicked ? "clicked " : "normal ") + "bad-div"}></div>
           <span className="thumbs-bad-span">利空 {this.state.badCount}</span>
         </div>
@@ -89,6 +89,19 @@ export default class Thumbs extends ViewBase {
               <img className="thumbs-share-img" src={this.imageDict.$_pop_link}/>
               <span className="thumbs-share-span">复制快讯</span>
             </div>
+            {/* 以后增加 */}
+            {/*<div className="share-weibo">*/}
+              {/*<img className="thumbs-share-img" src={this.imageDict.$_pop_link}/>*/}
+              {/*<span className="thumbs-share-span">新浪微博</span>*/}
+            {/*</div>*/}
+            {/*<div className="share-qq">*/}
+              {/*<img className="thumbs-share-img" src={this.imageDict.$_pop_link}/>*/}
+              {/*<span className="thumbs-share-span">腾讯QQ</span>*/}
+            {/*</div>*/}
+            {/*<div className="share-wechat">*/}
+              {/*<img className="thumbs-share-img" src={this.imageDict.$_pop_link}/>*/}
+              {/*<span className="thumbs-share-span">微信扫一扫</span>*/}
+            {/*</div>*/}
 
             <span className="little"><i className="ii"></i></span>
           </div>
