@@ -28,7 +28,7 @@ export default {
     {name: 'getPhoneCode', data: {url: '/code', method: 'post'}, action: 'GetPhoneCode', actionBack: 'GetPhoneCoder'}, // 获取手机验证码
   ],
   article: [
-    {name: 'getArticleList', data: {url: '/home', method: 'post'}, action: 'aaa', actionBack: 'GetArcicler'}, // 获取文章列表
+    {name: 'getArticleList', data: {url: '/home', method: 'post'}, action: 'GetArcicleList', actionBack: 'GetArcicler'}, // 获取文章列表
 
   ]
 }
