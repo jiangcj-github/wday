@@ -17,7 +17,6 @@ export default class NewsListComponent extends ViewBase {
   constructor(props) {
     super(props);
     let { scrollType } = props;
-    console.error(scrollType);
     this.state = {
       scrollType: scrollType || "window"
     };
@@ -39,7 +38,6 @@ export default class NewsListComponent extends ViewBase {
         value: dom.offsetTop
       });
     });
-    console.log(arr);
     (this.state.scrollType === "window" ? window : document.querySelector(".news-wrap")).onscroll = () => {
 
       arr.forEach((v, index) => {
@@ -72,12 +70,14 @@ export default class NewsListComponent extends ViewBase {
     return (
       <div className="scroll-sign">
         <div className="news-list-by-day">
+
           <NewsDayItem ref="test" news={""} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
           <NewsDayItem ref="test2" news={""} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
           <NewsDayItem ref="test3" news={""} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
         </div>
 
         <div className="top-card">
+          {/* 跟着滚动的卡片日历 */}
           {
             this.state && this.state.cardMonth &&
             <div className="hidden-card">
@@ -90,10 +90,17 @@ export default class NewsListComponent extends ViewBase {
                   <p className="date-is">{this.state && this.state.cardDayis}</p>
                   <p className="week">{this.state && this.state.cardWeek}</p>
                 </div>
-                {/*<div className="jump">*/}
-                  {/*<img src={this.imageDict.$_news_next_normal} />*/}
-                {/*</div>*/}
+                <div className="jump">
+                  <img src={this.imageDict.$_news_next_normal} />
+                </div>
               </div>
+            </div>
+          }
+          {/* 新快讯通知 */}
+          {
+            !this.state.hasMore &&
+            <div className="has-more-news">
+              <span>有n条新快讯！</span>
             </div>
           }
         </div>

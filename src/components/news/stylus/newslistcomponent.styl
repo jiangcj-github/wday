@@ -1,23 +1,28 @@
 @import "../resource/color.styl"
 @import "../resource/image.styl"
 .scroll-sign
-  //height calc(150vh)
-  //overflow-y scroll
   .news-list-by-day
+    box-shadow 0 0 4px 0 rgba(204,204,204,0.50)
+
   .top-card
     margin auto
-
-    background #fff
-    //position relative
-
+    .has-more-news
+      background-color $_has_more_news_bg
+      display flex
+      justify-content center
+      align-items center
+      height 36px
+      cursor pointer
+      opacity 0.9
+      span
+        color $_has_more_news_color
+        font-size 14px
+        line-height 20px
     .hidden-card
-      //position fixed
-      //top 0px
-      //z-index 300
       background #fff
-      box-shadow: 0 2px 4px 0 rgba(204,204,204,0.50);
+      box-shadow 0 2px 4px 0 rgba(204,204,204,0.50)
       .date-card
-        border-radius: 4px;
+        border-radius: 4px
         padding 10px
         .date-card-main
           display inline-block
