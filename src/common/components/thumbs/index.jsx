@@ -31,41 +31,41 @@ export default class Thumbs extends ViewBase {
   }
 
   changeGood(i) {
-    i.onclick = () => {
-      let span = document.createElement("span");
-      span.innerText = this.state.goodClicked ? "-1" : "+1";
-      span.className = "tip-good";
-      i.append(span);
-
-      setTimeout(() => {
-        i.removeChild(span);
-      }, 2000);
-      this.setState({
-        goodClicked: !this.state.goodClicked,
-        badClicked: false
-      });
-      // 点利好的回调
-      this.state.clickGoodDo();
-    }
+    // i.onclick = () => {
+    //   let span = document.createElement("span");
+    //   span.innerText = this.state.goodClicked ? "-1" : "+1";
+    //   span.className = "tip-good";
+    //   i.append(span);
+    //
+    //   setTimeout(() => {
+    //     i.removeChild(span);
+    //   }, 2000);
+    //   this.setState({
+    //     goodClicked: !this.state.goodClicked,
+    //     badClicked: false
+    //   });
+    //   // 点利好的回调
+    //   this.state.clickGoodDo();
+    // }
   }
 
   changeBad(i) {
-    i.onclick = () => {
-      let span = document.createElement("span");
-      span.innerText = this.state.badClicked ? "-1" : "+1";
-      span.className = "tip-bad";
-      i.append(span);
-
-      setTimeout(() => {
-        i.removeChild(span);
-      }, 2000);
-      this.setState({
-        badClicked: !this.state.badClicked,
-        goodClicked: false
-      });
-      // 点利空的回调
-      this.state.clickBadDo();
-    }
+    // i.onclick = () => {
+    //   let span = document.createElement("span");
+    //   span.innerText = this.state.badClicked ? "-1" : "+1";
+    //   span.className = "tip-bad";
+    //   i.append(span);
+    //
+    //   setTimeout(() => {
+    //     i.removeChild(span);
+    //   }, 2000);
+    //   this.setState({
+    //     badClicked: !this.state.badClicked,
+    //     goodClicked: false
+    //   });
+    //   // 点利空的回调
+    //   this.state.clickBadDo();
+    // }
   }
 
   render() {

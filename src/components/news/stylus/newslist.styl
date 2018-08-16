@@ -1,54 +1,20 @@
 @import "../resource/color.styl"
 @import "../resource/image.styl"
-.scroll-sign
-  height calc(150vh)
-  overflow-y scroll
-  .news-list
-    margin 15px auto 0 auto
 
-  .top-card
-    margin auto
+.news-list
+  display flex
+  justify-content center
+  margin 15px
+  .list-main
+    width 50%
 
-    background #fff
-    position relative
-
-    .hidden-card
+    .top-card
       position fixed
-      top 0px
-      z-index 300
-      background #fff
-      box-shadow: 0 2px 4px 0 rgba(204,204,204,0.50);
-      .date-card
-        border-radius: 4px;
-        padding 10px
-        .date-card-main
-          display inline-block
-          width 55px
-          text-align center
-          background-image $_news_date_bg
-          background-size contain
-          background-repeat no-repeat
-          p.month
-            color white
-            font-size 12px
-            line-height 18px
-          p.day
-            font-size 18px
-            line-height 35px
-            margin-top -2px
-        .date-card-other
-          display inline-block
-          margin-left 20px
-          p.date-is
-            font-size 20px
-            line-height 28px
-          p.week
-            font-size 14px
-            line-height 20px
-        .jump
-          display inline-block
-          float right
-          padding 10px
-          img
-            width 20px
+      width 50%
+      top 0
+    .news-thumbs
+      float right
+      width 30%
+
+
 

@@ -123,7 +123,8 @@ export default class Header extends ViewBase {
                       <div className="nav-left">
                           <a className="active">首页</a>
                           <a>项目库</a>
-                          <a>快讯</a>
+                          {/*<a>快讯</a>*/}
+                          <Link to="/newslist">快讯</Link>
                           <p className="srch">
                               <input type="text" placeholder="搜索ico项目、文章、快讯"/><i/>
                           </p>

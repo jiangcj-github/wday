@@ -3,6 +3,7 @@
 .home-wrap
   display flex
   justify-content center
+  position relative
   .project-wrap
     width 17%
     margin 15px
@@ -11,8 +12,12 @@
     width 43%
   .news-wrap
     width 22%
-    margin 0 15px
-
+    overflow-y scroll
+    height calc(100vh)
+    margin 15px
     .hidden-card
-      width 22%
+      width 20.8% // 坑 浏览去边框
+      position absolute
+      top 15px
+      z-index 300
 
