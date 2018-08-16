@@ -16,7 +16,6 @@ import NewsDayItem from "./NewsDayItem";
 export default class NewsList extends ViewBase {
   constructor(props) {
     super(props);
-    this.setCard = this.setCard.bind(this);
   }
 
   async componentDidMount() {
@@ -36,7 +35,8 @@ export default class NewsList extends ViewBase {
       });
     });
     console.log(arr);
-    window.onscroll = () => {
+    document.querySelector(".scroll-sign").onscroll = () => {
+    // window.onscroll = () => {
       arr.forEach((v, index) => {
         // 这里可以直接取传入给组件的值
         if (document.documentElement.scrollTop > v.value) {
@@ -60,31 +60,9 @@ export default class NewsList extends ViewBase {
     };
   }
 
-  setCard(e) {
-    let doms = document.querySelectorAll(".news-list-item .date-card");
-    doms.forEach((item, index) => {
-
-      if (document.documentElement.scrollTop >= item.offsetTop + 100) {
-        this.setState({
-          cardMonth: item.querySelector(".month").innerText,
-          cardDay: item.querySelector(".day").innerText,
-          cardDayis: item.querySelector(".date-is").innerText,
-          cardWeek: item.querySelector(".week").innerText,
-        });
-      }
-
-    });
-    if (document.documentElement.scrollTop < 100) {
-      this.setState({
-        cardMonth: ""
-      });
-    }
-
-  }
-
   render() {
     return (
-      <div>
+      <div className="scroll-sign">
         <div className="news-list">
           <NewsDayItem ref="test" news={""} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
           <NewsDayItem ref="test2" news={""} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>

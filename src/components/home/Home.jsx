@@ -13,7 +13,14 @@ export default class Home extends ViewBase {
 
 
     componentDidMount() {
+      // 隐藏快讯的fixed 抓狂
+      window.onscroll = ()=> {
+        let card = document.querySelector(".hidden-card");
+        if(card) {
+          card.style.visibility = "hidden";
+        }
 
+      }
     }
 
     render() {
