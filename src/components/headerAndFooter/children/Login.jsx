@@ -26,39 +26,49 @@ export default class Login extends ViewBase {
             errTip: "",            //错误类型  phone -手机号,ic -图形验证码, pc -手机验证码, other -其他
             errMsg: "",            //错误提示
         };
+        this.controller = LoginController();
     };
 
     async login(){
-        let controller = LoginController();
         let {phoneInput, icInput, pcInput, pid} = this.state;
-        let data = await controller.login(phoneInput,icInput,pcInput,pid);
+        let data = await this.controller.login(phoneInput,icInput,pcInput,pid);
         if(data.msg){
             this.updateImageCode();
             this.setState({errMsg: data.msg, errTip: data.tip});
         }
+        this.bus.emit("login");
     }
 
     //更新图片验证码
     updateImageCode(){
-        LoginController().getImgCode().then(data=> this.setState({picture: data.pic, pid: data.id}));
+        this.controller.getImgCode().then(data=>{
+            if(data.msg){
+                return;
+            }
+            this.setState({picture: data.pic, pid: data.id});
+        });
     }
 
     //发送验证码
     async sendPhoneCode(){
-        let controller = LoginController();
         let {phoneInput} = this.state;
-        let data = await controller.getPhoneCode(phoneInput);
+        let data = await this.controller.getPhoneCode(phoneInput);
         if(data.msg){
             this.setState({errMsg: data.msg, errTip: data.tip});
             return;
         }
-        controller.countDown("countDown", 60, count =>{
+        this.controller.countDown("countDown", 60, count =>{
             this.setState({sendCode: count});
         });
     }
 
     componentDidMount() {
         this.updateImageCode();
+    }
+
+    componentWillUnmount() {
+        this.bus.off("login","header");
+        this.controller.countDownStop("countDown");
     }
 
     render() {

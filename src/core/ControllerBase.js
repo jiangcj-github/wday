@@ -6,7 +6,6 @@ import GlobalUtil from "./libs/GlobalUtil";
 import Storage from "./storage";
 import FileSaver from "file-saver";
 import './libs/RSAUtil'
-import Bus from "../core/Bus";
 const encrypt = new JSEncrypt();
 let rsaPublicKeyFlag = false
 
@@ -36,7 +35,6 @@ export default class ControllerBase {
     this.Loop = Loop;
     this.Util = GlobalUtil;
     this.Storage = Storage;
-    this.bus = Bus();
   }
 
   get initState() {
@@ -114,6 +112,11 @@ export default class ControllerBase {
             func && func(count);
         }, 1000);
         this.Loop[key].start();
+    }
+
+    countDownStop(key) {
+        this.Loop[key].stop();
+        this.Loop[key].clear();
     }
 
   /**

@@ -29,9 +29,7 @@ export default class Alert extends ViewBase {
         return (
             <div className="alert-wrap">
                 {/*提示框*/}
-                <div className="alert">
-                    {content}
-                </div>
+                <div className="alert">{content}</div>
             </div>
         );
     }

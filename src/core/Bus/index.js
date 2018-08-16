@@ -19,8 +19,8 @@ class Bus{
      */
     emit(eventName, attachData) {
         if (!this.buffer[eventName]) return;
-        this.buffer[eventName].handlers.forEach(func =>{
-            func && func(attachData);
+        this.buffer[eventName].forEach(item =>{
+            item[0] && item[0](attachData);
         });
     }
 

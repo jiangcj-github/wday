@@ -27,12 +27,12 @@ class LoginController extends ExchangeControllerBase {
             piccode: imgCode,
             pcode: phoneCode
         });
-        if(!data){
+        if(!data || data.ret !== 1){
             return Promise.resolve({msg: "登录失败", tip: "other"})
         }
         //登录成功
-        this.bus.emit("login",{token: data.token, phone: phone,});
-        this.store.saveLogin({token: data.token, phone: phone,});
+        data = data.data;
+        this.store.saveLogin({token: data.token, phone: phone});
         return Promise.resolve({});
     }
 
@@ -44,22 +44,22 @@ class LoginController extends ExchangeControllerBase {
     //退出登录
     async logout(){
        let data = await this.store.logout();
-       if(!data){
+       if(!data || data.ret !== 1){
            return Promise.resolve({msg: "退出失败", tip: "other"})
        }
        //退出登录成功
-       this.bus.emit("logout");
        this.store.clearLogin();
        return Promise.resolve({});
     }
 
     //获取图像验证码
     async getImgCode(){
-        let data = await this.store.getImgCode();
-        if(data){
-            return Promise.resolve({id: data.id, pic: data.pic});
+        let data = await this.store.getImgCode();console.log(data);
+        if(!data || data.ret !== 1){
+            return Promise.resolve({msg: ""});
         }
-        return Promise.resolve({});
+        data = data.data;
+        return Promise.resolve({id: data.id, pic: data.pic});
     }
 
     //获取手机验证码
@@ -69,6 +69,9 @@ class LoginController extends ExchangeControllerBase {
         }
         //
         let data = await this.store.getPhoneCode({phone: phone});
+        if(!data || data.ret !== 1){
+            return Promise.resolve({msg: "发送失败", tip: "pc"});
+        }
         return Promise.resolve({});
     }
 

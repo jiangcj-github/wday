@@ -1,0 +1,95 @@
+@import "../resource/color.styl"
+@import "../resource/image.styl"
+
+.project-wrap
+  width 246px
+  margin-top 20px
+
+  .project
+    margin-bottom 10px
+    background $project-bg
+    border-radius 2px
+    box-shadow 0 0 4px 0 $project-shadow
+    &:hover
+      background $project-bg-hover
+    .doing
+      color $project-color-doing
+    .prepare
+      color $project-color-prepare
+    .finish
+      color $project-color-finish
+
+    h3
+      padding 20px 20px 0 20px
+      font-size 14px
+      color $project-color-title
+
+    .pi
+      padding 20px 20px 0 20px
+      cursor pointer
+      .name
+        height 40px
+        display flex
+        align-items center
+        img
+          width auto
+          height 40px
+          margin-right 16px
+        b
+          font-size 20px
+          color $project-color-weight
+          margin-right 8px
+        span
+          font-size 14px
+          color $project-color-weight
+          overflow hidden
+          text-overflow ellipsis
+          white-space nowrap
+          flex-grow 1
+      .badge
+        margin-top 10px
+        i
+          height 24px
+          line-height 24px
+          background $project-bg-badge
+          border-radius 73px
+          display inline-block
+          margin-right 10px
+          font-size 12px
+          color $project-color-hover
+          padding 0 12px
+      .step
+        margin-top 20px
+        line-height 17px
+        height 17px
+        display flex
+        span
+          font-size 12px
+        .num
+          color $project-color-title
+          flex-grow 1
+        .percent
+          float right
+          color $project-color-title
+          margin-right 8px
+        .remain
+          float right
+          color $project-color-weight
+      .progress-wrap
+        margin-top 10px
+      .br
+        margin-top 20px
+        border-bottom 1px solid $project-border
+
+    .more
+      display block
+      line-height 37px
+      height 37px
+      border-top 1px solid $project-border
+      margin-top -1px
+      text-align center
+      font-size 12px
+      color $project-color-light
+      cursor pointer
+      &:hover
+        color $project-color-hover

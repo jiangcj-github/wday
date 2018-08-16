@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 import "./stylus/home.styl"
 import ViewBase from "../ViewBase";
+import ProjectList from "./children/ProjectList";
 import ArticleList from "../article/ArticleList";
 import NewsListComponent from "../news/NewsListComponent";
 
@@ -26,9 +27,7 @@ export default class Home extends ViewBase {
 
         return (
             <div className="home-wrap">
-                <div className="project-wrap">
-
-                </div>
+                <ProjectList/>
                 <div className="article-wrap">
                   <ArticleList />
                 </div>

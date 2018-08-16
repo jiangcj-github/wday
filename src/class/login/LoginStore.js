@@ -18,7 +18,8 @@ export default class LoginStore extends ExchangeStoreBase {
 
     //退出登录
     logout(){
-        return this.Proxy.logout();
+        let token = this.state.loginInfo.userToken;
+        return this.Proxy.logout({token: token});
     }
 
     //获取登录信息
@@ -30,16 +31,20 @@ export default class LoginStore extends ExchangeStoreBase {
     saveLogin({token,phone}){
         this.Storage.userPhone.set(phone);
         this.Storage.userToken.set(token);
-        this.state.userPhone = phone;
-        this.state.userToken = token
+        this.state.loginInfo = {
+            userPhone: phone,
+            userToken: token,
+        };
     }
 
     //清除登录信息
     clearLogin(){
         this.Storage.userPhone.removeAll();
         this.Storage.userToken.removeAll();
-        this.state.userPhone = '';
-        this.state.userToken = '';
+        this.state.loginInfo = {
+            userPhone: "",
+            userToken: "",
+        };
     }
 
     //获取图像验证码

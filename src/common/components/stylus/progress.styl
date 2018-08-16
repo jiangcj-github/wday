@@ -1,24 +1,16 @@
 @import "../resource/color.styl"
 
 .progress-wrap
-  display flex
-  align-items center
-  .progress
-    background $progress-bg
+  background $progress-bg
+  border-radius 100px
+  height 5px
+  position relative
+  overflow hidden
+  .progress-step
+    background $progress-step-bg
+    position absolute
+    left 0
+    top 0
+    bottom 0
     border-radius 100px
-    width 50px
-    height 5px
-    position relative
-    overflow hidden
-    .step
-      background $progress-step-bg
-      position absolute
-      left 0
-      top 0
-      bottom 0
-      border-radius 100px
-  .num
-    margin-left 10px
-    font-size 12px
-    color $progress-color
 

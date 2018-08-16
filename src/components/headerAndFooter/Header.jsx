@@ -21,22 +21,26 @@ export default class Header extends ViewBase {
           showLogin: false,
           top1: 0,
           top2: 40,
-      }
+      };
+      this.controller = LoginController();
     }
 
     componentDidMount() {
-        let controller = LoginController();
+        //获取loginInfo
+        let {userPhone} = this.controller.loginInfo;
+        this.setState({phone: userPhone});
 
         //轮播
         let {top1, top2} = this.state;
-        controller.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
+        this.controller.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
             this.setState({top1: layer, top2: layerCache});
         });
 
         //监听登录消息
-        this.bus.on("login","header",data=>{
-            let {phone} = controller.loginInfo;
-            this.setState({phone: phone});
+        this.bus.on("login","header", ()=>{
+            let {userPhone} = this.controller.loginInfo;
+            console.log(userPhone,"login");
+            this.setState({phone: userPhone, showLogin: false});
         });
     }
 
@@ -45,12 +49,15 @@ export default class Header extends ViewBase {
     }
 
     async logout(){
-        let controller = LoginController();
-        let data = await controller.logout();
+        let data = await this.controller.logout();
+        if(data.msg){
+            return;
+        }
+        console.log(data);
+        this.setState({phone: "", showLogin: true});
     }
 
     render() {
-
         let {showLogin,top1,top2,phone} = this.state;
 
         return (
@@ -143,7 +150,7 @@ export default class Header extends ViewBase {
                               </div>
                           </div>
                           {/*登录注册, 个人中心*/}
-                          {phone ?
+                          {!phone ?
                               <div className="ri">
                                   <a onClick={()=>this.setState({showLogin: true})}>登录/注册</a>
                               </div>
