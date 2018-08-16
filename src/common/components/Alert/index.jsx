@@ -4,7 +4,7 @@ import ViewBase from "../../../components/ViewBase";
  *  content 文本内容
  */
 
-export default class Pagination extends ViewBase {
+export default class Alert extends ViewBase {
     constructor(props) {
         super(props);
         this.state = {

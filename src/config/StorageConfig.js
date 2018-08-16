@@ -19,18 +19,8 @@ export default {
    * onlySession:只用session
    */
   storageList: [
-    {name: 'userToken', duration: 0, expiryTime: 0, default: null, useDefault: true},//自选
-    {name: 'userId', duration: 0, expiryTime: 0, default: null, useDefault: true},//自选
-    {name: 'userName', duration: 0, expiryTime: 0, default: null, useDefault: true},//自选
-    {name: 'websocketToken', duration: 0, expiryTime: 0,default: null,useDefault: false},//token
-    // {name: 'userMsg', duration: 0, expiryTime: 0, onlySession:true}, // 用户信息
-    // {name: 'marketList', duration: 0, expiryTime: 0}, //首页交易所列表排序
-    // {name: 'filterItems', duration: 0, expiryTime: 0}//首页时间和币种维度筛选
-    {name: 'chargeCurrency', duration: 0, expiryTime: 0, onlySession:true}, // 用户信息
-    {name: 'extractCurrency', duration: 0, expiryTime: 0, onlySession:true}, // 用户信息
-    {name: 'coinCurrency', duration: 0, expiryTime: 0, onlySession:true}, // 用户信息
-    { name: 'language', duration: 0, expiryTime: 0 },//语言设置
-
-    {name: 'searchCoin', duration: 0, expiryTime: 0 },//h5-资产-搜索历史记录
+    {name: 'language', duration: 0, expiryTime: 0 },//语言设置
+    {name: 'userToken', duration: 0, expiryTime: 0, default: null, useDefault: true},// 登录token
+    {name: 'userPhone', duration: 0, expiryTime: 0, default: null, useDefault: true},//登录phone
   ]
 }

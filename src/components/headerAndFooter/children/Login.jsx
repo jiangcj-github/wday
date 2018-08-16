@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom'
 import ViewBase from "../../ViewBase";
 import LoginController from "../../../class/login/LoginController"
+import Alert from "../../../common/components/Alert"
 
 export default class Login extends ViewBase {
     constructor(props) {
@@ -17,52 +18,44 @@ export default class Login extends ViewBase {
             picture: "",        //图像验证码图片
             pid: 0,             //图片ID
 
-            input1: "",               //手机号-输入
-            input2: "",             //图像验证码-输入
-            input3: "",             //短信验证码-输入
+            phoneInput: "",               //手机号-输入
+            icInput: "",             //图形验证码-输入
+            pcInput: "",             //短信验证码-输入
             sendCode: -1,           //发送验证码
 
-            errTip1: "",            //手机号-错误提示
-            errTip2: "",            //图像验证码-错误提示
-            errTip3: "",            //短信验证码-错误提示
+            errTip: "",            //错误类型  phone -手机号,ic -图形验证码, pc -手机验证码, other -其他
+            errMsg: "",            //错误提示
         };
     };
 
     async login(){
-        let {phone, imgCode,phoneCode} = this.state;
-        let {onHide} = this.props;
-
         let controller = LoginController();
-        let res = await controller.login(phone,imgCode,phoneCode);
-        console.log(res);
+        let {phoneInput, icInput, pcInput, pid} = this.state;
+        let data = await controller.login(phoneInput,icInput,pcInput,pid);
+        if(data.msg){
+            this.updateImageCode();
+            this.setState({errMsg: data.msg, errTip: data.tip});
+        }
     }
 
     //更新图片验证码
     updateImageCode(){
-        let controller = LoginController();
-        controller.getImgCode().then(data=>{
-            this.setState({
-                picture: data.pic,
-                pic: data.id
-            });
-        });
+        LoginController().getImgCode().then(data=> this.setState({picture: data.pic, pid: data.id}));
     }
 
     //发送验证码
     async sendPhoneCode(){
         let controller = LoginController();
-        let {input1} = this.state;
-        let data = await controller.getPhoneCode(input1);
+        let {phoneInput} = this.state;
+        let data = await controller.getPhoneCode(phoneInput);
         if(data.msg){
-            this.setState({errTip1: data.msg});
-        }else{
-            controller.countDown("countDown", 60, count =>{
-                this.setState({sendCode: count});
-            });
+            this.setState({errMsg: data.msg, errTip: data.tip});
+            return;
         }
+        controller.countDown("countDown", 60, count =>{
+            this.setState({sendCode: count});
+        });
     }
-
-
 
     componentDidMount() {
         this.updateImageCode();
@@ -70,41 +63,68 @@ export default class Login extends ViewBase {
 
     render() {
         let {onHide} = this.props;
-        let {input1, errTip1, errTip2, errTip3, picture, sendCode} = this.state;
+        let {phoneInput, icInput, pcInput, errTip, errMsg, picture, sendCode} = this.state;
 
         return (
             <div className="login-wrap">
+
                 {/*登录框*/}
                 <div className="login">
                     {/*标题*/}
                     <img className="title" src={this.imageDict.$icon_logo}/>
+
                     {/*手机号*/}
                     <div className="group phone">
                         <input type="text" placeholder="手机号"
-                               value={input1}
-                               onInput={event=>this.setState({input1: event.target.value})}
-                               onFocus={()=>this.setState({errTip1: ""})}/>
-                        {errTip1 && <i className="err">请输入正确的手机号</i>}
+                               value={phoneInput}
+                               onInput={event=>
+                                   this.setState({phoneInput: event.target.value})
+                               }
+                               onFocus={()=>
+                                   errTip === "phone" && this.setState({errTip: ""})
+                               }/>
+                        {errTip === "phone" && <i className="err">{errMsg}</i>}
                     </div>
+
                     {/*图像验证码*/}
                     <div className="group img-code">
-                        <input type="text" placeholder="输入正确的图形验证码"/>
+                        <input type="text" placeholder="输入正确的图形验证码"
+                               value={icInput}
+                               onInput={event =>
+                                   this.setState({icInput: event.target.value})
+                               }
+                               onFocus={()=>
+                                   errTip === "ic" && this.setState({errTip: ""})
+                               }/>
                         <img src={picture} onClick={this.updateImageCode.bind(this)}/>
-                        {errTip2 && <i className="err">图像验证码错误</i>}
+                        {errTip === "ic" && <i className="err">{errMsg}</i>}
                     </div>
+
                     {/*短信验证码*/}
                     <div className="group phone-code">
-                        <input type="text" placeholder="输入正确的短信验证码"/>
+                        <input type="text" placeholder="输入正确的短信验证码"
+                               value={pcInput}
+                               onInput={event =>
+                                   this.setState({pcInput: event.target.value})
+                               }
+                               onFocus={()=>
+                                   errTip === "pc" && this.setState({errTip: ""})
+                               }/>
                         {sendCode<0 && <a onClick={this.sendPhoneCode.bind(this)}>获取短信验证码</a>}
                         {sendCode>0 && <a className="disable">{sendCode}s后重新发送</a>}
                         {sendCode===0 && <a onClick={this.sendPhoneCode.bind(this)}>重新获取验证码</a>}
-                        {errTip3 && <i className="err">短信验证码错误</i>}
+                        {errTip === "pc" && <i className="err">{errMsg}</i>}
                     </div>
+
                     {/*提交按钮*/}
                     <a className="submit" onClick={this.login.bind(this)}>注册/登录</a>
+
                     {/*关闭按钮*/}
                     <a className="close" onClick={onHide}/>
                 </div>
+
+                {/*提示框*/}
+                {errTip === "other" && <Alert content={errMsg} onClose={()=> this.setState({errTip: ""})}/>}
             </div>)
     }
 }

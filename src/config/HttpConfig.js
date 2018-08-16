@@ -23,6 +23,7 @@ export default {
   // httpAfterHandler,
   login: [
     {name: 'login', data: {url: '/login', method: 'post'}, action: 'Login', actionBack: 'Loginr'}, // 登录
+    {name: 'logout', data: {url: '/login', method: 'post'}, action: 'Logout', actionBack: 'Logoutr'}, // 登录
     {name: 'getImgCode', data: {url: '/code', method: 'post'}, action: 'GetPicCode', actionBack: 'GetPicCoder'}, // 获取图像验证码
     {name: 'getPhoneCode', data: {url: '/code', method: 'post'}, action: 'GetPhoneCode', actionBack: 'GetPhoneCoder'}, // 获取手机验证码
   ]

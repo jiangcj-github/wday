@@ -4,7 +4,7 @@ import ViewBase from "../../../components/ViewBase";
  *  step 当前百分比
  */
 
-export default class Pagination extends ViewBase {
+export default class HeatArc extends ViewBase {
     constructor(props) {
         super(props);
         this.state = {

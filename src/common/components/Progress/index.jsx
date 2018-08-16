@@ -4,7 +4,7 @@ import ViewBase from "../../../components/ViewBase";
  *  step [0-100]
  */
 
-export default class Pagination extends ViewBase {
+export default class Progress extends ViewBase {
 
     render() {
         let {step} = this.props;

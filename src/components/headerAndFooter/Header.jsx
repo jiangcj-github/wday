@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 import ViewBase from "../ViewBase";
 import Login from "./children/Login"
-import ConfigController from "../../class/config/ConfigController"
+import LoginController from "../../class/login/LoginController"
 
 import './stylus/header.styl'
 
@@ -17,6 +17,7 @@ export default class Header extends ViewBase {
     constructor(props) {
       super(props);
       this.state = {
+          phone: "",
           showLogin: false,
           top1: 0,
           top2: 40,
@@ -24,17 +25,33 @@ export default class Header extends ViewBase {
     }
 
     componentDidMount() {
-        let controller = ConfigController();
+        let controller = LoginController();
+
         //轮播
         let {top1, top2} = this.state;
         controller.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
             this.setState({top1: layer, top2: layerCache});
         });
+
+        //监听登录消息
+        this.bus.on("login","header",data=>{
+            let {phone} = controller.loginInfo;
+            this.setState({phone: phone});
+        });
+    }
+
+    componentWillUnmount() {
+        this.bus.off("login","header");
+    }
+
+    async logout(){
+        let controller = LoginController();
+        let data = await controller.logout();
     }
 
     render() {
 
-        let {showLogin,top1,top2} = this.state;
+        let {showLogin,top1,top2,phone} = this.state;
 
         return (
           <div className="header">
@@ -124,24 +141,25 @@ export default class Header extends ViewBase {
 
                               </div>
                           </div>
-                          {/*登录/注册*/}
-                          <div className="ri">
-                              <a onClick={()=>this.setState({showLogin: true})}>登录/注册</a>
-                          </div>
-                          {/*个人中心*/}
-                          <div className="ri">
-                              <i className="person"/>
-                              <ul className="drop person-drop">
-                                  <li>
-                                      <img src={this.imageDict.$icon_collect_big_normal}/>
-                                      <span>我的收藏</span>
-                                  </li>
-                                  <li>
-                                      <img src={this.imageDict.$icon_menu_quit}/>
-                                      <span>退出</span>
-                                  </li>
-                              </ul>
-                          </div>
+                          {/*登录注册, 个人中心*/}
+                          {phone ?
+                              <div className="ri">
+                                  <a onClick={()=>this.setState({showLogin: true})}>登录/注册</a>
+                              </div>
+                                :
+                              <div className="ri">
+                                  <i className="person"/>
+                                  <ul className="drop person-drop">
+                                      <li>
+                                          <img src={this.imageDict.$icon_collect_big_normal}/>
+                                          <span>我的收藏</span>
+                                      </li>
+                                      <li onClick={this.logout.bind(this)}>
+                                          <img src={this.imageDict.$icon_menu_quit}/>
+                                          <span>退出</span>
+                                      </li>
+                                  </ul>
+                              </div>}
                       </div>
                   </div>
               </div>

@@ -8,40 +8,68 @@ class LoginController extends ExchangeControllerBase {
     }
 
     //登录
-    async login(phone, imgCode, phoneCode){
-        let obj = {
+    async login(phone, imgCode, phoneCode, picId){
+        if(!/^1[23456789]\d{9}$/.test(phone)){
+            return Promise.resolve({msg: "请输入正确的手机号", tip: "phone"});
+        }
+        if(!imgCode){
+            return Promise.resolve({msg: "图形验证码错误", tip: "ic"});
+        }
+        if(!phoneCode){
+            return Promise.resolve({msg: "短信验证码错误", tip: "pc"});
+        }
+        //
+        let data = await this.store.login({
             account: phone,
             password: "",
-            picid: "",
+            picid: picId,
             phone: phone,
             piccode: imgCode,
-            pcode: phoneCode,
-        };
-        return await this.store.login(obj);
+            pcode: phoneCode
+        });
+        if(!data){
+            return Promise.resolve({msg: "登录失败", tip: "other"})
+        }
+        //登录成功
+        this.bus.emit("login",{token: data.token, phone: phone,});
+        this.store.saveLogin({token: data.token, phone: phone,});
+        return Promise.resolve({});
+    }
+
+    //获取登录信息
+    get loginInfo(){
+        return this.store.loginInfo;
+    }
+
+    //退出登录
+    async logout(){
+       let data = await this.store.logout();
+       if(!data){
+           return Promise.resolve({msg: "退出失败", tip: "other"})
+       }
+       //退出登录成功
+       this.bus.emit("logout");
+       this.store.clearLogin();
+       return Promise.resolve({});
     }
 
     //获取图像验证码
     async getImgCode(){
-        let res = await this.store.getImgCode();
-        let data = {};
-        if(res){
-            data = {id: res.id, pic: res.pic}
+        let data = await this.store.getImgCode();
+        if(data){
+            return Promise.resolve({id: data.id, pic: data.pic});
         }
-        return Promise.resolve(data);
+        return Promise.resolve({});
     }
 
     //获取手机验证码
     async getPhoneCode(phone){
         if(!/^1[23456789]\d{9}$/.test(phone)){
-            return Promise.resolve({msg: "请输入正确的手机号"});
+            return Promise.resolve({msg: "请输入正确的手机号", tip: "phone"});
         }
         //
-        let res = await this.store.getPhoneCode(phone);
-        let data = {};
-        if(res){
-            data = {}
-        }
-        return Promise.resolve(data);
+        let data = await this.store.getPhoneCode({phone: phone});
+        return Promise.resolve({});
     }
 
 }

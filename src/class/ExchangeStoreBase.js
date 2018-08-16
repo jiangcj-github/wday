@@ -39,15 +39,15 @@ export default class ExchangeStoreBase extends StoreBase {
   exchangeStoreBaseAfterHandler(app, req, res, config) {
     // console.log("res.result.ret", res.result.ret);
 
-    if (res.result.ret !== 0) {
-      // res.result = Msg[res.result.ret]
-      res.result = res.result.data ? Object.assign(Msg[res.result.ret], res.result.data) : Msg[res.result.ret];
-      return
-    }
-    if (res.result.action !== config.actionBack) {
-      res.result = Msg[1];
-      return
-    }
+    // if (res.result.ret !== 0) {
+    //   // res.result = Msg[res.result.ret]
+    //   res.result = res.result.data ? Object.assign(Msg[res.result.ret], res.result.data) : Msg[res.result.ret];
+    //   return
+    // }
+    // if (res.result.action !== config.actionBack) {
+    //   res.result = Msg[1];
+    //   return
+    // }
     res.result = res.result.data
     // console.log('exchangeStoreBaseAfterHandler', app, req, res, config)
   }
