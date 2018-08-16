@@ -94,7 +94,7 @@ export default class ControllerBase {
         this.Loop[key].start();
     }
 
-    /*
+    /**
      *  倒计时方法
      *  key: 标识
      *  count: 初始计数
@@ -117,6 +117,28 @@ export default class ControllerBase {
     countDownStop(key) {
         this.Loop[key].stop();
         this.Loop[key].clear();
+    }
+
+    /**
+     *  页面滚动到顶部，过渡效果
+     *  key:    标识
+     *  initPos:    初始位置
+     *  endPos:     结束位置
+     *  speed:      滚动速度，每0.01秒滚动speed值
+     *  func:       回调函数
+     */
+    scroll(key, initPos, endPos, speed, func){
+        this.Loop[key].clear();
+        this.Loop[key].setDelayTime(0);
+        this.Loop[key].set(async() => {
+            initPos -= speed;
+            initPos = Math.max(initPos, endPos);
+            func && func(initPos);
+            if(initPos <= endPos){
+                this.Loop[key].stop();
+            }
+        }, 10);
+        this.Loop[key].start();
     }
 
   /**

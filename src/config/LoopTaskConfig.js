@@ -20,4 +20,5 @@
 export default {
   countDown: {},
   carousel: {},
+  scroll: {},
 }

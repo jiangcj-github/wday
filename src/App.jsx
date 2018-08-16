@@ -12,6 +12,7 @@ import "./common/components/stylus/index.styl";
 import Header from "./components/headerAndFooter/Header.jsx";
 import Footer from "./components/headerAndFooter/footer.jsx";
 import Home from "./components/home/Home.jsx"
+import ProjectManage from "./components/project/ProjectManage.jsx"
 
 import ArticleList from "./components/article/ArticleList";
 import NewsList from "./components/news/NewsList";
@@ -27,6 +28,9 @@ const footer = ({ match, history }) =>
 
 const home = ({match, history}) =>
     <Home match={match} history={history}/>;
+
+const projectManage = ({match, history}) =>
+    <ProjectManage match={match} history={history}/>;
 
 
 const articleList = ({ match, history }) =>
@@ -54,13 +58,14 @@ export default class App extends Component {
                     {/*content*/}
                     <div className="container">
                         <Switch>
-                            <Route path="/home" conponent={Home}/>
+                            <Route path="/home" component={home}/>
+                            <Route path="/project" component={projectManage}/>
 
                             <Route path="/article" component={articleDetail}  />
                             <Route path="/articlelist" component={articleList}  />
                             <Route path="/newslist" component={newsList}  />
                             <Route path="/news" component={news}  />
-                            <Route component={Home} />
+                            <Redirect to="/home" />
                         </Switch>
                     </div>
                     {/*<Footer/>*/}

@@ -82,20 +82,23 @@
       right 0
 
     .rf
+      display none
       position fixed
       right 20px
       bottom 20px
       z-index 1
-      a
+      &.active
+        display block
+      .toTop
         display block
         cursor pointer
         width 50px
         height 50px
-        background $footer-color-weight
-        border-radius 4px
-        box-shadow 0 0 4px 0 $footer-shadow-rf
+        background no-repeat center center
+        background-size 100% 100%
+        background-image $footer-toTop
         &:hover
-          background $footer-color-hover
+          background-image $footer-toTop-hover
 
 
 

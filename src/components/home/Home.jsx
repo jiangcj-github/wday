@@ -13,6 +13,9 @@ export default class Home extends ViewBase {
     }
 
     componentDidMount() {
+        //设置导航栏菜单
+        this.bus.emit("selectItem","home");
+
       // // 隐藏快讯的fixed 抓狂
       // window.onscroll = ()=> {
       //   let card = document.querySelector(".hidden-card");
@@ -27,10 +30,13 @@ export default class Home extends ViewBase {
 
         return (
             <div className="home-wrap">
+                {/*项目列表*/}
                 <ProjectList/>
+                {/*文章列表*/}
                 <div className="article-wrap">
                   <ArticleList />
                 </div>
+                {/*短讯列表*/}
                 <div className="news-wrap">
                   <NewsListComponent scrollType="home"/>
                 </div>

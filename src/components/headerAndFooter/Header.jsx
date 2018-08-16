@@ -17,10 +17,11 @@ export default class Header extends ViewBase {
     constructor(props) {
       super(props);
       this.state = {
-          phone: "",
-          showLogin: false,
-          top1: 0,
+          phone: "",            //当前手机号-未登录为空
+          showLogin: false,     //是否显示登录框
+          top1: 0,              //轮播参数
           top2: 40,
+          menuItemSelect:  "",     //设置导航菜单选中项
       };
       this.controller = LoginController();
     }
@@ -39,8 +40,11 @@ export default class Header extends ViewBase {
         //监听登录消息
         this.bus.on("login","header", ()=>{
             let {userPhone} = this.controller.loginInfo;
-            console.log(userPhone,"login");
             this.setState({phone: userPhone, showLogin: false});
+        });
+        //监听菜单状态
+        this.bus.on("selectItem","header", menuItem =>{
+            this.setState({menuItemSelect: menuItem});
         });
     }
 
@@ -53,13 +57,11 @@ export default class Header extends ViewBase {
         if(data.msg){
             return;
         }
-        console.log(data);
         this.setState({phone: "", showLogin: true});
     }
 
     render() {
-        let {showLogin,top1,top2,phone} = this.state;
-
+        let {showLogin, top1, top2, phone, menuItemSelect} = this.state;
         return (
           <div className="header">
               {/*价格轮播*/}
@@ -128,10 +130,9 @@ export default class Header extends ViewBase {
                       <img className="logo" src={this.imageDict.$icon_logo}/>
                       {/*左侧菜单项*/}
                       <div className="nav-left">
-                          <a className="active">首页</a>
-                          <a>项目库</a>
-                          {/*<a>快讯</a>*/}
-                          <Link to="/newslist">快讯</Link>
+                          <Link to="/home" className={menuItemSelect === "home" ? "active" : ""}>首页</Link>
+                          <Link to="/project" className={menuItemSelect === "project" ? "active" : ""}>项目库</Link>
+                          <Link to="/newslist" className={menuItemSelect === "news" ? "active" : ""}>快讯</Link>
                           <p className="srch">
                               <input type="text" placeholder="搜索ico项目、文章、快讯"/><i/>
                           </p>

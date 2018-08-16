@@ -7,15 +7,40 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom'
-import './stylus/footer.styl'
+import ConfigController from "../../class/config/ConfigController"
+import './stylus/footer.styl';
 
 export default class Footer extends ViewBase {
   constructor() {
       super();
+      this.controller = ConfigController();
+
+      this.onScroll= () => {
+          let $rf = document.querySelector('.rf');
+          let scrollTop = document.documentElement.scrollTop;
+          let bodyHeight = document.body.clientHeight;
+          // 滚动2屏高度，显示置顶按钮
+          if(scrollTop >= bodyHeight * 2){
+              $rf.classList.add("active");
+          }else{
+              $rf.classList.remove("active");
+          }
+      };
+  }
+
+  scrollTop(){
+      let scrollTop = document.documentElement.scrollTop;
+      this.controller.scroll("scroll", scrollTop, 0, 500, pos=>{
+          document.documentElement.scrollTop = pos;
+      });
+  }
+
+  componentDidMount() {
+      window.addEventListener("scroll", this.onScroll);
   }
 
   componentWillUnmount() {
-
+      window.removeEventListener("scroll", this.onScroll);
   }
 
   render() {
@@ -56,7 +81,7 @@ export default class Footer extends ViewBase {
           <div className="ba">© 2018 每日必读 | 京ICP备11017824号-4</div>
           {/*右侧固定菜单*/}
           <div className="rf">
-              <a><img src="/"/></a>
+              <a className="toTop" onClick={this.scrollTop.bind(this)}/>
           </div>
       </div>
     )
