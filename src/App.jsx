@@ -18,6 +18,7 @@ import ArticleList from "./components/article/ArticleList";
 import NewsList from "./components/news/NewsList";
 import News from "./components/news/News";
 import ArticleDetail from "./components/article/ArticleDetail";
+import Search from "./components/search/Search";
 
 
 const header = ({ match, history }) =>
@@ -41,6 +42,8 @@ const newsList = ({ match, history }) =>
   <NewsList match={match} history={history} />;
 const news = ({ match, history }) =>
   <News match={match} history={history} />;
+const search = ({ match, history }) =>
+  <Search match={match} history={history} />;
 
 export default class App extends Component {
     constructor(props) {
@@ -65,6 +68,7 @@ export default class App extends Component {
                             <Route path="/articlelist" component={articleList}  />
                             <Route path="/newslist" component={newsList}  />
                             <Route path="/news" component={news}  />
+                            <Route path="/search" component={search}  />
                             <Redirect to="/home" />
                         </Switch>
                     </div>

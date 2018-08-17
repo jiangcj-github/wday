@@ -1,0 +1,26 @@
+@import "../resource/color.styl"
+@import "../resource/image.styl"
+
+.search-main
+  width 760px
+  height 200px // need delete
+  margin 20px auto
+  padding 12px
+  background-color $_search_main_bg_color
+  box-shadow 0 0 4px 0 rgba(204,204,204,0.50)
+  border-radius 2px
+  .search-tab
+    display flex
+    justify-content space-between
+    height 49px
+    border-bottom 1px solid $_search_border_color
+    .tab-ul
+      display flex
+      justify-content space-around
+      width 198px
+      li
+        font-size 16px
+        line-height 26px
+      li.active
+        border-bottom 3px solid $_search_tab_border_color
+
