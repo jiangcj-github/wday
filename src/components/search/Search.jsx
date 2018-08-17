@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import ViewBase from "../ViewBase";
-import "./stylus/search.styl";
 import Thumbs from "../../common/components/thumbs";
+import "./stylus/search.styl";
 
 export default class Search extends ViewBase {
   constructor(props) {
@@ -12,16 +12,16 @@ export default class Search extends ViewBase {
       articleList: [
         {
           id: 1,
-          title: "习近平谈如何打赢脱贫攻坚战",
-          content: "坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进入全面小康社会是我们党的庄严承诺。",
+          title: "习近平谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战",
+          content: "坚决打赢脱贫攻坚战，让贫困人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进入全面小康社会是我们党的庄严承诺。",
           author: "赵四",
           date: "18-01-11",
           favourite: true
         },
         {
           id: 2,
-          title: "最高法：妥善审理民间借贷纠纷案件 防范化解各类风险",
-          content: "新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥善审理民间借贷案件的通知。",
+          title: "最高法：妥善审理民间借贷纠纷案件 防范审理民间借贷纠纷案件 防范审理民间借贷纠纷案件 防范审理民间借贷纠纷案件 防范化解各类风险",
+          content: "新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥善审理民间借贷案件的通知。",
           author: "赵四",
           date: "18-01-11",
           img: "https://bpic.588ku.com/element_banner/20/18/08/351737d428923be2f258e5b6b58c806d.jpg",
@@ -45,6 +45,7 @@ export default class Search extends ViewBase {
 
   render() {
     let {tabSelect} = this.state;
+    let tags = ["数字数字","你瞅啥"];
     return (
       <div className="search-main">
         {/* tab */}
@@ -69,10 +70,12 @@ export default class Search extends ViewBase {
                         <div className="article-has-img">
                           <div>
                             <p className="article-title">
-                              {v.title}
+                              {v.title && v.title.toString().length>36 ? v.title.toString().shearStr(36) : v.title.toString()}
+
                             </p>
                             <p className="article-content">
-                              {v.content}
+                              {v.content && v.content.toString().length>100 ? v.content.toString().shearStr(100) : v.content.toString()}
+
                             </p>
                           </div>
                           <div>
@@ -82,10 +85,11 @@ export default class Search extends ViewBase {
                       ) :
                       (<div className="article-no-img">
                         <p className="article-title">
-                          {v.title}
+                          {v.title && v.title.toString().length>29 ? v.title.toString().shearStr(29) : v.title.toString()}
+
                         </p>
                         <p className="article-content">
-                          {v.content}
+                          {v.content && v.content.toString().length>75 ? v.content.toString().shearStr(75) : v.content.toString()}
                         </p>
                       </div>)
                     }
@@ -94,6 +98,11 @@ export default class Search extends ViewBase {
                       <div className="left-info">
                         <span className="article-author">{v.author}</span>
                         <span className="article-date">{v.date}</span>
+                        {
+                          tags && tags.map((v, index) => (
+                            <span key={index} className="tag-name">{v}</span>
+                          ))
+                        }
                       </div>
                       <div className="right-info">
                         <div className="watch">
@@ -122,17 +131,30 @@ export default class Search extends ViewBase {
         {
           this.state.tabSelect === "news" &&
           <div className="search-news">
-            <div className="news-item">
-              <p className="news-time">2018-09-09 09:09:09</p>
-              <div className="news-main">
-                <div className="news-title">安慰基地啊忘记了多亏了你的是国内克拉斯</div>
-                <div className="news-content">爱我的吗看了代码卡拉塑料口袋里面卡掉了；莫拉蒂glass发明了里面的买了吗马拉松发完了妈妈拉尔购买了美国麦克拉的美丽的里卡多看了看拉萨付款啦大概看了离开</div>
-                <div className="news-thumbs">
-                  <Thumbs />
-                </div>
-              </div>
+            {
+              [1, 3, 4].map((v, index) => (
+                <div className="news-item" key={index}>
+                  <p className="news-time">2018-09-09 09:09:09</p>
+                  <div className="news-main">
+                    {/*<div className="news-title">安慰基地啊忘记了多亏了你的是国内克拉斯</div>*/}
+                    <div className="news-title">
+                      {/*{ v.newsTitle && v.newsTitle.toString().length > 29 ? v.newsTitle.toString().shearStr(29) : v.newsTitle.toString()  }*/}
+                      {this.state.articleList[0].title && this.state.articleList[0].title.toString().length > 45 ? this.state.articleList[0].title.toString().shearStr(45) : this.state.articleList[0].title.toString()}
+                    </div>
+                    {/*<div className="news-content">爱我的吗看了代码卡拉塑料口袋里面卡掉了；莫拉蒂glass发明了里面的买了吗马拉松发完了妈妈拉尔购买了美国麦克拉的美丽的里卡多看了看拉萨付款啦大概看了离开</div>*/}
+                    <div className="news-content">
+                      {this.state.articleList[0].content && this.state.articleList[0].content.toString().length > 100 ? this.state.articleList[0].content.toString().shearStr(100) : this.state.articleList[0].content.toString()}
 
-            </div>
+                    </div>
+                    <div className="news-thumbs">
+                      <Thumbs/>
+                    </div>
+                  </div>
+
+                </div>
+              ))
+            }
+
           </div>
         }
 

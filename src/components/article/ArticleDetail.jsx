@@ -70,18 +70,22 @@ export default class ArticleDetail extends ViewBase {
             <div className="article-detail">
               <h1>{title}</h1>
               <div className="article-info">
+                {/* 文章作者 */}
                 <div className="article-author-info">
                   <span className="author">{author}</span>
                   <span className="speak">{speak}</span>
                 </div>
+                {/* 文章日期 */}
                 <div>
                   <span className="date">{date}</span>
                 </div>
               </div>
+              {/* 文章主题图 */}
               <img src={topImg} className="top-image" />
               <div className="article-content">
                 {content}
               </div>
+              {/* 文章 标签 */}
               <div className="article-bottom">
                 <div className="tag-place">
                   {
@@ -90,6 +94,7 @@ export default class ArticleDetail extends ViewBase {
                     ))
                   }
                 </div>
+                {/* 喜爱 分享 收藏 按钮组 */}
                 <div className="right-info">
 
                   <div className="love">
