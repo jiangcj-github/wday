@@ -3,9 +3,8 @@
 
 .search-main
   width 760px
-  height 200px // need delete
   margin 20px auto
-  padding 12px
+  padding 20px
   background-color $_search_main_bg_color
   box-shadow 0 0 4px 0 rgba(204,204,204,0.50)
   border-radius 2px
@@ -16,11 +15,141 @@
     border-bottom 1px solid $_search_border_color
     .tab-ul
       display flex
-      justify-content space-around
-      width 198px
+      justify-content space-between
+      width 152px
       li
         font-size 16px
         line-height 26px
       li.active
         border-bottom 3px solid $_search_tab_border_color
+  .search-article
+    .article
+      li
+        border-bottom: 1px solid $_article_main_line_color
+        padding 15px 0
+      .article-has-img
+        display flex
+        justify-content space-between
+        margin-bottom 15px
+        img
+          width 200px
+          height 149.5px
+        .article-title
+          font-size 20px
+          line-height 28px
+          margin-bottom 10px
+        .article-content
+          font-size 14px
+          line-height 28px
+
+      .article-no-img
+        margin-bottom 15px
+        .article-title
+          font-size 20px
+          line-height 28px
+          margin-bottom 10px
+        .article-content
+          font-size 14px
+          line-height 28px
+
+
+      .article-info
+        display flex
+        justify-content space-between
+        margin 10px 0
+        .left-info
+          .article-author
+            margin-right 10px
+            color $_search_font_color_light
+          .article-date
+            color $_search_font_color_light
+        .right-info
+          display flex
+          justify-content space-between
+          width 30%
+          .watch
+            .watch-div
+              display inline-block
+              background-image $_icon_article_watch
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+            .watch-span
+              font-size 14px
+              color $_search_font_color_light
+          .love
+            .love-div
+              display inline-block
+              background-image $_icon_article_love
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+
+            .love-span
+              font-size 14px
+              color $_search_font_color_light
+          .favourite
+            .favourite-div.notfav
+              display inline-block
+              background-image $_icon_article_favourite_normal
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+
+            .favourite-div.isfav
+              display inline-block
+              background-image $_icon_article_favourite_selected_normal
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+
+
+            &:hover, .notfav:hover
+              color $_article_color_active
+            &:hover .favourite-div.notfav
+              background-image $_icon_article_favourite_normal_hover
+            &:hover .favourite-div.isfav
+              background-image $_icon_article_favourite_selected_hover
+          .favourite.isfav
+            color $_article_color_active
+          .favourite.notfav
+            color $_search_font_color_light
+
+  .search-news
+    .news-item
+      margin 15px 0
+      p.news-time
+        color $_search_font_color_light
+        margin 32px 0 16px 0
+      .news-main
+        .news-title
+          font-size 16px
+          line-height 22px
+          overflow hidden
+          white-space nowrap
+          text-overflow ellipsis
+          width 90%
+          margin-bottom 10px
+
+        .news-content
+          font-size 14px
+          line-height 22px
+        .news-thumbs
+          margin 20px 0
+          text-align right
+          .thumbs
+            display inline-flex
+            width 250px
+            .share-div
+              text-align initial
+//.search-project
+
 

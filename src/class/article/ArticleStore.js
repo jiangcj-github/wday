@@ -37,6 +37,85 @@ export default class ArticleStore extends ExchangeStoreBase {
         favourite: true
       },
     ];
+    let resultT = {
+      "action": "GetArticler",
+      "ret": 1,
+      "msg": "success",
+      "data": [
+        {
+          "id": "5b758a0e9d1c11052c2257cd",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429710,
+          "label": []
+        },
+        {
+          "id": "5b758a0f9d1c11052c2257ce",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429711,
+          "label": []
+        },
+        {
+          "id": "5b758a109d1c11052c2257cf",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429712,
+          "label": []
+        },
+        {
+          "id": "5b758a119d1c11052c2257d0",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429713,
+          "label": []
+        },
+        {
+          "id": "5b758a129d1c11052c2257d1",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429714,
+          "label": []
+        },
+        {
+          "id": "5b758a139d1c11052c2257d2",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429715,
+          "label": []
+        },
+        {
+          "id": "5b758a149d1c11052c2257d3",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429716,
+          "label": []
+        },
+        {
+          "id": "5b758a159d1c11052c2257d4",
+          "title": "",
+          "author": "",
+          "content": "",
+          "sign": "",
+          "issue_time": 1534429717,
+          "label": []
+        },
+      ]
+    };
     return result;
   }
 
