@@ -30,5 +30,9 @@ export default {
   article: [
     {name: 'getArticleList', data: {url: '/home', method: 'post'}, action: 'GetArcicleList', actionBack: 'GetArcicler'}, // 获取文章列表
 
+  ],
+  news: [
+    {name: 'getNewsList', data: {url: 'newsflash', method: 'post'}, action: 'GetNewsFlashList', actionBack: 'GetNewsFlashList'}, //获取快讯列表
   ]
+
 }

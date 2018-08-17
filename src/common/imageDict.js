@@ -39,12 +39,17 @@ let news = {
   $_news_next_normal: "/static/web/icon_next_normal@3x.png",
 
 };
+
+let search = {
+  $_no_result : "/static/web/img_empty_one@3x.png"
+}
 export default function () {
   return Object.assign({},
     news,
     header,
     footer,
     article,
-    common
+    common,
+    search
   );
 }

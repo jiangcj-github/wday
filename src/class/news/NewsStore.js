@@ -53,8 +53,56 @@ export default class NewsStore extends ExchangeStoreBase {
         ]
       }
     ];
+    let resultT =
+      {
+        "action": "GetNewsFlashListr",
+        "ret": 0,
+        "msg": "成功",
+        "data": [
+          {
+            "date": 1532966400,
+            "data": [
+              {
+                "id": "5b7617a39d1c115660abebdd",
+                "title": "17",
+                "content": "",
+                "issue_time": 1532997155,
+                "like": 0,
+                "dislike": 0
+              }
+            ]
+          },
+          {
+            "date": 1532793600,
+            "data": [
+              {
+                "id": "5b7617a39d1c115660abebdf",
+                "title": "19",
+                "content": "",
+                "issue_time": 1532824355,
+                "like": 0,
+                "dislike": 0
+              }
+            ]
+          },
+          {
+            "date": 1534435200,
+            "data": [
+              {
+                "id": "5b7617a29d1c115660abebcc",
+                "title": "0",
+                "content": "",
+                "issue_time": 1534465954,
+                "like": 0,
+                "dislike": 0
+              }
+            ]
+          }
+        ]
+      };
     return result;
   }
+
   async getNewsDetail() {
     let result = {
       id: 3,

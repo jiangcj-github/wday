@@ -35,7 +35,8 @@ export default class Search extends ViewBase {
           date: "18-01-11",
           favourite: true
         },
-      ]
+      ],
+      articleList2: []
     }
   }
 
@@ -45,24 +46,27 @@ export default class Search extends ViewBase {
 
   render() {
     let {tabSelect} = this.state;
-    let tags = ["数字数字","你瞅啥"];
+    let tags = ["数字数字", "你瞅啥"];
     return (
       <div className="search-main">
         {/* tab */}
         <div className="search-tab">
           <ul className="tab-ul">
-            <li onClick={()=>this.setState({tabSelect:"article"})} className={ (tabSelect === "article" ? "active" : "") }><a>文章</a></li>
-            <li onClick={()=>this.setState({tabSelect:"news"})}  className={ (tabSelect === "news" ? "active" : "") } ><a>快讯</a></li>
-            <li onClick={()=>this.setState({tabSelect:"project"})} className={ (tabSelect === "project" ? "active" : "") } ><a>项目</a></li>
+            <li onClick={() => this.setState({tabSelect: "article"})}
+                className={(tabSelect === "article" ? "active" : "")}><a>文章</a></li>
+            <li onClick={() => this.setState({tabSelect: "news"})} className={(tabSelect === "news" ? "active" : "")}>
+              <a>快讯</a></li>
+            <li onClick={() => this.setState({tabSelect: "project"})}
+                className={(tabSelect === "project" ? "active" : "")}><a>项目</a></li>
           </ul>
         </div>
         {/* 文章*/}
         {
-          this.state.tabSelect ==="article" &&
+          this.state.tabSelect === "article" &&
           <div className="search-article">
             <div className="article">
               <ul>
-                {this.state && this.state.articleList && this.state.articleList.map((v,index) =>(
+                {this.state && this.state.articleList && this.state.articleList.map((v, index) => (
                   <li key={index}>
                     {/* 根据是否有文章大图 切换显示 */}
                     {v.img ?
@@ -70,11 +74,11 @@ export default class Search extends ViewBase {
                         <div className="article-has-img">
                           <div>
                             <p className="article-title">
-                              {v.title && v.title.toString().length>36 ? v.title.toString().shearStr(36) : v.title.toString()}
+                              {v.title && v.title.toString().length > 36 ? v.title.toString().shearStr(36) : v.title.toString()}
 
                             </p>
                             <p className="article-content">
-                              {v.content && v.content.toString().length>100 ? v.content.toString().shearStr(100) : v.content.toString()}
+                              {v.content && v.content.toString().length > 100 ? v.content.toString().shearStr(100) : v.content.toString()}
 
                             </p>
                           </div>
@@ -85,11 +89,11 @@ export default class Search extends ViewBase {
                       ) :
                       (<div className="article-no-img">
                         <p className="article-title">
-                          {v.title && v.title.toString().length>29 ? v.title.toString().shearStr(29) : v.title.toString()}
+                          {v.title && v.title.toString().length > 29 ? v.title.toString().shearStr(29) : v.title.toString()}
 
                         </p>
                         <p className="article-content">
-                          {v.content && v.content.toString().length>75 ? v.content.toString().shearStr(75) : v.content.toString()}
+                          {v.content && v.content.toString().length > 75 ? v.content.toString().shearStr(75) : v.content.toString()}
                         </p>
                       </div>)
                     }
@@ -113,8 +117,9 @@ export default class Search extends ViewBase {
                           <div className="love-div"></div>
                           <span className="love-span">55</span>
                         </div>
-                        <div className={ (v.favourite ? "isfav " : "notfav ") + "favourite"} onClick={this.changeFav.bind(v.id, this)}>
-                          <div className={ (v.favourite ? "isfav " : "notfav ") +"favourite-div" }></div>
+                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
+                             onClick={this.changeFav.bind(v.id, this)}>
+                          <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
                           <span className="favourite-span">收藏</span>
                         </div>
 
@@ -123,6 +128,14 @@ export default class Search extends ViewBase {
                   </li>
                 ))}
               </ul>
+              {
+                // 没有搜索结果时候显示空图
+                this.state && this.state.articleList && this.state.articleList.length === 0 &&
+                <div className="no-result">
+                  <img className="no-result-img" src={this.imageDict.$_no_result}/>
+                  <span>没有搜索到相关内容</span>
+                </div>
+              }
             </div>
           </div>
         }
@@ -132,7 +145,7 @@ export default class Search extends ViewBase {
           this.state.tabSelect === "news" &&
           <div className="search-news">
             {
-              [1, 3, 4].map((v, index) => (
+              [1, 2, 3].map((v, index) => (
                 <div className="news-item" key={index}>
                   <p className="news-time">2018-09-09 09:09:09</p>
                   <div className="news-main">
@@ -154,6 +167,16 @@ export default class Search extends ViewBase {
                 </div>
               ))
             }
+            {
+
+              // 没有搜索结果时候显示空图
+              this.state && this.state.articleList2 && this.state.articleList2.length === 0 &&
+              <div className="no-result">
+                <img className="no-result-img" src={this.imageDict.$_no_result}/>
+                <span>没有搜索到相关内容</span>
+              </div>
+
+            }
 
           </div>
         }
@@ -162,7 +185,10 @@ export default class Search extends ViewBase {
         {
           this.state.tabSelect === "project" &&
           <div className="search-project">
-
+            <div className="no-result">
+              <img className="no-result-img" src={this.imageDict.$_no_result}/>
+              <span>没有搜索到相关内容</span>
+            </div>
           </div>
         }
       </div>
