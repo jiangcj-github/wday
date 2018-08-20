@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Progress from "../../../common/components/Progress"
 import Heat from "../../../common/components/Heat"
+import ProjectController from "../../../class/project/ProjectController";
 
 export default class List extends ViewBase {
     constructor() {
@@ -12,11 +13,19 @@ export default class List extends ViewBase {
         this.state = {
             viewMode: "list" ,       // 视图模式 list,card
             sortByTime: 0 ,   // 时间排序
+            tab: 0,        //tab选中项
         };
+        this.controller = ProjectController();
 
         //滚动事件,固定tab
         this.onScroll= () => {
-
+            let $content = document.querySelector(".content");
+            let $tab = document.querySelector('.tab');
+            if($content.getBoundingClientRect().top <= 0){
+                $tab.classList.add("fix");
+            }else{
+                $tab.classList.remove("fix");
+            }
         };
     }
 
@@ -28,8 +37,16 @@ export default class List extends ViewBase {
         window.removeEventListener("scroll", this.onScroll);
     }
 
+    scrollTab(tab){
+        let sel = [".para1",".para4",".para6",".para7"][tab];
+        let $tabItem = document.querySelector(sel);
+        document.documentElement.scrollTop += $tabItem.getBoundingClientRect().top - 50;
+        this.setState({tab: tab});
+    }
+
+
     render() {
-        let {viewMode,sortByTime} = this.state;
+        let {viewMode,sortByTime,tab} = this.state;
         return (
             <div className="project-detail">
                 {/*顶部-项目简介*/}
@@ -107,13 +124,15 @@ export default class List extends ViewBase {
                 {/*内容区*/}
                 <div className="content">
                     {/*tab栏*/}
-                    <div className="tab">
-                        <a href="#" className="active">基本信息</a>
-                        <a href="#">热度</a>
-                        <a href="#">团队介绍</a>
-                        <a href="#">路线图</a>
-                        <a href="#">相关文章</a>
-                        <a>留言</a>
+                    <div className="tab-wrap">
+                        <div className="tab">
+                            <a className={tab === 0 ? "active" : ""} onClick={this.scrollTab.bind(this,0)}>基本信息</a>
+                            <a className={tab === 1 ? "active" : ""} onClick={this.scrollTab.bind(this,1)}>热度</a>
+                            <a className={tab === 2 ? "active" : ""} onClick={this.scrollTab.bind(this,2)}>团队介绍</a>
+                            <a className={tab === 3 ? "active" : ""} onClick={this.scrollTab.bind(this,3)}>路线图</a>
+                            <a className={tab === 4 ? "active" : ""}>相关文章</a>
+                            <a className={tab === 5 ? "active" : ""}>留言</a>
+                        </div>
                     </div>
                     {/*项目介绍*/}
                     <div className="para para1">
@@ -136,61 +155,63 @@ export default class List extends ViewBase {
                             <span>代币详情</span>
                         </h3>
                         <table>
-                            <tr>
-                                <td>
-                                    <b>名称：</b>
-                                    <i>In Sue Usa</i></td>
-                                <td>
-                                    <b>ICO价格：</b>
-                                    <i>In Sue Usa</i>
-                                </td>
-                                <td>
-                                    <b>名称：</b>
-                                    <i>$1.24、</i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>简称：</b>
-                                    <i>ISU</i>
-                                </td>
-                                <td>
-                                    <b>ICO总量：</b>
-                                    <i>1000万</i>
-                                </td>
-                                <td>
-                                    <b>目标金额(高)：</b>
-                                    <i>- -</i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>平台：</b>
-                                    <i>ISU</i>
-                                </td>
-                                <td>
-                                    <b>发行总量：</b>
-                                    <i>1亿</i>
-                                </td>
-                                <td>
-                                    <b>实际金额：</b>
-                                    <i>$1000万</i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>地区：</b>
-                                    <i>新加坡</i>
-                                </td>
-                                <td>
-                                    <b>接受币种：</b>
-                                    <i>USDT、BTC、BCH</i>
-                                </td>
-                                <td>
-                                    <b>ICO进度：</b>
-                                    <i>100%</i>
-                                </td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <b>名称：</b>
+                                        <i>In Sue Usa</i></td>
+                                    <td>
+                                        <b>ICO价格：</b>
+                                        <i>In Sue Usa</i>
+                                    </td>
+                                    <td>
+                                        <b>名称：</b>
+                                        <i>$1.24、</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>简称：</b>
+                                        <i>ISU</i>
+                                    </td>
+                                    <td>
+                                        <b>ICO总量：</b>
+                                        <i>1000万</i>
+                                    </td>
+                                    <td>
+                                        <b>目标金额(高)：</b>
+                                        <i>- -</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>平台：</b>
+                                        <i>ISU</i>
+                                    </td>
+                                    <td>
+                                        <b>发行总量：</b>
+                                        <i>1亿</i>
+                                    </td>
+                                    <td>
+                                        <b>实际金额：</b>
+                                        <i>$1000万</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>地区：</b>
+                                        <i>新加坡</i>
+                                    </td>
+                                    <td>
+                                        <b>接受币种：</b>
+                                        <i>USDT、BTC、BCH</i>
+                                    </td>
+                                    <td>
+                                        <b>ICO进度：</b>
+                                        <i>100%</i>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     {/*项目优势*/}

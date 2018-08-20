@@ -22,10 +22,10 @@ export default {
   // httpPreHandler,
   // httpAfterHandler,
   login: [
-    {name: 'login', data: {url: '/login', method: 'post'}, action: 'Login', actionBack: 'Loginr'}, // 登录
-    {name: 'logout', data: {url: '/login', method: 'post'}, action: 'Logout', actionBack: 'Logoutr'}, // 登录
-    {name: 'getImgCode', data: {url: '/code', method: 'post'}, action: 'GetPicCode', actionBack: 'GetPicCoder'}, // 获取图像验证码
-    {name: 'getPhoneCode', data: {url: '/code', method: 'post'}, action: 'GetPhoneCode', actionBack: 'GetPhoneCoder'}, // 获取手机验证码
+    {name: 'login', data: {url: '/api/v1/login', method: 'post'}, action: 'Login', actionBack: 'Loginr'}, // 登录
+    {name: 'logout', data: {url: '/api/v1/login', method: 'post'}, action: 'Logout', actionBack: 'Logoutr'}, // 登出
+    {name: 'getImgCode', data: {url: '/api/v1/code', method: 'post'}, action: 'GetPicCode', actionBack: 'GetPicCoder'}, // 获取图像验证码
+    {name: 'getPhoneCode', data: {url: '/api/v1/code', method: 'post'}, action: 'GetPhoneCode', actionBack: 'GetPhoneCoder'}, // 获取手机验证码
   ],
   article: [
     {name: 'getArticleList', data: {url: '/api/v1/home', method: 'post'}, action: 'GetArticle', actionBack: 'GetArticler'}, // 获取首页文章列表
@@ -33,6 +33,9 @@ export default {
   ],
   news: [
     {name: 'getNewsList', data: {url: 'newsflash', method: 'post'}, action: 'GetNewsFlashList', actionBack: 'GetNewsFlashList'}, //获取快讯列表
+  ],
+  project: [
+    {name: 'getActivity', data: {url: '/api/v1/home', method: 'post'}, action: 'GetActivity', actionBack: 'GetActivityr'}, // 获取项目列表
   ]
 
 }

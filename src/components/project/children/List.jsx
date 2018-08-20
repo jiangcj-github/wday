@@ -42,19 +42,21 @@ export default class List extends ViewBase {
         return (
             <div className="project-list">
                 {/*tab栏*/}
-                <div className="tab">
-                    {/*收藏，进行中，即将开始，已结束*/}
-                    <ul className="classify">
-                        <li className={tabItem === 0 ? "active" : ""} onClick={()=>this.setState({tabItem: 0})}>收藏</li>
-                        <li className={tabItem === 1 ? "active" : ""} onClick={()=>this.setState({tabItem: 1})}>进行中</li>
-                        <li className={tabItem === 2 ? "active" : ""} onClick={()=>this.setState({tabItem: 2})}>即将开始</li>
-                        <li className={tabItem === 3 ? "active" : ""} onClick={()=>this.setState({tabItem: 3})}>已结束</li>
-                    </ul>
-                    {/*列表视图，卡片视图*/}
-                    <ul className="view">
-                        <li className={`v-list ${viewMode === 0 ? "active" : ""}`} onClick={()=>this.setState({viewMode:0})}/>
-                        <li className={`v-card ${viewMode === 1 ? "active" : ""}`} onClick={()=>this.setState({viewMode:1})}/>
-                    </ul>
+                <div className="tab-wrap">
+                    <div className="tab">
+                        {/*收藏，进行中，即将开始，已结束*/}
+                        <ul className="classify">
+                            <li className={tabItem === 0 ? "active" : ""} onClick={()=>this.setState({tabItem: 0})}>收藏</li>
+                            <li className={tabItem === 1 ? "active" : ""} onClick={()=>this.setState({tabItem: 1})}>进行中</li>
+                            <li className={tabItem === 2 ? "active" : ""} onClick={()=>this.setState({tabItem: 2})}>即将开始</li>
+                            <li className={tabItem === 3 ? "active" : ""} onClick={()=>this.setState({tabItem: 3})}>已结束</li>
+                        </ul>
+                        {/*列表视图，卡片视图*/}
+                        <ul className="view">
+                            <li className={`v-list ${viewMode === 0 ? "active" : ""}`} onClick={()=>this.setState({viewMode:0})}/>
+                            <li className={`v-card ${viewMode === 1 ? "active" : ""}`} onClick={()=>this.setState({viewMode:1})}/>
+                        </ul>
+                    </div>
                 </div>
                 <div className="table">
                     {/*表头*/}

@@ -8,59 +8,61 @@
   box-shadow 0 0 4px 0 $list-shadow
   border-radius 2px
   overflow hidden
-  .tab
+  .tab-wrap
     height 50px
-    padding 0 20px
-    border-bottom 1px solid $list-border
-    &.fix
-      position fixed
-      top 0
-      width 1200px
-      margin 0 auto
-      background $list-bg
-      box-shadow 0 0 4px 0 $list-shadow
-      z-index 100
-    .classify
-      line-height 47px
-      li
-        float left
-        font-size 16px
-        color $list-color-normal
-        cursor pointer
-        margin-right 40px
-        &.active
-          font-weight bold
-          border-bottom 3px solid $list-border-active
-          pointer-events none
-        &:hover
-          color $list-color-hover
-    .view
-      float right
-      border 1px solid $list-border
-      border-radius 4px
-      overflow hidden
-      margin-top 5px
-      li
-        float left
-        width 36px
-        height 36px
-        cursor pointer
-        background no-repeat center center
-        background-size 16px auto
-        &:hover
-          background-color $list-bg-tr-hover
-      .v-list
-        width 37px
-        border-right 1px solid $list-border
-        background-image $list-view-list
-        &.active
-          background-image $list-view-list-active
-          pointer-events none
-      .v-card
-        background-image $list-view-card
-        &.active
-          background-image $list-view-card-active
-          pointer-events none
+    .tab
+      height 50px
+      padding 0 20px
+      border-bottom 1px solid $list-border
+      &.fix
+        position fixed
+        top 0
+        width 1200px
+        margin 0 auto
+        background $list-bg
+        box-shadow 0 0 4px 0 $list-shadow
+        z-index 100
+      .classify
+        line-height 47px
+        li
+          float left
+          font-size 16px
+          color $list-color-normal
+          cursor pointer
+          margin-right 40px
+          &.active
+            font-weight bold
+            border-bottom 3px solid $list-border-active
+            pointer-events none
+          &:hover
+            color $list-color-hover
+      .view
+        float right
+        border 1px solid $list-border
+        border-radius 4px
+        overflow hidden
+        margin-top 5px
+        li
+          float left
+          width 36px
+          height 36px
+          cursor pointer
+          background no-repeat center center
+          background-size 16px auto
+          &:hover
+            background-color $list-bg-tr-hover
+        .v-list
+          width 37px
+          border-right 1px solid $list-border
+          background-image $list-view-list
+          &.active
+            background-image $list-view-list-active
+            pointer-events none
+        .v-card
+          background-image $list-view-card
+          &.active
+            background-image $list-view-card-active
+            pointer-events none
 
   .table
     padding 20px 20px 0 20px

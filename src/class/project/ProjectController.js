@@ -7,6 +7,15 @@ class ProjectController extends ExchangeControllerBase {
         this.store = new ProjectStore();
     }
 
+    //获取首页项目列表
+    async getActivityHome(){
+        let data = await this.store.getActivity();
+        if(data.ret !== 1 ){
+            return Promise.resolve({msg: ""});
+        }
+        return Promise.resolve(data.data);
+    }
+
 }
 
 //静态实例

@@ -35,6 +35,7 @@ export default class Login extends ViewBase {
         if(data.msg){
             this.updateImageCode();
             this.setState({errMsg: data.msg, errTip: data.tip});
+            return;
         }
         this.bus.emit("login");
     }
