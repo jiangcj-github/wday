@@ -4,6 +4,7 @@ import ViewBase from "../ViewBase";
 import Thumbs from "../../common/components/thumbs";
 import "./stylus/search.styl";
 import RiceTextEditor from "../article/RiceTextEditor";
+import ArticleList from "../article/ArticleList";
 
 export default class Search extends ViewBase {
   constructor(props) {
@@ -37,7 +38,7 @@ export default class Search extends ViewBase {
           favourite: true
         },
       ],
-      articleList2: []
+      tags: ["数字数字", "你瞅啥"]
     }
   }
 
@@ -47,7 +48,6 @@ export default class Search extends ViewBase {
 
   render() {
     let {tabSelect} = this.state;
-    let tags = ["数字数字", "你瞅啥"];
     return (
       <div className="search-main">
         {/* tab */}
@@ -65,79 +65,7 @@ export default class Search extends ViewBase {
         {
           this.state.tabSelect === "article" &&
           <div className="search-article">
-            <div className="article">
-              <ul>
-                {this.state && this.state.articleList && this.state.articleList.map((v, index) => (
-                  <li key={index}>
-                    {/* 根据是否有文章大图 切换显示 */}
-                    {v.img ?
-                      (
-                        <div className="article-has-img">
-                          <div>
-                            <p className="article-title">
-                              {v.title && v.title.toString().length > 36 ? v.title.toString().shearStr(36) : v.title.toString()}
-
-                            </p>
-                            <p className="article-content">
-                              {v.content && v.content.toString().length > 100 ? v.content.toString().shearStr(100) : v.content.toString()}
-
-                            </p>
-                          </div>
-                          <div>
-                            <img src={v.img}/>
-                          </div>
-                        </div>
-                      ) :
-                      (<div className="article-no-img">
-                        <p className="article-title">
-                          {v.title && v.title.toString().length > 29 ? v.title.toString().shearStr(29) : v.title.toString()}
-
-                        </p>
-                        <p className="article-content">
-                          {v.content && v.content.toString().length > 75 ? v.content.toString().shearStr(75) : v.content.toString()}
-                        </p>
-                      </div>)
-                    }
-                    {/* 文章信息，作者 时间 点赞数量及收藏等 */}
-                    <div className="article-info">
-                      <div className="left-info">
-                        <span className="article-author">{v.author}</span>
-                        <span className="article-date">{v.date}</span>
-                        {
-                          tags && tags.map((v, index) => (
-                            <span key={index} className="tag-name">{v}</span>
-                          ))
-                        }
-                      </div>
-                      <div className="right-info">
-                        <div className="watch">
-                          <div className="watch-div"></div>
-                          <span className="watch-span">66</span>
-                        </div>
-                        <div className="love">
-                          <div className="love-div"></div>
-                          <span className="love-span">55</span>
-                        </div>
-                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
-                             onClick={this.changeFav.bind(v.id, this)}>
-                          <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
-                          <span className="favourite-span">收藏</span>
-                        </div>
-
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              {
-                // 没有搜索结果时候显示空图
-                this.state && this.state.articleList && this.state.articleList.length === 0 &&
-                <div className="no-result">
-                  <img className="no-result-img" src={this.imageDict.$_no_result}/>
-                  <span>没有搜索到相关内容</span>
-                </div>
-              }
-            </div>
+            <ArticleList />
           </div>
         }
 
