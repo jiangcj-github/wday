@@ -64,6 +64,5 @@ export default function () {
     common,
     search
     project
->>>>>>> 项目详情页面
   );
 }
