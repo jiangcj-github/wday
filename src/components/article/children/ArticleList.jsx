@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ViewBase from "../ViewBase";
+import ViewBase from "../../ViewBase";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,8 +8,8 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/articlelist.styl"
-import ArticleController from "../../class/article/ArticleController"
+import "../stylus/articlelist.styl"
+import ArticleController from "../../../class/article/ArticleController"
 
 export default class ArticleList extends ViewBase {
   constructor(props) {

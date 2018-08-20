@@ -28,7 +28,7 @@ export default class ArticleController extends ExchangeControllerBase {
       })
     });
 
-    return resultR;
+    return result;
   }
 
   async getArticleDetail() {

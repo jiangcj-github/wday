@@ -4,7 +4,7 @@ import ViewBase from "../ViewBase";
 import Thumbs from "../../common/components/thumbs";
 import "./stylus/search.styl";
 import RiceTextEditor from "../article/RiceTextEditor";
-import ArticleList from "../article/ArticleList";
+import ArticleList from "../article/children/ArticleList";
 
 export default class Search extends ViewBase {
   constructor(props) {

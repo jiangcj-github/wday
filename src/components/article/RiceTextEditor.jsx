@@ -17,6 +17,8 @@ export default class RiceTextEditor extends ViewBase {
     this.getChildren = this.getChildren.bind(this);
     this.addP = this.addP.bind(this);
     this.addImageDiv = this.addImageDiv.bind(this);
+    this.findFather = this.findFather.bind(this);
+    this.btns = this.btns.bind(this);
   }
 
   imageHandle(e) {
@@ -90,16 +92,22 @@ export default class RiceTextEditor extends ViewBase {
     // });
   }
 
-  //为图片加入不可编辑的div
+  //为图片加入不可编辑的div (contentEditable为false 就删不掉图了)
   addImageDiv(imgDom) {
-    debugger;
     console.log("进入 addImageDiv");
     if(imgDom.parentNode.className ==="editor-place" || imgDom.parentNode.nodeName !=="DIV") {
       let myDiv = document.createElement("div");
       myDiv.style.textAlign = "center";
-      myDiv.appendChild(imgDom.cloneNode());
+      myDiv.setAttribute("contentEditable", "false");
+      myDiv.className = "imgDiv";
+      myDiv.appendChild(imgDom.cloneNode(true));
       imgDom.parentNode.replaceChild(myDiv,imgDom);
-
+      debugger;
+      // this.findFather(document.querySelector(".editor-place"));
+      let father = myDiv.parentNode.parentNode;
+      let tempNode = myDiv.cloneNode(true);
+      myDiv.parentNode.removeChild(myDiv);
+      father.appendChild(tempNode);
     }
   }
 
@@ -114,9 +122,28 @@ export default class RiceTextEditor extends ViewBase {
     }
   }
 
-  // 遍历递归dom   回调fun
+  // 遍历递归dom 找到祖宗
+  findFather(dom, imgDom) {
+    console.log("进入findFather");
+
+    if (dom && dom.className === "editor-place") {
+      console.log(11111111,dom);
+
+    }
+    else {
+      dom.childNodes.forEach((item, index) => {
+        if (item.hasChildNodes()) {
+          this.findFather(item);
+        }
+        if (item.nodeName === "IMG") {
+
+        }
+      });
+    }
+  }
+
+  // 遍历递归dom
   getChildren(dom) {
-    debugger;
     console.log("进入getChildren");
 
     if (dom && dom.hasChildNodes()) {
@@ -130,14 +157,23 @@ export default class RiceTextEditor extends ViewBase {
           // this.addP(item);
           this.addP(item);
         }
-        if(item.nodeName === "IMG") {
-          console.log(222, "i found a IMG");
-          this.addImageDiv(item);
+        if(item.nodeName === "I") {
+          console.log(222, "i found a I");
+          // document.createElement()
         }
       });
     }
   }
 
+  btns(btn) {
+    btn.onclick = () => {
+      let command = btn.dataset.exec;
+      console.log(command);
+
+      document.execCommand(command, false);
+    }
+
+  }
 
   componentDidMount() {
     // document.querySelector(".editor-place").addEventListener("keydown", this.textHandle);
@@ -145,6 +181,7 @@ export default class RiceTextEditor extends ViewBase {
       let dom = document.querySelector(".editor-place");
       this.getChildren(dom);
     });
+
   }
 
   render() {
@@ -152,7 +189,7 @@ export default class RiceTextEditor extends ViewBase {
       <div className="editor">
         <div className="toolbar">
           <input ref="file" type="file" id="file"/>
-          <button>
+          <button data-exec="bold" ref={this.btns}>
             <svg className="Zi Zi--FormatBold" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
               <path
                 d="M9 17.025V13h4.418c1.19 0 2.415.562 2.415 2.012s-1.608 2.013-2.9 2.013H9zM9 7h4.336c1 0 1.814.888 1.814 2 0 .89-.814 2-1.814 2H9V7zm8.192 1.899a3.893 3.893 0 0 0-3.888-3.889S9.334 5 8.167 5C7 5 7 6.167 7 6.167v11.666C7 19 8.167 19 8.167 19l5.572.01c2.333 0 4.231-1.86 4.231-4.148a4.122 4.122 0 0 0-1.77-3.372 3.873 3.873 0 0 0 .992-2.591z"

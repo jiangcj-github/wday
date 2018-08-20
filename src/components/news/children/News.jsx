@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ViewBase from "../ViewBase";
+import ViewBase from "../../ViewBase";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,9 +8,9 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/news.styl"
-import Thumbs from "../../common/components/thumbs/index";
-import NewsController from "../../class/news/NewsController";
+import "../stylus/news.styl"
+import Thumbs from "../../../common/components/thumbs/index";
+import NewsController from "../../../class/news/NewsController";
 
 export default class News extends ViewBase {
   constructor(props) {

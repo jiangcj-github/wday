@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 import "./stylus/home.styl"
 import ViewBase from "../ViewBase";
 import ProjectList from "./children/ProjectList";
-import ArticleList from "../article/ArticleList";
-import NewsListComponent from "../news/NewsListComponent";
+import ArticleList from "../article/children/ArticleList";
+import NewsListComponent from "./children/NewsListComponent";
 
 export default class Home extends ViewBase {
     constructor(props) {
@@ -27,11 +27,11 @@ export default class Home extends ViewBase {
                     <ProjectList history={history}/>
                     {/*文章列表*/}
                     <div className="article-wrap">
-                        <ArticleList />
+                        <ArticleList history={history} />
                     </div>
-                    {/*短讯列表*/}
+                    {/*快讯列表*/}
                     <div className="news-wrap">
-                        <NewsListComponent scrollType="home"/>
+                        <NewsListComponent scrollType="home" history={history}/>
                     </div>
                 </div>
             </div>

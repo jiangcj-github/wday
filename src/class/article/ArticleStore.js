@@ -35,7 +35,7 @@ export default class ArticleStore extends ExchangeStoreBase {
         favourite: true
       },
     ];
-    return resultR.data;
+    return result;
   }
 
   async getArticleDetail() {

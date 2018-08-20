@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ViewBase from "../ViewBase";
+import ViewBase from "../../ViewBase";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,21 +8,17 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/articleDetail.styl";
-import "./resource/image.styl";
-import ArticleController from "../../class/article/ArticleController"
+import "../stylus/articleDetail.styl";
+import "../resource/image.styl";
+import ArticleController from "../../../class/article/ArticleController"
 
-import Thumbs from "../../common/components/thumbs/index";
 
 export default class ArticleDetail extends ViewBase {
   constructor(props) {
     super(props);
-    // let {controller} = props;
-    // controller.setView(this);
     this.state = {
       articleDetail: {}
     };
-    // this.getArticleDetail = controller.getArticleDetail.bind(controller);
     this.addFavourite = this.addFavourite.bind(this);
     this.goodClick = this.goodClick.bind(this);
     this.badClick = this.badClick.bind(this);

@@ -14,11 +14,9 @@ import Footer from "./components/headerAndFooter/footer.jsx";
 import Home from "./components/home/Home.jsx"
 import ProjectManage from "./components/project/ProjectManage.jsx"
 
-import ArticleList from "./components/article/ArticleList";
-import NewsList from "./components/news/NewsList";
-import News from "./components/news/News";
-import ArticleDetail from "./components/article/ArticleDetail";
 import Search from "./components/search/Search";
+import ArticleManage from "./components/article/ArticleManage";
+import NewsManage from "./components/news/NewsManage";
 
 
 const header = ({ match, history }) =>
@@ -33,15 +31,12 @@ const home = ({match, history}) =>
 const projectManage = ({match, history}) =>
     <ProjectManage match={match} history={history}/>;
 
+const articleManage = ({match, history}) =>
+  <ArticleManage match={match} history={history}/>;
 
-const articleList = ({ match, history }) =>
-  <ArticleList match={match} history={history} />;
-const articleDetail = ({ match, history }) =>
-  <ArticleDetail match={match} history={history} />;
-const newsList = ({ match, history }) =>
-  <NewsList match={match} history={history} />;
-const news = ({ match, history }) =>
-  <News match={match} history={history} />;
+const newsManage = ({match, history}) =>
+  <NewsManage match={match} history={history}/>;
+
 const search = ({ match, history }) =>
   <Search match={match} history={history} />;
 
@@ -64,10 +59,9 @@ export default class App extends Component {
                             <Route path="/home" component={home}/>
                             <Route path="/project" component={projectManage}/>
 
-                            <Route path="/article" component={articleDetail}  />
-                            <Route path="/articlelist" component={articleList}  />
-                            <Route path="/newslist" component={newsList}  />
-                            <Route path="/news" component={news}  />
+                            <Route path="/article" component={articleManage}  />
+                            <Route path="/news" component={newsManage}  />
+
                             <Route path="/search" component={search}  />
                             <Redirect to="/home" />
                         </Switch>

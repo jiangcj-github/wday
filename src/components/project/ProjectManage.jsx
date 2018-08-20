@@ -5,9 +5,9 @@ import {
     Switch
 } from "react-router-dom";
 import ViewBase from "../../components/ViewBase";
-import List from "./children/List"
-import Detail from "./children/Detail"
-import "./stylus/project.styl"
+import List from "./children/List";
+import Detail from "./children/Detail";
+import "./stylus/project.styl";
 
 export default class ProjectManage extends ViewBase {
     constructor() {

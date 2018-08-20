@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ViewBase from "../ViewBase";
+import ViewBase from "../../ViewBase";
 import ReactDom from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -9,9 +9,9 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/newslistcomponent.styl";
-import NewsController from "../../class/news/NewsController";
-import NewsDayItem from "./NewsDayItem";
+import "../stylus/newslistcomponent.styl";
+import NewsController from "../../../class/news/NewsController";
+import NewsDayItem from "../../news/children/NewsDayItem";
 
 export default class NewsListComponent extends ViewBase {
   constructor(props) {
@@ -67,6 +67,7 @@ export default class NewsListComponent extends ViewBase {
   }
 
   render() {
+    let {history} = this.props;
     return (
       <div className="scroll-sign">
         <div className="news-list-by-day">
@@ -90,7 +91,7 @@ export default class NewsListComponent extends ViewBase {
                   <p className="date-is">{this.state && this.state.cardDayis}</p>
                   <p className="week">{this.state && this.state.cardWeek}</p>
                 </div>
-                <div className="jump">
+                <div className="jump" >
                   <img src={this.imageDict.$_news_next_normal} />
                 </div>
               </div>

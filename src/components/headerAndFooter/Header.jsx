@@ -132,7 +132,7 @@ export default class Header extends ViewBase {
                       <div className="nav-left">
                           <Link to="/home" className={menuItemSelect === "home" ? "active" : ""}>首页</Link>
                           <Link to="/project" className={menuItemSelect === "project" ? "active" : ""}>项目库</Link>
-                          <Link to="/newslist" className={menuItemSelect === "news" ? "active" : ""}>快讯</Link>
+                          <Link to="/news" className={menuItemSelect === "news" ? "active" : ""}>快讯</Link>
                           <p className="srch">
                               <input type="text" placeholder="搜索ico项目、文章、快讯"/><i/>
                           </p>

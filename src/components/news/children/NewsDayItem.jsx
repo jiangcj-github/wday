@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ViewBase from "../ViewBase";
+import ViewBase from "../../ViewBase";
 import {
   Route,
   Link,
@@ -7,8 +7,8 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "./stylus/newsdayitem.styl"
-import Thumbs from "../../common/components/thumbs/index";
+import "../stylus/newsdayitem.styl"
+import Thumbs from "../../../common/components/thumbs/index";
 
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
