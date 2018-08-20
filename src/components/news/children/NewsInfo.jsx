@@ -12,7 +12,7 @@ import "../stylus/news.styl"
 import Thumbs from "../../../common/components/thumbs/index";
 import NewsController from "../../../class/news/NewsController";
 
-export default class News extends ViewBase {
+export default class NewsInfo extends ViewBase {
   constructor(props) {
     super(props);
     this.state = {

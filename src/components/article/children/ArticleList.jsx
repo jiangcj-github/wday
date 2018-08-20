@@ -17,8 +17,7 @@ export default class ArticleList extends ViewBase {
     this.state = {
       articleList: [],
       tags : ["数字数字", "你瞅啥"],
-      page: 1,
-      flag: false, // 滚动中检测
+      page: 1
     }
   }
 

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import ViewBase from "../../components/ViewBase";
 import List from "./children/NewsList";
-import Detail from "./children/News";
+import Detail from "./children/NewsInfo";
 
 export default class NewsManage extends ViewBase {
   constructor(props) {

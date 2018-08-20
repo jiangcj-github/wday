@@ -44,7 +44,7 @@ export default class NewsListComponent extends ViewBase {
         let dom = this.state.scrollType === "window" ? document.documentElement : document.querySelector(".news-wrap");
         // 加上这个，两个页面都能平稳滚动。慢慢找哪里不对
         let num =  this.state.scrollType === "window" ? 0 : 20;
-        if (dom.scrollTop >= v.value - num) {
+        if (dom.scrollTop >= v.value -20) {
           console.log(1111);
           this.setState({
             cardMonth: this.refs[v.name].state.cardMonth,
@@ -54,6 +54,7 @@ export default class NewsListComponent extends ViewBase {
             cardWeek: this.refs[v.name].state.cardWeek,
             cardTitle: this.refs[v.name].state.cardTitle,
           });
+
         }
       });
       // window滚动需要删除卡片
@@ -66,6 +67,10 @@ export default class NewsListComponent extends ViewBase {
     };
   }
 
+  componentWillUnmount() {
+    (this.state.scrollType === "window" ? window : document.querySelector(".news-wrap")).onscroll = null;
+  }
+
   render() {
     let {history} = this.props;
     return (
@@ -75,6 +80,9 @@ export default class NewsListComponent extends ViewBase {
           <NewsDayItem ref="test" news={""} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
           <NewsDayItem ref="test2" news={""} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
           <NewsDayItem ref="test3" news={""} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
+          <NewsDayItem ref="test4" news={""} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
+          <NewsDayItem ref="test5" news={""} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
+          <NewsDayItem ref="test6" news={""} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
         </div>
 
         <div className="top-card">
