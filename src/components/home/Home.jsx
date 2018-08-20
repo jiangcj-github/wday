@@ -22,15 +22,17 @@ export default class Home extends ViewBase {
         let {history} = this.props;
         return (
             <div className="home-wrap">
-                {/*项目列表*/}
-                <ProjectList history={history}/>
-                {/*文章列表*/}
-                <div className="article-wrap">
-                  <ArticleList />
-                </div>
-                {/*短讯列表*/}
-                <div className="news-wrap">
-                  <NewsListComponent scrollType="home"/>
+                <div className="home">
+                    {/*项目列表*/}
+                    <ProjectList history={history}/>
+                    {/*文章列表*/}
+                    <div className="article-wrap">
+                        <ArticleList />
+                    </div>
+                    {/*短讯列表*/}
+                    <div className="news-wrap">
+                        <NewsListComponent scrollType="home"/>
+                    </div>
                 </div>
             </div>
         );

@@ -135,65 +135,63 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_dbxq}/>
                             <span>代币详情</span>
                         </h3>
-                        <div className="row">
-                            <p>
-                                <b>名称：</b>
-                                <i>In Sue Usa</i>
-                            </p>
-                            <p>
-                                <b>ICO价格：</b>
-                                <i>In Sue Usa</i>
-                            </p>
-                            <p>
-                                <b>名称：</b>
-                                <i>$1.24、</i>
-                                <i>$1.24、</i>
-                                <i>$1.24、</i>
-                            </p>
-                        </div>
-                        <div className="row">
-                            <p>
-                                <b>简称：</b>
-                                <i>ISU</i>
-                            </p>
-                            <p>
-                                <b>ICO总量：</b>
-                                <i>1000万</i>
-                            </p>
-                            <p>
-                                <b>目标金额(高)：</b>
-                                <i>- -</i>
-                            </p>
-                        </div>
-                        <div className="row">
-                            <p>
-                                <b>平台：</b>
-                                <i>ISU</i>
-                            </p>
-                            <p>
-                                <b>发行总量：</b>
-                                <i>1亿</i>
-                            </p>
-                            <p>
-                                <b>实际金额：</b>
-                                <i>$1000万</i>
-                            </p>
-                        </div>
-                        <div className="row">
-                            <p>
-                                <b>地区：</b>
-                                <i>新加坡</i>
-                            </p>
-                            <p>
-                                <b>接受币种：</b>
-                                <i>USDT、BTC、BCH</i>
-                                <i>USDT、BTC、BCH</i>
-                            </p>
-                            <p>
-                                <b>ICO进度：</b>
-                                <i>100%</i>
-                            </p>
-                        </div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <b>名称：</b>
+                                    <i>In Sue Usa</i></td>
+                                <td>
+                                    <b>ICO价格：</b>
+                                    <i>In Sue Usa</i>
+                                </td>
+                                <td>
+                                    <b>名称：</b>
+                                    <i>$1.24、</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>简称：</b>
+                                    <i>ISU</i>
+                                </td>
+                                <td>
+                                    <b>ICO总量：</b>
+                                    <i>1000万</i>
+                                </td>
+                                <td>
+                                    <b>目标金额(高)：</b>
+                                    <i>- -</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>平台：</b>
+                                    <i>ISU</i>
+                                </td>
+                                <td>
+                                    <b>发行总量：</b>
+                                    <i>1亿</i>
+                                </td>
+                                <td>
+                                    <b>实际金额：</b>
+                                    <i>$1000万</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>地区：</b>
+                                    <i>新加坡</i>
+                                </td>
+                                <td>
+                                    <b>接受币种：</b>
+                                    <i>USDT、BTC、BCH</i>
+                                </td>
+                                <td>
+                                    <b>ICO进度：</b>
+                                    <i>100%</i>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     {/*项目优势*/}
                     <div className="para para3">
@@ -210,51 +208,56 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_rdpj}/>
                             <span>热度评级</span>
                         </h3>
-                        <div/>
-                        <ul>
-                            <li>
-                                <label>媒体报道（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>搜索热度（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>社群建设（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>团队背景（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>技术可行性（10分）</label>
-                                <span>4分</span>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <label>市场潜力（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>商业模式（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>产品创新性（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>白皮书可信性（10分）</label>
-                                <span>4分</span>
-                            </li>
-                            <li>
-                                <label>风险承受能力（10分）</label>
-                                <span>4分</span>
-                            </li>
-                        </ul>
+                        <div className="flex">
+                            <div className="left">
+                                <Heat width={36} height={150} step={70}/>
+                                <i>70</i>
+                            </div>
+                            <ul>
+                                <li>
+                                    <label>媒体报道（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>搜索热度（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>社群建设（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>团队背景（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>技术可行性（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <label>市场潜力（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>商业模式（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>产品创新性（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>白皮书可信性（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                                <li>
+                                    <label>风险承受能力（10分）</label>
+                                    <span>4分</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     {/*用户打分*/}
                     <div className="para para5">
@@ -262,46 +265,61 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_yhdf}/>
                             <span>用户打分</span>
                         </h3>
-                        <p>
-                            <label>市场潜力（10分）</label>
-                            <span>很高</span>
-                            <span>高</span>
-                            <span>一般</span>
-                            <span>低</span>
-                            <span>很低</span>
-                        </p>
-                        <p>
-                            <label>创业模式（10分）</label>
-                            <span>很高</span>
-                            <span>高</span>
-                            <span>一般</span>
-                            <span>低</span>
-                            <span>很低</span>
-                        </p>
-                        <p>
-                            <label>媒体报道（10分）</label>
-                            <span>很高</span>
-                            <span>高</span>
-                            <span>一般</span>
-                            <span>低</span>
-                            <span>很低</span>
-                        </p>
-                        <p>
-                            <label>媒体报道（10分）</label>
-                            <span>很高</span>
-                            <span>高</span>
-                            <span>一般</span>
-                            <span>低</span>
-                            <span>很低</span>
-                        </p>
-                        <p>
-                            <label>媒体报道（10分）</label>
-                            <span>很高</span>
-                            <span>高</span>
-                            <span>一般</span>
-                            <span>低</span>
-                            <span>很低</span>
-                        </p>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>市场潜力（10分）</td>
+                                    <td><span className="radio yes">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                </tr>
+                                <tr>
+                                    <td>创业模式（10分）</td>
+                                    <td><span className="radio no">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                </tr>
+                                <tr>
+                                    <td>媒体报道（10分）</td>
+                                    <td><span className="radio yes">很高</span></td>
+                                    <td><span className="radio yes">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                </tr>
+                                <tr>
+                                    <td>媒体报道（10分）</td>
+                                    <td><span className="radio no">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                </tr>
+                                <tr>
+                                    <td>媒体报道（10分）</td>
+                                    <td><span className="radio no">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                </tr>
+                                <tr>
+                                    <td>媒体报道（10分）</td>
+                                    <td><span className="radio no">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div className="submit">
+                            <button>提交</button>
+                        </div>
                     </div>
                     {/*团队介绍*/}
                     <div className="para para6">
@@ -309,48 +327,54 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_tdjs}/>
                             <span>团队介绍</span>
                         </h3>
-                        <div className="card-wrap">
-                            <div className="card">
-                                <img src=""/>
-                                <b>狄公</b>
-                                <i>职位名称</i>
-                            </div>
-                            <div className="card">
-                                <img src=""/>
-                                <b>林玉生</b>
-                                <i>职位名称</i>
-                            </div>
-                            <div className="card">
-                                <img src=""/>
-                                <b>马荣</b>
-                                <i>职位名称</i>
-                            </div>
-                            <div className="card">
-                                <img src=""/>
-                                <b>乔泰</b>
-                                <i>职位名称</i>
-                            </div>
-                            <div className="card">
-                                <img src=""/>
-                                <b>狄公</b>
-                                <i>职位名称</i>
-                            </div>
-                            <div className="card">
-                                <img src=""/>
-                                <b>林玉生</b>
-                                <i>职位名称</i>
-                            </div>
-                            <div className="card">
-                                <img src=""/>
-                                <b>马荣</b>
-                                <i>职位名称</i>
-                            </div>
-                            <div className="card">
-                                <img src=""/>
-                                <b>乔泰</b>
-                                <i>职位名称</i>
-                            </div>
-                        </div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                    <td>
+                                        <img src="/static/web/icon_coin_five@3x.png"/>
+                                        <b>狄公</b>
+                                        <i>职位名称</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     {/*路线图*/}
                     <div className="para para7">
@@ -358,29 +382,27 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_lxt}/>
                             <span>路线图</span>
                         </h3>
-                        <p>
-                            <span>2016-06-29</span>
-                            <i/>
-                            <span>阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
-                        </p>
-                        <p>
-                            <span>2016-06-29</span>
-                            <i/>
-                            <span>阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
-                        </p>
-                        <p>
-                            <span>2016-06-29</span>
-                            <i/>
-                            <span>阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
-                        </p>
-                        <p>
-                            <span>2016-06-29</span>
-                            <i/>
-                            <span>阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
-                        </p>
+                        <div className="route">
+                            <p>
+                                <span className="s1">2016-06-29</span>
+                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
+                            </p>
+                            <p>
+                                <span className="s1">2016-06-29</span>
+                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
+                            </p>
+                            <p>
+                                <span className="s1">2016-06-29</span>
+                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
+                            </p>
+                            <p>
+                                <span className="s1">2016-06-29</span>
+                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一标一</span>
+                            </p>
+                            <i className="line"/>
+                        </div>
                     </div>
                     {/*相关文章*/}
-                    <Heat width={36} height={150} step={80} />
                 </div>
             </div>)
     }

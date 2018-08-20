@@ -2,7 +2,7 @@
 @import "../resource/image.styl"
 
 .project-detail
-
+  //顶部项目介绍
   .profile-wrap
     background $detail-bg
     box-shadow 0 0 4px 0 $list-shadow
@@ -15,6 +15,7 @@
         display flex
         align-items center
         border-bottom 1px solid $detail-border
+
         .d1-l
           flex-grow 1
           img
@@ -42,8 +43,7 @@
               border-radius 73px
               margin-right 10px
 
-
-
+        //分享
         .d1-r
           text-align right
           .status
@@ -95,7 +95,6 @@
                   background-image $list-collect-no
                   &:hover
                     background-image $list-collect-no-hover
-
 
       .d2
         height 126px
@@ -170,8 +169,6 @@
 
 
 
-
-
   .content
     width 760px
     margin 10px auto
@@ -193,6 +190,7 @@
           border-bottom 3px solid $detail-color-active
           font-weight bold
 
+    //para通用
     .para
       margin 0 20px
       padding 30px 0
@@ -208,6 +206,8 @@
           height 16px
           margin-right 7px
           vertical-align -2px
+
+    //项目介绍
     .para1
       padding 20px 0
       p
@@ -240,12 +240,185 @@
               background-image $detail-retract-hover
 
 
+    //代币详情
+    .para2
+      padding 30px 0 20px 0
+      table
+        width 100%
+        tr
+          height 36px
+          line-height 26px
+          td
+            &:nth-child(1)
+              width 220px
+            &:nth-child(2)
+              width 280px
+            &:nth-child(3)
+              width 240px
+            b
+              font-size 16px
+              color $detail-color-light
+            i
+              font-size 16px
+              color $detail-color-weight
 
 
+    //项目优势
+    .para3
+      padding 30px 0 20px 0
+      p
+        font-size 16px
+        color $detail-color-weight
+        line-height 26px
+        margin-bottom 10px
+
+    //热度评价
+    .para4
+      .flex
+        display flex
+        .left
+          width 220px
+          text-align center
+          .heat-wrap
+            display inline-block
+          i
+            font-size 28px
+            color $detail-color-heat
+            margin-left 24px
+            vertical-align 5px
+        ul
+          width 50%
+          li
+            line-height 26px
+            label
+              font-size 16px
+              color $detail-color-light
+            span
+              font-size 16px
+              color $detail-color-weight
+            &:not(:last-of-type)
+              margin-bottom 10px
 
 
+    //用户打分
+    .para5
+      padding 30px 0 20px 0
+      position relative
+      table
+        width 600px
+        padding-right 144px
+        tr
+          line-height 26px
+          height 36px
+          td
+            text-align right
+            &:first-of-type
+              text-align left
+              font-size 16px
+              color $detail-color-light
+            .radio
+              display inline-block
+              color $detail-color-weight
+              font-size 16px
+              height 26px
+              line-height 26px
+              background no-repeat 0 center
+              background-size 16px 16px
+              padding-left 22px
+              cursor pointer
+              &.no
+                background-image $detail-radio-normal
+                &:hover
+                  background-image $detail-radio-hover
+              &.yes
+                background-image $detail-radio-selected
+      .submit
+        position absolute
+        bottom 30px
+        right 0
+        button
+          font-size 16px
+          color $detail-color-btn
+          line-height 26px
+          padding 5px 12px
+          background $detail-color-active
+          cursor pointer
+          border-radius 4px
+          border 0
+          outline 0
+          &.disable
+            opacity 0.5
+            pointer-events none
+          &:hover
+            background $detail-color-link
 
 
+    //团队介绍
+    .para6
+      padding 30px 0 0 0
+      table
+        width 100%
+        td
+          text-align center
+          img
+            display inline-block
+            margin-bottom 10px
+            height 80px
+            width 80px
+            cursor pointer
+            &:hover
+              transform scale(1.1)
+          b
+            display block
+            font-size 16px
+            color $detail-color-weight
+            line-height 26px
+          i
+            display block
+            font-size 14px
+            color $detail-color-light
+            line-height 26px
+            margin-bottom 20px
+
+    //路线图
+    .para7
+      .route
+        position relative
+        p
+          line-height 26px
+          display flex
+          &:not(:last-of-type)
+            margin-bottom 10px
+          .s1
+            height 26px
+            font-size 14px
+            color $detail-color-light
+            width 100px
+            position relative
+            flex-shrink 0
+            &:after
+              display inline-block
+              content ""
+              border-radius 100%
+              background $detail-color-weight
+              width 10px
+              height 10px
+              z-index 2
+              position absolute
+              right 0
+              top 50%
+              margin-top -5px
+          .s2
+            font-size 16px
+            color $detail-color-weight
+            margin-left 20px
+        i
+          position absolute
+          top 10px
+          bottom 0
+          left 95px
+          border-left 1px solid $detail-border
+          transform translateX(-0.5px)
 
 
 
