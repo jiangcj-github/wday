@@ -27,14 +27,14 @@ export default class Home extends ViewBase {
 
         let {finishActivity, runActivity, soonActivity} = projects;
         //进行中
-        let runAll = runActivity.all;
-        let runList = runActivity.list || [];
+        let runAll = runActivity.all || 40;
+        let runList = runActivity.list || [1,2,3,4];
         //已完成
-        let finishAll = finishActivity.all;
-        let finishList = finishActivity.list || [];
+        let finishAll = finishActivity.all || 30;
+        let finishList = finishActivity.list || [1,2,3];
         //即将进行
-        let soonAll = soonActivity.all;
-        let soonList = soonActivity.list || [];
+        let soonAll = soonActivity.all || 20;
+        let soonList = soonActivity.list || [1,2];
 
         return (
             <div className="project-wrap">
@@ -66,7 +66,7 @@ export default class Home extends ViewBase {
                             <p className="br"/>
                         </div>)}
                     {/*查看全部*/}
-                    <a className="more">查看全部{runAll}个项目</a>
+                    <a className="more" onClick={()=>history.push("/project/list")}>查看全部{runAll}个项目</a>
                 </div>
 
                 {/*即将开始*/}
@@ -96,7 +96,7 @@ export default class Home extends ViewBase {
                             <p className="br"/>
                         </div>)}
                     {/*查看全部*/}
-                    <a className="more">查看全部{soonAll}个项目</a>
+                    <a className="more" onClick={()=>history.push("/project/list")}>查看全部{soonAll}个项目</a>
                 </div>
 
                 {/*已结束*/}
@@ -126,7 +126,7 @@ export default class Home extends ViewBase {
                             <p className="br"/>
                         </div>)}
                     {/*查看全部*/}
-                    <a className="more">查看全部{finishAll}个项目</a>
+                    <a className="more" onClick={()=>history.push("/project/list")}>查看全部{finishAll}个项目</a>
                 </div>
 
             </div>

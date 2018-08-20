@@ -121,7 +121,7 @@
               background $header-bg-nav
               box-shadow 0 0 10px 0 $header-shadow-drop
               border-radius 2px
-              z-index 100
+              z-index 1000
               margin-top 15px
               &:before
                 content ""
@@ -136,8 +136,10 @@
                 transform rotate(45deg)
                 box-shadow -3px -3px 10px 0 $header-shadow-drop
               &.wechat-drop
-                width 136px
-                margin-left -68px
+                width 116px
+                height 116px
+                margin-left -58px
+                padding 10px
               &.person-drop
                 width 116px
                 margin-left -58px

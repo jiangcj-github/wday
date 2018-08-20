@@ -10,6 +10,7 @@ import {
 import ViewBase from "../ViewBase";
 import Login from "./children/Login"
 import LoginController from "../../class/login/LoginController"
+import QRCode from "qrcode.react";
 
 import './stylus/header.styl'
 
@@ -22,6 +23,7 @@ export default class Header extends ViewBase {
           top1: 0,              //轮播参数
           top2: 40,
           menuItemSelect:  "",     //设置导航菜单选中项
+          searchInput: "",          //搜索框-输入
       };
       this.controller = LoginController();
     }
@@ -61,7 +63,9 @@ export default class Header extends ViewBase {
     }
 
     render() {
-        let {showLogin, top1, top2, phone, menuItemSelect} = this.state;
+        let {history} = this.props;
+        let {showLogin, top1, top2, phone, menuItemSelect,searchInput} = this.state;
+
         return (
           <div className="header">
               {/*价格轮播*/}
@@ -134,7 +138,10 @@ export default class Header extends ViewBase {
                           <Link to="/project" className={menuItemSelect === "project" ? "active" : ""}>项目库</Link>
                           <Link to="/news" className={menuItemSelect === "news" ? "active" : ""}>快讯</Link>
                           <p className="srch">
-                              <input type="text" placeholder="搜索ico项目、文章、快讯"/><i/>
+                              <input type="text" placeholder="搜索ico项目、文章、快讯"
+                                     value={searchInput}
+                                     onInput={e=>this.setState({searchInput: e.target.value})}/>
+                              <i onClick={()=>history.push(`/search?word=${searchInput}`)}/>
                           </p>
                       </div>
                       {/*右侧菜单项*/}
@@ -147,7 +154,7 @@ export default class Header extends ViewBase {
                           <div className="ri">
                               <i className="wechat"/>
                               <div className="drop wechat-drop">
-
+                                  <QRCode value="http://www.baidu.com?word=每日必读" size={96}/>
                               </div>
                           </div>
                           {/*登录注册, 个人中心*/}
@@ -159,7 +166,7 @@ export default class Header extends ViewBase {
                               <div className="ri">
                                   <i className="person"/>
                                   <ul className="drop person-drop">
-                                      <li>
+                                      <li onClick={()=>history.push("/person/collect")}>
                                           <img src={this.imageDict.$icon_collect_big_normal}/>
                                           <span>我的收藏</span>
                                       </li>

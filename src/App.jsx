@@ -17,28 +17,7 @@ import ProjectManage from "./components/project/ProjectManage.jsx"
 import Search from "./components/search/Search";
 import ArticleManage from "./components/article/ArticleManage";
 import NewsManage from "./components/news/NewsManage";
-
-
-const header = ({ match, history }) =>
-    <Header match={match} history={history}/>;
-
-const footer = ({ match, history }) =>
-    <Footer match={match} history={history}/>;
-
-const home = ({match, history}) =>
-    <Home match={match} history={history}/>;
-
-const projectManage = ({match, history}) =>
-    <ProjectManage match={match} history={history}/>;
-
-const articleManage = ({match, history}) =>
-  <ArticleManage match={match} history={history}/>;
-
-const newsManage = ({match, history}) =>
-  <NewsManage match={match} history={history}/>;
-
-const search = ({ match, history }) =>
-  <Search match={match} history={history} />;
+import PersonManage from "./components/person/PersonManage";
 
 export default class App extends Component {
     constructor(props) {
@@ -46,6 +25,31 @@ export default class App extends Component {
     }
 
     render() {
+
+        const header = ({ match, history }) =>
+            <Header match={match} history={history}/>;
+
+        const footer = ({ match, history }) =>
+            <Footer match={match} history={history}/>;
+
+        const home = ({match, history}) =>
+            <Home match={match} history={history}/>;
+
+        const projectManage = ({match, history}) =>
+            <ProjectManage match={match} history={history}/>;
+
+        const articleManage = ({match, history}) =>
+            <ArticleManage match={match} history={history}/>;
+
+        const newsManage = ({match, history}) =>
+            <NewsManage match={match} history={history}/>;
+
+        const search = ({ match, history }) =>
+            <Search match={match} history={history} />;
+
+        const personManage = ({ match, history }) =>
+            <PersonManage match={match} history={history} />;
+
         return (
             <Router>
                 <div className="router-wrap">
@@ -63,6 +67,7 @@ export default class App extends Component {
                             <Route path="/news" component={newsManage}  />
 
                             <Route path="/search" component={search}  />
+                            <Route path="/person" component={personManage} />
                             <Redirect to="/home" />
                         </Switch>
                     </div>
