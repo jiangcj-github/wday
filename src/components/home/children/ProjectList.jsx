@@ -15,13 +15,13 @@ export default class Home extends ViewBase {
     }
 
     render() {
-
+        let {history} = this.props;
         return (
             <div className="project-wrap">
                 {/*进行中*/}
                 <div className="project">
                     <h3 className="doing">进行中</h3>
-                    <div className="pi">
+                    <div className="pi" onClick={()=>history.push("/project/detail?id=xxx")}>
                         {/*项目图标，简称，详细名称*/}
                         <p className="name">
                             <img src="/static/web/icon_coin_five@3x.png"/>

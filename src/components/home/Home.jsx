@@ -19,11 +19,11 @@ export default class Home extends ViewBase {
     }
 
     render() {
-
+        let {history} = this.props;
         return (
             <div className="home-wrap">
                 {/*项目列表*/}
-                <ProjectList/>
+                <ProjectList history={history}/>
                 {/*文章列表*/}
                 <div className="article-wrap">
                   <ArticleList />

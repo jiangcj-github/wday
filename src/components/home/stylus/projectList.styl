@@ -10,8 +10,6 @@
     background $project-bg
     border-radius 2px
     box-shadow 0 0 4px 0 $project-shadow
-    &:hover
-      background $project-bg-hover
     .doing
       color $project-color-doing
     .prepare
@@ -27,6 +25,8 @@
     .pi
       padding 20px 20px 0 20px
       cursor pointer
+      &:hover
+        background $project-bg-hover
       .name
         height 40px
         display flex

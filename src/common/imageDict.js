@@ -43,6 +43,18 @@ let news = {
 let search = {
   $_no_result : "/static/web/img_empty_one@3x.png"
 }
+
+let project = {
+   $_icon_project_xmjs : "/static/web/icon_project_xmjs@3x.png",
+   $_icon_project_dbxq : "/static/web/icon_project_dbxq@3x.png",
+   $_icon_project_xmys : "/static/web/icon_project_xmys@3x.png",
+   $_icon_project_rdpj : "/static/web/icon_project_rdpj@3x.png",
+   $_icon_project_yhdf : "/static/web/icon_project_yhdf@3x.png",
+   $_icon_project_tdjs : "/static/web/icon_project_tdjs@3x.png",
+   $_icon_project_lxt : "/static/web/icon_project_lxt@3x.png",
+   $_icon_project_xgwz : "/static/web/icon_project_xgwz@3x.png",
+};
+
 export default function () {
   return Object.assign({},
     news,
@@ -51,5 +63,7 @@ export default function () {
     article,
     common,
     search
+    project
+>>>>>>> 项目详情页面
   );
 }

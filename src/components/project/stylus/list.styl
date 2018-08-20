@@ -1,0 +1,226 @@
+@import "../resource/color.styl"
+@import "../resource/image.styl"
+
+.project-list
+  width 1200px
+  margin 10px auto 0 auto
+  background $list-bg
+  box-shadow 0 0 4px 0 $list-shadow
+  border-radius 2px
+  overflow hidden
+  .tab
+    height 50px
+    padding 0 20px
+    border-bottom 1px solid $list-border
+    &.fix
+      position fixed
+      top 0
+      width 1200px
+      margin 0 auto
+      background $list-bg
+      box-shadow 0 0 4px 0 $list-shadow
+      z-index 100
+    .classify
+      line-height 47px
+      li
+        float left
+        font-size 16px
+        color $list-color-normal
+        cursor pointer
+        margin-right 40px
+        &.active
+          font-weight bold
+          border-bottom 3px solid $list-border-active
+          pointer-events none
+        &:hover
+          color $list-color-hover
+    .view
+      float right
+      border 1px solid $list-border
+      border-radius 4px
+      overflow hidden
+      margin-top 5px
+      li
+        float left
+        width 36px
+        height 36px
+        cursor pointer
+        background no-repeat center center
+        background-size 16px auto
+        &:hover
+          background-color $list-bg-tr-hover
+      .v-list
+        width 37px
+        border-right 1px solid $list-border
+        background-image $list-view-list
+        &.active
+          background-image $list-view-list-active
+          pointer-events none
+      .v-card
+        background-image $list-view-card
+        &.active
+          background-image $list-view-card-active
+          pointer-events none
+
+  .table
+    padding 20px 20px 0 20px
+    .thead
+      height 50px
+      line-height 50px
+      background $list-bg-thead
+      display flex
+      user-select none
+      p
+        color $list-color-light
+        &.name
+          padding-left 80px
+        &.collect
+          padding-right 30px
+          text-align right
+        &.sortable
+          cursor pointer
+          display inline-flex
+          &:hover
+            i.none
+              background-image $list-sort-hover
+          i
+            display inline-block
+            width 10px
+            height 100%
+            margin-left 6px
+            background no-repeat center center
+            background-size 10px auto
+            &.none
+              background-image $list-sort
+            &.up
+              background-image $list-sort-up
+            &.down
+              background-image $list-sort-down
+
+    .tr
+      height 100px
+      display flex
+      align-items center
+      cursor pointer
+      &:hover
+        background $list-bg-tr-hover
+      &:nth-child(2n+1)
+        background $list-bg-tr
+      p
+        line-height 20px
+        margin 10px 0
+        font-size 14px
+        color $list-color-normal
+      .name
+        padding-left 30px
+        img
+          width 40px
+          height auto
+          float left
+          margin-top 5px
+        .p1
+          margin-left 50px
+          margin-bottom 6px
+          line-height 20px
+          height 20px
+          b
+            font-size 20px
+            color $list-color-normal
+            margin-right 6px
+          i
+            font-size 14px
+            color $list-color-normal
+        .p2
+          margin-left 50px
+          i
+            display inline-block
+            height 24px
+            line-height 24px
+            font-size 12px
+            padding 0 12px
+            color $list-color-light
+            background $list-bg-badge
+            border-radius 73px
+            margin-right 10px
+      .time
+        p
+          line-height 20px
+          margin 10px 0
+          fotn-size 14px
+          color $list-color-normal
+      .price
+        p
+          margin 6px 0
+      .step
+        .progress-wrap
+          width 50px
+          display inline-block
+          vertical-align top
+          margin-top 8px
+        i
+          display inline-block
+          vertical-align top
+          line-height 20px
+          font-size 12px
+          color $list-color-active
+          margin-left 10px
+      .recvCoin
+        p
+          span
+            margin 0 3px
+      .heat
+        display inline-flex
+        align-items center
+        i
+          margin-left 14px
+          font-size 14px
+          color $list-color-normal
+      .collect
+        padding-right 30px
+        text-align right
+        i
+          display inline-block
+          width 16px
+          height 16px
+          background no-repeat center center
+          background-size 100% 100%
+          cursor pointer
+          &.yes
+            background-image $list-collect-yes
+            &:hover
+              background-image $list-collect-yes-hover
+          &.no
+            background-image $list-collect-no
+            &:hover
+              background-image $list-collect-no-hover
+
+
+    .name
+      width 320px
+    .time
+      width 130px
+    .price
+      width 120px
+    .minmax
+      width 170px
+    .step
+      width 150px
+    .coin
+      width 115px
+    .heat
+      width 100px
+    .collect
+      width 60px
+
+  .page
+    height 50px
+    border-top 1px solid $list-border
+    display flex
+    align-items center
+    justify-content center
+
+
+
+
+
+    
