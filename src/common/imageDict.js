@@ -62,7 +62,7 @@ export default function () {
     footer,
     article,
     common,
-    search
+    search,
     project
   );
 }
