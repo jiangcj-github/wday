@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom';
 import ViewBase from "../ViewBase";
 import Thumbs from "../../common/components/thumbs";
 import "./stylus/search.styl";
+import RiceTextEditor from "../article/RiceTextEditor";
 
 export default class Search extends ViewBase {
   constructor(props) {
     super(props);
     this.state = {
-      tabSelect: "article",
+      tabSelect: "project",
       articleList: [
         {
           id: 1,
@@ -185,10 +186,12 @@ export default class Search extends ViewBase {
         {
           this.state.tabSelect === "project" &&
           <div className="search-project">
+            <RiceTextEditor />
             <div className="no-result">
               <img className="no-result-img" src={this.imageDict.$_no_result}/>
               <span>没有搜索到相关内容</span>
             </div>
+
           </div>
         }
       </div>
