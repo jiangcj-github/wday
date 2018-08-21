@@ -38,20 +38,10 @@ export default class Header extends ViewBase {
         this.controller.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
             this.setState({top1: layer, top2: layerCache});
         });
-
-        //监听登录消息
-        this.bus.on("login","header", ()=>{
-            let {userPhone} = this.controller.loginInfo;
-            this.setState({phone: userPhone, showLogin: false});
-        });
         //监听菜单状态
         this.bus.on("selectItem","header", menuItem =>{
             this.setState({menuItemSelect: menuItem});
         });
-    }
-
-    componentWillUnmount() {
-        this.bus.off("login","header");
     }
 
     async logout(){
@@ -59,7 +49,7 @@ export default class Header extends ViewBase {
         if(data.msg){
             return;
         }
-        this.setState({phone: "", showLogin: true});
+        location.reload();
     }
 
     render() {
@@ -164,7 +154,7 @@ export default class Header extends ViewBase {
                               </div>
                                 :
                               <div className="ri">
-                                  <i className="person"/>
+                                  <a>{phone && phone.formatPhone()}</a>
                                   <ul className="drop person-drop">
                                       <li onClick={()=>history.push("/person/collect")}>
                                           <img src={this.imageDict.$icon_collect_big_normal}/>

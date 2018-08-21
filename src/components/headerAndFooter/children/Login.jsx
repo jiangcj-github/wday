@@ -37,7 +37,7 @@ export default class Login extends ViewBase {
             this.setState({errMsg: data.msg, errTip: data.tip});
             return;
         }
-        this.bus.emit("login");
+        location.reload();
     }
 
     //更新图片验证码
@@ -68,7 +68,6 @@ export default class Login extends ViewBase {
     }
 
     componentWillUnmount() {
-        this.bus.off("login","header");
         this.controller.countDownStop("countDown");
     }
 

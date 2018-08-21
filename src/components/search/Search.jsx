@@ -44,7 +44,10 @@ export default class Search2 extends ViewBase {
     }
   }
 
-
+  componentDidMount() {
+      //设置导航栏菜单
+      this.bus.emit("selectItem", null);
+  }
 
   render() {
     let {tabSelect} = this.state;

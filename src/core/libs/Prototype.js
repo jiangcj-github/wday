@@ -1,25 +1,6 @@
 let config = {}
 
-//百分数显示
-Number.prototype.toPercent = function (prefixType) {
-  let number = config.toPercent.number || 2
-  let type = 0
-  if (this < 0) type = 1
-  type = prefixType || type
-  return config.toPercent.perfix[type] + Math.abs(parseFloat((this * 100).toFixed(number))) + '%';
-};
-
-String.prototype.shearStr = function (number, suffix = '...') {
-  typeof number === 'boolean' && !number && (number = this.length)
-  return this.slice(0, number) + suffix;
-};
-
-Number.prototype.toDate = function (fmt) {
-  let date = new Date(this * 1000);
-  return date.dateHandle(fmt)
-};
-
-// xxxx-yy-zz, hh:mm:ss
+// 时间格式化
 /**
  * @returns {string}
  */
@@ -48,6 +29,14 @@ Date.prototype.dateHandle = function (fmt) {
   }
   return fmt;
 };
+
+//手机号隐藏显示
+String.prototype.formatPhone=function () {
+    return this.substr(0,3) + "****" + this.substr(7,4);
+};
+
+
+
 
 
 export default {
