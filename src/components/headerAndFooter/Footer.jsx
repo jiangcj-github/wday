@@ -19,8 +19,8 @@ export default class Footer extends ViewBase {
           let $rf = document.querySelector('.rf');
           let scrollTop = document.documentElement.scrollTop;
           let bodyHeight = document.body.clientHeight;
-          // 滚动2屏高度，显示置顶按钮
-          if(scrollTop >= bodyHeight * 2){
+          // 滚动至第二屏，显示置顶按钮
+          if(scrollTop >= bodyHeight){
               $rf.classList.add("active");
           }else{
               $rf.classList.remove("active");

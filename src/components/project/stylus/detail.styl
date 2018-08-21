@@ -254,7 +254,6 @@
 
     //代币详情
     .para2
-      padding 30px 0 20px 0
       table
         width 100%
         tr
@@ -273,7 +272,54 @@
             i
               font-size 16px
               color $detail-color-weight
-
+      .p2-h3
+        margin-top 20px
+        height 22px
+        i
+          display inline-block
+          vertical-align top
+          width 10px
+          height 10px
+          background $detail-color-active
+          border-radius 1px
+          margin 6px 9px 0 0
+      .hb-c
+        display flex
+        .price
+          line-height 26px
+          flex-grow 1
+          label
+            vertical-align top
+            font-size 16px
+            color $detail-color-light
+          div
+            display inline-block
+            p
+              color $detail-color-weight
+              font-size 16px
+              margin-bottom 10px
+              &:last-of-type
+                margin-bottom 0
+        .profit
+          text-align center
+          float right
+          margin-left 24px
+          label
+            display block
+            font-size 16px
+            color $detail-color-light
+            line-height 26px
+            margin-bottom 14px
+          i
+            display inline-block
+            width 54px
+            height 54px
+            border-radius 100%
+            border 2px solid $detail-border
+            color $detail-color-weight
+            font-size 16px
+            text-align center
+            line-height 50px
 
     //项目优势
     .para3
@@ -319,6 +365,8 @@
       table
         width 600px
         padding-right 144px
+        &.tb2
+          width 300px
         tr
           line-height 26px
           height 36px
@@ -363,6 +411,10 @@
             pointer-events none
           &:hover
             background $detail-color-link
+        img
+          width 114px
+          height auto
+
 
 
     //团队介绍

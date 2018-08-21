@@ -42,8 +42,8 @@ export default class Home extends ViewBase {
                 {/*进行中*/}
                 <div className="project">
                     <h3 className="doing">进行中</h3>
-                    {runList.map(({id, logo, name, cw, pro,})=>
-                        <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={id}>
+                    {runList.map(({id, logo, name, cw, pro,},index)=>
+                        <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
                                 <img src="/static/web/icon_coin_five@3x.png"/>
@@ -72,8 +72,8 @@ export default class Home extends ViewBase {
                 {/*即将开始*/}
                 <div className="project">
                     <h3 className="prepare">即将开始</h3>
-                    {soonList.map(({id,})=>
-                        <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={id}>
+                    {soonList.map(({id,},index)=>
+                        <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
                                 <img src="/static/web/icon_coin_five@3x.png"/>
@@ -102,8 +102,8 @@ export default class Home extends ViewBase {
                 {/*已结束*/}
                 <div className="project">
                     <h3 className="finish">已结束</h3>
-                    {finishList.map(({id})=>
-                        <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={id}>
+                    {finishList.map(({id},index)=>
+                        <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
                                 <img src="/static/web/icon_coin_five@3x.png"/>

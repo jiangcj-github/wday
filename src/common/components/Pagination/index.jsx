@@ -45,7 +45,6 @@ export default class Pagination extends ViewBase {
 
     return (
       <div className="pagination-wrap" style={{ display: (total / pageSize) <= 1 ? 'none' : ''}}>
-
         <ul className="pagination">
           {/*上一页*/}
           {currentPage>1 &&

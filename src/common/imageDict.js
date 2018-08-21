@@ -53,6 +53,7 @@ let project = {
    $_icon_project_tdjs : "/static/web/icon_project_tdjs@3x.png",
    $_icon_project_lxt : "/static/web/icon_project_lxt@3x.png",
    $_icon_project_xgwz : "/static/web/icon_project_xgwz@3x.png",
+   $_icon_over : "/static/web/icon_over@3x.png",
 };
 
 export default function () {

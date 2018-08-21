@@ -49,6 +49,7 @@ export default class List extends ViewBase {
         let {viewMode,sortByTime,tab} = this.state;
         return (
             <div className="project-detail">
+
                 {/*顶部-项目简介*/}
                 <div className="profile-wrap">
                     <div className="profile">
@@ -121,6 +122,7 @@ export default class List extends ViewBase {
                         </div>
                     </div>
                 </div>
+
                 {/*内容区*/}
                 <div className="content">
                     {/*tab栏*/}
@@ -134,6 +136,7 @@ export default class List extends ViewBase {
                             <a className={tab === 5 ? "active" : ""}>留言</a>
                         </div>
                     </div>
+
                     {/*项目介绍*/}
                     <div className="para para1">
                         <h3>
@@ -148,6 +151,7 @@ export default class List extends ViewBase {
                             <a className="fold">收起</a>
                         </p>
                     </div>
+
                     {/*代币详情*/}
                     <div className="para para2">
                         <h3>
@@ -213,7 +217,91 @@ export default class List extends ViewBase {
                                 </tr>
                             </tbody>
                         </table>
+                        {/*已结束部分-行情,回报*/}
+                        <h3 className="p2-h3">
+                          <i/><span>行情</span>
+                        </h3>
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <b>现价：</b>
+                                <i>$1.23</i></td>
+                              <td>
+                                <b>24h涨跌幅：</b>
+                                <i>+10.12%</i>
+                              </td>
+                              <td>
+                                <b>流通市值：</b>
+                                <i>$123,456万</i>
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>24h最低价：</b>
+                                    <i>1,234</i>
+                                </td>
+                                <td>
+                                    <b>24h成交量：</b>
+                                    <i>1000万</i>
+                                </td>
+                                <td>
+                                    <b>上架交易所：</b>
+                                    <i>100</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>24h最高价：</b>
+                                    <i>$1.29</i>
+                                </td>
+                                <td>
+                                    <b>24h成交额：</b>
+                                    <i>$12,340</i>
+                                </td>
+                                <td>
+                                    <b>数据来源：</b>
+                                    <i>抓取</i>
+                                </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <h3 className="p2-h3">
+                            <i/><span>回报</span>
+                        </h3>
+                        <div className="hb-c">
+                            <div className="price">
+                                <label>ICO价格：</label>
+                                <div>
+                                  <p>$123</p>
+                                  <p>0.0123 BTC</p>
+                                  <p>0.123 ETH</p>
+                                </div>
+                            </div>
+                            <div className="price">
+                                <label>现价：</label>
+                                <div>
+                                  <p>$123</p>
+                                  <p>0.0123 BTC</p>
+                                  <p>0.123 ETH</p>
+                                </div>
+                            </div>
+                            <p className="profit">
+                                <label>USD收益率</label>
+                                <i>10X</i>
+                            </p>
+                            <p className="profit">
+                                <label>BTC收益率</label>
+                                <i>9.8X</i>
+                            </p>
+                            <p className="profit">
+                                <label>ETH收益率</label>
+                                <i>10.1X</i>
+                            </p>
+                        </div>
+
                     </div>
+
                     {/*项目优势*/}
                     <div className="para para3">
                         <h3>
@@ -223,6 +311,7 @@ export default class List extends ViewBase {
                         <p>技术方向：智能合约、内容版权、去中心化应用</p>
                         <p>项目特点：高性能、安全</p>
                     </div>
+
                     {/*热度评级*/}
                     <div className="para para4">
                         <h3>
@@ -280,7 +369,8 @@ export default class List extends ViewBase {
                             </ul>
                         </div>
                     </div>
-                    {/*用户打分*/}
+
+                    {/*用户打分-进行中*/}
                     <div className="para para5">
                         <h3>
                             <img src={this.imageDict.$_icon_project_yhdf}/>
@@ -342,6 +432,45 @@ export default class List extends ViewBase {
                             <button>提交</button>
                         </div>
                     </div>
+                    {/*用户打分-已结束*/}
+                    <div className="para para5">
+                      <h3>
+                        <img src={this.imageDict.$_icon_project_yhdf}/>
+                        <span>用户打分</span>
+                      </h3>
+                      <table className="tb2">
+                        <tbody>
+                          <tr>
+                            <td>市场潜力（10分）</td>
+                            <td>评价分 8分</td>
+                          </tr>
+                          <tr>
+                            <td>创业模式（10分）</td>
+                            <td>评价分 8分</td>
+                          </tr>
+                          <tr>
+                            <td>媒体报道（10分）</td>
+                            <td>评价分 8分</td>
+                          </tr>
+                          <tr>
+                            <td>媒体报道（10分）</td>
+                            <td>评价分 8分</td>
+                          </tr>
+                          <tr>
+                            <td>媒体报道（10分）</td>
+                            <td>评价分 8分</td>
+                          </tr>
+                          <tr>
+                            <td>媒体报道（10分）</td>
+                            <td>评价分 8分</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div className="submit">
+                        <img src={this.imageDict.$_icon_over}/>
+                      </div>
+                    </div>
+
                     {/*团队介绍*/}
                     <div className="para para6">
                         <h3>
@@ -397,6 +526,7 @@ export default class List extends ViewBase {
                             </tbody>
                         </table>
                     </div>
+
                     {/*路线图*/}
                     <div className="para para7">
                         <h3>
@@ -423,6 +553,7 @@ export default class List extends ViewBase {
                             <i className="line"/>
                         </div>
                     </div>
+
                     {/*相关文章*/}
                 </div>
             </div>)

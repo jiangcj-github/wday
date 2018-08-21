@@ -42,6 +42,15 @@ export default class Header extends ViewBase {
         this.bus.on("selectItem","header", menuItem =>{
             this.setState({menuItemSelect: menuItem});
         });
+        //监听登录框是否显示
+        this.bus.on("showLoginDialog","header",()=>{
+            this.setState({showLogin: true});
+        });
+    }
+
+    componentWillUnmount() {
+        this.bus.off("selectItem","header");
+        this.bus.off("showLoginDialog","header");
     }
 
     async logout(){

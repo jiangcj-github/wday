@@ -8,6 +8,7 @@
   box-shadow 0 0 4px 0 $list-shadow
   border-radius 2px
   overflow hidden
+
   .tab-wrap
     height 50px
     .tab
@@ -63,6 +64,7 @@
           &.active
             background-image $list-view-card-active
             pointer-events none
+
 
   .table
     padding 20px 20px 0 20px
@@ -207,6 +209,20 @@
       width 100px
     .collect
       width 60px
+
+  .no-result
+    height 600px
+    background no-repeat center 150px $list-empty
+    background-size auto 176px
+    padding-top 346px
+    text-align center
+    font-size 16px
+    color $list-color-empty
+    a
+      color $list-color-active
+      margin-right 4px
+      font-size 16px
+      cursor pointer
 
   .page
     height 50px
