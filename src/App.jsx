@@ -23,11 +23,20 @@ import LoginController from "./class/login/LoginController"
 export default class App extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            init:false
+        }
     }
 
     loginCheck(){
         let loginInfo = LoginController().loginInfo;
         return !!loginInfo.userPhone;
+    }
+
+    componentDidMount(){
+      setTimeout(v=>this.setState({
+        init:true
+      }),0)
     }
 
     render() {
@@ -63,6 +72,7 @@ export default class App extends Component {
 
         return (
             <Router>
+              {this.state.init && (
                 <div className="router-wrap">
                     {/*<Header/>*/}
                     <Switch>
@@ -87,6 +97,7 @@ export default class App extends Component {
                         <Route component={footer} />
                     </Switch>
                 </div>
+              ) || null}
             </Router>
         );
     }

@@ -20,7 +20,7 @@ export default class Home extends ViewBase {
     window.addEventListener("scroll", () => {
       let go = document.querySelector(".go-to-top");
       let dom = document.querySelector(".news-wrap");
-      if(document.documentElement.scrollTop > dom.offsetHeight){
+      if(document.documentElement.scrollTop > dom.offsetHeight || document.documentElement.scrollTop <300){
         go.style.visibility = "hidden";
       }
       else {

@@ -48,10 +48,6 @@ export default class NewsListComponent extends ViewBase {
         if (dom.scrollTop >= v.value - num) {
           console.log("该");
 
-          // 数据向下流动
-          //无论作为父组件还是子组件，它都无法获悉一个组件是否有状态，同时也不需要关心另一个组件是定义为函数组件还是类组件。
-
-          //这就是 state(状态) 经常被称为 本地状态 或 封装状态的原因。 它不能被拥有并设置它的组件 以外的任何组件访问。
           this.setState({
             cardMonth: this.refs[v.name].state.cardMonth,
             cardDay: this.refs[v.name].state.cardDay,

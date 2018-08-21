@@ -30,6 +30,12 @@ Date.prototype.dateHandle = function (fmt) {
   return fmt;
 };
 
+// 限制长度
+String.prototype.shearStr = function (number, suffix = '...') {
+  typeof number === 'boolean' && !number && (number = this.length)
+  return this.slice(0, number) + suffix;
+};
+
 //手机号隐藏显示
 String.prototype.formatPhone=function () {
     return this.substr(0,3) + "****" + this.substr(7,4);

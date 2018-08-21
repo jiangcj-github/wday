@@ -86,11 +86,11 @@ export default class Search2 extends ViewBase {
                   <p className="news-time">2018-09-09 09:09:09</p>
                   <div className="news-main">
                     <div className="news-title">
-                      {this.state.articleList[0].title && this.state.articleList[0].title.toString().length > 45 ? this.state.articleList[0].title.toString().shearStr(45) : this.state.articleList[0].title.toString()}
+                      {this.state.articleList && this.state.articleList[0].title && this.state.articleList[0].title.toString().length > 45 ? this.state.articleList[0].title.toString().shearStr(45) : this.state.articleList[0].title.toString()}
                     </div>
 
                     <div className="news-content">
-                      {this.state.articleList[0].content && this.state.articleList[0].content.toString().length > 100 ? this.state.articleList[0].content.toString().shearStr(100) : this.state.articleList[0].content.toString()}
+                      {this.state.articleList && this.state.articleList[0].content && this.state.articleList[0].content.toString().length > 100 ? this.state.articleList[0].content.toString().shearStr(100) : this.state.articleList[0].content.toString()}
 
                     </div>
                     <div className="news-thumbs">
