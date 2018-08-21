@@ -11,7 +11,7 @@ export default class NewsController extends ExchangeControllerBase {
   async getNewsList() {
     let result = await this.store.getNewsList();
 
-    console.log(result);
+    console.log("news",result);
     return result;
   }
 

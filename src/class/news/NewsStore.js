@@ -11,7 +11,7 @@ export default class NewsStore extends ExchangeStoreBase {
   async getNewsList() {
     let result = [
       {
-        "date": 15,
+        "date": "2018-1-1",
         "data": [
           {
             "id": "",
@@ -32,7 +32,7 @@ export default class NewsStore extends ExchangeStoreBase {
         ]
       },
       {
-        "date": 16,
+        "date": "2018-1-2",
         "data": [
           {
             "id": "",

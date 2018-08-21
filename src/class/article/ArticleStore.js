@@ -7,7 +7,7 @@ export default class ArticleStore extends ExchangeStoreBase {
   }
 
   async getArticleList(param) {
-    let resultR = await this.Proxy.getArticleList(param);
+    // let resultR = await this.Proxy.getArticleList(param);
     let result = [
       {
         id: 1,

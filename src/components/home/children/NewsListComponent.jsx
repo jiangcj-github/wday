@@ -25,11 +25,10 @@ export default class NewsListComponent extends ViewBase {
   async componentDidMount() {
     let controller = new NewsController();
     let result = await controller.getNewsList();
+    console.log("view news", result);
     this.setState({
       newsList: result
     });
-
-
 
     (this.state.isWindowScroll ? window : document.querySelector(".news-wrap")).onscroll = () => {
       // didmount 只执行一次。应该放在onscroll里
@@ -42,12 +41,17 @@ export default class NewsListComponent extends ViewBase {
         });
       });
 
-      arr.forEach((v, index) => {
+      arr.forEach(v => {
         let dom = this.state.isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
 
-        let num =  this.state.isWindowScroll ? 0 : 20;
+        let num =  this.state.isWindowScroll ? -120 : 20;
         if (dom.scrollTop >= v.value - num) {
-          console.log(1111);
+          console.log("该");
+
+          // 数据向下流动
+          //无论作为父组件还是子组件，它都无法获悉一个组件是否有状态，同时也不需要关心另一个组件是定义为函数组件还是类组件。
+
+          //这就是 state(状态) 经常被称为 本地状态 或 封装状态的原因。 它不能被拥有并设置它的组件 以外的任何组件访问。
           this.setState({
             cardMonth: this.refs[v.name].state.cardMonth,
             cardDay: this.refs[v.name].state.cardDay,
@@ -61,7 +65,7 @@ export default class NewsListComponent extends ViewBase {
       });
       // window滚动需要删除卡片
       if(this.state.isWindowScroll && document.documentElement.scrollTop < 115) {
-        console.log("clear state");
+        console.log("clear card");
         this.setState({
           cardMonth: ""
         });
@@ -78,13 +82,21 @@ export default class NewsListComponent extends ViewBase {
     return (
       <div className="scroll-sign">
         <div className="news-list-by-day">
+          {
+            // TODO controller 中处理数组，每项有自己卡片该显示的数据
+            // this.state.newsList && this.state.newsList.map((v, index) => {
+            //   if(index === 0) {
+            //     return <NewsDayItem ref={`Day${index}`} showList={true}  news={v.news} cardMonth={v.cardMonth} cardDay={v.cardDay} cardDayis={v.cardDayis} cardWeek={v.cardWeek}/>
+            //   }
+            //   return <NewsDayItem ref={`Day${index}`} showList={false} news={v.news} cardMonth={v.cardMonth} cardDay={v.cardDay} cardDayis={v.cardDayis} cardWeek={v.cardWeek}/>
+            // })
+          }
 
-          <NewsDayItem ref="test" news={[]} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
-          <NewsDayItem ref="test2" news={[]} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
-          <NewsDayItem ref="test3" news={[]} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
-          <NewsDayItem ref="test4" news={[]} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
-          <NewsDayItem ref="test5" news={[]} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
-          <NewsDayItem ref="test6" news={[]} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
+          <NewsDayItem history={history} ref="test1" news={[1,2,3]} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
+          <NewsDayItem history={history} ref="test2" news={[1,2,3]} cardMonth="2yue" cardDay="22" cardDayis="jintian" cardWeek="2"/>
+          <NewsDayItem history={history} ref="test3" news={[1,2,3]} cardMonth="3yue" cardDay="23" cardDayis="mingtian" cardWeek="3"/>
+          <NewsDayItem history={history} ref="test4" news={[1,2,3]} cardMonth="1yue" cardDay="20" cardDayis="zuotian" cardWeek="1"/>
+
         </div>
 
         <div className={"top-card " + ( this.state.cardMonth ? "run" : "stop" )}>

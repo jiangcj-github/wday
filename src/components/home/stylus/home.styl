@@ -9,32 +9,52 @@
     width 1200px
     margin 0 auto
     display flex
+    position relative
     .article-wrap
       width 620px
       margin 10px
-    .news-wrap
-      width 314px
-      overflow-y scroll
-      height calc(200vh)
-      margin 10px 0
-
-      .floatTop
-        position absolute
-        top 10px
-        width 297px
-        z-index 400
-      .floatTop ~ .news-item
-        margin-top 70px
-      .top-card
-        width 298px // 坑 浏览去边框
-        position absolute
-        top 10px
-        z-index 300
-        .has-more-news
+    .remove-scroll-bar
+      width 300px
+      overflow hidden
+      .news-wrap
+        width 314px
+        overflow-y scroll
+        height calc(200vh)
+        margin 10px 0
+        .floatTop
           position absolute
-          top 74px
-          width 100%
-          display flex
-          justify-content center
-          align-items center
-          height 36px
+          top 10px
+          width 297px
+          z-index 400
+        .floatTop ~ .news-item
+          margin-top 70px
+        .top-card
+          width 298px // 坑 浏览去边框
+          position absolute
+          top 10px
+          z-index 300
+          .has-more-news
+            position absolute
+            top 74px
+            width 100%
+            display flex
+            justify-content center
+            align-items center
+            height 36px
+        .news-main:hover
+          .news-title, .news-content
+            color $project-color-doing
+
+
+    .go-to-top
+      position fixed
+      bottom 30px
+      right 340px
+      cursor pointer
+      width 30px
+      height 30px
+      background no-repeat center center
+      background-size 100% 100%
+      background-image $news-toTop
+      &:hover
+        background-image $news-toTop-hover

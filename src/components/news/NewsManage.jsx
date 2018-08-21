@@ -29,7 +29,7 @@ export default class NewsManage extends ViewBase {
       <Detail location={location}/>;
 
     return (
-      <div className="project-route">
+      <div className="news-route">
         <Switch>
           <Route path={`${match.url}/list`} component={list} />
           <Route path={`${match.url}/detail`} component={detail} />
