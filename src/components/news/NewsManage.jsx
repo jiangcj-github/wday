@@ -15,8 +15,7 @@ export default class NewsManage extends ViewBase {
   }
 
   componentDidMount() {
-    //设置导航栏菜单
-    // this.bus.emit("selectItem","project");
+
   }
 
   render() {

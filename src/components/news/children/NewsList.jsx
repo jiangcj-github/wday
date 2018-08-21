@@ -17,8 +17,7 @@ export default class NewsList extends ViewBase{
   }
 
   componentDidMount() {
-    //设置导航栏菜单
-    this.bus.emit("selectItem","news");
+
   }
 
   render() {

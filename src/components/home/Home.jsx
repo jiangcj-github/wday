@@ -13,8 +13,6 @@ export default class Home extends ViewBase {
   }
 
   componentDidMount() {
-    //设置导航栏菜单
-    this.bus.emit("selectItem", "home");
 
     // 滚动判断快讯是否滚出屏幕
     window.addEventListener("scroll", () => {

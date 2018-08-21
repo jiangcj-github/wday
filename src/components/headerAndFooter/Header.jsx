@@ -22,7 +22,6 @@ export default class Header extends ViewBase {
           showLogin: false,     //是否显示登录框
           top1: 0,              //轮播参数
           top2: 40,
-          menuItemSelect:  "",     //设置导航菜单选中项
           searchInput: "",          //搜索框-输入
       };
       this.controller = LoginController();
@@ -38,10 +37,6 @@ export default class Header extends ViewBase {
         this.controller.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
             this.setState({top1: layer, top2: layerCache});
         });
-        //监听菜单状态
-        this.bus.on("selectItem","header", menuItem =>{
-            this.setState({menuItemSelect: menuItem});
-        });
         //监听登录框是否显示
         this.bus.on("showLoginDialog","header",()=>{
             this.setState({showLogin: true});
@@ -49,7 +44,6 @@ export default class Header extends ViewBase {
     }
 
     componentWillUnmount() {
-        this.bus.off("selectItem","header");
         this.bus.off("showLoginDialog","header");
     }
 
@@ -63,7 +57,7 @@ export default class Header extends ViewBase {
 
     render() {
         let {history} = this.props;
-        let {showLogin, top1, top2, phone, menuItemSelect,searchInput} = this.state;
+        let {showLogin, top1, top2, phone,searchInput} = this.state;
 
         return (
           <div className="header">
@@ -133,9 +127,9 @@ export default class Header extends ViewBase {
                       <img className="logo" src={this.imageDict.$icon_logo}/>
                       {/*左侧菜单项*/}
                       <div className="nav-left">
-                          <Link to="/home" className={menuItemSelect === "home" ? "active" : ""}>首页</Link>
-                          <Link to="/project" className={menuItemSelect === "project" ? "active" : ""}>项目库</Link>
-                          <Link to="/news" className={menuItemSelect === "news" ? "active" : ""}>快讯</Link>
+                          <NavLink to="/home" activeClassName="active">首页</NavLink>
+                          <NavLink to="/project" activeClassName="active">项目库</NavLink>
+                          <NavLink to="/news" activeClassName="active">快讯</NavLink>
                           <p className="srch">
                               <input type="text" placeholder="搜索ico项目、文章、快讯"
                                      value={searchInput}
