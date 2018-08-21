@@ -25,7 +25,7 @@ export default class NewsList extends ViewBase{
     return (
       <div className="news-list">
         <div className="list-main">
-          <NewsListComponent scrollType="window" />
+          <NewsListComponent isWindowScroll={true} />
         </div>
       </div>
 

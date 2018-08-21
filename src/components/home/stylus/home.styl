@@ -17,7 +17,14 @@
       overflow-y scroll
       height calc(200vh)
       margin 10px 0
-      //.hidden-card
+
+      .floatTop
+        position absolute
+        top 10px
+        width 297px
+        z-index 400
+      .floatTop ~ .news-item
+        margin-top 70px
       .top-card
         width 298px // 坑 浏览去边框
         position absolute

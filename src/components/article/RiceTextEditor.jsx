@@ -166,13 +166,12 @@ export default class RiceTextEditor extends ViewBase {
   }
 
   btns(btn) {
-    btn.onclick = () => {
-      let command = btn.dataset.exec;
-      console.log(command);
-
-      document.execCommand(command, false);
-    }
-
+    // btn.onclick = () => {
+    //   let command = btn.dataset.exec;
+    //   console.log(command);
+    //
+    //   document.execCommand(command, false);
+    // }
   }
 
   componentDidMount() {

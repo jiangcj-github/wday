@@ -42,10 +42,6 @@ export default class Search extends ViewBase {
     }
   }
 
-  changeFav() {
-
-  }
-
   render() {
     let {tabSelect} = this.state;
     return (
@@ -78,12 +74,10 @@ export default class Search extends ViewBase {
                 <div className="news-item" key={index}>
                   <p className="news-time">2018-09-09 09:09:09</p>
                   <div className="news-main">
-                    {/*<div className="news-title">安慰基地啊忘记了多亏了你的是国内克拉斯</div>*/}
                     <div className="news-title">
-                      {/*{ v.newsTitle && v.newsTitle.toString().length > 29 ? v.newsTitle.toString().shearStr(29) : v.newsTitle.toString()  }*/}
                       {this.state.articleList[0].title && this.state.articleList[0].title.toString().length > 45 ? this.state.articleList[0].title.toString().shearStr(45) : this.state.articleList[0].title.toString()}
                     </div>
-                    {/*<div className="news-content">爱我的吗看了代码卡拉塑料口袋里面卡掉了；莫拉蒂glass发明了里面的买了吗马拉松发完了妈妈拉尔购买了美国麦克拉的美丽的里卡多看了看拉萨付款啦大概看了离开</div>*/}
+
                     <div className="news-content">
                       {this.state.articleList[0].content && this.state.articleList[0].content.toString().length > 100 ? this.state.articleList[0].content.toString().shearStr(100) : this.state.articleList[0].content.toString()}
 
