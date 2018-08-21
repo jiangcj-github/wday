@@ -1,0 +1,141 @@
+@import "../resource/color.styl"
+@import "../resource/image.styl"
+
+.project-search
+  .table
+    padding 20px 20px 0 20px
+    .thead
+      height 50px
+      line-height 50px
+      background $sp-bg-thead
+      display flex
+      user-select none
+      p
+        color $sp-color-light
+        &.name
+          padding-left 20px
+        &.collect
+          padding-right 20px
+          text-align right
+        &.sortable
+          cursor pointer
+          display inline-flex
+          &:hover
+            i.none
+              background-image $sp-sort-hover
+          i
+            display inline-block
+            width 10px
+            height 100%
+            margin-left 6px
+            background no-repeat center center
+            background-size 10px auto
+            &.none
+              background-image $sp-sort
+            &.up
+              background-image $sp-sort-up
+            &.down
+              background-image $sp-sort-down
+
+    .tr
+      height 100px
+      display flex
+      align-items center
+      cursor pointer
+      &:hover
+        background $sp-bg-tr-hover
+      &:nth-child(2n+1)
+        background $sp-bg-tr
+      p
+        line-height 20px
+        margin 10px 0
+        font-size 14px
+        color $sp-color-normal
+      .name
+        padding-left 20px
+        .p1
+          margin-bottom 6px
+          img
+            height 40px
+            width auto
+            float left
+          b
+            font-size 20px
+            color $sp-color-normal
+            margin-left 10px
+            line-height 40px
+        .p2
+          i
+            display inline-block
+            height 24px
+            line-height 24px
+            font-size 12px
+            padding 0 12px
+            color $sp-color-active
+            background $sp-bg-badge
+            border-radius 73px
+            margin-right 10px
+      .price
+        p
+          margin 6px 0
+      .step
+        .progress-wrap
+          width 50px
+          display inline-block
+          vertical-align top
+          margin-top 8px
+        i
+          display inline-block
+          vertical-align top
+          line-height 20px
+          font-size 12px
+          color $sp-color-active
+          margin-left 10px
+      .heat
+        display inline-flex
+        align-items center
+        i
+          margin-left 14px
+          font-size 14px
+          color $sp-color-normal
+      .collect
+        text-align right
+        padding-right 20px
+        i
+          display inline-block
+          width 16px
+          height 16px
+          background no-repeat center center
+          background-size 100% 100%
+          cursor pointer
+          &.yes
+            background-image $sp-collect-yes
+            &:hover
+              background-image $sp-collect-yes-hover
+          &.no
+            background-image $sp-collect-no
+            &:hover
+              background-image $sp-collect-no-hover
+
+
+    .name
+      width 130px
+    .time
+      width 100px
+    .price
+      width 100px
+    .minmax
+      width 137px
+    .step
+      width 130px
+    .heat
+      width 72px
+    .collect
+      width 48px
+
+  .page
+    height 50px
+    border-top 1px solid $_search_border_color
+    display flex
+    align-items center
+    justify-content center

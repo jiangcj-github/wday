@@ -14,7 +14,7 @@ import Footer from "./components/headerAndFooter/footer.jsx";
 import Home from "./components/home/Home.jsx"
 import ProjectManage from "./components/project/ProjectManage.jsx"
 
-import Search from "./components/search/Search";
+import Search2 from "./components/search/Search";
 import ArticleManage from "./components/article/ArticleManage";
 import NewsManage from "./components/news/NewsManage";
 import PersonManage from "./components/person/PersonManage";
@@ -45,7 +45,7 @@ export default class App extends Component {
             <NewsManage match={match} history={history}/>;
 
         const search = ({ match, history }) =>
-            <Search match={match} history={history} />;
+            <Search2 match={match} history={history} />;
 
         const personManage = ({ match, history }) =>
             <PersonManage match={match} history={history} />;

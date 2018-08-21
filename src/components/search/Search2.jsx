@@ -3,9 +3,8 @@ import {Link} from 'react-router-dom';
 import ViewBase from "../ViewBase";
 import Thumbs from "../../common/components/thumbs";
 import "./stylus/search.styl";
+import RiceTextEditor from "../article/RiceTextEditor";
 import ArticleList from "../article/children/ArticleList";
-import ProjectSearch from "./children/ProjectSearch";
-import Empty from "./children/Empty";
 
 export default class Search2 extends ViewBase {
   constructor(props) {
@@ -39,35 +38,28 @@ export default class Search2 extends ViewBase {
           favourite: true
         },
       ],
-      tags: ["数字数字", "你瞅啥"],
-      projectList: [],
+      tags: ["数字数字", "你瞅啥"]
     }
   }
 
-
-
   render() {
     let {tabSelect} = this.state;
-    //let projectList = this.state.projectList || [];
-    let projectList =  [1,2,3,4,5,6,7];
-
     return (
       <div className="search-main">
         {/* tab */}
         <div className="search-tab">
           <ul className="tab-ul">
             <li onClick={() => this.setState({tabSelect: "article"})}
-                className={(tabSelect === "article" ? "active" : "")}>文章</li>
-            <li onClick={() => this.setState({tabSelect: "news"})}
-                className={(tabSelect === "news" ? "active" : "")}>快讯</li>
+                className={(tabSelect === "article" ? "active" : "")}><a>文章</a></li>
+            <li onClick={() => this.setState({tabSelect: "news"})} className={(tabSelect === "news" ? "active" : "")}>
+              <a>快讯</a></li>
             <li onClick={() => this.setState({tabSelect: "project"})}
-                className={(tabSelect === "project" ? "active" : "")}>项目</li>
+                className={(tabSelect === "project" ? "active" : "")}><a>项目</a></li>
           </ul>
-          <span className="tip">关于“区块链”共 12 条相关信息</span>
         </div>
         {/* 文章*/}
         {
-          tabSelect === "article" &&
+          this.state.tabSelect === "article" &&
           <div className="search-article">
             <ArticleList />
           </div>
@@ -75,7 +67,7 @@ export default class Search2 extends ViewBase {
 
         {/* 快讯*/}
         {
-          tabSelect === "news" &&
+          this.state.tabSelect === "news" &&
           <div className="search-news">
             {
               [1, 2, 3].map((v, index) => (
@@ -99,16 +91,31 @@ export default class Search2 extends ViewBase {
               ))
             }
             {
+
               // 没有搜索结果时候显示空图
-              this.state && this.state.articleList2 && this.state.articleList2.length === 0 && <Empty/>
+              this.state && this.state.articleList2 && this.state.articleList2.length === 0 &&
+              <div className="no-result">
+                <img className="no-result-img" src={this.imageDict.$_no_result}/>
+                <span>没有搜索到相关内容</span>
+              </div>
+
             }
 
           </div>
         }
 
-        {/* 搜索结果-项目*/}
-        {tabSelect === "project" &&
-          projectList.length > 0 ? <ProjectSearch/> : <Empty/>}
+        {/* 项目*/}
+        {
+          this.state.tabSelect === "project" &&
+          <div className="search-project">
+            <RiceTextEditor />
+            <div className="no-result">
+              <img className="no-result-img" src={this.imageDict.$_no_result}/>
+              <span>没有搜索到相关内容</span>
+            </div>
+
+          </div>
+        }
       </div>
     );
   }
