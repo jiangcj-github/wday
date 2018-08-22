@@ -84,7 +84,7 @@ export default class Search2 extends ViewBase {
                 <div className="news-item" key={index}>
                   <p className="news-time">2018-09-09 09:09:09</p>
                   <div className="news-main">
-                    <div className="news-title">
+                    <div className="news-title" onClick={()=>history.push(`/article/detail?id=${v.id}`) }>
                       {this.state.articleList && this.state.articleList[0].title && this.state.articleList[0].title.toString().length > 45 ? this.state.articleList[0].title.toString().shearStr(45) : this.state.articleList[0].title.toString()}
                     </div>
 
