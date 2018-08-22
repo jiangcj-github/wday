@@ -42,7 +42,7 @@ export default class NewsDayItem extends ViewBase {
           </div>
           {
             this.state.showList &&
-            <div className="jump">
+            <div className="jump" onClick={()=>history.push('/news/list')}>
             <img src={this.imageDict.$_news_next_normal}/>
             </div>
           }

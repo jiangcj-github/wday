@@ -9,7 +9,6 @@ export default class ArticleController extends ExchangeControllerBase {
   }
 
   async getArticleList(param) {
-    console.log("controller");
     let result = await this.store.getArticleList(param);
 
     // author:""ct:""id:"5b7a24f7e13823203cb056d7"img:""issue:0like:0read:0title:""
@@ -34,7 +33,6 @@ export default class ArticleController extends ExchangeControllerBase {
   async getArticleDetail() {
     let result = await this.store.getArticleDetail();
 
-    console.log(result);
     return result;
   }
 

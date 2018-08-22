@@ -28,13 +28,11 @@ export default class ArticleList extends ViewBase {
     this.setState({
       articleList: result
     });
-    console.log("初次result state",this.state.articleList);
     //对文章滑到底部的滚动检测
     let scrollFlag = true;
     window.onscroll = async ()=> {
       let dom = document.querySelector(".article");
       if ( dom.scrollHeight - document.documentElement.scrollTop < 400  && scrollFlag) {
-        console.log("need 加载更多");
         scrollFlag = false;
         let controller = new ArticleController();
         let result2 = await controller.getArticleList({ct: (this.state.page + 1), ps: 10, issue: 1534687251});
@@ -43,7 +41,6 @@ export default class ArticleList extends ViewBase {
           articleList: this.state.articleList.concat(result2),
           page: this.state.page + 1
         });
-        console.log("再次result state",this.state.articleList);
         scrollFlag = true;
         console.log(this.state.page + "页`````````````````````````````````````````");
       }
@@ -62,7 +59,6 @@ export default class ArticleList extends ViewBase {
 
   render() {
     let {history} = this.props;
-    console.log(history,555);
     return (
       <div className="article">
         <ul>

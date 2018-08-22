@@ -45,6 +45,7 @@ export default class Home extends ViewBase {
 
   render() {
     let {history} = this.props;
+
     return (
       <div className="home-wrap">
         <div className="home">
@@ -57,7 +58,7 @@ export default class Home extends ViewBase {
           {/*快讯列表*/}
           <div className="remove-scroll-bar">
             <div className="news-wrap">
-              <NewsListComponent show={true} isWindowScroll={false} history={history}/>
+              <NewsListComponent show={true} isWindowScroll={false}  history={history}/>
             </div>
           </div>
           {/* 快讯滚动顶部按钮 未完 */}

@@ -47,7 +47,6 @@ export default class ArticleDetail extends ViewBase {
 
   render() {
     let {title, author, speak, date, topImg, content, tags} = this.state.articleDetail;
-    console.log("tags", tags);
     return (
       <div className="article-main">
         <div className="left-tool">

@@ -21,10 +21,11 @@ export default class NewsList extends ViewBase{
   }
 
   render() {
+    let {history} = this.props;
     return (
       <div className="news-list">
         <div className="list-main">
-          <NewsListComponent isWindowScroll={true} />
+          <NewsListComponent isWindowScroll={true}  history={history} />
         </div>
       </div>
 

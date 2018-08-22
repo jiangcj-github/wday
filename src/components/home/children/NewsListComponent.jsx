@@ -83,7 +83,7 @@ export default class NewsListComponent extends ViewBase {
             this.state.newsList && this.state.newsList.map((v, index) => {
               return (index === 0 && show) ?
                 <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true} news={v.news}
-                                 history={history}/>
+                             history={history}/>
                 :
                 <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={false} news={v.news}
                              history={history}/>
