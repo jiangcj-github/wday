@@ -33,15 +33,15 @@ export default class NewsListComponent extends ViewBase {
       //抚平两种滚动的差距
       let fix = this.state.isWindowScroll ? 110 : -10;
       (this.state.isWindowScroll ? window : document.querySelector(".news-wrap")).onscroll = () => {
+        let sc_result = this.state.newsList;
         let dom = this.state.isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
         let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
         if (day) {
           if (dom.scrollTop >= (day.offsetTop + fix)) {
             this.setState({
-              newsList: result,
-              cardMonth: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
-              cardDay: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
-              cardWeek: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+              cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+              cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+              cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
               // TODO 今天是哪天
               cardDayis: this.nowIndex,
             });
@@ -49,14 +49,14 @@ export default class NewsListComponent extends ViewBase {
           } else if (this.nowIndex !== 0) {
             this.nowIndex--;
             this.setState({
-              newsList: result,
-              cardMonth: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
-              cardDay: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
-              cardWeek: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+              cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+              cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+              cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
               cardDayis: this.nowIndex,
             });
           }
         }
+
         // window滚动需要删除卡片
         if(this.state.isWindowScroll && document.documentElement.scrollTop < 100) {
           console.log("clear card");

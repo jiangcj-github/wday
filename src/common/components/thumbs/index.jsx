@@ -31,6 +31,10 @@ export default class Thumbs extends ViewBase {
   }
 
   changeGood(i) {
+    // 先向服务器传值
+    // 再存local storage 显示动画 改变state
+    console.log("stroage ",this.storage);
+
     i.persist();
     let span = document.createElement("span");
     span.innerText = this.state.goodClicked ? "-1" : "+1";
