@@ -10,21 +10,28 @@ import NewsListComponent from "./children/NewsListComponent";
 export default class Home extends ViewBase {
   constructor(props) {
     super(props);
+    this.scrollFunction = this.scrollFunction.bind(this);
+  }
+
+  scrollFunction() {
+    let go = document.querySelector(".go-to-top");
+    let dom = document.querySelector(".news-wrap");
+    if (document.documentElement.scrollTop > dom.offsetHeight || document.documentElement.scrollTop < 300) {
+      go.style.visibility = "hidden";
+    }
+    else {
+      go.style.visibility = "visible";
+    }
   }
 
   componentDidMount() {
 
     // 滚动判断快讯是否滚出屏幕
-    window.addEventListener("scroll", () => {
-      let go = document.querySelector(".go-to-top");
-      let dom = document.querySelector(".news-wrap");
-      if(document.documentElement.scrollTop > dom.offsetHeight || document.documentElement.scrollTop <300){
-        go.style.visibility = "hidden";
-      }
-      else {
-        go.style.visibility = "visible";
-      }
-    });
+    window.addEventListener("scroll", this.scrollFunction);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.scrollFunction);
   }
 
   render() {
@@ -41,7 +48,7 @@ export default class Home extends ViewBase {
           {/*快讯列表*/}
           <div className="remove-scroll-bar">
             <div className="news-wrap">
-              <NewsListComponent isWindowScroll={false} history={history}/>
+              <NewsListComponent show={false} isWindowScroll={false} history={history}/>
             </div>
           </div>
           {/* 快讯滚动顶部按钮 未完 */}

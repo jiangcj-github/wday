@@ -56,6 +56,10 @@ export default class ArticleList extends ViewBase {
 
   }
 
+  componentWillUnmount() {
+    window.onscroll = null;
+  }
+
   render() {
     return (
       <div className="article">

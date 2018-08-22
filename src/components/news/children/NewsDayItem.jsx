@@ -13,16 +13,16 @@ import Thumbs from "../../../common/components/thumbs/index";
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
     super(props);
-    let {cardMonth, cardDay, cardDayis, cardWeek, news, showList} = props;
+    let {dayDate, news, showList} = props;
+    let time = new Date(dayDate * 1000);
+
     this.state = {
-        cardMonth: cardMonth,
-        cardDay: cardDay,
-        cardDayis: cardDayis,
-        cardWeek: cardWeek,
+        cardMonth: time.dateHandle("M") + "月",
+        cardDay: time.dateHandle("dd"),
+        cardDayis: 55,
+        cardWeek: time.dateHandle("www"),
         news: news,
-        showList: showList,
-        newsTitle: "aaaa",
-        newsContent: "正如多名评论人士所报道的那样，该计划可能有助于缓解比特币巨头的一些可疑现金流问题正如多名评论人士所报道的那样，该计划可能有助于缓解比特币巨头的一些可疑现金流问题。",
+        showList: showList
       };
   }
 
@@ -56,10 +56,8 @@ export default class NewsDayItem extends ViewBase {
               </div>
               <div className="time-line"><i></i></div>
               <div className="news-main"  onClick={()=>history.push(`/news/detail?id=${v.id}`)} >
-                {/*<div className="news-title">{v.newsTitle}</div>*/}
-                <div className="news-title">{this.state.newsTitle}</div>
-                {/*<div className="news-content">{v.newsContent}</div>*/}
-                <div className="news-content">{this.state.newsContent}</div>
+                <div className="news-title">{v.title}</div>
+                <div className="news-content">{v.content}</div>
                 <div className="news-thumbs">
                   <Thumbs />
                 </div>
