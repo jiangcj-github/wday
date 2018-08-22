@@ -11,6 +11,7 @@ export default class Home extends ViewBase {
   constructor(props) {
     super(props);
     this.scrollFunction = this.scrollFunction.bind(this);
+    this.scrollTop = this.scrollTop.bind(this);
   }
 
   scrollFunction() {
@@ -24,8 +25,16 @@ export default class Home extends ViewBase {
     }
   }
 
-  componentDidMount() {
+  scrollTop(){
+    let dom = document.querySelector(".news-wrap");
+    let scroll = document.querySelector(".news-wrap").scrollTop;
+    let speed = scroll / 10;
+    this.scroll("scroll", scroll, 0, speed, pos=>{
+      document.querySelector(".news-wrap").scrollTop = pos;
+    });
+  }
 
+  componentDidMount() {
     // 滚动判断快讯是否滚出屏幕
     window.addEventListener("scroll", this.scrollFunction);
   }
@@ -52,7 +61,7 @@ export default class Home extends ViewBase {
             </div>
           </div>
           {/* 快讯滚动顶部按钮 未完 */}
-          <div className="go-to-top"></div>
+          <div className="go-to-top" onClick={this.scrollTop}></div>
         </div>
       </div>
     );
