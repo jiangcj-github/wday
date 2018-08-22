@@ -88,7 +88,7 @@ export default class Search2 extends ViewBase {
         {/* 搜索结果-项目*/}
         {
           tabSelect === "project" &&
-          (projectList.length > 0 ? <ProjectSearch/> : <Empty/>)
+          (projectList.length > 0 ? <ProjectSearch history={history}/> : <Empty/>)
         }
       </div>
     );

@@ -41,10 +41,12 @@ export default class Login extends ViewBase {
     }
 
     //更新图片验证码
-    updateImageCode(){
-        this.controller.getImgCode().then(data=>{
-            !data.msg && this.setState({picture: data.pic, pid: data.id});
-        });
+    async updateImageCode(){
+        let data = this.controller.getImgCode();
+        if(data.msg){
+            return;
+        }
+        this.setState({picture: data.pic, pid: data.id});
     }
 
     //发送验证码

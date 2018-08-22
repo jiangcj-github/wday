@@ -112,8 +112,8 @@ export default class Header extends ViewBase {
                           <NavLink to="/news" activeClassName="active">快讯</NavLink>
                           <p className="srch">
                               <input type="text" placeholder="搜索ico项目、文章、快讯"
-                                     value={searchInput}
-                                     onInput={e=>this.setState({searchInput: e.target.value})}/>
+                                      value={searchInput}
+                                      onInput={e=>this.setState({searchInput: e.target.value})}/>
                               <i onClick={()=>history.push(`/search?word=${searchInput}`)}/>
                           </p>
                       </div>
