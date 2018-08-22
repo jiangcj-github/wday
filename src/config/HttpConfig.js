@@ -35,7 +35,14 @@ export default {
     {name: 'getNewsList', data: {url: 'newsflash', method: 'post'}, action: 'GetNewsFlashList', actionBack: 'GetNewsFlashList'}, //获取快讯列表
   ],
   project: [
-    {name: 'getActivity', data: {url: '/api/v1/home', method: 'post'}, action: 'GetActivity', actionBack: 'GetActivityr'}, // 获取项目列表
-  ]
+    {name: 'getProjectList', data: {url: '/api/v1/project/', method: 'post'}, action: 'pgl', actionBack: 'pglr'}, // 获取项目列表
+    {name: 'getProjectDetail', data: {url: '/api/v1/project/', method: 'post'}, action: 'pgi', actionBack: 'pgir'}, // 获取项目详情
+  ],
+  home: [
+    {name: 'getActivity', data: {url: '/api/v1/home', method: 'post'}, action: 'GetActivity', actionBack: 'GetActivityr'}, // 获取首页项目列表
+  ],
+  header: [
+    {name: 'getMarket', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgd', actionBack: 'hgdr'}, // 获取头部市场数据
+  ],
 
 }

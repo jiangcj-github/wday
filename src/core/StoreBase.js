@@ -7,7 +7,7 @@ import MassageHandler from './messageHandler'
 
 import AsyncAll from './libs/AsyncAll'
 import Sleep from './libs/Sleep'
-import Loop from './loop' //localStorage交互
+import Loop from './loop'
 import GlobalUtil from "./libs/GlobalUtil";
 import Storage from "./storage/index"
 
@@ -42,11 +42,4 @@ export default class StoreBase {
     return MassageHandler[connectName]
   }
 
-  // 获取url中的query
-  getQuery(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    let regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-      results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1]);
-  }
 }

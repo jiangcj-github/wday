@@ -1,4 +1,3 @@
-import Msg from "../config/ErrCodeConfig";
 import DetectOS from './lib/Os'
 import Browser from './lib/Browser'
 import {ZipUtil, StoreBase} from '../core'
@@ -37,19 +36,7 @@ export default class ExchangeStoreBase extends StoreBase {
   }
 
   exchangeStoreBaseAfterHandler(app, req, res, config) {
-    // console.log("res.result.ret", res.result.ret);
-
-    // if (res.result.ret !== 0) {
-    //   // res.result = Msg[res.result.ret]
-    //   res.result = res.result.data ? Object.assign(Msg[res.result.ret], res.result.data) : Msg[res.result.ret];
-    //   return
-    // }
-    // if (res.result.action !== config.actionBack) {
-    //   res.result = Msg[1];
-    //   return
-    // }
-    // res.result = res.result.data
-    // console.log('exchangeStoreBaseAfterHandler', app, req, res, config)
+    
   }
 
   startWebsocket(connectName) {
@@ -116,12 +103,7 @@ export default class ExchangeStoreBase extends StoreBase {
         console.error('解析json', e)
       }
       body && console.log('reciveWebsocket', body)
-      let dataCache = body
-      if(body && body.r){
-        delete body.m
-        dataCache = Object.assign(Msg[body && body.r || 0] || {}, body)
-      }
-      opConfig[op] && WebsocketCallBackList[opConfig[op]] && WebsocketCallBackList[opConfig[op]](dataCache)
+      opConfig[op] && WebsocketCallBackList[opConfig[op]] && WebsocketCallBackList[opConfig[op]](body)
     }
 
     websocket.onClose(data => {

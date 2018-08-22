@@ -9,8 +9,9 @@ import {
 } from 'react-router-dom'
 import ViewBase from "../ViewBase";
 import Login from "./children/Login"
-import LoginController from "../../class/login/LoginController"
 import QRCode from "qrcode.react";
+import LoginController from "../../class/login/LoginController"
+import HeaderController from "../../class/header/HeaderController"
 
 import './stylus/header.styl'
 
@@ -18,13 +19,26 @@ export default class Header extends ViewBase {
     constructor(props) {
       super(props);
       this.state = {
-          phone: "",            //当前手机号-未登录为空
-          showLogin: false,     //是否显示登录框
-          top1: 0,              //轮播参数
-          top2: 40,
-          searchInput: "",          //搜索框-输入
+        phone: "",            //当前手机号-未登录为空
+        showLogin: false,     //是否显示登录框
+        top1: 0,              //轮播参数
+        top2: 40,
+        searchInput: "",          //搜索框-输入
+        pollingTimer: "",       //轮询-计时器
       };
       this.controller = LoginController();
+      this.headerController = HeaderController();
+    }
+
+    pollingMarket(){
+        this.pollingTimer && clearTimeout(this.pollingTimer);
+
+        let data = this.headerController.getMarket();
+        console.log("getMarket",data);
+
+        this.pollingTimer = setTimeout(()=>{
+            this.pollingMarket();
+        },5000);
     }
 
     componentDidMount() {
@@ -34,17 +48,20 @@ export default class Header extends ViewBase {
 
         //轮播
         let {top1, top2} = this.state;
-        this.controller.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
+        this.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
             this.setState({top1: layer, top2: layerCache});
         });
         //监听登录框是否显示
         this.bus.on("showLoginDialog","header",()=>{
             this.setState({showLogin: true});
         });
+        //轮询获取
+        this.pollingMarket();
     }
 
     componentWillUnmount() {
         this.bus.off("showLoginDialog","header");
+        this.pollingTimer && clearTimeout(this.pollingTimer);
     }
 
     async logout(){
@@ -58,6 +75,7 @@ export default class Header extends ViewBase {
     render() {
         let {history} = this.props;
         let {showLogin, top1, top2, phone,searchInput} = this.state;
+        let marketList = [1,2,3,4,5];
 
         return (
           <div className="header">
@@ -65,58 +83,20 @@ export default class Header extends ViewBase {
               <div className="price-wrap">
                   <div className="price">
                       <ul style={{top: top1}}>
-                          <li>
+                        {marketList.map(({},index) =>
+                          <li key={index}>
                               <img src={this.imageDict.$icon_coin_five}/>
                               <span>USDT</span>
                               <i className="up">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="up">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="up">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="up">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="up">$6,000(-5.2%)</i>
-                          </li>
+                          </li>)}
                       </ul>
                       <ul style={{top: top2}}>
-                          <li>
+                        {marketList.map(({},index) =>
+                          <li key={index}>
                               <img src={this.imageDict.$icon_coin_five}/>
                               <span>USDT</span>
                               <i className="up">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="down">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="down">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="down">$6,000(-5.2%)</i>
-                          </li>
-                          <li>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="down">$6,000(-5.2%)</i>
-                          </li>
+                          </li>)}
                       </ul>
                   </div>
               </div>

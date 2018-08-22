@@ -43,10 +43,7 @@ export default class Login extends ViewBase {
     //更新图片验证码
     updateImageCode(){
         this.controller.getImgCode().then(data=>{
-            if(data.msg){
-                return;
-            }
-            this.setState({picture: data.pic, pid: data.id});
+            !data.msg && this.setState({picture: data.pic, pid: data.id});
         });
     }
 
@@ -58,7 +55,7 @@ export default class Login extends ViewBase {
             this.setState({errMsg: data.msg, errTip: data.tip});
             return;
         }
-        this.controller.countDown("countDown", 60, count =>{
+        this.countDown("countDown", 60, count =>{
             this.setState({sendCode: count});
         });
     }
@@ -68,7 +65,7 @@ export default class Login extends ViewBase {
     }
 
     componentWillUnmount() {
-        this.controller.countDownStop("countDown");
+        this.endLoop("countDown");
     }
 
     render() {

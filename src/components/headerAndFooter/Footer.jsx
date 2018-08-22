@@ -31,7 +31,7 @@ export default class Footer extends ViewBase {
   scrollTop(){
       let scrollTop = document.documentElement.scrollTop;
       let speed = scrollTop / 10;
-      this.controller.scroll("scroll", scrollTop, 0, speed, pos=>{
+      this.scroll("scroll", scrollTop, 0, speed, pos=>{
           document.documentElement.scrollTop = pos;
       });
   }

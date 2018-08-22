@@ -7,6 +7,7 @@ import Pagination from "../../../common/components/Pagination"
 import Progress from "../../../common/components/Progress"
 import Heat from "../../../common/components/Heat"
 import LoginController from "../../../class/login/LoginController"
+import ProjectController from "../../../class/project/ProjectController"
 
 export default class List extends ViewBase {
     constructor() {
@@ -15,7 +16,11 @@ export default class List extends ViewBase {
             viewMode: 0 ,       // 视图模式 0-列表,1-卡片
             sortByTime: 0 ,      // 时间排序
             tabItem: 0,        //选中tab项, 0-收藏，1-进行中，2-即将开始，3-已结束
+
+            curPage: 1,
+            pageSize: 20,
         };
+        this.controller = ProjectController();
 
         //滚动事件,固定tab
         this.onScroll= () => {
@@ -29,8 +34,12 @@ export default class List extends ViewBase {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         window.addEventListener("scroll", this.onScroll);
+
+        let {curPage,pageSize} = this.state;
+        let data = this.controller.getProjectList(curPage,pageSize);
+        console.log(data)
     }
 
     componentWillUnmount() {
@@ -42,7 +51,7 @@ export default class List extends ViewBase {
         let {viewMode,sortByTime,tabItem} = this.state;
 
         //项目列表
-        let projectList = [1,2,3,4,5,6];
+        let projectList = [];
         let total = 201;
         let curPage = 1;
         let pageSize = 20;

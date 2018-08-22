@@ -1,5 +1,6 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
 import LoginStore from './LoginStore'
+import Error from "../Error"
 
 class LoginController extends ExchangeControllerBase {
     constructor() {
@@ -27,12 +28,11 @@ class LoginController extends ExchangeControllerBase {
             piccode: imgCode,
             pcode: phoneCode
         });
-        if(!data || data.ret !== 1){
-            return Promise.resolve({msg: "登录失败", tip: "other"})
+        if(data.ret !== 1){
+            return Promise.resolve({msg: Error(data.ret), tip: "other"});
         }
         //登录成功
-        data = data.data;
-        this.store.saveLogin({token: data.token, phone: phone});
+        this.store.saveLogin({token: data.data.token, phone: phone});
         return Promise.resolve({});
     }
 
@@ -44,8 +44,8 @@ class LoginController extends ExchangeControllerBase {
     //退出登录
     async logout(){
        let data = await this.store.logout();
-       if(!data || data.ret !== 1){
-           return Promise.resolve({msg: "退出失败", tip: "other"})
+       if(data.ret !== 1){
+           return Promise.resolve({msg: Error(data.ret)})
        }
        //退出登录成功
        this.store.clearLogin();
@@ -54,9 +54,9 @@ class LoginController extends ExchangeControllerBase {
 
     //获取图像验证码
     async getImgCode(){
-        let data = await this.store.getImgCode();console.log(data);
-        if(!data || data.ret !== 1){
-            return Promise.resolve({msg: ""});
+        let data = await this.store.getImgCode();
+        if(data.ret !== 1){
+            return Promise.resolve({msg: Error(data.ret)});
         }
         data = data.data;
         return Promise.resolve({id: data.id, pic: data.pic});
@@ -69,8 +69,8 @@ class LoginController extends ExchangeControllerBase {
         }
         //
         let data = await this.store.getPhoneCode({phone: phone});
-        if(!data || data.ret !== 1){
-            return Promise.resolve({msg: "发送失败", tip: "pc"});
+        if(data.ret !== 1){
+            return Promise.resolve({msg: Error(data.ret), tip: "pc"});
         }
         return Promise.resolve({});
     }

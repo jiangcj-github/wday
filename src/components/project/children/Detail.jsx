@@ -29,8 +29,14 @@ export default class List extends ViewBase {
         };
     }
 
+
     componentDidMount() {
         window.addEventListener("scroll", this.onScroll);
+
+        let id = this.getQuery("id");
+        let data = this.controller.getProjectDetail(id);
+
+        console.log(data);
     }
 
     componentWillUnmount() {

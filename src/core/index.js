@@ -4,12 +4,11 @@ import Loop from "./loop";
 import GlobalUtil from "./libs/GlobalUtil";
 import AsyncComponent from "./libs/AsyncComponent";
 import AsyncAll from "./libs/AsyncAll";
-import ChangeFontSize from './libs/ChangeFontSize'
 import Storage from './storage/index'
 import './libs/Prototype'
 import ZipUtil from './libs/ZipUtil'
 import StoreBase from './StoreBase'
-import Regular from './libs/Regular'
+//import Regular from './libs/Regular'
 
 
 
@@ -32,9 +31,8 @@ module.exports = {
   AsyncComponent,
   RUNAPP,
   AsyncAll,
-  ChangeFontSize,
   Storage,
   ZipUtil,
   StoreBase,
-  Regular
-}
+  //Regular
+};

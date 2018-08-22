@@ -19,24 +19,26 @@ import NewsManage from "./components/news/NewsManage";
 import PersonManage from "./components/person/PersonManage";
 
 import LoginController from "./class/login/LoginController"
+import ConfigController from "./class/config/ConfigController"
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            init:false
-        }
+            init: false
+        };
     }
 
+    //检查是否登录
     loginCheck(){
         let loginInfo = LoginController().loginInfo;
         return !!loginInfo.userPhone;
     }
 
     componentDidMount(){
-      setTimeout(v=>this.setState({
-        init:true
-      }),0)
+        setTimeout(v=>this.setState({
+            init:true
+        }),0)
     }
 
     render() {

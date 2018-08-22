@@ -1,5 +1,6 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
 import ProjectStore from './ProjectStore'
+import Error from "../Error";
 
 class ProjectController extends ExchangeControllerBase {
     constructor() {
@@ -7,11 +8,34 @@ class ProjectController extends ExchangeControllerBase {
         this.store = new ProjectStore();
     }
 
+    //获取项目列表
+    async getProjectList(curPage, pageSize){
+        let data = await this.store.getProjectList({
+          cp: curPage,
+          ps: pageSize
+        });
+        if(data.ret !== 1 ){
+            return Promise.resolve({msg: Error[data.ret]});
+        }
+        return Promise.resolve(data.data);
+    }
+
+    //获取项目详情
+    async getProjectDetail(id){
+        let data = await this.store.getProjectDetail({
+          id: id
+        });
+        if(data.ret !== 1 ){
+            return Promise.resolve({msg: Error[data.ret]});
+        }
+        return Promise.resolve(data.data);
+    }
+
     //获取首页项目列表
     async getActivityHome(){
         let data = await this.store.getActivity();
         if(data.ret !== 1 ){
-            return Promise.resolve({msg: ""});
+            return Promise.resolve({msg: Error(data.ret)});
         }
         return Promise.resolve(data.data);
     }
