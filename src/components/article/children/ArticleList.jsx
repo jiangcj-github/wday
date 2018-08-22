@@ -61,6 +61,8 @@ export default class ArticleList extends ViewBase {
   }
 
   render() {
+    let {history} = this.props;
+    console.log(history,555);
     return (
       <div className="article">
         <ul>
@@ -71,7 +73,7 @@ export default class ArticleList extends ViewBase {
                 (
                   <div className="article-has-img">
                     <div>
-                      <p className="article-title">
+                      <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
                         {v.title && v.title.toString().length > 36 ? v.title.toString().shearStr(36) : v.title.toString()}
 
                       </p>
@@ -86,7 +88,7 @@ export default class ArticleList extends ViewBase {
                   </div>
                 ) :
                 (<div className="article-no-img">
-                  <p className="article-title">
+                  <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
                     {v.title && v.title.toString().length > 29 ? v.title.toString().shearStr(29) : v.title.toString()}
 
                   </p>

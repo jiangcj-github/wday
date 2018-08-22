@@ -5,7 +5,6 @@ import {
   Switch
 } from "react-router-dom";
 import ViewBase from "../../components/ViewBase";
-import ArticleList from "./children/ArticleList";
 import ArticleDetail from "./children/ArticleDetail";
 import "./stylus/article.styl";
 

@@ -33,15 +33,15 @@ export default class NewsDayItem extends ViewBase {
         {/* 每天的日历卡片 */}
         <div className="date-card">
           <div className="date-card-main">
-            <p className="month">{this.state && this.state.cardMonth}</p>
-            <p className="day">{this.state && this.state.cardDay}</p>
+            <p className="month">{this.state.cardMonth}</p>
+            <p className="day">{this.state.cardDay}</p>
           </div>
           <div className="date-card-other">
-            <p className="date-is">{this.state && this.state.cardDayis}</p>
-            <p className="week">{this.state && this.state.cardWeek}</p>
+            <p className="date-is">{this.state.cardDayis}</p>
+            <p className="week">{this.state.cardWeek}</p>
           </div>
           {
-            this.state && this.state.showList &&
+            this.state.showList &&
             <div className="jump">
             <img src={this.imageDict.$_news_next_normal}/>
             </div>
@@ -55,9 +55,9 @@ export default class NewsDayItem extends ViewBase {
                 <span>19: 00</span>
               </div>
               <div className="time-line"><i></i></div>
-              <div className="news-main"  onClick={()=>history.push(`/news/detail?id=${v.id}`)} >
-                <div className="news-title">{v.title}</div>
-                <div className="news-content">{v.content}</div>
+              <div className="news-main">
+                <div className="news-title" onClick={()=>history.push(`/news/detail?id=${v.id}`)} >{v.title}</div>
+                <div className="news-content" >{v.content}</div>
                 <div className="news-thumbs">
                   <Thumbs />
                 </div>

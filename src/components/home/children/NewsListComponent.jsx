@@ -42,6 +42,7 @@ export default class NewsListComponent extends ViewBase {
               cardMonth: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
               cardDay: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
               cardWeek: result && result[this.nowIndex] && new Date(result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+              // TODO 今天是哪天
               cardDayis: this.nowIndex,
             });
             this.nowIndex++;
@@ -67,7 +68,6 @@ export default class NewsListComponent extends ViewBase {
       }
     }
 
-
   }
 
   componentWillUnmount() {
@@ -81,9 +81,12 @@ export default class NewsListComponent extends ViewBase {
         <div className="news-list-by-day">
           {
             this.state.newsList && this.state.newsList.map((v, index) => {
-
-              return <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={show} news={v.news}
+              return (index === 0 && show) ?
+                <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true} news={v.news}
                                  history={history}/>
+                :
+                <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={false} news={v.news}
+                             history={history}/>
             })
           }
 
