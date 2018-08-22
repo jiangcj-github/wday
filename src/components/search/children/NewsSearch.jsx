@@ -1,18 +1,21 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import ViewBase from "../ViewBase";
-import "./stylus/search.styl";
-import ProjectSearch from "./children/ProjectSearch";
-import Empty from "./children/Empty";
-import ArticleSearch from "./children/ArticleSearch";
-import NewsSearch from "./children/NewsSearch";
+import React, { Component } from 'react';
+import ViewBase from "../../ViewBase";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  Switch
+} from 'react-router-dom'
 
-export default class Search2 extends ViewBase {
+import "../stylus/newsSearch.styl";
+import Thumbs from "../../../common/components/thumbs";
+
+export default class NewsSearch extends ViewBase {
   constructor(props) {
     super(props);
     this.state = {
-      tabSelect: "project",
-      articleList: [
+      newsList: [
         {
           id: 1,
           title: "习近平谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战",
@@ -38,59 +41,43 @@ export default class Search2 extends ViewBase {
           date: "18-01-11",
           favourite: true
         },
-      ],
-      tags: ["数字数字", "你瞅啥"],
-      projectList: [],
+        {
+          id: 4,
+          title: "生态福建 交出绿色答卷awdawdawdawdasdawd",
+          content: "2016年8月，中共awdawfeagaeaeg挖法我发发哇哇方法哇哇方法无法无法娃娃安慰方法无法哇阿文 挖法无法发  中央办公厅、国务院办公厅印发《关于设立统一规范的国家生态文明试验区的意见》。",
+          author: "赵awdawd",
+          date: "18-01-11",
+          favourite: true
+        },
+      ]
     }
   }
-
-  componentDidMount() {
-
-  }
-
-  render() {
+  render(){
     let {history} = this.props;
-    let {tabSelect} = this.state;
-    //let projectList = this.state.projectList || [];
-    let projectList = [1, 2, 3, 4, 5, 6, 7];
-    let newsList = [1, 2, 3, 4, 5, 6, 7];
-    let articleList = [1, 2, 3, 4, 5, 6, 7];
-
     return (
-      <div className="search-main">
-        {/* 搜索结果-tab */}
-        <div className="search-tab">
-          <ul className="tab-ul">
-            <li onClick={() => this.setState({tabSelect: "article"})}
-                className={(tabSelect === "article" ? "active" : "")}>文章
-            </li>
-            <li onClick={() => this.setState({tabSelect: "news"})}
-                className={(tabSelect === "news" ? "active" : "")}>快讯
-            </li>
-            <li onClick={() => this.setState({tabSelect: "project"})}
-                className={(tabSelect === "project" ? "active" : "")}>项目
-            </li>
-          </ul>
-          <span className="tip">关于“区块链”共 12 条相关信息</span>
-        </div>
-        {/* 搜索结果-文章*/}
-        {
-          tabSelect === "article" &&
-          (articleList.length > 0 ? <ArticleSearch history={history}/>: <Empty /> )
-        }
+      <div className="search-news">
+      {
+        this.state.newsList && this.state.newsList.map((v, index) => (
+          <div className="news-item" key={index}>
+            <p className="news-time">2018-09-09 09:09:09</p>
+            <div className="news-main">
+              <div className="news-title" onClick={() => history.push(`/news/detail?id=${v.id}`)}>
+                {v.title && v.title.length > 45 ? v.title.shearStr(45) : v.title }
+              </div>
 
-        {/* 搜索结果-快讯*/}
-        {
-          tabSelect === "news" &&
-          (newsList.length > 0 ? <NewsSearch history={history}/> : <Empty />)
-        }
-
-        {/* 搜索结果-项目*/}
-        {
-          tabSelect === "project" &&
-          (projectList.length > 0 ? <ProjectSearch/> : <Empty/>)
-        }
+              <div className="news-content">
+                {v.content && v.content.length > 100 ? v.content.shearStr(100) : v.title }
+              </div>
+              <div className="news-thumbs">
+                <Thumbs/>
+              </div>
+            </div>
+          </div>
+        ))
+      }
       </div>
+
+
     );
   }
 

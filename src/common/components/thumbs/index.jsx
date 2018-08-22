@@ -72,13 +72,13 @@ export default class Thumbs extends ViewBase {
       <div className="thumbs">
         <div onClick={this.changeGood} className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good"}>
           <div className={(this.state.goodClicked ? "clicked " : "normal ") + "good-div"}></div>
-          <span className="thumbs-good-span">利好 {this.state.goodCount}</span>
+          <span className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good-span"}>利好 {this.state.goodCount}</span>
         </div>
 
         <div onClick={this.changeBad.bind(this)}
              className={(this.state.badClicked ? "clicked " : "normal ") + "thumbs-bad"}>
           <div className={(this.state.badClicked ? "clicked " : "normal ") + "bad-div"}></div>
-          <span className="thumbs-bad-span">利空 {this.state.badCount}</span>
+          <span className={(this.state.badClicked ? "clicked " : "normal ") + "thumbs-bad-span" }>利空 {this.state.badCount}</span>
         </div>
 
 

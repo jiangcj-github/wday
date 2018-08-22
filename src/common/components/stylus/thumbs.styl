@@ -7,7 +7,7 @@
 
   div.thumbs-good
     span.thumbs-good-span
-       margin-left 5px
+      margin-left 5px
     .good-div.normal
       display inline-block
       width 15px
@@ -22,7 +22,8 @@
       vertical-align -2px
       background-image $_good_clicked
       background-size cover
-
+  div.thumbs-good.normal
+    color $thumbs-color-light
   div.thumbs-good.clicked, div.thumbs-good:hover
     color $thumbs-color-active
   div.thumbs-good:hover
@@ -30,8 +31,6 @@
       background-image $_good_hover
     .good-div.clicked
       background-image $_good_clicked_hover
-
-
 
   div.thumbs-bad
     span.thumbs-bad-span
@@ -44,7 +43,6 @@
       background-image $_bad_normal
       background-size cover
 
-
     .bad-div.clicked
       display inline-block
       width 15px
@@ -52,15 +50,15 @@
       vertical-align -2px
       background-image $_bad_clicked
       background-size cover
-
-  div.thumbs-bad.clicked, div.thumbs-bad:hover
+  div.thumbs-bad.normal
+    color $thumbs-color-light
+  div.thumbs-bad.clicked, div.thumbs-bad.normal:hover
     color $thumbs-color-active-bad
   div.thumbs-bad:hover
     .bad-div.normal
       background-image $_bad_hover
     .bad-div.clicked
       background-image $_bad_clicked_hover
-
 
   img
     width 15px
@@ -115,8 +113,6 @@
     .copyContent:hover, .share-weibo:hover, .share-qq:hover, .share-wechat:hover
       background $_e9f7f3
 
-
-
     span.little
       position absolute
       top -20px
@@ -141,8 +137,6 @@
         border-color transparent transparent #fff transparent
         border-style dashed dashed solid dashed
         border-width 10px
-
-
 
   .thumbs-share:hover .share-div
     display block
