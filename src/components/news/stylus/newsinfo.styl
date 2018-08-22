@@ -5,9 +5,10 @@
   width 760px
   min-height 650px
   margin 15px auto
-  box-shadow: 0 0 4px 0
-  border-radius: 2px;
-  padding 20px
+  background $_news_bg
+  box-shadow 0 0 4px 0 rgba(204,204,204,0.50)
+  border-radius 2px
+  padding 20px 20px 40px 20px
   .date-card
     border-radius: 4px;
     .date-card-main
@@ -25,26 +26,36 @@
         font-size 18px
         line-height 35px
         margin-top -2px
+        color $_news_color_weight
+
     .date-card-other
       display inline-block
       margin-left 20px
       p.date-is
         font-size 20px
         line-height 28px
+        color $_news_color_weight
       p.week
         font-size 14px
         line-height 20px
         color $_news_color_light
   .news-date
     margin 40px 0 30px 0
+    font-size 18px
+    line-height 25px
+    color $_news_color_weight
   .news-title
     font-size 22px
     line-height 30px
+    color $_news_color_weight
+
   .news-content
     font-size 20px
     line-height 34px
+    color $_news_color_weight
+
   .news-thumbs
     margin 20px 0
     .thumbs
       float right
-      width 200px
+      width 250px

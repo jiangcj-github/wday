@@ -100,7 +100,7 @@ export default class ArticleDetail extends ViewBase {
 
                   <div className="share">
                     <div className="share-div"></div>
-                    <span className="share-span">66</span>
+                    <span className="share-span">分享</span>
                   </div>
 
                   <div className={ (this.state.favourite ? "isfav " : "notfav ") + "favourite"} >
