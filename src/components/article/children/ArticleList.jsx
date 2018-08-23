@@ -17,7 +17,6 @@ export default class ArticleList extends ViewBase {
     super(props);
     this.state = {
       articleList: [],
-      tags : ["数字数字", "你瞅啥"],
       page: 1
     };
     this.changeFav = this.changeFav.bind(this);
@@ -103,12 +102,7 @@ export default class ArticleList extends ViewBase {
                   <span className="article-author">{v.author}</span>
                   {/* 文章日期 */}
                   <span className="article-date">{v.date}</span>
-                  {/* 文章标签 */}
-                  {
-                    this.state.tags && this.state.tags.map((v, index) => (
-                      <span key={index} className="tag-name">{v}</span>
-                    ))
-                  }
+
                 </div>
                 <div className="right-info">
                   {/* 阅读次数 */}
