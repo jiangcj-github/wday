@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ViewBase from "../../ViewBase";
 import {
   Route,
   Link,
   Redirect,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
+
 
 import "../stylus/newsdayitem.styl"
 import Thumbs from "../../../common/components/thumbs/index";
@@ -15,7 +16,6 @@ export default class NewsDayItem extends ViewBase {
     super(props);
     let {dayDate, news, showList, mark} = props;
     let time = new Date(dayDate * 1000);
-    console.log("geted mark is ", mark);
     this.state = {
         cardMonth: time.dateHandle("M") + "月",
         cardDay: time.dateHandle("dd"),
@@ -54,17 +54,16 @@ export default class NewsDayItem extends ViewBase {
               <div className="news-time">
                 <span>19: 00</span>
               </div>
+              {/* 时间线 最后一个没有样式，实现快讯之间相连 */}
               <div className={"time-line" + ((index ===this.state.news.length -1) ? "last" : "") }><i></i></div>
               <div className="news-main">
                 <div className="for-hover">
                   <div className="news-title" onClick={()=>history.push(`/news/detail?id=${v.id}`)} >
-                    {/*{v.title}*/}
                     {
                       v.title && v.title.length > titleLen ? v.title.shearStr(titleLen) : v.title
                     }
                   </div>
                   <div className="news-content" >
-                    {/*{v.content}*/}
                     {
                       v.content && v.content.length > contentLen ? v.content.shearStr(contentLen) : v.content
                     }
