@@ -107,7 +107,7 @@ export default class NewsListComponent extends ViewBase {
   }
 
   render() {
-    let {history, show} = this.props;
+    let {history, show, titleLen, contentLen} = this.props;
     return (
       <div className="scroll-sign">
         {/* 每天 */}
@@ -118,10 +118,10 @@ export default class NewsListComponent extends ViewBase {
               // 若是第一条  根据情况设置跳转按钮显示
               return (index === 0 && show) ?
                 <NewsDayItem key={index} mark={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true} news={v.news}
-                             history={history}/>
+                             history={history} titleLen={titleLen} contentLen={contentLen} />
                 :
                 <NewsDayItem key={index} ref={`Day${index}`} mark={index} dayDate={v.dayDate} showList={false} news={v.news}
-                             history={history}/>
+                             history={history} titleLen={titleLen} contentLen={contentLen} />
             })
           }
 

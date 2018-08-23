@@ -48,7 +48,7 @@ export default class Home extends ViewBase {
           {/*快讯列表*/}
           <div className="remove-scroll-bar">
             <div className="news-wrap">
-              <NewsListComponent show={true} isWindowScroll={false} history={history}/>
+              <NewsListComponent show={true} isWindowScroll={false} titleLen={14} contentLen={58} history={history}/>
             </div>
           </div>
 

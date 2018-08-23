@@ -27,7 +27,7 @@ export default class NewsDayItem extends ViewBase {
   }
 
   render() {
-    let { history } = this.props;
+    let { history, titleLen, contentLen } = this.props;
     return (
       <div className="news-day-item">
         {/* 每天的日历卡片 */}
@@ -57,8 +57,18 @@ export default class NewsDayItem extends ViewBase {
               <div className="time-line"><i></i></div>
               <div className="news-main">
                 <div className="for-hover">
-                  <div className="news-title" onClick={()=>history.push(`/news/detail?id=${v.id}`)} >{v.title}</div>
-                  <div className="news-content" >{v.content}</div>
+                  <div className="news-title" onClick={()=>history.push(`/news/detail?id=${v.id}`)} >
+                    {/*{v.title}*/}
+                    {
+                      v.title && v.title.length > titleLen ? v.title.shearStr(titleLen) : v.title
+                    }
+                  </div>
+                  <div className="news-content" >
+                    {/*{v.content}*/}
+                    {
+                      v.content && v.content.length > contentLen ? v.content.shearStr(contentLen) : v.content
+                    }
+                  </div>
                 </div>
                 <div className="news-thumbs">
                   <Thumbs />
