@@ -20,15 +20,8 @@ export default class ArticleList extends ViewBase {
       tags : ["数字数字", "你瞅啥"],
       page: 1
     };
-    this.loginCheck = this.loginCheck.bind(this);
     this.changeFav = this.changeFav.bind(this);
     this.scrollFunction = this.scrollFunction.bind(this);
-  }
-
-  //检查是否登录
-  loginCheck(){
-    let loginInfo = LoginController().loginInfo;
-    return !!loginInfo.userPhone;
   }
 
   async scrollFunction() {
@@ -71,6 +64,7 @@ export default class ArticleList extends ViewBase {
 
   render() {
     let {history} = this.props;
+    let isLogin = !!LoginController().loginInfo.userPhone;
     return (
       <div className="article">
         <ul>
@@ -128,11 +122,19 @@ export default class ArticleList extends ViewBase {
                     <span className="love-span">55</span>
                   </div>
                   {/* 收藏 */}
-                  <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
-                       onClick={this.changeFav.bind(this, v.id)}>
-                    <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
-                    <span className="favourite-span">收藏</span>
-                  </div>
+                  {
+                    isLogin ?
+                      <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
+                           onClick={this.changeFav.bind(this, v.id)}>
+                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
+                        <span className="favourite-span">收藏</span>
+                      </div> :
+                      <div className="notfav favourite"
+                           onClick={()=>this.bus.emit("showLoginDialog")}>
+                        <div className="notfav favourite-div"></div>
+                        <span className="favourite-span">收藏</span>
+                      </div>
+                  }
                 </div>
               </div>
             </li>

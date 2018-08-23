@@ -10,6 +10,7 @@ import {
 
 import "../stylus/articleSearch.styl"
 import ArticleController from "../../../class/article/ArticleController"
+import LoginController from "../../../class/login/LoginController";
 
 export default class ArticleSearch extends ViewBase {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class ArticleSearch extends ViewBase {
 
   render() {
     let {history} = this.props;
-    console.log(history,555);
+    let isLogin = !!LoginController().loginInfo.userPhone;
     return (
       <div className="article">
         <ul>
@@ -76,8 +77,11 @@ export default class ArticleSearch extends ViewBase {
               {/* 文章信息，作者 时间 点赞数量及收藏等 */}
               <div className="article-info">
                 <div className="left-info">
+                  {/* 作者 */}
                   <span className="article-author">{v.author}</span>
+                  {/* 文章日期 */}
                   <span className="article-date">{v.date}</span>
+                  {/* 文章标签 */}
                   {
                     this.state.tags && this.state.tags.map((v, index) => (
                       <span key={index} className="tag-name">{v}</span>
@@ -85,20 +89,30 @@ export default class ArticleSearch extends ViewBase {
                   }
                 </div>
                 <div className="right-info">
+                  {/* 阅读次数 */}
                   <div className="watch">
                     <div className="watch-div"></div>
                     <span className="watch-span">66</span>
                   </div>
+                  {/* 点赞次数 */}
                   <div className="love">
                     <div className="love-div"></div>
                     <span className="love-span">55</span>
                   </div>
-                  <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
-                       onClick={this.changeFav.bind(v.id, this)}>
-                    <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
-                    <span className="favourite-span">收藏</span>
-                  </div>
-
+                  {/* 收藏 */}
+                  {
+                    isLogin ?
+                      <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
+                           onClick={this.changeFav.bind(this, v.id)}>
+                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
+                        <span className="favourite-span">收藏</span>
+                      </div> :
+                      <div className="notfav favourite"
+                           onClick={()=>this.bus.emit("showLoginDialog")}>
+                        <div className="notfav favourite-div"></div>
+                        <span className="favourite-span">收藏</span>
+                      </div>
+                  }
                 </div>
               </div>
             </li>
