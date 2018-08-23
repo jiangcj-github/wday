@@ -6,10 +6,6 @@ export default class ProjectStore extends ExchangeStoreBase {
         this.state = {};
     }
 
-    async getActivity(){
-        return await this.Proxy.getActivity();
-    }
-
     async getProjectList(params){
         return await this.Proxy.getProjectList(params);
     }

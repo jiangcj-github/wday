@@ -31,15 +31,6 @@ class ProjectController extends ExchangeControllerBase {
         return data.data;
     }
 
-    //获取首页项目列表
-    async getActivityHome(){
-        let data = await this.store.getActivity();
-        if(data.ret !== 1 ){
-            return {msg: Error(data.ret)};
-        }
-        return data.data;
-    }
-
 }
 
 //静态实例

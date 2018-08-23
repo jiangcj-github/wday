@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import ViewBase from "../../ViewBase";
 import Progress from "../../../common/components/Progress"
-import ProjectController from "../../../class/project/ProjectController"
+import HomeController from "../../../class/home/HomeController"
 
 
 export default class Home extends ViewBase {
@@ -11,7 +11,7 @@ export default class Home extends ViewBase {
         this.state = {
             projects: {finishActivity: {}, runActivity: {}, soonActivity: {}},
         };
-        this.controller = ProjectController();
+        this.controller = HomeController();
     }
 
     componentDidMount() {
