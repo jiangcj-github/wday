@@ -11,32 +11,32 @@ export default class ExchangeStoreBase extends StoreBase {
     super();
     this.preHandler.push(this.exchangeStoreBasePreHandler);
     this.afterHandler.push(this.exchangeStoreBaseAfterHandler);
-    // console.log(modelName)
-    modelName && this.installProxy(modelName, this.preHandler, this.afterHandler)
-    this.WebSocket = {}
-    // console.log(modelName , connectName)
-    modelName && connectName && this.installWebsocket(connectName, modelName)
+    modelName && this.installProxy(modelName, this.preHandler, this.afterHandler);
+    this.WebSocket = {};
+    modelName && connectName && this.installWebsocket(connectName, modelName);
   }
 
   exchangeStoreBasePreHandler(app, req, config) {
     let paramsObj = {
-      action: config.action,
-      data: req.data.params
-    }
-    req.data.params = paramsObj
+      a: config.action,
+      d: req.data.params
+    };
+    req.data.params = paramsObj;
     //添加token
-    if (!config.needToken) return
-    // console.log(req.data.params)
-    if (!req.data.params.data.token) return
-    let headers = new Headers()
-    headers.set('token', req.data.params.data.token)
+    if (!config.needToken) return;
+    if (!req.data.params.d.token) return;
+    let headers = new Headers();
+    headers.set('token', req.data.params.d.token);
     req.data.headers = headers;
-    delete req.data.params.data.token
-    // console.log('exchangeStoreBaseAfterHandler', app, req, res, config)
+    delete req.data.params.d.token;
   }
 
   exchangeStoreBaseAfterHandler(app, req, res, config) {
-    
+    //
+    !res || !res.d;
+
+
+    res.result = {}
   }
 
   startWebsocket(connectName) {

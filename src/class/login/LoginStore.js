@@ -48,13 +48,8 @@ export default class LoginStore extends ExchangeStoreBase {
     }
 
     //获取图像验证码
-    async getImgCode(){
-        return await this.Proxy.getImgCode();
-    }
-
-    //获取短信验证码
-    async getPhoneCode(params){
-        return await this.Proxy.getPhoneCode(params);
+    async getCode(params){
+        return await this.Proxy.getCode(params);
     }
 
 }

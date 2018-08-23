@@ -19,19 +19,18 @@ class LoginController extends ExchangeControllerBase {
         if(!phoneCode){
             return {msg: "短信验证码错误", tip: "pc"};
         }
-        //
+
         let data = await this.store.login({
-            account: phone,
-            password: "",
-            picid: picId,
-            phone: phone,
-            piccode: imgCode,
-            pcode: phoneCode
+            act: phone,
+            pwd: "",
+            pid: picId,
+            phe: phone,
+            pcd: imgCode,
+            hcd: phoneCode
         });
-        if(data.ret !== 1){
+        if(data.ret !== 0) {
             return {msg: Error(data.ret), tip: "other"};
         }
-        //登录成功
         this.store.saveLogin({token: data.data.token, phone: phone});
         return {};
     }
@@ -44,18 +43,19 @@ class LoginController extends ExchangeControllerBase {
     //退出登录
     async logout(){
        let data = await this.store.logout();
-       if(data.ret !== 1){
+       if(data.ret !== 0) {
            return {msg: Error(data.ret)};
        }
-       //退出登录成功
        this.store.clearLogin();
        return {};
     }
 
     //获取图像验证码
     async getImgCode(){
-        let data = await this.store.getImgCode();
-        if(data.ret !== 1){
+        let data = await this.store.getCode({
+            typ: 1,
+        });
+        if(data.ret !== 0) {
             return {msg: Error(data.ret)};
         }
         data = data.data;
@@ -64,12 +64,15 @@ class LoginController extends ExchangeControllerBase {
 
     //获取手机验证码
     async getPhoneCode(phone){
-        if(!/^1[23456789]\d{9}$/.test(phone)){
+        if(!/^1[23456789]\d{9}$/.test(phone)) {
             return {msg: "请输入正确的手机号", tip: "phone"};
         }
-        //
-        let data = await this.store.getPhoneCode({phone: phone});
-        if(data.ret !== 1){
+
+        let data = await this.store.getCode({
+            typ: 2,
+            phe: phone
+        });
+        if(data.ret !== 0) {
             return {msg: Error(data.ret), tip: "pc"};
         }
         return {};

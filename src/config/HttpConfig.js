@@ -22,13 +22,12 @@ export default {
   // httpPreHandler,
   // httpAfterHandler,
   login: [
-    {name: 'login', data: {url: '/api/v1/login', method: 'post'}, action: 'Login', actionBack: 'Loginr'}, // 登录
-    {name: 'logout', data: {url: '/api/v1/login', method: 'post'}, action: 'Logout', actionBack: 'Logoutr'}, // 登出
-    {name: 'getImgCode', data: {url: '/api/v1/code', method: 'post'}, action: 'GetPicCode', actionBack: 'GetPicCoder'}, // 获取图像验证码
-    {name: 'getPhoneCode', data: {url: '/api/v1/code', method: 'post'}, action: 'GetPhoneCode', actionBack: 'GetPhoneCoder'}, // 获取手机验证码
+    {name: 'login', data: {url: '/api/v1/user/', method: 'post'}, action: 'uli', actionBack: 'ulir'}, // 登录
+    {name: 'logout', data: {url: '/api/v1/user/', method: 'post'}, action: 'ulo', actionBack: 'ulor'}, // 登出
+    {name: 'getCode', data: {url: '/api/v1/code/', method: 'post'}, action: 'uac', actionBack: 'uacr'}, // 获取验证码
   ],
   article: [
-    {name: 'getArticleList', data: {url: '/api/v1/home', method: 'post'}, action: 'GetArticle', actionBack: 'GetArticler'}, // 获取首页文章列表
+    {name: 'getArticleList', data: {url: '/api/v1/home/', method: 'post'}, action: 'GetArticle', actionBack: 'GetArticler'}, // 获取首页文章列表
 
   ],
   news: [
@@ -39,7 +38,7 @@ export default {
     {name: 'getProjectDetail', data: {url: '/api/v1/project/', method: 'post'}, action: 'pgi', actionBack: 'pgir'}, // 获取项目详情
   ],
   home: [
-    {name: 'getActivity', data: {url: '/api/v1/home', method: 'post'}, action: 'GetActivity', actionBack: 'GetActivityr'}, // 获取首页项目列表
+    {name: 'getActivity', data: {url: '/api/v1/home/', method: 'post'}, action: 'hga', actionBack: 'hgar'}, // 获取首页项目列表
   ],
   header: [
     {name: 'getMarket', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgd', actionBack: 'hgdr'}, // 获取头部市场数据
