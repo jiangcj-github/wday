@@ -41,8 +41,32 @@ String.prototype.formatPhone=function () {
     return this.substr(0,3) + "****" + this.substr(7,4);
 };
 
+//剩余时间,倒计时
+Date.prototype.remain = function(){
+  let remain = Math.abs(this.getTime() - Date.now());
+  if(remain>24 * 60 * 60 * 1000){
+    let day = Math.floor(remain / (24 * 60 * 60 * 1000));
+    return `${day}天`;
+  }
+  if(remain>60 * 60 * 1000){
+    let hour = Math.floor(remain / (60 * 60 * 1000));
+    return `${hour}小时`;
+  }
+  if(remain>60*1000){
+    let min = Math.floor(remain / (60 * 1000));
+    return `${min}分钟`;
+  }
+  return `${remain}秒`;
+};
 
-
+//结束时间（月-日，xx-xx，超过当年的显示年-月-日，xxxx-xx-xx）
+Date.prototype.end = function () {
+  let dy = this.getFullYear() - new Date().getFullYear();
+  if(dy === 0){
+    return this.dateHandle("MM-dd");
+  }
+  return this.dateHandle("yyyy-MM-dd");
+};
 
 
 export default {
