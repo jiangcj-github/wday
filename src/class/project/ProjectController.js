@@ -15,9 +15,9 @@ class ProjectController extends ExchangeControllerBase {
           ps: pageSize
         });
         if(data.ret !== 1 ){
-            return Promise.resolve({msg: Error[data.ret]});
+            return {msg: Error[data.ret]};
         }
-        return Promise.resolve(data.data);
+        return data.data;
     }
 
     //获取项目详情
@@ -26,18 +26,18 @@ class ProjectController extends ExchangeControllerBase {
           id: id
         });
         if(data.ret !== 1 ){
-            return Promise.resolve({msg: Error[data.ret]});
+            return {msg: Error[data.ret]};
         }
-        return Promise.resolve(data.data);
+        return data.data;
     }
 
     //获取首页项目列表
     async getActivityHome(){
         let data = await this.store.getActivity();
         if(data.ret !== 1 ){
-            return Promise.resolve({msg: Error(data.ret)});
+            return {msg: Error(data.ret)};
         }
-        return Promise.resolve(data.data);
+        return data.data;
     }
 
 }

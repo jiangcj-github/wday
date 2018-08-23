@@ -11,9 +11,9 @@ class HeaderController extends ExchangeControllerBase {
   async getMarket(){
     let data = this.store.getMarket();
     if(data.ret !== 0){
-      return Promise.resolve({msg: Error(data.ret)})
+      return {msg: Error(data.ret)};
     }
-    return Promise.resolve(data.data);
+    return data.data;
   }
 
 }
