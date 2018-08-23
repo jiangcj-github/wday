@@ -50,6 +50,23 @@
           display inline-block
           float right
           padding 10px
+          cursor pointer
           img
             width 20px
+
+  .go-to-top
+    position fixed
+    bottom 30px
+    margin-left 310px
+    left 50%
+    z-index 450
+    cursor pointer
+    width 30px
+    height 30px
+    visibility hidden
+    background no-repeat center center
+    background-size 100% 100%
+    background-image $news-toTop
+    &:hover
+      background-image $news-toTop-hover
 

@@ -13,13 +13,13 @@ import Thumbs from "../../../common/components/thumbs/index";
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
     super(props);
-    let {dayDate, news, showList} = props;
+    let {dayDate, news, showList, mark} = props;
     let time = new Date(dayDate * 1000);
-
+    console.log("geted mark is ", mark);
     this.state = {
         cardMonth: time.dateHandle("M") + "月",
         cardDay: time.dateHandle("dd"),
-        cardDayis: 55,
+        cardDayis: mark,
         cardWeek: time.dateHandle("www"),
         news: news,
         showList: showList

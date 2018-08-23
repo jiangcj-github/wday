@@ -14,8 +14,8 @@
       width 620px
       margin 10px
     .remove-scroll-bar
-      width 300px
-      overflow hidden
+      //width 300px
+      //overflow hidden
       .news-wrap
         width 314px
         overflow-y scroll
@@ -33,7 +33,7 @@
         .floatTop ~ .news-item
           margin-top 70px
         .top-card
-          width 298px // 坑 浏览去边框
+          width 297px // 坑 浏览去边框
           position absolute
           top 10px
           z-index 300
@@ -47,16 +47,3 @@
             height 36px
 
 
-    .go-to-top
-      position fixed
-      bottom 30px
-      right 340px
-      cursor pointer
-      width 30px
-      height 30px
-      visibility hidden
-      background no-repeat center center
-      background-size 100% 100%
-      background-image $news-toTop
-      &:hover
-        background-image $news-toTop-hover

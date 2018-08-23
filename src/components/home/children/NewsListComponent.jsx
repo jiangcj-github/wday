@@ -16,62 +16,97 @@ import NewsDayItem from "../../news/children/NewsDayItem";
 export default class NewsListComponent extends ViewBase {
   constructor(props) {
     super(props);
-    let {isWindowScroll} = props;
-    this.state = {
-      isWindowScroll: isWindowScroll
-    };
+    this.state = {};
+    this.nowIndex = 0;
+    this.addMoreNews = this.addMoreNews.bind(this);
+    this.scrollFunction = this.scrollFunction.bind(this);
+    this.scrollTop = this.scrollTop.bind(this);
+  }
+
+
+  // 获取更多快讯
+  async addMoreNews(page) {
+    let controller = new NewsController();
+    let result = await controller.getNewsList();
+    // return result;
+    this.setState({
+      newsList: this.state.newsList.concat(result)
+    })
+  }
+
+  // 快讯回到顶部 瞬间回去
+  scrollTop(){
+    let dom = document.querySelector(".news-wrap");
+    dom.scrollTop = 0;
+    dom.scrollIntoView(true);
+    this.nowIndex = 0;
+  }
+
+  scrollFunction(target ,isWindowScroll) {
+    let fix = isWindowScroll ? 110 : -10;
+    let sc_result = this.state.newsList;
+    let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
+    if (day) {
+      if (target.scrollTop >= (day.offsetTop + fix)) {
+        this.setState({
+          cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+          cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+          cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+          // TODO 今天是哪天
+          cardDayis: this.nowIndex,
+        });
+        this.nowIndex++;
+        console.log("this.nowIndex", this.nowIndex);
+      } else if (this.nowIndex !== 0) {
+        this.nowIndex--;
+        console.log("this.nowIndex", this.nowIndex);
+        this.setState({
+          cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+          cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+          cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+          cardDayis: this.nowIndex,
+        });
+        // this.setState((preState, ()=> {
+        //
+        // }));
+      }
+    }
+
+    // window滚动需要删除卡片
+    if(isWindowScroll && document.documentElement.scrollTop < 100) {
+      console.log("clear card");
+      this.setState({
+        cardMonth: ""
+      });
+    }
+
+    // 滑动到底部需要加载更多
+    // scrollTop + clientHeight == scrollHeight
+    if(target.scrollTop + target.clientHeight === target.scrollHeight ) {
+      console.log("到底啦");
+      this.addMoreNews();
+      console.log("addMoreNews 完事啦");
+    }
   }
 
   async componentDidMount() {
     let controller = new NewsController();
     let result = await controller.getNewsList();
+    let {isWindowScroll} = this.props;
     console.log("view news", result);
-    this.nowIndex = 0;
+
     this.setState({newsList: result});
 
     if (result.length > 0) {
-      //抚平两种滚动的差距
-      let fix = this.state.isWindowScroll ? 110 : -10;
-      (this.state.isWindowScroll ? window : document.querySelector(".news-wrap")).onscroll = () => {
-        let sc_result = this.state.newsList;
-        let dom = this.state.isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
-        let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
-        if (day) {
-          if (dom.scrollTop >= (day.offsetTop + fix)) {
-            this.setState({
-              cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
-              cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
-              cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
-              // TODO 今天是哪天
-              cardDayis: this.nowIndex,
-            });
-            this.nowIndex++;
-          } else if (this.nowIndex !== 0) {
-            this.nowIndex--;
-            this.setState({
-              cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
-              cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
-              cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
-              cardDayis: this.nowIndex,
-            });
-          }
-        }
-
-        // window滚动需要删除卡片
-        if(this.state.isWindowScroll && document.documentElement.scrollTop < 100) {
-          console.log("clear card");
-          this.setState({
-            cardMonth: ""
-          });
-        }
-
-      }
+      // 添加滚动事件
+      let scrollTarget = isWindowScroll ? window : document.querySelector(".news-wrap");
+      scrollTarget.addEventListener("scroll", this.scrollFunction.bind(this,scrollTarget, isWindowScroll));
     }
 
   }
 
   componentWillUnmount() {
-    (this.state.isWindowScroll ? window : document.querySelector(".news-wrap")).onscroll = null;
+    (this.props.isWindowScroll ? window : document.querySelector(".news-wrap")).removeEventListener("scroll", this.scrollFunction);
   }
 
   render() {
@@ -82,10 +117,10 @@ export default class NewsListComponent extends ViewBase {
           {
             this.state.newsList && this.state.newsList.map((v, index) => {
               return (index === 0 && show) ?
-                <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true} news={v.news}
+                <NewsDayItem key={index} mark={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true} news={v.news}
                              history={history}/>
                 :
-                <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={false} news={v.news}
+                <NewsDayItem key={index} ref={`Day${index}`} mark={index} dayDate={v.dayDate} showList={false} news={v.news}
                              history={history}/>
             })
           }
@@ -108,7 +143,7 @@ export default class NewsListComponent extends ViewBase {
                 </div>
                 {
                   show?
-                    <div className="jump">
+                    <div className="jump" onClick={() => history.push("/news/list")}>
                       <img src={this.imageDict.$_news_next_normal}/>
                     </div>
                     : null
@@ -124,6 +159,9 @@ export default class NewsListComponent extends ViewBase {
             </div>
           }
         </div>
+
+        {/* 快讯滚动顶部按钮 未完 */}
+        <div className="go-to-top" onClick={this.scrollTop}></div>
       </div>
     )
   }

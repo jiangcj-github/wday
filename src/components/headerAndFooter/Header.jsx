@@ -56,7 +56,7 @@ export default class Header extends ViewBase {
             this.setState({showLogin: true});
         });
         //轮询获取
-        this.pollingMarket();
+        // this.pollingMarket();
     }
 
     componentWillUnmount() {

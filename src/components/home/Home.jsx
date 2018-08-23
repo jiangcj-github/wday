@@ -11,7 +11,6 @@ export default class Home extends ViewBase {
   constructor(props) {
     super(props);
     this.scrollFunction = this.scrollFunction.bind(this);
-    this.scrollTop = this.scrollTop.bind(this);
   }
 
   scrollFunction() {
@@ -23,15 +22,6 @@ export default class Home extends ViewBase {
     else {
       go.style.visibility = "visible";
     }
-  }
-
-  scrollTop(){
-    let dom = document.querySelector(".news-wrap");
-    let scroll = document.querySelector(".news-wrap").scrollTop;
-    let speed = scroll / 10;
-    this.scroll("scroll", scroll, 0, speed, pos=>{
-      document.querySelector(".news-wrap").scrollTop = pos;
-    });
   }
 
   componentDidMount() {
@@ -58,11 +48,10 @@ export default class Home extends ViewBase {
           {/*快讯列表*/}
           <div className="remove-scroll-bar">
             <div className="news-wrap">
-              <NewsListComponent show={true} isWindowScroll={false}  history={history}/>
+              <NewsListComponent show={true} isWindowScroll={false} history={history}/>
             </div>
           </div>
-          {/* 快讯滚动顶部按钮 未完 */}
-          <div className="go-to-top" onClick={this.scrollTop}></div>
+
         </div>
       </div>
     );
