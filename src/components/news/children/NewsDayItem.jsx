@@ -54,7 +54,7 @@ export default class NewsDayItem extends ViewBase {
               <div className="news-time">
                 <span>19: 00</span>
               </div>
-              <div className="time-line"><i></i></div>
+              <div className={"time-line" + ((index ===this.state.news.length -1) ? "last" : "") }><i></i></div>
               <div className="news-main">
                 <div className="for-hover">
                   <div className="news-title" onClick={()=>history.push(`/news/detail?id=${v.id}`)} >

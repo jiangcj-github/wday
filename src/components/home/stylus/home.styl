@@ -20,24 +20,37 @@
         overflow-y scroll
         height calc(200vh)
         margin 10px 0
-        .date-card
-          padding 10px 20px
-        .news-time
-          width 80px
-          padding-left 10px
-          span
-            width 60px
-          span:after
-            margin-left 10px
 
-        .for-hover:hover
-          color $project-color-doing
-        .for-hover
-          color $project-color-weight
-        .news-title, .news-content
-          width 208px
-        .news-title
-          font-size 14px
+        .news-day-item
+          .time-line
+            border-left: 1px solid;
+            position: absolute;
+            height: 100%;
+            left: 74px;
+            top: 25px;
+            color $project-border
+          .date-card
+            padding 10px 20px
+          .news-item
+            position relative
+            .news-time
+              width 80px
+              padding-left 10px
+              span
+                width 60px
+              span:after
+                margin-left 10px
+
+            .news-main
+              margin-right 10px
+              width 198px
+              .for-hover:hover
+                color $project-color-doing
+              .for-hover
+                color $project-color-weight
+
+              .news-title
+                font-size 14px
         .floatTop
           position absolute
           top 10px
