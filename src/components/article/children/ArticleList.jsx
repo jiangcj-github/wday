@@ -65,8 +65,8 @@ export default class ArticleList extends ViewBase {
           {this.state && this.state.articleList && this.state.articleList.map((v,index) =>(
             <li key={index}>
               {/* 根据是否有文章大图 切换显示 */}
-              {v.img ?
-                (
+              {
+                v.img ?
                   <div className="article-has-img">
                     <div>
                       <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
@@ -79,11 +79,11 @@ export default class ArticleList extends ViewBase {
                       </p>
                     </div>
                     <div>
-                      <img src={v.img}/>
+                      <img src={v.img} onClick={()=>history.push(`/article/detail?id=${v.id}`)} />
                     </div>
                   </div>
-                ) :
-                (<div className="article-no-img">
+                :
+                <div className="article-no-img">
                   <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
                     {v.title && v.title.toString().length > 29 ? v.title.toString().shearStr(29) : v.title.toString()}
 
@@ -91,7 +91,7 @@ export default class ArticleList extends ViewBase {
                   <p className="article-content">
                     {v.content && v.content.toString().length > 75 ? v.content.toString().shearStr(75) : v.content.toString()}
                   </p>
-                </div>)
+                </div>
               }
               {/* 文章信息，作者 时间 点赞数量及收藏等 */}
               <div className="article-info">

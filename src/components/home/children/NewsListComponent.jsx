@@ -57,19 +57,14 @@ export default class NewsListComponent extends ViewBase {
           cardDayis: this.nowIndex,
         });
         this.nowIndex++;
-        console.log("this.nowIndex", this.nowIndex);
       } else if (this.nowIndex !== 0) {
         this.nowIndex--;
-        console.log("this.nowIndex", this.nowIndex);
         this.setState({
           cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
           cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
           cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
           cardDayis: this.nowIndex,
         });
-        // this.setState((preState, ()=> {
-        //
-        // }));
       }
     }
 
@@ -115,9 +110,12 @@ export default class NewsListComponent extends ViewBase {
     let {history, show} = this.props;
     return (
       <div className="scroll-sign">
+        {/* 每天 */}
         <div className="news-list-by-day">
           {
             this.state.newsList && this.state.newsList.map((v, index) => {
+              // TODO 判断 <今天> <昨天>
+              // 若是第一条  根据情况设置跳转按钮显示
               return (index === 0 && show) ?
                 <NewsDayItem key={index} mark={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true} news={v.news}
                              history={history}/>
@@ -128,9 +126,8 @@ export default class NewsListComponent extends ViewBase {
           }
 
         </div>
-
+        {/* 跟着滚动的卡片日历 */}
         <div className={"top-card " + (this.state.cardMonth ? "run" : "stop")}>
-          {/* 跟着滚动的卡片日历 */}
           {
             this.state.cardMonth &&
             <div className="hidden-card">
@@ -161,7 +158,6 @@ export default class NewsListComponent extends ViewBase {
             </div>
           }
         </div>
-
         {/* 快讯滚动顶部按钮 未完 */}
         <div className="go-to-top" onClick={this.scrollTop}></div>
       </div>
