@@ -1,2 +1,136 @@
 @import "../resource/color.styl"
 @import "../resource/image.styl"
+
+.article-search
+  .article
+    background $sa_main_bg_color
+    padding 20px
+    li
+      border-bottom: 1px solid $sa_main_line_color
+      padding 15px 0
+      .article-has-img
+        display flex
+        justify-content space-between
+        margin-bottom 15px
+        img
+          width 200px
+          height 149.5px
+          cursor pointer
+        img:hover
+          transform scale(1.1)
+        .article-title
+          font-size 20px
+          line-height 28px
+          margin-bottom 10px
+          cursor pointer
+          color $sa_color_weight
+        .article-content
+          font-size 14px
+          line-height 28px
+          color $sa_color_weight
+
+      .article-no-img
+        margin-bottom 15px
+        .article-title
+          font-size 20px
+          line-height 28px
+          margin-bottom 10px
+          cursor pointer
+          color $sa_color_weight
+
+        .article-content
+          font-size 14px
+          line-height 28px
+          color $sa_color_weight
+
+
+      .article-info
+        display flex
+        justify-content space-between
+        margin 10px 0
+        .left-info
+          span.article-author
+            margin-right 10px
+            color $sa_color_light
+          span.article-date
+            color $sa_color_light
+          span.tag-name
+            margin-left 20px
+            background $sa_tag_bg_color
+            border-radius 100px
+            height 32px
+            min-width 60px
+            padding 5px 10px
+            color $sa_color_light
+
+        .right-info
+          display flex
+          justify-content space-between
+          width 30%
+          .watch
+            .watch-div
+              display inline-block
+              background-image $_icon_article_watch
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+            .watch-span
+              font-size 14px
+              color $sa_color_light
+
+          .love
+            .love-div
+              display inline-block
+              background-image $_icon_article_love
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+
+            .love-span
+              font-size 14px
+              color $sa_color_light
+
+          .favourite
+            .favourite-div.notfav
+              display inline-block
+              background-image $_icon_article_favourite_normal
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+
+
+            .favourite-div.isfav
+              display inline-block
+              background-image $_icon_article_favourite_selected_normal
+              background-size contain
+              width 15px
+              height 15px
+              margin-right 5px
+              vertical-align -2px
+
+
+            &:hover, .notfav:hover
+              color $sa_color_active
+            &:hover .favourite-div.notfav
+              background-image $_icon_article_favourite_normal_hover
+            &:hover .favourite-div.isfav
+              background-image $_icon_article_favourite_selected_hover
+          .favourite.isfav, .favourite.notfav:hover
+            color $sa_color_active
+          .favourite.notfav
+            color $sa_color_light
+
+    .need-more
+      text-align center
+      margin-top 10px
+      span
+        font-size 14px
+        line-height 22px
+        color $sa_color_light
+        cursor pointer

@@ -75,8 +75,13 @@ module.exports = merge(webpackConfig, {
     }),
 
     new BundleAnalyzerPlugin({
-      analyzerMode: 'static'
+      // analyzerMode: 'static'
     }),
+
+    // new BundleAnalyzerPlugin({
+    //   // analyzerMode: 'static'
+    // }),
+
 
     //配置static目录拷贝到服务器目录下
     new CopyWebpackPlugin([

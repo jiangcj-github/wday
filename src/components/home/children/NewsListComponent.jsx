@@ -26,6 +26,7 @@ export default class NewsListComponent extends ViewBase {
 
   // 获取更多快讯
   async addMoreNews(page) {
+    console.log("add more");
     let controller = new NewsController();
     let result = await controller.getNewsList();
     // return result;
@@ -42,7 +43,7 @@ export default class NewsListComponent extends ViewBase {
     this.nowIndex = 0;
   }
 
-  scrollFunction(target ,isWindowScroll) {
+  scrollFunction(target, isWindowScroll) {
     let fix = isWindowScroll ? 110 : -10;
     let sc_result = this.state.newsList;
     let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
@@ -68,8 +69,8 @@ export default class NewsListComponent extends ViewBase {
       }
     }
 
-    // window滚动需要删除卡片
-    if(isWindowScroll && document.documentElement.scrollTop < 100) {
+    // window滚动需要删除卡片 非空才删除，否则会报在已经卸载的页面setState的错误
+    if(isWindowScroll && document.documentElement.scrollTop < 100 && this.state.cardMonth) {
       console.log("clear card");
       this.setState({
         cardMonth: ""
