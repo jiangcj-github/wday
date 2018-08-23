@@ -8,8 +8,8 @@ export default class HomeStore extends ExchangeStoreBase {
   }
 
 
-  async getActivity(){
-    return await this.Proxy.getActivity();
+  async getHomeProjects(){
+    return await this.Proxy.getHomeProjects();
   }
 
 }

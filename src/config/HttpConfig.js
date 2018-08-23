@@ -38,7 +38,7 @@ export default {
     {name: 'getProjectDetail', data: {url: '/api/v1/project/', method: 'post'}, action: 'pgi', actionBack: 'pgir'}, // 获取项目详情
   ],
   home: [
-    {name: 'getActivity', data: {url: '/api/v1/home/', method: 'post'}, action: 'hga', actionBack: 'hgar'}, // 获取首页项目列表
+    {name: 'getHomeProjects', data: {url: '/api/v1/home/', method: 'post'}, action: 'hga', actionBack: 'hgar'}, // 获取首页项目列表
   ],
   header: [
     {name: 'getMarket', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgd', actionBack: 'hgdr'}, // 获取头部市场数据

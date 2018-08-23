@@ -32,11 +32,13 @@ export default class ExchangeStoreBase extends StoreBase {
   }
 
   exchangeStoreBaseAfterHandler(app, req, res, config) {
-    //
-    !res || !res.d;
-    console.log(res)
-
-    res.result = {}
+    let result = res && res.result || {};
+    let newResult = {
+      data: result.d,
+      msg: result.m,
+      ret: result.r
+    }
+    res.result = newResult;
   }
 
   startWebsocket(connectName) {
