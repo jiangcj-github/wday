@@ -31,7 +31,7 @@ export default class Home extends ViewBase {
                 {/*进行中*/}
                 <div className="project">
                     <h3 className="doing">进行中</h3>
-                    {finishList && runList.map(({id, logo, name, fullName, totalNum, totalUnit, actualNum, actualUnit, endTime, step},index)=>
+                    {finishList && runList.map(({id, logo, name, fullName, badgeList, totalNum, totalUnit, actualNum, actualUnit, endTime, step},index)=>
                         <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
@@ -41,14 +41,13 @@ export default class Home extends ViewBase {
                             </p>
                             {/*项目标签*/}
                             <p className="badge">
-                                <i>#智能合约#</i>
-                                <i>#内容版权#</i>
+                                {badgeList && badgeList.map((badge,index2)=> <i key={index2}>#{badge}#</i>)}
                             </p>
                             {/*项目进度*/}
                             <p className="step">
                                 <span className="num doing">{actualUnit}{actualNum}/{totalUnit}{totalNum}</span>
                                 <span className="percent doing">{step}%</span>
-                                <span className="remain">剩余{endTime}</span>
+                                <span className="remain">剩余{new Date(endTime).remain()}</span>
                             </p>
                             <Progress step={step}/>
                             {/*分隔线*/}
@@ -61,7 +60,7 @@ export default class Home extends ViewBase {
                 {/*即将开始*/}
                 <div className="project">
                     <h3 className="prepare">即将开始</h3>
-                    {soonList && soonList.map(({id, logo, name, fullName, totalNum, totalUnit, actualNum, actualUnit, endTime, step},index)=>
+                    {soonList && soonList.map(({id, logo, name, fullName, badgeList, totalNum, totalUnit, actualNum, actualUnit, endTime, step},index)=>
                         <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
@@ -71,14 +70,13 @@ export default class Home extends ViewBase {
                             </p>
                             {/*项目标签*/}
                             <p className="badge">
-                                <i>#智能合约#</i>
-                                <i>#内容版权#</i>
+                                {badgeList && badgeList.map((badge,index2)=> <i key={index2}>#{badge}#</i>)}
                             </p>
                             {/*项目进度*/}
                             <p className="step">
                                 <span className="remain">目标：</span>
                                 <span className="num prepare">{actualUnit}{actualNum}/{totalUnit}{totalNum}</span>
-                                <span className="remain">倒计时{endTime}</span>
+                                <span className="remain">倒计时{new Date(endTime).remain()}</span>
                             </p>
                             <Progress step={step}/>
                             {/*分隔线*/}
@@ -91,7 +89,7 @@ export default class Home extends ViewBase {
                 {/*已结束*/}
                 <div className="project">
                     <h3 className="finish">已结束</h3>
-                    {finishList && finishList.map(({id, logo, name, fullName, totalNum, totalUnit, actualNum, actualUnit, endTime, step},index)=>
+                    {finishList && finishList.map(({id, logo, name, fullName, badgeList, totalNum, totalUnit, actualNum, actualUnit, endTime, step},index)=>
                         <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
@@ -101,14 +99,13 @@ export default class Home extends ViewBase {
                             </p>
                             {/*项目标签*/}
                             <p className="badge">
-                                <i>#智能合约#</i>
-                                <i>#内容版权#</i>
+                                {badgeList && badgeList.map((badge,index2)=> <i key={index2}>#{badge}#</i>)}
                             </p>
                             {/*项目进度*/}
                             <p className="step">
                                 <span className="num finish">{actualUnit}{actualNum}/{totalUnit}{totalNum}</span>
                                 <span className="percent finish">{step}%</span>
-                                <span className="remain">终:{endTime}</span>
+                                <span className="remain">终:{new Date(endTime).end()}</span>
                             </p>
                             <Progress step={step}/>
                             {/*分隔线*/}
