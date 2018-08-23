@@ -46,6 +46,7 @@ export default class NewsListComponent extends ViewBase {
     let fix = isWindowScroll ? 110 : -10;
     let sc_result = this.state.newsList;
     let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
+
     if (day) {
       if (target.scrollTop >= (day.offsetTop + fix)) {
         this.setState({
@@ -100,7 +101,8 @@ export default class NewsListComponent extends ViewBase {
     if (result.length > 0) {
       // 添加滚动事件
       let scrollTarget = isWindowScroll ? window : document.querySelector(".news-wrap");
-      scrollTarget.addEventListener("scroll", this.scrollFunction.bind(this,scrollTarget, isWindowScroll));
+      let scrollDom = isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
+      scrollTarget.addEventListener("scroll", this.scrollFunction.bind(this,scrollDom, isWindowScroll));
     }
 
   }
