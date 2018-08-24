@@ -54,6 +54,7 @@ export default class Header extends ViewBase {
         this.swiper("carousel", top1, top2, [0, 40], 5, 5000,(layer,layerCache)=>{
             this.setState({top1: layer, top2: layerCache});
         });
+
         //监听登录框是否显示
         this.bus.on("showLoginDialog","header",()=>{
             this.setState({showLogin: true});

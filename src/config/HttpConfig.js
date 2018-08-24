@@ -45,5 +45,7 @@ export default {
   header: [
     {name: 'getMarket', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgd', actionBack: 'hgdr'}, // 获取头部市场数据
   ],
-
+  user: [
+    {name: 'getCollect', data: {url: '/api/common/', method: 'post'}, action: 'ugf', actionBack: 'ugfr'}, // 收藏列表
+  ],
 }

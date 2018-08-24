@@ -8,7 +8,7 @@ class LoginController extends ExchangeControllerBase {
         this.store = new LoginStore();
     }
 
-    //登录
+    // 登录
     async login(phone, imgCode, phoneCode, picId){
         if(!/^1[23456789]\d{9}$/.test(phone)){
             return {msg: "请输入正确的手机号", tip: "phone"};
@@ -19,7 +19,6 @@ class LoginController extends ExchangeControllerBase {
         if(!phoneCode){
             return {msg: "短信验证码错误", tip: "pc"};
         }
-
         let data = await this.store.login({
             act: phone,
             pwd: "",
@@ -32,16 +31,15 @@ class LoginController extends ExchangeControllerBase {
             return {msg: Error(data.ret), tip: "other"};
         }
         data = data.data;
-        this.store.saveLogin({token: data.token, phone: phone});
+        this.store.saveLogin({
+          userToken:  data.tkn,
+          userPhone:  data.phe,
+          userId: data.uid,
+        });
         return {};
     }
 
-    //获取登录信息
-    get loginInfo(){
-        return this.store.loginInfo;
-    }
-
-    //退出登录
+    // 退出登录
     async logout(){
        let data = await this.store.logout();
        if(data.ret !== 0) {
@@ -51,7 +49,7 @@ class LoginController extends ExchangeControllerBase {
        return {};
     }
 
-    //获取图像验证码
+    // 获取图像验证码
     async getImgCode(){
         let data = await this.store.getCode({
             typ: 1,
@@ -63,7 +61,7 @@ class LoginController extends ExchangeControllerBase {
         return {pid: data.id, pcode: data.pcd};
     }
 
-    //获取手机验证码
+    // 获取手机验证码
     async getPhoneCode(phone){
         if(!/^1[23456789]\d{9}$/.test(phone)) {
             return {msg: "请输入正确的手机号", tip: "phone"};
@@ -79,6 +77,10 @@ class LoginController extends ExchangeControllerBase {
         return {};
     }
 
+    // 获取登录信息
+    get loginInfo(){
+        return this.store.loginInfo;
+    }
 }
 
 //静态实例

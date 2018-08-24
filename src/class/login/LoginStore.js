@@ -4,10 +4,7 @@ export default class LoginStore extends ExchangeStoreBase {
     constructor() {
         super('login', 'general');
         this.state = {
-            loginInfo: {
-                userPhone: this.Storage.userPhone.get(),
-                userToken: this.Storage.userToken.get(),
-            },
+            loginInfo: this.Storage.loginInfo.get() || {},
         };
     }
 
@@ -16,40 +13,32 @@ export default class LoginStore extends ExchangeStoreBase {
         return this.Proxy.login(params);
     }
 
-    //退出登录
+    // 退出登录
     logout(){
         let token = this.state.loginInfo.userToken;
         return this.Proxy.logout({token: token});
     }
 
-    //获取登录信息
+    // 获取登录信息
     get loginInfo(){
         return Object.assign({},this.state.loginInfo);
     }
 
-    //保存登录信息
-    saveLogin({token,phone}){
-        this.Storage.userPhone.set(phone);
-        this.Storage.userToken.set(token);
-        this.state.loginInfo = {
-            userPhone: phone,
-            userToken: token,
-        };
+    // 保存登录信息
+    saveLogin(data) {
+      this.Storage.loginInfo.set(data);
+      this.state.loginInfo = data;
     }
 
-    //清除登录信息
+
+    // 清除登录信息
     clearLogin(){
-        this.Storage.userPhone.removeAll();
-        this.Storage.userToken.removeAll();
-        this.state.loginInfo = {
-            userPhone: "",
-            userToken: "",
-        };
+        this.Storage.loginInfo.removeAll();
+        this.state.loginInfo = {};
     }
 
-    //获取图像验证码
+    // 获取图像验证码
     async getCode(params){
         return await this.Proxy.getCode(params);
     }
-
 }
