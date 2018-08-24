@@ -38,7 +38,9 @@ export default class ArticleStore extends ExchangeStoreBase {
     return resultR.data || [];
   }
 
-  async getArticleDetail() {
+  async getArticleDetail(id) {
+    let resultR = await this.Proxy.getArticleDetail({id:id});
+    console.log(resultR);
     let result =  {
       id: 2,
       title: "最高法：妥善审理民间借贷纠纷案件 防范化解各类风险",
@@ -48,7 +50,7 @@ export default class ArticleStore extends ExchangeStoreBase {
       date: "18-01-11",
       topImg: "https://bpic.588ku.com/element_banner/20/18/08/351737d428923be2f258e5b6b58c806d.jpg",
       tags: ["智能合约", "BTC", "数字支付"]
-    }
-    return result;
+    };
+    return resultR.data || {};
   }
 }

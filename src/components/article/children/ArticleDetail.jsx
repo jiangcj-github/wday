@@ -25,11 +25,11 @@ export default class ArticleDetail extends ViewBase {
 
   async componentDidMount() {
     let controller = new ArticleController();
-    let result = await controller.getArticleDetail();
+    let id = this.getQuery("id");
+    let result = await controller.getArticleDetail(id);
     this.setState({
       articleDetail: result
     });
-
   }
 
   addFavourite() {
@@ -45,12 +45,13 @@ export default class ArticleDetail extends ViewBase {
   }
 
   render() {
-    let {title, author, speak, date, topImg, content, tags} = this.state.articleDetail;
+    let {title, author, speak, date, topImg, content, tags, like} = this.state.articleDetail;
+    let {history} = this.props;
     return (
       <div className="article-main">
         <div className="left-tool">
           <div className="love-div"></div>
-          <span className="article-love-span">赞</span>
+          <span className="article-love-span">{like}赞</span>
           <div className="share-div"></div>
           <span className="article-share-span">分享</span>
           <div className={ (this.state.favourite ? "isfav " : "notfav ") + "favourite"} >
@@ -84,7 +85,8 @@ export default class ArticleDetail extends ViewBase {
                 <div className="tag-place">
                   {
                     tags && tags.map((v, index) => (
-                      <span key={index} className="tag-name">{v}</span>
+                      v.pid ? <span key={index} onClick={() => history.push(`/project/detail/id=${v.pid}`)}  className="tag-project tag">{v.name}</span>
+                      : <span key={index} onClick={() => history.push(`/search/word=${v.name}`)} className="tag-normal tag">{v.name}</span>
                     ))
                   }
                 </div>
@@ -93,7 +95,7 @@ export default class ArticleDetail extends ViewBase {
 
                   <div className="love">
                     <div className="love-div"></div>
-                    <span className="love-span">55</span>
+                    <span className="love-span">{like}</span>
                   </div>
 
                   <div className="share">

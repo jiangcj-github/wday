@@ -107,18 +107,25 @@
       .tag-place
         margin-top 25px
         cursor pointer
-        .tag-name
+        .tag
           display inline-block
           text-align center
           font-size 14px
           line-height 20px
-          background $_article_link_bg
+
           border-radius 100px
           height 32px
           min-width 60px
           padding 5px 10px
           margin-right 15px
+
+        .tag-normal
+          background $_article_link_bg
           color $_article_color_light
+        .tag-project
+          background $_article_tag_pro_bg_color
+          color $_article_tag_pro_color
+
       .right-info
         display flex
         justify-content space-between

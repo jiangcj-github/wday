@@ -91,7 +91,7 @@ export default class ArticleList extends ViewBase {
                       </p>
                     </div>
                     <div>
-                      <img src={v.img && `http://192.168.55.125/image/origin/${v.img}`} onClick={() => history.push(`/article/detail?id=${v.id}`)}/>
+                      <img src={v.img} onClick={() => history.push(`/article/detail?id=${v.id}`)}/>
                     </div>
                   </div>
                   :

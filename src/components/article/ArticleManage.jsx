@@ -18,16 +18,16 @@ export default class ArticleManage extends ViewBase {
   }
 
   render() {
-    let {match} = this.props;
+    let {match, history} = this.props;
 
     const detail = ({match, location}) =>
-      <ArticleDetail location={location}/>;
+      <ArticleDetail location={location}  history={history} />;
 
     return (
       <div className="article-route">
         <Switch>
           <Route path={`${match.url}/detail`} component={detail}/>
-          <Redirect to={`${match.url}/detail?id=xxx`}/>
+          <Redirect to={`home`}/>
         </Switch>
       </div>
     );

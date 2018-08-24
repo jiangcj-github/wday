@@ -28,7 +28,7 @@ export default {
   ],
   article: [
     {name: 'getArticleList', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgrl', actionBack: 'hgrlr'}, // 获取首页文章列表
-    // {name: 'getArticleDetail', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgr', actionBack: 'hgrr'}, // 获取首页文章列表
+    {name: 'getArticleDetail', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgr', actionBack: 'hgrr'}, // 获取首页文章列表
 
   ],
   news: [
