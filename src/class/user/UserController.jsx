@@ -56,7 +56,6 @@ class UserController extends ExchangeControllerBase {
     getLocalCollect(type){
         return this.store.getLocalCollect(type);
     }
-
 }
 
 //静态实例
