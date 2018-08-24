@@ -38,7 +38,6 @@ class ProjectController extends ExchangeControllerBase {
               maxUnit:      item.tah && item.tah.unt,
               actualNum :   item.aa && item.aa.pri,
               actualUnit:   item.aa && item.aa.unt,
-              isCollect:    false,
               startTime:    item.sd,
               endTime:      item.fd,
               recvCoin:     item.con || [],
