@@ -17,6 +17,7 @@ export default class List extends ViewBase {
             sortByTime: 0 ,      // 时间排序
             tabItem: 0,        //选中tab项, 0-收藏，1-进行中，2-即将开始，3-已结束
 
+            projects: {},
             curPage: 1,
             pageSize: 20,
         };
@@ -34,12 +35,18 @@ export default class List extends ViewBase {
         };
     }
 
+    async toPage(page){
+        this.state.curPage = page;
+        let {curPage,pageSize} = this.state;
+        let data = await this.controller.getProjectList(curPage,pageSize);
+        if(!data.msg){
+          this.setState({projects: data});
+        }
+    }
+
     async componentDidMount() {
         window.addEventListener("scroll", this.onScroll);
-
-        let {curPage,pageSize} = this.state;
-        let data = this.controller.getProjectList(curPage,pageSize);
-        console.log(data)
+        this.toPage(1);
     }
 
     componentWillUnmount() {
@@ -51,7 +58,7 @@ export default class List extends ViewBase {
         let {viewMode,sortByTime,tabItem} = this.state;
 
         //项目列表
-        let projectList = [];
+        let projectList = [1,2,3];
         let total = 201;
         let curPage = 1;
         let pageSize = 20;

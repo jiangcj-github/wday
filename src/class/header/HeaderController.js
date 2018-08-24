@@ -30,7 +30,7 @@ class HeaderController extends ExchangeControllerBase {
           name: item.nme,
           logo: item.lgo,
           rise: item.ris,   //涨幅
-          price: item.prc
+          price:  item.prc
         });
       });
     }

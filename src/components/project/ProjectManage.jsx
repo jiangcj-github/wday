@@ -25,8 +25,8 @@ export default class ProjectManage extends ViewBase {
         const list = ({ match, location, history }) =>
             <List location={location} history={history}/>;
 
-        const detail = ({ match, location }) =>
-            <Detail location={location}/>;
+        const detail = ({ match, location, history}) =>
+            <Detail location={location} history={history}/>;
 
         return (
             <div className="project-route">

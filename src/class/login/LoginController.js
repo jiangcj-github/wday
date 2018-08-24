@@ -31,7 +31,8 @@ class LoginController extends ExchangeControllerBase {
         if(data.ret !== 0) {
             return {msg: Error(data.ret), tip: "other"};
         }
-        this.store.saveLogin({token: data.data.token, phone: phone});
+        data = data.data;
+        this.store.saveLogin({token: data.token, phone: phone});
         return {};
     }
 
@@ -58,8 +59,8 @@ class LoginController extends ExchangeControllerBase {
         if(data.ret !== 0) {
             return {msg: Error(data.ret)};
         }
-        data = data.data;
-        return {id: data.id, pic: data.pic};
+        data = data.data || {};
+        return {pid: data.id, pcode: data.pcd};
     }
 
     //获取手机验证码

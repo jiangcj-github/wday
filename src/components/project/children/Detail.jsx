@@ -30,12 +30,15 @@ export default class List extends ViewBase {
     }
 
 
-    componentDidMount() {
+    async componentDidMount() {
         window.addEventListener("scroll", this.onScroll);
 
         let id = this.getQuery("id");
-        let data = this.controller.getProjectDetail(id);
-
+        let {history} = this.props;
+        let data = await this.controller.getProjectDetail(id);
+        if(data.msg){
+            //history.push("/error");
+        }
         console.log(data);
     }
 

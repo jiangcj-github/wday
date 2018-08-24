@@ -17,6 +17,7 @@ import Search from "./components/search/Search";
 import ArticleManage from "./components/article/ArticleManage";
 import NewsManage from "./components/news/NewsManage";
 import PersonManage from "./components/person/PersonManage";
+import Error from "./components/error/Error";
 
 import LoginController from "./class/login/LoginController"
 import ConfigController from "./class/config/ConfigController"
@@ -63,7 +64,7 @@ export default class App extends Component {
             <NewsManage match={match} history={history}/>;
 
         const search = ({ match, history }) =>
-            <Search match={match} history={history} />;
+          <Search match={match} history={history} />;
 
         const personManage = ({ match, history }) =>{
             if(!this.loginCheck()){
@@ -71,6 +72,8 @@ export default class App extends Component {
             }
             return <PersonManage match={match} history={history} />;
         };
+
+        const error = ()=> <Error/>;
 
         return (
             <Router>
@@ -91,7 +94,8 @@ export default class App extends Component {
 
                             <Route path="/search" component={search}  />
                             <Route path="/person" component={personManage} />
-                            <Redirect to="/home" />
+                            <Route path="/error" component={error} />
+                            <Redirect to="/error" />
                         </Switch>
                     </div>
                     {/*<Footer/>*/}

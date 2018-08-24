@@ -49,7 +49,6 @@ class HomeController extends ExchangeControllerBase {
       newData.soonAll = data.son.all;
       data.son.lst && data.son.lst.forEach(item=>newData.soonList.push(parseItem(item)));
     }
-    
     return newData;
   }
 }

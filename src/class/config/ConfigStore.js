@@ -5,7 +5,7 @@ export default class ConfigStore extends ExchangeStoreBase {
     super("config", "general");
     this.state = {
       language: this.Storage.language.get() || "zh-CN",
-      timestamp: Date.now(),
+      timestamp: Date.now(),      // 当前时间戳
     }
   }
 
