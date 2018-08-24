@@ -11,23 +11,22 @@ export default class ArticleController extends ExchangeControllerBase {
   async getArticleList(param) {
     let result = await this.store.getArticleList(param);
 
-    // author:""ct:""id:"5b7a24f7e13823203cb056d7"img:""issue:0like:0read:0title:""
     let resultR = [];
     result && result.map((v, index) => {
       resultR.push({
         id: v.id,
-        author: v.author,
-        title: v.title,
-        content: v.ct,
+        author: v.aut,
+        title: v.tit,
+        content: v.pre,
         // content: v.content,
         img: v.img,
-        like: v.like,
-        read: v.read,
-        date: v.issue
+        like: v.lke,
+        read: v.rad,
+        date: new Date(v.ist * 1000).dateHandle("MM-dd HH:mm")
       })
     });
 
-    return result;
+    return resultR;
   }
 
   async getArticleDetail() {

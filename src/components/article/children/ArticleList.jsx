@@ -108,12 +108,12 @@ export default class ArticleList extends ViewBase {
                   {/* 阅读次数 */}
                   <div className="watch">
                     <div className="watch-div"></div>
-                    <span className="watch-span">66</span>
+                    <span className="watch-span">{v.read}</span>
                   </div>
                   {/* 点赞次数 */}
                   <div className="love">
                     <div className="love-div"></div>
-                    <span className="love-span">55</span>
+                    <span className="love-span">{v.like}</span>
                   </div>
                   {/* 收藏 */}
                   {

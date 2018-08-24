@@ -12,7 +12,6 @@ import "../stylus/articleDetail.styl";
 import "../resource/image.styl";
 import ArticleController from "../../../class/article/ArticleController"
 
-
 export default class ArticleDetail extends ViewBase {
   constructor(props) {
     super(props);

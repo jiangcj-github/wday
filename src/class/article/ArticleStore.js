@@ -6,8 +6,8 @@ export default class ArticleStore extends ExchangeStoreBase {
     this.state = {}
   }
 
-  async getArticleList(param) {
-    // let resultR = await this.Proxy.getArticleList(param);
+  async getArticleList(page) {
+    let resultR = await this.Proxy.getArticleList({ps:10, cp:1});
     let result = [
       {
         id: 1,
@@ -35,7 +35,8 @@ export default class ArticleStore extends ExchangeStoreBase {
         favourite: true
       },
     ];
-    return result;
+    console.log(6666,resultR);
+    return resultR.data;
   }
 
   async getArticleDetail() {

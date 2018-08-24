@@ -32,9 +32,13 @@ export default class NewsListComponent extends ViewBase {
     console.log("add more");
     let controller = new NewsController();
     let result = await controller.getNewsList();
-    this.setState({
-      newsList: this.state.newsList.concat(result)
-    });
+    // 上次的数据  最后一天时间戳 === 更多数据 第一天的时间戳    then 合并两个
+    if(this.state.newsList[this.state.newsList.length-1].dayDate === (result && result[0] && result[0].dayDate)) {
+      // let data = result TODO 没做完
+    }
+    // this.setState({
+    //   newsList: this.state.newsList.concat(result)
+    // });
   }
 
   // 获取最新快讯
@@ -54,7 +58,7 @@ export default class NewsListComponent extends ViewBase {
 
   // 快讯回到顶部 瞬间回去
   scrollTop(){
-    let {isWindowScroll} = this.props
+    let {isWindowScroll} = this.props;
     let dom = isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
     dom.scrollTop = 0;
     dom.scrollIntoView(true);
