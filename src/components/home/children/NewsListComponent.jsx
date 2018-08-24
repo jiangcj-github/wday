@@ -12,6 +12,7 @@ import {
 import "../stylus/newslistcomponent.styl";
 import NewsController from "../../../class/news/NewsController";
 import NewsDayItem from "../../news/children/NewsDayItem";
+import ConfigController from "../../../class/config/ConfigController";
 
 export default class NewsListComponent extends ViewBase {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class NewsListComponent extends ViewBase {
     this.addMoreNews = this.addMoreNews.bind(this);
     this.scrollFunction = this.scrollFunction.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
+    this.addLatestNews = this.addLatestNews.bind(this);
   }
 
   // 获取更多快讯
@@ -30,25 +32,30 @@ export default class NewsListComponent extends ViewBase {
     console.log("add more");
     let controller = new NewsController();
     let result = await controller.getNewsList();
-    // return result;
     this.setState({
       newsList: this.state.newsList.concat(result)
-    })
+    });
   }
 
   // 获取最新快讯
   async addLatestNews() {
-    // console.log("add Latest");
-    // let controller = new NewsController();
-    // // let result = await controller.getNewsList();
-    // this.setState({
-    //   newsList: result.concat(this.state.newsList)
-    // })
+    console.log("add Latest");
+    // 对于快讯，只更新自己的数据， 对于接口，需要当前时间戳来计算还有多少条未读快讯
+    ConfigController().setTimestamp(Date.now());
+    let controller = new NewsController();
+    let result = await controller.getNewsList();
+    this.setState({
+      newsList: result
+    });
+    // 更新数据成功后返回快讯顶部
+    this.scrollTop();
+
   }
 
   // 快讯回到顶部 瞬间回去
   scrollTop(){
-    let dom = document.querySelector(".news-wrap");
+    let {isWindowScroll} = this.props
+    let dom = isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
     dom.scrollTop = 0;
     dom.scrollIntoView(true);
     this.nowIndex = 0;
@@ -58,7 +65,6 @@ export default class NewsListComponent extends ViewBase {
     let fix = isWindowScroll ? 110 : -10;
     let sc_result = this.state.newsList;
     let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
-
     if (day) {
       if (target.scrollTop >= (day.offsetTop + fix)) {
         this.setState({
@@ -69,6 +75,7 @@ export default class NewsListComponent extends ViewBase {
           cardDayis: this.nowIndex,
         });
         this.nowIndex++;
+        return ;
       } else if (this.nowIndex !== 0) {
         this.nowIndex--;
         this.setState({
@@ -81,8 +88,8 @@ export default class NewsListComponent extends ViewBase {
     }
 
     // window滚动需要删除卡片 非空才删除，否则会报在已经卸载的页面setState的错误
-    if(isWindowScroll && document.documentElement.scrollTop < 100 && this.state.cardMonth) {
-      console.log("clear card");
+    if(isWindowScroll && document.documentElement.scrollTop <100 && this.state.cardMonth) {
+      // console.log("clear card", document.documentElement.scrollTop );
       this.setState({
         cardMonth: ""
       });
@@ -171,10 +178,10 @@ export default class NewsListComponent extends ViewBase {
           }
           {/* 新快讯通知 */}
           {
-            this.state.hasMore &&
-            <div className={"has-more-news " + (this.state.cardMonth ? "run" : "stop")} onClick={this.addLatestNews}>
-              <span>有{this.state.hasMore}条新快讯！</span>
-            </div>
+            // this.state.hasMore &&
+            // <div className={"has-more-news " + (this.state.cardMonth ? "run" : "stop")} onClick={this.addLatestNews}>
+            //   <span>有{this.state.hasMore}条新快讯！</span>
+            // </div>
           }
         </div>
         {/* 快讯滚动顶部按钮 未完 */}
