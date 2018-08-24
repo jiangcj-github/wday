@@ -1,6 +1,7 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
 import HeaderStore from './HeaderStore'
 import Error from "../Error"
+import ConfigController from "../config/ConfigController"
 
 class HeaderController extends ExchangeControllerBase {
   constructor() {
@@ -10,7 +11,7 @@ class HeaderController extends ExchangeControllerBase {
 
   async getMarket(){
     let data = await this.store.getMarket({
-      iss: Date.now(),
+      iss: ConfigController().timestamp,
       num: 5,
     });
     if(data.ret !== 0){

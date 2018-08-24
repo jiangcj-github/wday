@@ -24,7 +24,7 @@ export default {
   login: [
     {name: 'login', data: {url: '/api/v1/user/', method: 'post'}, action: 'uli', actionBack: 'ulir'}, // 登录
     {name: 'logout', data: {url: '/api/v1/user/', method: 'post'}, action: 'ulo', actionBack: 'ulor'}, // 登出
-    {name: 'getCode', data: {url: '/api/v1/code/', method: 'post'}, action: 'uac', actionBack: 'uacr'}, // 获取验证码
+    {name: 'getCode', data: {url: '/api/v1/user/', method: 'post'}, action: 'uac', actionBack: 'uacr'}, // 获取验证码
   ],
   article: [
     {name: 'getArticleList', data: {url: '/api/v1/home/', method: 'post'}, action: 'GetArticle', actionBack: 'GetArticler'}, // 获取首页文章列表

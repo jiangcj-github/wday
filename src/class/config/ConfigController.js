@@ -11,10 +11,19 @@ class ConfigController extends ExchangeControllerBase {
         return this.store.language;
     }
 
-    changeLanguage(lang) {
+    setLanguage(lang) {
         this.store.changeLanguage(lang);
         location.reload();
     }
+
+    setTimestamp(timestamp){
+        this.store.setTimestamp(timestamp);
+    }
+
+    get timestamp(){
+        return this.store.timestamp;
+    }
+
 }
 
 //静态实例

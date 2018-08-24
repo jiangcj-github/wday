@@ -5,12 +5,21 @@ export default class ConfigStore extends ExchangeStoreBase {
     super("config", "general");
     this.state = {
       language: this.Storage.language.get() || "zh-CN",
+      timestamp: Date.now(),
     }
   }
 
-  changeLanguage(lang){
+  setLanguage(lang){
     this.state.language = lang;
     this.Storage.language.set(lang);
+  }
+
+  setTimestamp(timestamp){
+    this.state.timestamp = timestamp;
+  }
+
+  get timestamp(){
+    return this.state.timestamp;
   }
 
   get language(){

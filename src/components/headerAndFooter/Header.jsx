@@ -51,7 +51,7 @@ export default class Header extends ViewBase {
 
         //轮播
         let {top1, top2} = this.state;
-        this.swiper("carousel", top1, top2, [0, 40], 5, 3000,(layer,layerCache)=>{
+        this.swiper("carousel", top1, top2, [0, 40], 5, 5000,(layer,layerCache)=>{
             this.setState({top1: layer, top2: layerCache});
         });
         //监听登录框是否显示
