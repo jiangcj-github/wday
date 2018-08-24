@@ -35,7 +35,7 @@ export default class Home extends ViewBase {
                         <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
-                                <img src="/static/web/icon_coin_five@3x.png"/>
+                                <img src={logo}/>
                                 <b>{name}</b>
                                 <span>{fullName}</span>
                             </p>
@@ -54,7 +54,7 @@ export default class Home extends ViewBase {
                             <p className="br"/>
                         </div>)}
                     {/*查看全部*/}
-                    <a className="more" onClick={()=>history.push("/project/list")}>查看全部{runAll}个项目</a>
+                    <a className="more" onClick={()=>history.push("/project/list?tab=1")}>查看全部{runAll}个项目</a>
                 </div>
 
                 {/*即将开始*/}
@@ -64,7 +64,7 @@ export default class Home extends ViewBase {
                         <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
-                                <img src="/static/web/icon_coin_five@3x.png"/>
+                                <img src={logo}/>
                                 <b>{name}</b>
                                 <span>{fullName}</span>
                             </p>
@@ -83,7 +83,7 @@ export default class Home extends ViewBase {
                             <p className="br"/>
                         </div>)}
                     {/*查看全部*/}
-                    <a className="more" onClick={()=>history.push("/project/list")}>查看全部{soonAll}个项目</a>
+                    <a className="more" onClick={()=>history.push("/project/list?tab=2")}>查看全部{soonAll}个项目</a>
                 </div>
 
                 {/*已结束*/}
@@ -93,7 +93,7 @@ export default class Home extends ViewBase {
                         <div className="pi" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                             {/*项目图标，简称，详细名称*/}
                             <p className="name">
-                                <img src="/static/web/icon_coin_five@3x.png"/>
+                                <img src={logo}/>
                                 <b>{name}</b>
                                 <span>{fullName}</span>
                             </p>
@@ -112,7 +112,7 @@ export default class Home extends ViewBase {
                             <p className="br"/>
                         </div>)}
                     {/*查看全部*/}
-                    <a className="more" onClick={()=>history.push("/project/list")}>查看全部{finishAll}个项目</a>
+                    <a className="more" onClick={()=>history.push("/project/list?tab=3")}>查看全部{finishAll}个项目</a>
                 </div>
 
             </div>

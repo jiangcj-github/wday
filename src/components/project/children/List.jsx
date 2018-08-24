@@ -18,6 +18,7 @@ export default class List extends ViewBase {
             tabItem: 0,        //选中tab项, 0-收藏，1-进行中，2-即将开始，3-已结束
 
             projects: {},
+            total: 1,
             curPage: 1,
             pageSize: 20,
         };
@@ -36,17 +37,24 @@ export default class List extends ViewBase {
     }
 
     async toPage(page){
-        this.state.curPage = page;
-        let {curPage,pageSize} = this.state;
-        let data = await this.controller.getProjectList(curPage,pageSize);
+        let {pageSize,tabItem} = this.state;
+        let type = {1:1, 2:2, 3:3}[tabItem];
+        let data = await this.controller.getProjectList(page,pageSize,type);
         if(!data.msg){
-          this.setState({projects: data});
+          let {total,list} = data;
+          this.setState({projects: list, total: total, curPage: page});
         }
     }
 
+    switchTab(){
+      
+    }
+
+
     async componentDidMount() {
         window.addEventListener("scroll", this.onScroll);
-        this.toPage(1);
+        let tab = parseInt(this.getQuery("tab")) || 1;
+        this.setState({tabItem: tab},()=> this.toPage(1));
     }
 
     componentWillUnmount() {
@@ -55,17 +63,10 @@ export default class List extends ViewBase {
 
     render() {
         let {history} = this.props;
-        let {viewMode,sortByTime,tabItem} = this.state;
-
-        //项目列表
-        let projectList = [1,2,3];
-        let total = 201;
-        let curPage = 1;
-        let pageSize = 20;
-
+        let {viewMode, sortByTime, tabItem, total, curPage, pageSize} = this.state;
+        let projectList = this.state.projects || [];
         //是否登录
         let isLogin = !!LoginController().loginInfo.userPhone;
-
         //是否显示空数据提示
         let showLoginEmpty = (tabItem === 0 && !isLogin);
         let showEmpty = (tabItem === 0 && isLogin && projectList.length<=0) || (tabItem !== 0 && projectList.length<=0);
@@ -106,61 +107,54 @@ export default class List extends ViewBase {
                             <p className="heat">热度</p>
                             <p className="collect">收藏</p>
                         </div>
-                        {projectList.map(({},index)=>
-                            <div className="tr" onClick={()=>history.push("/project/detail?id=xxx")} key={index}>
+                        {projectList.map(({id,logo,name,fullName,badgeList,minNum,minUnit,maxNum,maxUnit,actualNum,actualUnit,
+                                            startTime,endTime,recvCoin,heat,icoPrices,isCollect},index)=>
+                            <div className="tr" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                                 {/*项目名称*/}
                                 <div className="name">
-                                    <img src="/static/web/icon_coin_five@3x.png"/>
+                                    <img src={logo}/>
                                     <p className="p1">
-                                        <b>ISU</b>
-                                        <span>In Sue Usa</span>
+                                        <b>{name}</b>
+                                        <span>{fullName}</span>
                                     </p>
                                     <p className="p2">
-                                        <i>#智能合约#</i>
-                                        <i>#内容版权#</i>
+                                        {badgeList && badgeList.map((item,index2) => <i key={index2}>#{item}#</i>)}
                                     </p>
                                 </div>
                                 {/*时间*/}
                                 <div className="time">
-                                    <p>始：06-25</p>
-                                    <p>终：07-25</p>
+                                    <p>始：{new Date(startTime).end()}</p>
+                                    <p>终：{new Date(endTime).end()}</p>
                                 </div>
                                 {/*众筹价格*/}
                                 <div className="price">
-                                    <p>$1.234</p>
-                                    <p>$1.234</p>
-                                    <p>$1.234</p>
+                                    {icoPrices && icoPrices.map((item,index2)=><p key={index2}>{item}</p>)}
                                 </div>
                                 {/*目标金额*/}
                                 <div className="minmax">
-                                    <p>低：100万 USD</p>
-                                    <p>高：1000万 USD</p>
+                                    <p>低：{minNum} {minUnit}</p>
+                                    <p>高：{maxNum} {maxUnit}</p>
                                 </div>
                                 {/*实际进度*/}
                                 <div className="step">
-                                    <p>500万 USD</p>
-                                    <Progress step={30}/>
-                                    <i>85%</i>
+                                    <p>{actualNum} {actualUnit}</p>
+                                    <Progress step={maxNum && 100*actualNum/maxNum}/>
+                                    <i>{maxNum && 100*actualNum/maxNum}%</i>
                                 </div>
                                 {/*接受币种*/}
                                 <div className="coin">
                                     <p>
-                                        <span>BTC</span>
-                                        <span>BTC</span>
-                                    </p>
-                                    <p>
-                                        <span>BTC</span>
-                                        <span>BTC</span>
+                                      {recvCoin && recvCoin.map((item,index2)=><span key={index2}>{item}</span>)}
                                     </p>
                                 </div>
                                 {/*热度*/}
                                 <div className="heat">
-                                    <Heat width={20} height={60} step={80}/>
-                                    <i>80</i>
+                                    <Heat width={20} height={60} step={heat}/>
+                                    <i>{heat}</i>
                                 </div>
                                 {/*收藏*/}
                                 <div className="collect">
-                                    <i className={["yes","no"][0]}/>
+                                    <i className={["yes","no"][isCollect]}/>
                                 </div>
                             </div>
                         )}
@@ -179,7 +173,7 @@ export default class List extends ViewBase {
                 {/*翻页*/}
                 {total>pageSize &&
                     <div className="page">
-                        <Pagination currentPage={curPage} total={total} pageSize={pageSize}/>
+                        <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page=>this.toPage(page)}/>
                     </div>}
 
             </div>)

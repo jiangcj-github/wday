@@ -9,10 +9,11 @@ class ProjectController extends ExchangeControllerBase {
     }
 
     // 获取项目列表
-    async getProjectList(curPage, pageSize){
+    async getProjectList(curPage, pageSize, type){
         let data = await this.store.getProjectList({
           cp: curPage,
-          ps: pageSize
+          ps: pageSize,
+          typ: type,
         });
         if(data.ret !== 0){
             return {msg: Error(data.ret)};
@@ -20,29 +21,30 @@ class ProjectController extends ExchangeControllerBase {
         data = data.data;
 
         let newData = {
-            finishList: [],
-            runList: [],
-            soonList: [],
+            total: 0,
+            list: [],
         };
-        let parseItem = item =>({
-            id: item.id,
-            logo: item.src,
-            name: item.nme,
-            fullName: item.enm,
-            badgeList: item.cw || [],
-            minPrice: item.tal && item.tal.pri,
-            minUnit:  item.tal && item.tal.unt,
-            maxPrice: item.tah && item.tah.pri,
-            maxUnit:  item.tah && item.tah.unt,
-            endTime:  item.fd,
-            step: item.pro,
-            recvCoin: item.con,
-            heat: item.hot,
-        });
         if(data){
-            data.finishActivity && data.finishActivity.forEach(item =>newData.finishList.push(parseItem(item)));
-            data.runActivity && data.runActivity.forEach(item =>newData.runList.push(parseItem(item)));
-            data.soonActivity && data.soonActivity.forEach(item =>newData.soonList.push(parseItem(item)));
+            newData.total = data.all;
+            data.pas && data.pas.forEach(item => newData.list.push({
+              id:           item.id,
+              logo:         item.lgo,
+              name:         item.nme,
+              fullName:     item.enm,
+              badgeList:    item.cw || [],
+              minNum:       item.tal && item.tal.pri,
+              minUnit:      item.tal && item.tal.unt,
+              maxNum:       item.tah && item.tah.pri,
+              maxUnit:      item.tah && item.tah.unt,
+              actualNum :   item.aa && item.aa.pri,
+              actualUnit:   item.aa && item.aa.unt,
+              isCollect:    false,
+              startTime:    item.sd,
+              endTime:      item.fd,
+              recvCoin:     item.con || [],
+              heat:          item.hot,
+              icoPrices:    item.ra || [],
+            }));
         }
         return newData;
     }
@@ -62,7 +64,7 @@ class ProjectController extends ExchangeControllerBase {
             Object.assign(newData,{
                 type:   data.type,
                 name:   data.nme,
-                id: data.id,
+                id:     data.id,
                 badgeList:  data.cw || [],
                 logo:   data.logo,
                 startTime:  data.sd,

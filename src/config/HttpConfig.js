@@ -47,5 +47,6 @@ export default {
   ],
   user: [
     {name: 'getCollect', data: {url: '/api/common/', method: 'post'}, action: 'ugf', actionBack: 'ugfr'}, // 收藏列表
+    {name: 'setCollect', data: {url: '/api/common/', method: 'post'}, action: 'ucf', actionBack: 'ucfr'}, // 添加，取消收藏
   ],
 }

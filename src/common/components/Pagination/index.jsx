@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ViewBase from "../../../components/ViewBase";
 /*
-  currentPage	当前页码，默认为1
+  curPage	当前页码，默认为1
   total	数据总条数
   pageSize 每页数据条数
   onChange页码跳转的回调
@@ -10,64 +10,54 @@ import ViewBase from "../../../components/ViewBase";
 export default class Pagination extends ViewBase {
   constructor(props) {
     super(props);
-    this.state = { currentPage: props.currentPage ? props.currentPage : 1 };
-    this.totalPage =
-      props.total % props.pageSize === 0
-        ? parseInt(props.total / props.pageSize)
-        : parseInt(props.total / props.pageSize) + 1;
+
+    let {total, pageSize, curPage} = this.props;
+    let totalPage = Math.ceil(total/pageSize);
+    let pageList = this.list(totalPage, curPage);
+
+    this.total = total;
+    this.pageSize = pageSize;
+    this.curPage = curPage;
+    this.totalPage = totalPage;
+    this.pageList = pageList;
   }
 
-  list(totalPage, currentPage) {
+  list(totalPage, curPage) {
     if (totalPage < 7) {
       return Array.from({ length: totalPage }, (item, index) => index + 1);
     }
-    if (currentPage <= 4) {
+    if (curPage <= 4) {
       return [1, 2, 3, 4, 5, "...", totalPage];
     }
-    if (currentPage < totalPage - 3) {
-      return [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPage];
+    if (curPage < totalPage - 3) {
+      return [1, "...", curPage - 1, curPage, curPage + 1, "...", totalPage];
     }
-    if (currentPage >= totalPage - 3) {
+    if (curPage >= totalPage - 3) {
       return [1, "...", totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1, totalPage];
     }
   }
 
-  shouldComponentUpdate (nextProps,nextState){
-    if (nextState.currentPage === this.state.currentPage) return false;
-    this.props.onChange && this.props.onChange(nextState.currentPage);
-    return true;
+  toPage(p){
+    let {totalPage} = this;
+    let {onChange} = this.props;
+
+    if(p<1 || p>this.totalPage || p === "...") return;
+    onChange && onChange(p);
   }
 
   render() {
-    let { total, pageSize } = this.props;
-    let currentPage = this.state.currentPage;
-    let pagelist = this.list(this.totalPage, currentPage);
-
+    let {total, pageSize, curPage, totalPage, pageList} = this;
     return (
-      <div className="pagination-wrap" style={{ display: (total / pageSize) <= 1 ? 'none' : ''}}>
+      <div className="pagination-wrap" style={{"display": total<=pageSize ? 'none' : ''}}>
         <ul className="pagination">
           {/*上一页*/}
-          {currentPage>1 &&
-            <li className="last"
-                onClick={() => {
-                    if (currentPage - 1 < 1) return;
-                    this.setState({ currentPage: currentPage - 1 });
-                }}>上一页</li>}
+          {curPage>1 && <li className="last" onClick={() =>this.toPage(curPage-1)}>上一页</li>}
           {/*页码列表*/}
-          {pagelist.map((item, index) =>
-            <li key={index}
-                className={`page-button ${item === currentPage ? "active" : ""} ${item === "..." ? "omit" : ""}`}
-                onClick={() => {
-                  if (item === "...") return;
-                  this.setState({ currentPage: item });
-                }}>{item}</li>)}
+          {pageList.map((item, index) =>
+            <li key={index} className={`page-button ${item === curPage ? "active" : ""} ${item === "..." ? "omit" : ""}`} 
+                onClick={() =>this.toPage(item)}>{item}</li>)}
           {/*下一页*/}
-          {currentPage<this.totalPage &&
-            <li className="next"
-                onClick={() => {
-                    if (currentPage + 1 > this.totalPage) return;
-                    this.setState({currentPage: currentPage + 1});
-                }}>下一页</li>}
+          {curPage<totalPage && <li className="next" onClick={() =>this.toPage(curPage+1)}>下一页</li>}
         </ul>
       </div>
     );
