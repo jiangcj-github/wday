@@ -16,13 +16,14 @@ import NewsDayItem from "../../news/children/NewsDayItem";
 export default class NewsListComponent extends ViewBase {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      hasMore: 0
+    };
     this.nowIndex = 0;
     this.addMoreNews = this.addMoreNews.bind(this);
     this.scrollFunction = this.scrollFunction.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
   }
-
 
   // 获取更多快讯
   async addMoreNews(page) {
@@ -33,6 +34,16 @@ export default class NewsListComponent extends ViewBase {
     this.setState({
       newsList: this.state.newsList.concat(result)
     })
+  }
+
+  // 获取最新快讯
+  async addLatestNews() {
+    // console.log("add Latest");
+    // let controller = new NewsController();
+    // // let result = await controller.getNewsList();
+    // this.setState({
+    //   newsList: result.concat(this.state.newsList)
+    // })
   }
 
   // 快讯回到顶部 瞬间回去
@@ -92,6 +103,12 @@ export default class NewsListComponent extends ViewBase {
     let {isWindowScroll} = this.props;
     console.log("view news", result);
 
+    this.bus.on("updateNewsNum", "NewsListCom", num=>{
+      this.setState({
+        hasMore: num
+      });
+    });
+
     this.setState({newsList: result});
 
     if (result.length > 0) {
@@ -104,6 +121,7 @@ export default class NewsListComponent extends ViewBase {
   }
 
   componentWillUnmount() {
+    this.bus.off("updateNewsNum", "NewsListCom");
     (this.props.isWindowScroll ? window : document.querySelector(".news-wrap")).removeEventListener("scroll", this.scrollFunction);
   }
 
@@ -153,9 +171,9 @@ export default class NewsListComponent extends ViewBase {
           }
           {/* 新快讯通知 */}
           {
-            !this.state.hasMore &&
-            <div className={"has-more-news " + (this.state.cardMonth ? "run" : "stop")}>
-              <span>有n条新快讯！</span>
+            this.state.hasMore &&
+            <div className={"has-more-news " + (this.state.cardMonth ? "run" : "stop")} onClick={this.addLatestNews}>
+              <span>有{this.state.hasMore}条新快讯！</span>
             </div>
           }
         </div>
