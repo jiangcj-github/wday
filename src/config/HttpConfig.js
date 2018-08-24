@@ -27,11 +27,13 @@ export default {
     {name: 'getCode', data: {url: '/api/v1/user/', method: 'post'}, action: 'uac', actionBack: 'uacr'}, // 获取验证码
   ],
   article: [
-    {name: 'getArticleList', data: {url: '/api/v1/home/', method: 'post'}, action: 'GetArticle', actionBack: 'GetArticler'}, // 获取首页文章列表
+    {name: 'getArticleList', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgr', actionBack: 'hgrr'}, // 获取首页文章列表
+    // {name: 'getArticleDetail', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgr', actionBack: 'hgrr'}, // 获取首页文章列表
 
   ],
   news: [
-    {name: 'getNewsList', data: {url: 'newsflash', method: 'post'}, action: 'GetNewsFlashList', actionBack: 'GetNewsFlashList'}, //获取快讯列表
+    {name: 'getNewsList', data: {url: 'newsflash', method: 'post'}, action: 'hgr', actionBack: 'hgrr'}, //获取快讯列表
+    {name: 'getNewsDetail', data: {url: 'newsflash', method: 'post'}, action: 'ngi', actionBack: 'ngir'}, //获取快讯详情
   ],
   project: [
     {name: 'getProjectList', data: {url: '/api/v1/project/', method: 'post'}, action: 'pgl', actionBack: 'pglr'}, // 获取项目列表

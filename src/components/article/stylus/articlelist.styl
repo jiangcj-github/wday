@@ -18,7 +18,7 @@
           height 149.5px
           cursor pointer
         img:hover
-          transform scale(1.1)
+          transform scale(1.05)
         .article-title
           font-size 20px
           line-height 28px
@@ -80,7 +80,6 @@
             .watch-span
               font-size 14px
               color $_article_color_light
-
           .love
             .love-div
               display inline-block
@@ -90,11 +89,9 @@
               height 15px
               margin-right 5px
               vertical-align -2px
-
             .love-span
               font-size 14px
               color $_article_color_light
-
           .favourite
             .favourite-div.notfav
               display inline-block
@@ -104,8 +101,6 @@
               height 15px
               margin-right 5px
               vertical-align -2px
-
-
             .favourite-div.isfav
               display inline-block
               background-image $_icon_article_favourite_selected_normal
@@ -114,8 +109,6 @@
               height 15px
               margin-right 5px
               vertical-align -2px
-
-
             &:hover, .notfav:hover
               color $_article_color_active
             &:hover .favourite-div.notfav
