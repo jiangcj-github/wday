@@ -25,17 +25,20 @@ export default class Header extends ViewBase {
         top2: 40,
         searchInput: "",          //搜索框-输入
         pollingTimer: "",       //轮询-计时器
+        marketList: [],
       };
       this.controller = LoginController();
       this.headerController = HeaderController();
     }
 
-    pollingMarket(){
+    async pollingMarket(){
         this.pollingTimer && clearTimeout(this.pollingTimer);
-
-        let data = this.headerController.getMarket();
-        console.log("getMarket",data);
-
+        let data = await this.headerController.getMarket();
+        if(!data.msg){
+          let {markets,newsNum} = data;
+          this.setState({marketList: markets});
+          this.bus.emit("updateNewsNum",newsNum);
+        }
         this.pollingTimer = setTimeout(()=>{
             this.pollingMarket();
         },5000);
@@ -55,8 +58,8 @@ export default class Header extends ViewBase {
         this.bus.on("showLoginDialog","header",()=>{
             this.setState({showLogin: true});
         });
-        //轮询获取
-        // this.pollingMarket();
+        //头部市场轮询
+        this.pollingMarket();
     }
 
     componentWillUnmount() {
@@ -66,16 +69,15 @@ export default class Header extends ViewBase {
 
     async logout(){
         let data = await this.controller.logout();
-        if(data.msg){
-            return;
+        if(!data.msg){
+          location.reload();
         }
-        location.reload();
     }
 
     render() {
         let {history} = this.props;
         let {showLogin, top1, top2, phone,searchInput} = this.state;
-        let marketList = [1,2,3,4,5];
+        let marketList = this.state.marketList || [];
 
         return (
           <div className="header">
@@ -83,19 +85,19 @@ export default class Header extends ViewBase {
               <div className="price-wrap">
                   <div className="price">
                       <ul style={{top: top1}}>
-                        {marketList.map(({},index) =>
+                        {marketList.map(({name,logo,rise,price},index) =>
                           <li key={index}>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="up">$6,000(-5.2%)</i>
+                              <img src={logo}/>
+                              <span>{name}</span>
+                              <i className={rise>0 ? "up":"down"}>{price}({rise}%)</i>
                           </li>)}
                       </ul>
                       <ul style={{top: top2}}>
-                        {marketList.map(({},index) =>
+                        {marketList.map(({name,logo,rise,price},index) =>
                           <li key={index}>
-                              <img src={this.imageDict.$icon_coin_five}/>
-                              <span>USDT</span>
-                              <i className="up">$6,000(-5.2%)</i>
+                              <img src={logo}/>
+                              <span>{name}</span>
+                              <i className={rise>0 ? "up":"down"}>{price}({rise}%)</i>
                           </li>)}
                       </ul>
                   </div>
