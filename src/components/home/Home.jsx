@@ -6,6 +6,7 @@ import ViewBase from "../ViewBase";
 import ProjectList from "./children/ProjectList";
 import ArticleList from "../article/children/ArticleList";
 import NewsListComponent from "./children/NewsListComponent";
+import Rich from "../../common/components/rich";
 
 export default class Home extends ViewBase {
   constructor(props) {
@@ -44,6 +45,7 @@ export default class Home extends ViewBase {
           {/*文章列表*/}
           <div className="article-wrap">
             <ArticleList history={history}/>
+            {/*<Rich/>*/}
           </div>
           {/*快讯列表*/}
           <div className="remove-scroll-bar">

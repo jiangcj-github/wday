@@ -1,16 +1,16 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
 import ArticleStore from "./ArticleStore";
 
-export default class ArticleController extends ExchangeControllerBase {
+class ArticleController extends ExchangeControllerBase {
   constructor(props) {
     super(props);
     this.store = new ArticleStore();
 
   }
 
-  async getArticleList(param) {
-    let result = await this.store.getArticleList(param);
-
+  async getArticleList(page, num) {
+    let result = await this.store.getArticleList(page, num);
+    console.log("result in controller", result);
     let resultR = [];
     result && result.map((v, index) => {
       resultR.push({
@@ -35,4 +35,14 @@ export default class ArticleController extends ExchangeControllerBase {
     return result;
   }
 
+}
+
+//静态实例
+ArticleController.instance = null;
+
+export default function() {
+  if(!ArticleController.instance){
+    ArticleController.instance = new ArticleController();
+  }
+  return ArticleController.instance;
 }
