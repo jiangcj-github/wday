@@ -25,6 +25,8 @@ export default class NewsListComponent extends ViewBase {
     this.scrollFunction = this.scrollFunction.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
     this.addLatestNews = this.addLatestNews.bind(this);
+    this.otherScrollFunction = this.otherScrollFunction.bind(this);
+    this.windowScrollFunction = this.windowScrollFunction.bind(this);
   }
 
   // 获取更多快讯
@@ -33,12 +35,14 @@ export default class NewsListComponent extends ViewBase {
     let controller = new NewsController();
     let result = await controller.getNewsList();
     // 上次的数据  最后一天时间戳 === 更多数据 第一天的时间戳    then 合并两个
-    if(this.state.newsList[this.state.newsList.length-1].dayDate === (result && result[0] && result[0].dayDate)) {
-      // let data = result TODO 没做完
+    if (this.state.newsList[this.state.newsList.length - 1].dayDate === (result && result[0] && result[0].dayDate)) {
+      let data = result;
+      this.state.newsList[this.state.newsList.length - 1].concat(data.shift());
+
     }
-    // this.setState({
-    //   newsList: this.state.newsList.concat(result)
-    // });
+    this.setState({
+      newsList: this.state.newsList.concat(result)
+    });
   }
 
   // 获取最新快讯
@@ -57,7 +61,7 @@ export default class NewsListComponent extends ViewBase {
   }
 
   // 快讯回到顶部 瞬间回去
-  scrollTop(){
+  scrollTop() {
     let {isWindowScroll} = this.props;
     let dom = isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
     dom.scrollTop = 0;
@@ -65,12 +69,13 @@ export default class NewsListComponent extends ViewBase {
     this.nowIndex = 0;
   }
 
-  scrollFunction(target, isWindowScroll) {
-    let fix = isWindowScroll ? 110 : -10;
+  // window滚动方法 快讯列表页
+  windowScrollFunction() {
     let sc_result = this.state.newsList;
+    let target = document.documentElement;
     let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
     if (day) {
-      if (target.scrollTop >= (day.offsetTop + fix)) {
+      if (day.getBoundingClientRect().top <= 0) {
         this.setState({
           cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
           cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
@@ -79,8 +84,9 @@ export default class NewsListComponent extends ViewBase {
           cardDayis: this.nowIndex,
         });
         this.nowIndex++;
-        return ;
-      } else if (this.nowIndex !== 0) {
+        return;
+      }
+      else if (this.nowIndex !== 0) {
         this.nowIndex--;
         this.setState({
           cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
@@ -92,7 +98,7 @@ export default class NewsListComponent extends ViewBase {
     }
 
     // window滚动需要删除卡片 非空才删除，否则会报在已经卸载的页面setState的错误
-    if(isWindowScroll && document.documentElement.scrollTop <100 && this.state.cardMonth) {
+    if (document.documentElement.scrollTop < 100 && this.state.cardMonth) {
       // console.log("clear card", document.documentElement.scrollTop );
       this.setState({
         cardMonth: ""
@@ -101,7 +107,127 @@ export default class NewsListComponent extends ViewBase {
 
     // 滑动到底部需要加载更多
     // scrollTop + clientHeight == scrollHeight
-    if(target.scrollTop + target.clientHeight === target.scrollHeight ) {
+    if (target.scrollTop + target.clientHeight === target.scrollHeight) {
+      console.log("到底啦");
+      this.addMoreNews();
+      console.log("addMoreNews 完事啦");
+    }
+  }
+
+  // 首页滚动方法
+  otherScrollFunction(target) {
+    let sc_result = this.state.newsList;
+    let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
+    if (day) {
+      if (target.offsetTop >= day.getBoundingClientRect().top -110) {
+        this.setState({
+          cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+          cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+          cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+          // TODO 今天是哪天
+          cardDayis: this.nowIndex,
+        });
+        this.nowIndex++;
+        return;
+      } else if (this.nowIndex !== 0) {
+        this.nowIndex--;
+        this.setState({
+          cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+          cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+          cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+          cardDayis: this.nowIndex,
+        });
+      }
+    }
+    // 滑动到底部需要加载更多
+    // scrollTop + clientHeight == scrollHeight
+    if (target.scrollTop + target.clientHeight === target.scrollHeight) {
+      console.log("到底啦");
+      this.addMoreNews();
+      console.log("addMoreNews 完事啦");
+    }
+  }
+
+  // 旧方法
+  scrollFunction(target, isWindowScroll) {
+    let fix = isWindowScroll ? 110 : -10;
+    let fixR = isWindowScroll ? 0 : 104;
+    let sc_result = this.state.newsList;
+    let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
+    console.log(1111, day, day.getBoundingClientRect());
+
+    if (day && isWindowScroll) {
+      if (day.getBoundingClientRect().top <= 0) {
+
+      } else if (this.nowIndex !== 0) {
+        this.nowIndex--;
+        this.setState({
+          cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+          cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+          cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+          cardDayis: this.nowIndex,
+        });
+      }
+    }
+
+
+    // try
+    // if (day) {
+    //   if (target.offsetTop >= day.getBoundingClientRect().top) {
+    //     this.setState({
+    //       cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+    //       cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+    //       cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+    //       // TODO 今天是哪天
+    //       cardDayis: this.nowIndex,
+    //     });
+    //     this.nowIndex++;
+    //     return;
+    //   } else if (this.nowIndex !== 0) {
+    //     this.nowIndex--;
+    //     this.setState({
+    //       cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+    //       cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+    //       cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+    //       cardDayis: this.nowIndex,
+    //     });
+    //   }
+    // }
+
+
+    // if (day) {
+    //   if (target.scrollTop >= (day.offsetTop + fix)) {
+    //     this.setState({
+    //       cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+    //       cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+    //       cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+    //       // TODO 今天是哪天
+    //       cardDayis: this.nowIndex,
+    //     });
+    //     this.nowIndex++;
+    //     return ;
+    //   } else if (this.nowIndex !== 0) {
+    //     this.nowIndex--;
+    //     this.setState({
+    //       cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
+    //       cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
+    //       cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+    //       cardDayis: this.nowIndex,
+    //     });
+    //   }
+    // }
+
+    // window滚动需要删除卡片 非空才删除，否则会报在已经卸载的页面setState的错误
+    if (isWindowScroll && document.documentElement.scrollTop < 100 && this.state.cardMonth) {
+      // console.log("clear card", document.documentElement.scrollTop );
+      this.setState({
+        cardMonth: ""
+      });
+    }
+
+    // 滑动到底部需要加载更多
+    // scrollTop + clientHeight == scrollHeight
+    if (target.scrollTop + target.clientHeight === target.scrollHeight) {
       console.log("到底啦");
       this.addMoreNews();
       console.log("addMoreNews 完事啦");
@@ -110,11 +236,12 @@ export default class NewsListComponent extends ViewBase {
 
   async componentDidMount() {
     let controller = new NewsController();
-    let result = await controller.getNewsList();
+    let result = await
+      controller.getNewsList();
     let {isWindowScroll} = this.props;
     console.log("view news", result);
 
-    this.bus.on("updateNewsNum", "NewsListCom", num=>{
+    this.bus.on("updateNewsNum", "NewsListCom", num => {
       this.setState({
         hasMore: num
       });
@@ -124,16 +251,21 @@ export default class NewsListComponent extends ViewBase {
 
     if (result.length > 0) {
       // 添加滚动事件
-      let scrollTarget = isWindowScroll ? window : document.querySelector(".news-wrap");
-      let scrollDom = isWindowScroll ? document.documentElement : document.querySelector(".news-wrap");
-      scrollTarget.addEventListener("scroll", this.scrollFunction.bind(this,scrollDom, isWindowScroll));
+      let scrollDom = isWindowScroll ? window : document.querySelector(".news-wrap");
+      isWindowScroll ?
+        window.addEventListener("scroll", this.windowScrollFunction) :
+        scrollDom.addEventListener("scroll",this.otherScrollFunction.bind(this, scrollDom));
     }
 
   }
 
   componentWillUnmount() {
+    // 卸载全局通知
     this.bus.off("updateNewsNum", "NewsListCom");
-    (this.props.isWindowScroll ? window : document.querySelector(".news-wrap")).removeEventListener("scroll", this.scrollFunction);
+    // 卸载滚动监听
+    this.props.isWindowScroll ?
+      window.removeEventListener("scroll", this.windowScrollFunction)
+      : document.querySelector(".news-wrap").removeEventListener("scroll", this.otherScrollFunction);
   }
 
   render() {
@@ -147,11 +279,13 @@ export default class NewsListComponent extends ViewBase {
               // TODO 判断 <今天> <昨天>
               // 若是第一条  根据情况设置跳转按钮显示
               return (index === 0 && show) ?
-                <NewsDayItem key={index} mark={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true} news={v.news}
-                             history={history} titleLen={titleLen} contentLen={contentLen} />
+                <NewsDayItem key={index} mark={index} ref={`Day${index}`} dayDate={v.dayDate} showList={true}
+                             news={v.news}
+                             history={history} titleLen={titleLen} contentLen={contentLen}/>
                 :
-                <NewsDayItem key={index} ref={`Day${index}`} mark={index} dayDate={v.dayDate} showList={false} news={v.news}
-                             history={history} titleLen={titleLen} contentLen={contentLen} />
+                <NewsDayItem key={index} ref={`Day${index}`} mark={index} dayDate={v.dayDate} showList={false}
+                             news={v.news}
+                             history={history} titleLen={titleLen} contentLen={contentLen}/>
             })
           }
 
@@ -171,7 +305,7 @@ export default class NewsListComponent extends ViewBase {
                   <p className="week">{this.state.cardWeek}</p>
                 </div>
                 {
-                  show?
+                  show ?
                     <div className="jump" onClick={() => history.push("/news/list")}>
                       <img src={this.imageDict.$_news_next_normal}/>
                     </div>
