@@ -13,15 +13,19 @@
       width 620px
       margin 10px
     .remove-scroll-bar
+      position: relative
       width 314px
       overflow hidden
       .news-wrap
-        width 330px
-        overflow-y scroll
+        width 314px
+        box-sizing content-box
+        padding-right 20px
+        overflow hidden auto
         height calc(200vh)
         margin 10px 0
 
         .news-day-item
+          width: 314px
           .time-line
             border-left: 1px solid;
             position: absolute;
@@ -59,7 +63,7 @@
         .floatTop ~ .news-item
           margin-top 70px
         .top-card
-          width 313px //  去滚动边框
+          width 314px //  去滚动边框
           position absolute
           top 10px
           z-index 300
