@@ -6,6 +6,7 @@ import {
 import Progress from "../../../common/components/Progress"
 import Heat from "../../../common/components/Heat"
 import ProjectController from "../../../class/project/ProjectController";
+import UserController from "../../../class/user/UserController";
 
 export default class List extends ViewBase {
     constructor() {
@@ -14,6 +15,9 @@ export default class List extends ViewBase {
             viewMode: "list" ,       // 视图模式 list,card
             sortByTime: 0 ,   // 时间排序
             tab: 0,        //tab选中项
+
+            project: {},
+            isFold: true,  // 是否查看全部
         };
         this.controller = ProjectController();
 
@@ -29,17 +33,15 @@ export default class List extends ViewBase {
         };
     }
 
-
     async componentDidMount() {
         window.addEventListener("scroll", this.onScroll);
 
         let id = this.getQuery("id");
-        let {history} = this.props;
         let data = await this.controller.getProjectDetail(id);
         if(data.msg){
-            //history.push("/error");
+            //this.props.history.push("/error");
         }
-        console.log(data);
+        this.setState({project: data});
     }
 
     componentWillUnmount() {
@@ -56,6 +58,8 @@ export default class List extends ViewBase {
 
     render() {
         let {viewMode,sortByTime,tab} = this.state;
+        let project = this.state.project || {};
+
         return (
             <div className="project-detail">
 
@@ -67,22 +71,30 @@ export default class List extends ViewBase {
                             <div className="d1-l">
                                 <img src="/static/web/icon_coin_five@3x.png"/>
                                 <p className="name">
-                                    <b>ISU</b>
-                                    <span>In Sue Usa</span>
+                                    <b>{project.name}</b>
+                                    <span>{}</span>
                                 </p>
                                 <p className="badge">
-                                    <i>#智能合约#</i>
-                                    <i>#内容版权#</i>
+                                    {project.badgeList && project.badgeList.map((item,index) => <i key={index}>#{item}#</i>)}
                                 </p>
                             </div>
                             <div className="d1-r">
-                                <p className="status">ICO已结束</p>
+                                <p className="status">{{1:"进行中",2:"即将开始",3:"已结束"}[project.type]}</p>
                                 <p className="share-wrap">
                                     <i className="tw"/>
                                     <i className="fb"/>
                                     <i className="share"/>
                                     <i className="br"/>
-                                    <i className="collect no">收藏</i>
+                                    <i className={`collect ${project.isCollect ? "yes":"no"}`} onClick={()=>{
+                                          UserController().setCollect(1, project.id, !project.isCollect).then(data =>{
+                                            if(data.msg){
+                                              this.setState({showAlert: true, alertContent: data.msg});
+                                              return;
+                                            }
+                                            project.isCollect = !project.isCollect;
+                                            this.setState({});
+                                          })}
+                                    }>收藏</i>
                                 </p>
                             </div>
                         </div>
@@ -97,37 +109,33 @@ export default class List extends ViewBase {
                             </div>
                             <div className="tr">
                                 <div className="time">
-                                    <p>始：06-25</p>
-                                    <p>终：07-25</p>
+                                    <p>始：{project.startTime && new Date(project.startTime).end()}</p>
+                                    <p>终：{project.endTime && new Date(project.endTime).end()}</p>
                                 </div>
                                 <div className="minmax">
-                                    <p>低：100万 USD</p>
-                                    <p>高：1000万 USD</p>
+                                    <p>低：{project.minNum}</p>
+                                    <p>高：{project.maxNum}</p>
                                 </div>
                                 <div className="recvCoin">
                                     <p>
-                                        <span>BTC</span>
-                                        <span>ETH</span>
-                                    </p>
-                                    <p>
-                                        <span>BTC</span>
-                                        <span>ETH</span>
+                                      {project.recvCoin && project.recvCoin.map((item,index)=><span key={index}>{item}</span>)}
                                     </p>
                                 </div>
                                 <div className="step">
-                                    <p>500万 USD</p>
-                                    <Progress step={30}/>
-                                    <i>85%</i>
+                                    <p>{project.actualNum}</p>
+                                    <Progress step={project.step}/>
+                                    <i>{project.step}%</i>
                                 </div>
                                 <div className="heat">
+                                    <Heat width={20} height={60} step={project.heat}/>
+                                    <i>{project.heat}</i>
                                 </div>
-
                             </div>
                         </div>
                         {/*官网，白皮书*/}
                         <div className="link">
-                            <a>官网</a>
-                            <a>白皮书</a>
+                            <a href={project.website} target="_blank">官网</a>
+                            <a href={project.whiteSkin} target="_blank">白皮书</a>
                         </div>
                     </div>
                 </div>
@@ -153,9 +161,7 @@ export default class List extends ViewBase {
                             <span>项目介绍</span>
                         </h3>
                         <p>
-                            Review.Network直接连接公司和消费者，改变了公司进行市场研究的方式。在回复调查和审查产品和服务时
-                            ，会给予高度细分和有针对性的用户社区奖励。将通过此奖励系统创建具有宝贵反馈的社交网络，并为公司提供关于其关
-                            键人口统计数据的公正和有价值的数据的数据…
+                            {project.profile}
                             <a className="more">查看全部</a>
                             <a className="fold">收起</a>
                         </p>
@@ -172,24 +178,25 @@ export default class List extends ViewBase {
                                 <tr>
                                     <td>
                                         <b>名称：</b>
-                                        <i>In Sue Usa</i></td>
+                                        <i>{project.name}</i>
+                                    </td>
                                     <td>
                                         <b>ICO价格：</b>
-                                        <i>In Sue Usa</i>
+                                        <i>{project.icoPrice}</i>
                                     </td>
                                     <td>
                                         <b>名称：</b>
-                                        <i>$1.24、</i>
+                                        <i>{project.name}</i>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <b>简称：</b>
-                                        <i>ISU</i>
+                                        <i>{project.name}</i>
                                     </td>
                                     <td>
                                         <b>ICO总量：</b>
-                                        <i>1000万</i>
+                                        <i>{project.icoNum}</i>
                                     </td>
                                     <td>
                                         <b>目标金额(高)：</b>
@@ -199,29 +206,29 @@ export default class List extends ViewBase {
                                 <tr>
                                     <td>
                                         <b>平台：</b>
-                                        <i>ISU</i>
+                                        <i>{project.platform}</i>
                                     </td>
                                     <td>
                                         <b>发行总量：</b>
-                                        <i>1亿</i>
+                                        <i>{project.publicNum}</i>
                                     </td>
                                     <td>
                                         <b>实际金额：</b>
-                                        <i>$1000万</i>
+                                        <i>{project.icoNum}</i>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <b>地区：</b>
-                                        <i>新加坡</i>
+                                        <i>{project.area}</i>
                                     </td>
                                     <td>
                                         <b>接受币种：</b>
-                                        <i>USDT、BTC、BCH</i>
+                                        <i>{project.recvCoin && project.recvCoin.join(",")}</i>
                                     </td>
                                     <td>
                                         <b>ICO进度：</b>
-                                        <i>100%</i>
+                                        <i>{project.step}%</i>
                                     </td>
                                 </tr>
                             </tbody>
@@ -235,42 +242,42 @@ export default class List extends ViewBase {
                             <tr>
                               <td>
                                 <b>现价：</b>
-                                <i>$1.23</i></td>
+                                <i>{project.markets && project.markets.curPrice}</i></td>
                               <td>
                                 <b>24h涨跌幅：</b>
-                                <i>+10.12%</i>
+                                <i>{project.markets && project.markets.rise}%</i>
                               </td>
                               <td>
                                 <b>流通市值：</b>
-                                <i>$123,456万</i>
+                                <i>{project.markets && project.markets.marketValue}</i>
                               </td>
                             </tr>
                             <tr>
                                 <td>
                                     <b>24h最低价：</b>
-                                    <i>1,234</i>
+                                    <i>{project.markets && project.markets.lowPrice}</i>
                                 </td>
                                 <td>
                                     <b>24h成交量：</b>
-                                    <i>1000万</i>
+                                    <i>{project.markets && project.markets.volume}</i>
                                 </td>
                                 <td>
                                     <b>上架交易所：</b>
-                                    <i>100</i>
+                                    <i>{project.markets && project.markets.num}</i>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <b>24h最高价：</b>
-                                    <i>$1.29</i>
+                                    <i>{project.markets && project.markets.highPrice}</i>
                                 </td>
                                 <td>
                                     <b>24h成交额：</b>
-                                    <i>$12,340</i>
+                                    <i>{project.markets && project.markets.turnover}</i>
                                 </td>
                                 <td>
                                     <b>数据来源：</b>
-                                    <i>抓取</i>
+                                    <i>{project.markets && project.markets.source}</i>
                                 </td>
                             </tr>
                           </tbody>
@@ -282,30 +289,26 @@ export default class List extends ViewBase {
                             <div className="price">
                                 <label>ICO价格：</label>
                                 <div>
-                                  <p>$123</p>
-                                  <p>0.0123 BTC</p>
-                                  <p>0.123 ETH</p>
+                                  {project.returns && project.returns.icoPrice && project.returns.icoPrice.map((item,index)=> <p key={index}>{item}</p>)}
                                 </div>
                             </div>
                             <div className="price">
                                 <label>现价：</label>
                                 <div>
-                                  <p>$123</p>
-                                  <p>0.0123 BTC</p>
-                                  <p>0.123 ETH</p>
+                                  {project.returns && project.returns.curPrice && project.returns.curPrice.map((item,index)=> <p key={index}>{item}</p>)}
                                 </div>
                             </div>
                             <p className="profit">
                                 <label>USD收益率</label>
-                                <i>10X</i>
+                                <i>{project.returns && project.returns.usdProfit}</i>
                             </p>
                             <p className="profit">
                                 <label>BTC收益率</label>
-                                <i>9.8X</i>
+                                <i>{project.returns && project.returns.btcProfit}</i>
                             </p>
                             <p className="profit">
                                 <label>ETH收益率</label>
-                                <i>10.1X</i>
+                                <i>{project.returns && project.returns.etcProfit}</i>
                             </p>
                         </div>
 
@@ -317,8 +320,8 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_xmys}/>
                             <span>项目优势</span>
                         </h3>
-                        <p>技术方向：智能合约、内容版权、去中心化应用</p>
-                        <p>项目特点：高性能、安全</p>
+                        {project.advantages && Object.keys(project.advantages).map((item,index)=>
+                          <p key={index}>{item}：{project.advantages[item]}</p>)}
                     </div>
 
                     {/*热度评级*/}
@@ -329,8 +332,8 @@ export default class List extends ViewBase {
                         </h3>
                         <div className="flex">
                             <div className="left">
-                                <Heat width={36} height={150} step={70}/>
-                                <i>70</i>
+                                <Heat width={36} height={150} step={project.heat}/>
+                                <i>{project.heat}</i>
                             </div>
                             <ul>
                                 <li>

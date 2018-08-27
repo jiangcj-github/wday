@@ -1,6 +1,7 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
 import ProjectStore from './ProjectStore'
 import Error from "../Error";
+import UserController from  "../user/UserController";
 
 class ProjectController extends ExchangeControllerBase {
     constructor() {
@@ -25,6 +26,7 @@ class ProjectController extends ExchangeControllerBase {
             list: [],
         };
         if(data){
+            await UserController().initCollect();
             newData.total = data.all;
             data.pas && data.pas.forEach(item => newData.list.push({
               id:           item.id,
@@ -43,6 +45,7 @@ class ProjectController extends ExchangeControllerBase {
               recvCoin:     item.con || [],
               heat:          item.hot,
               icoPrices:    item.ra || [],
+              isCollect:    UserController().isCollect(1,item.id),
             }));
         }
         return newData;
@@ -60,6 +63,7 @@ class ProjectController extends ExchangeControllerBase {
 
         let newData = {};
         if(data){
+            await UserController().initCollect();
             Object.assign(newData,{
                 type:   data.type,
                 name:   data.nme,
@@ -74,7 +78,6 @@ class ProjectController extends ExchangeControllerBase {
                 recvCoin:   data.cur || [],
                 step:   data.pro,
                 heat:   data.hot,
-                isCollect:  data.col,
                 website:    data.url,
                 whiteSkin:  data.wb,
                 profile:    data.int,
@@ -87,6 +90,7 @@ class ProjectController extends ExchangeControllerBase {
                 heatRatings: data.rnk || {},
                 scores: data.sco || {},
                 routes: data.rut || [],
+                isCollect:    UserController().isCollect(1,item.id),
             });
             newData.teams = [];
             data.tm && data.tm.forEach(item => newData.teams.push({
@@ -120,8 +124,8 @@ class ProjectController extends ExchangeControllerBase {
             });
             newData.returns = {};
             data.ret && Object.assign(newData.returns, {
-                icoPrice:   data.ret.ip,
-                curPrice:   data.ret.np,
+                icoPrice:   data.ret.ip || [],
+                curPrice:   data.ret.np || [],
                 usdProfit:   data.ret.usd,
                 btcProfit:  data.ret.btc,
                 etcProfit:  data.ret.etc,

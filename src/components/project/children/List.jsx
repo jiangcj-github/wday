@@ -6,8 +6,10 @@ import {
 import Pagination from "../../../common/components/Pagination"
 import Progress from "../../../common/components/Progress"
 import Heat from "../../../common/components/Heat"
+import Alert from "../../../common/components/Alert"
 import LoginController from "../../../class/login/LoginController"
 import ProjectController from "../../../class/project/ProjectController"
+import UserController from "../../../class/user/UserController";
 
 export default class List extends ViewBase {
     constructor() {
@@ -21,8 +23,10 @@ export default class List extends ViewBase {
             total: 1,
             curPage: 1,
             pageSize: 20,
+
+            showAlert: false,
+            alertContent: "",
         };
-        this.controller = ProjectController();
 
         //滚动事件,固定tab
         this.onScroll= () => {
@@ -39,22 +43,19 @@ export default class List extends ViewBase {
     async toPage(page){
         let {pageSize,tabItem} = this.state;
         let type = {1:1, 2:2, 3:3}[tabItem];
-        let data = await this.controller.getProjectList(page,pageSize,type);
+        let data = await ProjectController().getProjectList(page,pageSize,type);
         if(!data.msg){
           let {total,list} = data;
           this.setState({projects: list, total: total, curPage: page});
         }
     }
 
-    switchTab(tab){
-
-    }
-
-
     async componentDidMount() {
-        window.addEventListener("scroll", this.onScroll);
         let tab = parseInt(this.getQuery("tab")) || 1;
-        this.setState({tabItem: tab},()=> this.toPage(1));
+        this.setState({
+            tabItem: tab
+          }, ()=> this.toPage(1));
+        window.addEventListener("scroll", this.onScroll);
     }
 
     componentWillUnmount() {
@@ -64,6 +65,7 @@ export default class List extends ViewBase {
     render() {
         let {history} = this.props;
         let {viewMode, sortByTime, tabItem, total, curPage, pageSize} = this.state;
+        let {showAlert, alertContent} = this.state;
         let projectList = this.state.projects || [];
         //是否登录
         let isLogin = !!LoginController().loginInfo.userPhone;
@@ -73,7 +75,6 @@ export default class List extends ViewBase {
 
         return (
             <div className="project-list">
-
                 {/*tab栏*/}
                 <div className="tab-wrap">
                     <div className="tab">
@@ -111,54 +112,62 @@ export default class List extends ViewBase {
                             <p className="heat">热度</p>
                             <p className="collect">收藏</p>
                         </div>
-                        {projectList.map(({id,logo,name,fullName,badgeList,minNum,minUnit,maxNum,maxUnit,actualNum,actualUnit,
-                                            startTime,endTime,recvCoin,heat,icoPrices,isCollect},index)=>
+                        {projectList.forEach((item,index)=>
                             <div className="tr" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                                 {/*项目名称*/}
                                 <div className="name">
-                                    <img src={logo}/>
+                                    <img src={item.logo}/>
                                     <p className="p1">
-                                        <b>{name}</b>
-                                        <span>{fullName}</span>
+                                        <b>{item.name}</b>
+                                        <span>{item.fullName}</span>
                                     </p>
                                     <p className="p2">
-                                        {badgeList && badgeList.map((item,index2) => <i key={index2}>#{item}#</i>)}
+                                        {item.badgeList && item.badgeList.map((item,index2) => <i key={index2}>#{item}#</i>)}
                                     </p>
                                 </div>
                                 {/*时间*/}
                                 <div className="time">
-                                    <p>始：{new Date(startTime).end()}</p>
-                                    <p>终：{new Date(endTime).end()}</p>
+                                    <p>始：{new Date(item.startTime).end()}</p>
+                                    <p>终：{new Date(item.endTime).end()}</p>
                                 </div>
                                 {/*众筹价格*/}
                                 <div className="price">
-                                    {icoPrices && icoPrices.map((item,index2)=><p key={index2}>{item}</p>)}
+                                    {item.icoPrices && item.icoPrices.map((item,index2)=><p key={index2}>{item}</p>)}
                                 </div>
                                 {/*目标金额*/}
                                 <div className="minmax">
-                                    <p>低：{minNum} {minUnit}</p>
-                                    <p>高：{maxNum} {maxUnit}</p>
+                                    <p>低：{item.minNum} {item.minUnit}</p>
+                                    <p>高：{item.maxNum} {item.maxUnit}</p>
                                 </div>
                                 {/*实际进度*/}
                                 <div className="step">
-                                    <p>{actualNum} {actualUnit}</p>
-                                    <Progress step={maxNum && 100*actualNum/maxNum}/>
-                                    <i>{maxNum && 100*actualNum/maxNum}%</i>
+                                    <p>{item.actualNum} {item.actualUnit}</p>
+                                    <Progress step={item.maxNum && 100 * item.actualNum / item.maxNum}/>
+                                    <i>{item.maxNum && 100 * item.actualNum / item.maxNum}%</i>
                                 </div>
                                 {/*接受币种*/}
                                 <div className="coin">
                                     <p>
-                                      {recvCoin && recvCoin.map((item,index2)=><span key={index2}>{item}</span>)}
+                                      {item.recvCoin && item.recvCoin.map((item,index2)=><span key={index2}>{item}</span>)}
                                     </p>
                                 </div>
                                 {/*热度*/}
                                 <div className="heat">
-                                    <Heat width={20} height={60} step={heat}/>
-                                    <i>{heat}</i>
+                                    <Heat width={20} height={60} step={item.heat}/>
+                                    <i>{item.heat}</i>
                                 </div>
                                 {/*收藏*/}
                                 <div className="collect">
-                                    <i className={["yes","no"][isCollect]}/>
+                                    <i className={item.isCollect ? "yes" : "no"} onClick={()=>{
+                                        UserController().setCollect(1, item.id, !item.isCollect).then(data =>{
+                                            if(data.msg){
+                                                this.setState({showAlert: true, alertContent: data.msg});
+                                                return;
+                                            }
+                                            item.isCollect = !item.isCollect;
+                                            this.setState({});
+                                        });
+                                    }} />
                                 </div>
                             </div>
                         )}
@@ -179,6 +188,10 @@ export default class List extends ViewBase {
                     <div className="page">
                         <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page=>this.toPage(page)}/>
                     </div>}
+
+                {/*提示*/}
+                {showAlert &&
+                    <Alert content={alertContent}/>}
 
             </div>)
     }

@@ -10,30 +10,15 @@ class UserController extends ExchangeControllerBase {
         this.loginInfo = LoginController().loginInfo;
     }
 
-    // 收藏列表
-    getCollect(type){
-        let data = this.store.getCollect({
-            typ: type,
-            uid: this.loginInfo.userId,
-        });
-        if(data.msg !== 0){
-            return {msg: Error(data.ret)};
-        }
-        data = data.data;
-        let newData = {};
-        if(data){
-            newData.articles = data.art || [];
-            newData.projects = data.pro || [];
-            newData.news = data.nsf || [];
-        }
-        return newData;
+    async initCollect(){
+        await this.store.initCollect(this.loginInfo.userId);
     }
 
     // 添加，取消收藏
     // type=1 项目, type=2 文章, type=3  快讯
     // op=true 收藏 op=false 取消收藏
-    setCollect(type,relateId,bool){
-        let data = this.store.setCollect({
+    async setCollect(type,relateId,bool){
+        let data = await this.store.setCollect({
             typ: type,
             oid: relateId,
             op: bool,
@@ -43,7 +28,7 @@ class UserController extends ExchangeControllerBase {
             return {msg: Error(data.ret)};
         }
         //更新用户收藏列表
-        this.store.saveLocalCollect(type,relateId,bool);
+        await this.store.saveLocalCollect(type,relateId,bool);
         return {};
     }
 

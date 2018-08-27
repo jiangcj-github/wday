@@ -46,7 +46,7 @@ export default {
     {name: 'getMarket', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgd', actionBack: 'hgdr'}, // 获取头部市场数据
   ],
   user: [
-    {name: 'getCollect', data: {url: '/api/common/', method: 'post'}, action: 'ugf', actionBack: 'ugfr'}, // 收藏列表
-    {name: 'setCollect', data: {url: '/api/common/', method: 'post'}, action: 'ucf', actionBack: 'ucfr'}, // 添加，取消收藏
+    {name: 'getCollect', data: {url: '/api/v1/user/', method: 'post'}, action: 'ugf', actionBack: 'ugfr'}, // 收藏列表
+    {name: 'setCollect', data: {url: '/api/v1/user/', method: 'post'}, action: 'ucf', actionBack: 'ucfr'}, // 添加，取消收藏
   ],
 }
