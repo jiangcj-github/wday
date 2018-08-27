@@ -141,8 +141,6 @@ export default class NewsListComponent extends ViewBase {
     }
     // 滑动到底部需要加载更多
     // scrollTop + clientHeight == scrollHeight
-    console.log("AA -> ", target.scrollTop + target.clientHeight);
-    console.log("BB -> ", target.scrollHeight);
     // 该加载的临界条件
     let condition = target.scrollHeight - (target.scrollTop + target.clientHeight) < 100;
     if (condition) {
@@ -243,7 +241,6 @@ export default class NewsListComponent extends ViewBase {
     let result = await
       controller.getNewsList();
     let {isWindowScroll} = this.props;
-    console.log("view news", result);
 
     this.bus.on("updateNewsNum", "NewsListCom", num => {
       this.setState({

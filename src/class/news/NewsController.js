@@ -28,7 +28,6 @@ export default class NewsController extends ExchangeControllerBase {
         })
       })
     });
-    console.log("news R",resultR);
     return resultR;
   }
 
