@@ -44,13 +44,13 @@ export default class LoginStore extends ExchangeStoreBase {
 
   // 判断是否被收藏
   isCollect(type,relateId){
-      let collectList = this.state[{1:"collectProjects",2:"collectArticles",3:"collectNews"}[type]];
+      let collectList = this.state[{1:"collectProjects",2:"collectArticles",3:"collectNews"}[type]] || [];
       return collectList.includes(relateId);
   }
 
   // 获取本地收藏列表
   getLocalCollect(type){
-      let collectList = this.state[{1:"collectProjects",2:"collectArticles",3:"collectNews"}[type]];
+      let collectList = this.state[{1:"collectProjects",2:"collectArticles",3:"collectNews"}[type]] || [];
       return  collectList.map(item =>item);
   }
 

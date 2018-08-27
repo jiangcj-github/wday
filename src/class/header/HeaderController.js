@@ -29,8 +29,9 @@ class HeaderController extends ExchangeControllerBase {
         newData.markets.push({
           name: item.nme,
           logo: item.lgo,
-          rise: item.ris,   //涨幅
-          price:  item.prc
+          rise: (item.ris>=0 ? "+" : "") + (JSON.stringify(item.ris)*100).fix(0),   //涨幅
+          unit: item.ety && item.ety.unit,      // 价格单位
+          price: item.ety && JSON.stringify(item.ety.value).fix(0),    //价格
         });
       });
     }

@@ -30,24 +30,24 @@ class HomeController extends ExchangeControllerBase {
       name: item.nam,
       fullName: item.enm,
       badgeList: item.cw || [],
-      totalNum: item.ta && item.ta.pri,
-      totalUnit:  item.ta && item.ta.unt,
-      actualNum:  item.act && item.act.pri,
-      actualUnit:  item.act && item.act.unt,
-      endTime:  item.fd,
+      totalNum: item.ta && item.ta.value,
+      totalUnit:  item.ta && item.ta.unit,
+      actualNum:  item.act && item.act.value,
+      actualUnit:  item.act && item.act.unit,
+      endTime:  item.fd * 1000,
       step: item.pro,
     });
-    if(data && data.fns){
-      newData.finishAll = data.fns.all;
-      data.fns.lst && data.fns.lst.forEach(item =>newData.finishList.push(parseItem(item)));
+    if(data && data.fa){
+      newData.finishAll = data.fa.all;
+      data.fa.lst && data.fa.lst.forEach(item =>newData.finishList.push(parseItem(item)));
     }
-    if(data && data.run){
-      newData.runAll = data.run.all;
-      data.run.lst && data.run.lst.forEach(item=>newData.runList.push(parseItem(item)));
+    if(data && data.ra){
+      newData.runAll = data.ra.all;
+      data.ra.lst && data.ra.lst.forEach(item=>newData.runList.push(parseItem(item)));
     }
-    if(data && data.son){
-      newData.soonAll = data.son.all;
-      data.son.lst && data.son.lst.forEach(item=>newData.soonList.push(parseItem(item)));
+    if(data && data.sa){
+      newData.soonAll = data.sa.all;
+      data.sa.lst && data.sa.lst.forEach(item=>newData.soonList.push(parseItem(item)));
     }
     return newData;
   }

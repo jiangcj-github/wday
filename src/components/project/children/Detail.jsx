@@ -57,6 +57,7 @@ export default class List extends ViewBase {
         let project = this.state.project || {};
         //是否登录
         let isLogin = !!LoginController().loginInfo.userPhone;
+        project.teams = [{},{},{},{},{},{},{}]
 
         return (
             <div className="project-detail">
@@ -115,8 +116,8 @@ export default class List extends ViewBase {
                                     <p>终：{project.endTime && new Date(project.endTime).end()}</p>
                                 </div>
                                 <div className="minmax">
-                                    <p>低：{project.minNum}</p>
-                                    <p>高：{project.maxNum}</p>
+                                    <p>低：{project.minUnit}{project.minNum}</p>
+                                    <p>高：{project.maxUnit}{project.maxNum}</p>
                                 </div>
                                 <div className="recvCoin">
                                     <p>
@@ -124,7 +125,7 @@ export default class List extends ViewBase {
                                     </p>
                                 </div>
                                 <div className="step">
-                                    <p>{project.actualNum}</p>
+                                    <p>{project.actualUnit}{project.actualNum}</p>
                                     <Progress step={project.step}/>
                                     <i>{project.step}%</i>
                                 </div>
@@ -341,151 +342,141 @@ export default class List extends ViewBase {
                             </div>
                             <ul>
                                 <li>
-                                    <label>媒体报道（10分）</label>
-                                    <span>4分</span>
+                                    <label>媒体报道 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>搜索热度（10分）</label>
-                                    <span>4分</span>
+                                    <label>搜索热度 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>社群建设（10分）</label>
-                                    <span>4分</span>
+                                    <label>社群建设 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>团队背景（10分）</label>
-                                    <span>4分</span>
+                                    <label>团队背景 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>技术可行性（10分）</label>
-                                    <span>4分</span>
+                                    <label>技术可行性 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                             </ul>
                             <ul>
                                 <li>
-                                    <label>市场潜力（10分）</label>
-                                    <span>4分</span>
+                                    <label>市场潜力 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>商业模式（10分）</label>
-                                    <span>4分</span>
+                                    <label>商业模式 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>产品创新性（10分）</label>
-                                    <span>4分</span>
+                                    <label>产品创新性 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>白皮书可信性（10分）</label>
-                                    <span>4分</span>
+                                    <label>白皮书可信性 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                                 <li>
-                                    <label>风险承受能力（10分）</label>
-                                    <span>4分</span>
+                                    <label>风险承受能力 (10分)</label>
+                                    <span>{}分</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
                     {/*用户打分-进行中*/}
-                    <div className="para para5">
-                        <h3>
+                    {project.type === 1 &&
+                        <div className="para para5">
+                            <h3>
+                                <img src={this.imageDict.$_icon_project_yhdf}/>
+                                <span>用户打分</span>
+                            </h3>
+                            <table>
+                                <tbody>
+                                  <tr>
+                                    <td>市场潜力 (10分)</td>
+                                    <td><span className="radio yes">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>商业模式 (10分)</td>
+                                    <td><span className="radio yes">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>产品创新性 (10分)</td>
+                                    <td><span className="radio yes">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>白皮书可信性 (10分)</td>
+                                    <td><span className="radio yes">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>风险承受能力 (10分)</td>
+                                    <td><span className="radio yes">很高</span></td>
+                                    <td><span className="radio no">高</span></td>
+                                    <td><span className="radio no">一般</span></td>
+                                    <td><span className="radio no">低</span></td>
+                                    <td><span className="radio no">很低</span></td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                            <div className="submit">
+                                <button>提交</button>
+                            </div>
+                        </div>}
+                    {/*用户打分-已结束*/}
+                    {project.type === 3 &&
+                        <div className="para para5">
+                          <h3>
                             <img src={this.imageDict.$_icon_project_yhdf}/>
                             <span>用户打分</span>
-                        </h3>
-                        <table>
+                          </h3>
+                          <table className="tb2">
                             <tbody>
-                                <tr>
-                                    <td>市场潜力（10分）</td>
-                                    <td><span className="radio yes">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
-                                </tr>
-                                <tr>
-                                    <td>创业模式（10分）</td>
-                                    <td><span className="radio no">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
-                                </tr>
-                                <tr>
-                                    <td>媒体报道（10分）</td>
-                                    <td><span className="radio yes">很高</span></td>
-                                    <td><span className="radio yes">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
-                                </tr>
-                                <tr>
-                                    <td>媒体报道（10分）</td>
-                                    <td><span className="radio no">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
-                                </tr>
-                                <tr>
-                                    <td>媒体报道（10分）</td>
-                                    <td><span className="radio no">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
-                                </tr>
-                                <tr>
-                                    <td>媒体报道（10分）</td>
-                                    <td><span className="radio no">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
-                                </tr>
+                              <tr>
+                                <td>市场潜力 (10分)</td>
+                                <td>评价分 {}分</td>
+                              </tr>
+                              <tr>
+                                <td>商业模式 (10分)</td>
+                                <td>评价分 {}分</td>
+                              </tr>
+                              <tr>
+                                <td>产品创新性 (10分)</td>
+                                <td>评价分 {}分</td>
+                              </tr>
+                              <tr>
+                                <td>白皮书可信性 (10分)</td>
+                                <td>评价分 {}分</td>
+                              </tr>
+                              <tr>
+                                <td>风险承受能力 (10分)</td>
+                                <td>评价分 {}分</td>
+                              </tr>
                             </tbody>
-                        </table>
-                        <div className="submit">
-                            <button>提交</button>
-                        </div>
-                    </div>
-                    {/*用户打分-已结束*/}
-                    <div className="para para5">
-                      <h3>
-                        <img src={this.imageDict.$_icon_project_yhdf}/>
-                        <span>用户打分</span>
-                      </h3>
-                      <table className="tb2">
-                        <tbody>
-                          <tr>
-                            <td>市场潜力（10分）</td>
-                            <td>评价分 8分</td>
-                          </tr>
-                          <tr>
-                            <td>创业模式（10分）</td>
-                            <td>评价分 8分</td>
-                          </tr>
-                          <tr>
-                            <td>媒体报道（10分）</td>
-                            <td>评价分 8分</td>
-                          </tr>
-                          <tr>
-                            <td>媒体报道（10分）</td>
-                            <td>评价分 8分</td>
-                          </tr>
-                          <tr>
-                            <td>媒体报道（10分）</td>
-                            <td>评价分 8分</td>
-                          </tr>
-                          <tr>
-                            <td>媒体报道（10分）</td>
-                            <td>评价分 8分</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div className="submit">
-                        <img src={this.imageDict.$_icon_over}/>
-                      </div>
-                    </div>
+                          </table>
+                          <div className="submit">
+                            <img src={this.imageDict.$_icon_over}/>
+                          </div>
+                        </div>}
 
                     {/*团队介绍*/}
                     <div className="para para6">
@@ -499,7 +490,8 @@ export default class List extends ViewBase {
                                     <tr key={index}>
                                        {arr.map((item, index2)=>
                                           <td key={index2}>
-                                              <img src={item.logo}/>
+                                              <a href="#" target="_blank"><img className="headimg" src={item.logo}/></a>
+                                              <img className="linkedin" src={this.imageDict.$_icon_project_linkedIn}/>
                                               <b>{item.name}</b>
                                               <i>{item.position}</i>
                                           </td>)}

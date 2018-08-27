@@ -1,4 +1,4 @@
-let config = {}
+let config = {};
 
 // 时间格式化
 /**
@@ -46,17 +46,17 @@ Date.prototype.remain = function(){
   let remain = Math.abs(this.getTime() - Date.now());
   if(remain>24 * 60 * 60 * 1000){
     let day = Math.floor(remain / (24 * 60 * 60 * 1000));
-    return `${day}天`;
+    return `${day}d`;
   }
   if(remain>60 * 60 * 1000){
     let hour = Math.floor(remain / (60 * 60 * 1000));
-    return `${hour}小时`;
+    return `${hour}h`;
   }
   if(remain>60*1000){
     let min = Math.floor(remain / (60 * 1000));
-    return `${min}分钟`;
+    return `${min}min`;
   }
-  return `${remain}秒`;
+  return `${remain}s`;
 };
 
 //结束时间（月-日，xx-xx，超过当年的显示年-月-日，xxxx-xx-xx）
@@ -77,6 +77,23 @@ Array.prototype.subArray = function(size){
     newArr.push(this.slice(start, end));
   }
   return newArr;
+};
+
+// 格式化小数点, isCompletion -不足是否补0
+Object.prototype.fix = function (n, isCompletion = true) {
+  let txt = this.toString();
+  let i = txt.indexOf(".");
+  if(n <= 0){
+    return i < 0 ? txt : txt.substring(0,i);
+  }
+  console.log(txt,"sdfsfsfsdfs");
+  if(i < 0){
+    return isCompletion ? txt + "."+"0".repeat(n) : txt;
+  }
+  if(i > this.length - n - 1){
+    return isCompletion ? txt + "0".repeat(n - this.length + i + 1) : txt;
+  }
+  return txt.substr(0, i + n + 1);
 };
 
 export default {

@@ -40,12 +40,12 @@ class ProjectController extends ExchangeControllerBase {
               maxUnit:      item.tah && item.tah.unt,
               actualNum :   item.aa && item.aa.pri,
               actualUnit:   item.aa && item.aa.unt,
-              startTime:    item.sd,
-              endTime:      item.fd,
+              startTime:    item.sd * 1000,
+              endTime:      item.fd * 1000,
               recvCoin:     item.con || [],
               heat:          item.hot,
               icoPrices:    item.ra || [],
-              isCollect:    UserController().isCollect(1,item.id),
+              isCollect:    UserController().isCollect(1, item.id),
             }));
         }
         return newData;
@@ -70,11 +70,14 @@ class ProjectController extends ExchangeControllerBase {
                 id:     data.id,
                 badgeList:  data.cw || [],
                 logo:   data.logo,
-                startTime:  data.sd,
-                endTime:    data.fd,
-                minNum: data.lp,
-                maxNum: data.hp,
-                actualNum:  data.ap,
+                startTime:  data.sd * 1000,
+                endTime:    data.fd * 1000,
+                minNum: data.lp && data.lp.value,
+                minUnit: data.lp && data.lp.unit,
+                maxNum: data.hp && data.hp.value,
+                maxUnit: data.hp && data.hp.unit,
+                actualNum:  data.ap && data.ap.value,
+                actualUnit:  data.ap && data.ap.unit,
                 recvCoin:   data.cur || [],
                 step:   data.pro,
                 heat:   data.hot,
@@ -83,14 +86,14 @@ class ProjectController extends ExchangeControllerBase {
                 profile:    data.int,
                 platform:   data.pla,
                 area:   data.ara,
-                icoPrice:   data.ico || [],
+                icoPrice:   data.ip || [],
                 icoNum: data.ia,
                 publicNum:  data.pub,
-                advantages: data.adv || {},
-                heatRatings: data.rnk || {},
-                scores: data.sco || {},
+                advantages: data.adv || {},          //项目优势
+                heatRatings: data.rnk || {},        //热度评级
+                scores: data.sco || {},             //用户打分
                 routes: data.rut || [],
-                isCollect:    UserController().isCollect(1,item.id),
+                isCollect:    UserController().isCollect(1, data.id),
             });
             newData.teams = [];
             data.tm && data.tm.forEach(item => newData.teams.push({

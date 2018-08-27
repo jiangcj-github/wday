@@ -1,17 +1,8 @@
-import JsonBig from 'json-bigint'
+import JsonBig from 'json-bigint';
 import { BigNumber } from "bignumber.js";
 
-JSON.stringify = (...parmas)=>{
-  // console.log("修改JSON.stringify", ...parmas);
-  // let res =
-  // console.log("修改JSON.stringify结果", res);
-  return JsonBig.stringify(...parmas)
-}
-
-JSON.parse = (...parmas)=>{
-  // console.log("修改JSON.parse", ...parmas);
-  return JsonBig.parse(...parmas)
-}
+JSON.stringify = (...parmas)=>JsonBig.stringify(...parmas);
+JSON.parse = (...parmas)=>JsonBig.parse(...parmas);
 
 const NUMBER_SUFFIX_ARR = []; // 数字后缀格式{value:10000,suffix:'万'},{value:100000000,suffix:'亿'}
 const NUMBER_PREFIX_ARR = {

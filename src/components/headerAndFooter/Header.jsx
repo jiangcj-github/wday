@@ -60,7 +60,7 @@ export default class Header extends ViewBase {
             this.setState({showLogin: true});
         });
         //头部市场轮询
-        this.pollingMarket();
+        //this.pollingMarket();
     }
 
     componentWillUnmount() {
@@ -86,19 +86,19 @@ export default class Header extends ViewBase {
               <div className="price-wrap">
                   <div className="price">
                       <ul style={{top: top1}}>
-                        {marketList.map(({name,logo,rise,price},index) =>
+                        {marketList.map(({name,logo,rise,unit,price},index) =>
                           <li key={index}>
                               <img src={logo}/>
                               <span>{name}</span>
-                              <i className={rise>0 ? "up":"down"}>{price}({rise}%)</i>
+                              <i className={rise>0 ? "up":"down"}>{unit}{price}({rise}%)</i>
                           </li>)}
                       </ul>
                       <ul style={{top: top2}}>
-                        {marketList.map(({name,logo,rise,price},index) =>
+                        {marketList.map(({name,logo,rise,unit,price},index) =>
                           <li key={index}>
                               <img src={logo}/>
                               <span>{name}</span>
-                              <i className={rise>0 ? "up":"down"}>{price}({rise}%)</i>
+                              <i className={rise>0 ? "up":"down"}>{unit}{price}({rise}%)</i>
                           </li>)}
                       </ul>
                   </div>

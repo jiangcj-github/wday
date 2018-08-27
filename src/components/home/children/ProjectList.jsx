@@ -75,7 +75,7 @@ export default class Home extends ViewBase {
                             {/*项目进度*/}
                             <p className="step">
                                 <span className="remain">目标：</span>
-                                <span className="num prepare">{actualUnit}{actualNum}/{totalUnit}{totalNum}</span>
+                                <span className="num prepare">{totalUnit}{totalNum}</span>
                                 <span className="remain">倒计时{new Date(endTime).remain()}</span>
                             </p>
                             <Progress step={step}/>
