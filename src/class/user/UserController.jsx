@@ -28,7 +28,7 @@ class UserController extends ExchangeControllerBase {
             return {msg: Error(data.ret)};
         }
         //更新用户收藏列表
-        await this.store.saveLocalCollect(type,relateId,bool);
+        this.store.saveLocalCollect(type,relateId,bool);
         return {};
     }
 

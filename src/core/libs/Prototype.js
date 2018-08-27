@@ -68,6 +68,16 @@ Date.prototype.end = function () {
   return this.dateHandle("yyyy-MM-dd");
 };
 
+// 数组拆分成二维数组
+Array.prototype.subArray = function(size){
+  let newArr = [];
+  for (let x = 0; x < Math.ceil(this.length / size); x++) {
+    let start = x * size;
+    let end = start + size;
+    newArr.push(this.slice(start, end));
+  }
+  return newArr;
+};
 
 export default {
   install(app, configCache) {

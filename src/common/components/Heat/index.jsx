@@ -4,7 +4,7 @@ import ViewBase from "../../../components/ViewBase";
  *  step 当前热度百分比
  */
 
-export default class HeatArc extends ViewBase {
+export default class Heat extends ViewBase {
 
     render() {
         let {width, height, step} = this.props;

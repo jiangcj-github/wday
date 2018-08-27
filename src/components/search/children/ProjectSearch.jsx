@@ -83,7 +83,7 @@ export default class ProjectSearch extends ViewBase {
                 </div>
                 {/*翻页*/}
                 <div className="page">
-                    <Pagination currentPage={2} total={201} pageSize={20}/>
+                    <Pagination curPage={2} total={201} pageSize={20}/>
                 </div>
             </div>
         );

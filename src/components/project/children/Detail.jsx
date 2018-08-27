@@ -7,19 +7,16 @@ import Progress from "../../../common/components/Progress"
 import Heat from "../../../common/components/Heat"
 import ProjectController from "../../../class/project/ProjectController";
 import UserController from "../../../class/user/UserController";
+import LoginController from "../../../class/login/LoginController";
 
 export default class List extends ViewBase {
     constructor() {
         super();
         this.state = {
-            viewMode: "list" ,       // 视图模式 list,card
-            sortByTime: 0 ,   // 时间排序
-            tab: 0,        //tab选中项
-
+            tab: 0,         //tab选中项
             project: {},
             isFold: true,  // 是否查看全部
         };
-        this.controller = ProjectController();
 
         //滚动事件,固定tab
         this.onScroll= () => {
@@ -37,7 +34,7 @@ export default class List extends ViewBase {
         window.addEventListener("scroll", this.onScroll);
 
         let id = this.getQuery("id");
-        let data = await this.controller.getProjectDetail(id);
+        let data = await ProjectController().getProjectDetail(id);
         if(data.msg){
             //this.props.history.push("/error");
         }
@@ -55,10 +52,11 @@ export default class List extends ViewBase {
         this.setState({tab: tab});
     }
 
-
     render() {
-        let {viewMode,sortByTime,tab} = this.state;
+        let {tab,isFold} = this.state;
         let project = this.state.project || {};
+        //是否登录
+        let isLogin = !!LoginController().loginInfo.userPhone;
 
         return (
             <div className="project-detail">
@@ -86,14 +84,18 @@ export default class List extends ViewBase {
                                     <i className="share"/>
                                     <i className="br"/>
                                     <i className={`collect ${project.isCollect ? "yes":"no"}`} onClick={()=>{
-                                          UserController().setCollect(1, project.id, !project.isCollect).then(data =>{
-                                            if(data.msg){
-                                              this.setState({showAlert: true, alertContent: data.msg});
-                                              return;
-                                            }
-                                            project.isCollect = !project.isCollect;
-                                            this.setState({});
-                                          })}
+                                      if(!isLogin){
+                                        this.bus.emit("showLoginDialog");
+                                        return;
+                                      }
+                                      UserController().setCollect(1, project.id, !project.isCollect).then(data =>{
+                                        if(data.msg){
+                                          this.setState({showAlert: true, alertContent: data.msg});
+                                          return;
+                                        }
+                                        project.isCollect = !project.isCollect;
+                                        this.setState({showAlert: true, alertContent: "收藏成功"});
+                                      })}
                                     }>收藏</i>
                                 </p>
                             </div>
@@ -162,15 +164,17 @@ export default class List extends ViewBase {
                         </h3>
                         <p>
                             {project.profile}
-                            <a className="more">查看全部</a>
-                            <a className="fold">收起</a>
+                            {isFold ?
+                              <a className="more" onClick={()=>this.setState({isFold: false})}>查看全部</a>
+                              :
+                              <a className="fold" onClick={()=>this.setState({isFold: true})}>收起</a>}
                         </p>
                     </div>
 
                     {/*代币详情*/}
                     <div className="para para2">
                         <h3>
-                            <img src={this.imageDict.$_icon_project_dbxq}/>
+                            <img src={project.logo}/>
                             <span>代币详情</span>
                         </h3>
                         <table>
@@ -491,50 +495,15 @@ export default class List extends ViewBase {
                         </h3>
                         <table>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                    <td>
-                                        <img src="/static/web/icon_coin_five@3x.png"/>
-                                        <b>狄公</b>
-                                        <i>职位名称</i>
-                                    </td>
-                                </tr>
+                                {project.teams && project.teams.subArray(4).map((arr, index) =>
+                                    <tr key={index}>
+                                       {arr.map((item, index2)=>
+                                          <td key={index2}>
+                                              <img src={item.logo}/>
+                                              <b>{item.name}</b>
+                                              <i>{item.position}</i>
+                                          </td>)}
+                                    </tr>)}
                             </tbody>
                         </table>
                     </div>
@@ -545,7 +514,7 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_lxt}/>
                             <span>路线图</span>
                         </h3>
-                        <div className="route">
+                        <div className="route-line">
                             <p>
                                 <span className="s1">2016-06-29</span>
                                 <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>

@@ -112,7 +112,7 @@ export default class List extends ViewBase {
                             <p className="heat">热度</p>
                             <p className="collect">收藏</p>
                         </div>
-                        {projectList.forEach((item,index)=>
+                        {projectList.map((item,index)=>
                             <div className="tr" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
                                 {/*项目名称*/}
                                 <div className="name">
@@ -159,13 +159,17 @@ export default class List extends ViewBase {
                                 {/*收藏*/}
                                 <div className="collect">
                                     <i className={item.isCollect ? "yes" : "no"} onClick={()=>{
+                                        if(!isLogin){
+                                            this.bus.emit("showLoginDialog");
+                                            return;
+                                        }
                                         UserController().setCollect(1, item.id, !item.isCollect).then(data =>{
                                             if(data.msg){
                                                 this.setState({showAlert: true, alertContent: data.msg});
                                                 return;
                                             }
                                             item.isCollect = !item.isCollect;
-                                            this.setState({});
+                                            this.setState({showAlert: true, alertContent: "收藏成功"});
                                         });
                                     }} />
                                 </div>
