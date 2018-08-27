@@ -90,7 +90,7 @@ export default class ArticleList extends ViewBase {
                         {v.content && v.content.length > 100 ? v.content.shearStr(100) : v.content}
                       </p>
                     </div>
-                    <div>
+                    <div className="img-div">
                       <img src={v.img} onClick={() => history.push(`/article/detail?id=${v.id}`)}/>
                     </div>
                   </div>

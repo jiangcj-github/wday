@@ -141,7 +141,11 @@ export default class NewsListComponent extends ViewBase {
     }
     // 滑动到底部需要加载更多
     // scrollTop + clientHeight == scrollHeight
-    if (target.scrollTop + target.clientHeight === target.scrollHeight) {
+    console.log("AA -> ", target.scrollTop + target.clientHeight);
+    console.log("BB -> ", target.scrollHeight);
+    // 该加载的临界条件
+    let condition = target.scrollHeight - (target.scrollTop + target.clientHeight) < 100;
+    if (condition) {
       console.log("到底啦");
       this.addMoreNews();
       console.log("addMoreNews 完事啦");
@@ -316,10 +320,10 @@ export default class NewsListComponent extends ViewBase {
           }
           {/* 新快讯通知 */}
           {
-            // this.state.hasMore &&
-            // <div className={"has-more-news " + (this.state.cardMonth ? "run" : "stop")} onClick={this.addLatestNews}>
-            //   <span>有{this.state.hasMore}条新快讯！</span>
-            // </div>
+            this.state.hasMore ?
+            <div className={"has-more-news " + (this.state.cardMonth ? "run" : "stop")} onClick={this.addLatestNews}>
+              <span>有{this.state.hasMore}条新快讯！</span>
+            </div> : null
           }
         </div>
         {/* 快讯滚动顶部按钮 未完 */}
