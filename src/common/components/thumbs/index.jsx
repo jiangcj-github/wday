@@ -16,14 +16,13 @@ import "../../components/stylus/thumbs.styl";
 export default class Thumbs extends ViewBase {
   constructor(props) {
     super(props);
-    let {goodCount, badCount, goodClicked, badClicked, share, clickGoodDo, clickBadDo} = props;
-
+    let {goodCount, badCount, goodClicked, badClicked, clickGoodDo, clickBadDo} = props;
+    console.log('666');
     this.state = {
       goodCount: goodCount,
       badCount: badCount,
       goodClicked: goodClicked,
       badClicked: badClicked,
-      share: share,
       clickGoodDo: clickGoodDo,
       clickBadDo: clickBadDo
     };
@@ -90,7 +89,7 @@ export default class Thumbs extends ViewBase {
         <div className="thumbs-share">
           <div className="thumbs-share-div"></div>
           <div className="share-div">
-            <div className="copyContent" onClick={this.state.share}>
+            <div className="copyContent" onClick={this.props.share}>
               <img className="thumbs-share-img" src={this.imageDict.$_pop_link}/>
               <span className="thumbs-share-span">复制快讯</span>
             </div>

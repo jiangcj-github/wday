@@ -37,9 +37,7 @@ export default class NewsDayItem extends ViewBase {
   }
 
   copyLink(msg) {
-    console.log('copy ing');
     let input = document.createElement("input");
-    input.id = "ddd";
     input.value = msg;
     document.body.appendChild(input);
     if(this.copy(input)) {

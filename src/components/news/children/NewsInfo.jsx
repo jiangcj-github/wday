@@ -34,9 +34,7 @@ export default class NewsInfo extends ViewBase {
   }
 
   copyLink(msg) {
-    console.log('copy ing');
     let input = document.createElement("input");
-    input.id = "ddd";
     input.value = msg;
     document.body.appendChild(input);
     if(this.copy(input)) {
@@ -63,25 +61,25 @@ export default class NewsInfo extends ViewBase {
   render() {
     let detail = this.state.newsDetail;
     return (
-
       <div className="news">
-        {this.state.newsDetail &&
+        {detail &&
           <div className="news-main">
             <div className="date-card">
               <div className="date-card-main">
-                <p className="month">{detail && detail.cardMonth}</p>
-                <p className="day">{detail && detail.cardDay}</p>
+                <p className="month">{detail.cardMonth}</p>
+                <p className="day">{detail.cardDay}</p>
               </div>
               <div className="date-card-other">
-                <p className="date-is">{detail && this.compareDate(detail.cardDayis)}</p>
-                <p className="week">{detail && detail.cardWeek}</p>
+                <p className="date-is">{this.compareDate(detail.cardDayis)}</p>
+                <p className="week">{detail.cardWeek}</p>
               </div>
             </div>
-            <div className="news-date">{detail && detail.time}</div>
-            <div className="news-title">{detail && detail.title}</div>
-            <div className="news-content">{detail && detail.content}</div>
+            <div className="news-date">{detail.time}</div>
+            <div className="news-title">{detail.title}</div>
+            <div className="news-content">{detail.content}</div>
             <div className="news-thumbs">
-              <Thumbs goodCount={detail.like} badCount={detail.dislike}/>
+              <Thumbs goodCount={detail.like} badCount={detail.dislike} share={this.copyLink.bind(this, detail.title )}/>
+
             </div>
           </div>
         }
