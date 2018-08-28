@@ -19,7 +19,7 @@ class ArticleController extends ExchangeControllerBase {
         title: v.tit,
         content: v.pre,
         // content: v.content,
-        img: `http://192.168.55.125/image/origin/${v.img}`,
+        img: v.img && (v.img.indexOf("http") >-1 ? v.img : `http://192.168.55.125/image/origin/${v.img}`),
         like: v.lke,
         read: v.rad,
         date: new Date(v.ist * 1000).dateHandle("MM-dd HH:mm")
@@ -38,22 +38,13 @@ class ArticleController extends ExchangeControllerBase {
       author: result.aut,
       speak: result.aut,
       date: new Date(result.ist * 1000).dateHandle("MM-dd HH:mm"),
-      topImg: `http://192.168.55.125/image/origin/${result.img}`,
+      // 根据图片有无http 来判断显示网络图片还是服务器图片
+      topImg: result.img && (result.img.indexOf("http") >-1 ? result.img : `http://192.168.55.125/image/origin/${result.img}`),
       tags: result.lab,
       read: result.red,
       like: result.lke
     }: {};
 
-    // let result =  {
-    //   id: 2,
-    //   title: "最高法：妥善审理民间借贷纠纷案件 防范化解各类风险",
-    //   content: "新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥善审理民间借贷案件的通知。",
-    //   author: "赵四",
-    //   speak: "我的个性签名",
-    //   date: "18-01-11",
-    //   topImg: "https://bpic.588ku.com/element_banner/20/18/08/351737d428923be2f258e5b6b58c806d.jpg",
-    //   tags: ["智能合约", "BTC", "数字支付"]
-    // };
     return resultR;
   }
 
