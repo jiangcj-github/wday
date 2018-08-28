@@ -6,6 +6,7 @@ import ProjectSearch from "./children/ProjectSearch";
 import Empty from "./children/Empty";
 import ArticleSearch from "./children/ArticleSearch";
 import NewsSearch from "./children/NewsSearch";
+import SearchController from "../../class/search/SearchController";
 
 export default class Search2 extends ViewBase {
   constructor(props) {
@@ -44,8 +45,21 @@ export default class Search2 extends ViewBase {
     }
   }
 
-  componentDidMount() {
+  async searchContent(word){
+    let data = await SearchController().search(word);
+    console.log("搜索结果：",data);
+    if(!data.msg){
+      this.setState({});
+    }
+  }
 
+  componentDidMount() {
+    this.searchContent(this.getQuery("word"));
+    this.bus.on("onSearch","search",word => this.searchContent(word));
+  }
+
+  componentWillUnmount() {
+    this.bus.off("onSearch","search");
   }
 
   render() {

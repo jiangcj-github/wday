@@ -23,7 +23,7 @@ export default class Header extends ViewBase {
         showLogin: false,     //是否显示登录框
         top1: 0,              //轮播参数
         top2: 40,
-        searchInput: "",          //搜索框-输入
+        word: "",          //搜索框-输入
         pollingTimer: "",       //轮询-计时器
         marketList: [],
       };
@@ -60,7 +60,7 @@ export default class Header extends ViewBase {
             this.setState({showLogin: true});
         });
         //头部市场轮询
-        //this.pollingMarket();
+        this.pollingMarket();
     }
 
     componentWillUnmount() {
@@ -77,7 +77,7 @@ export default class Header extends ViewBase {
 
     render() {
         let {history} = this.props;
-        let {showLogin, top1, top2, phone,searchInput} = this.state;
+        let {showLogin, top1, top2, phone,word} = this.state;
         let marketList = this.state.marketList || [];
 
         return (
@@ -115,9 +115,12 @@ export default class Header extends ViewBase {
                           <NavLink to="/news" activeClassName="active">快讯</NavLink>
                           <p className="srch">
                               <input type="text" placeholder="搜索ico项目、文章、快讯"
-                                      value={searchInput}
-                                      onInput={e=>this.setState({searchInput: e.target.value})}/>
-                              <i onClick={()=>history.push(`/search?word=${searchInput}`)}/>
+                                      value={word}
+                                      onInput={e=>this.setState({word: e.target.value})}/>
+                              <i onClick={()=>{
+                                history.push(`/search?word=${word}`);
+                                this.bus.emit("onSearch",word);
+                              }}/>
                           </p>
                       </div>
                       {/*右侧菜单项*/}

@@ -10,11 +10,12 @@ class ProjectController extends ExchangeControllerBase {
     }
 
     // 获取项目列表
-    async getProjectList(curPage, pageSize, type){
+    async getProjectList(curPage, pageSize, type, sort){
         let data = await this.store.getProjectList({
           cp: curPage,
           ps: pageSize,
           typ: type,
+          srt: sort,
         });
         if(data.ret !== 0){
             return {msg: Error(data.ret)};

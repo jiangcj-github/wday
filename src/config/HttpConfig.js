@@ -49,4 +49,7 @@ export default {
     {name: 'getCollect', data: {url: '/api/v1/user/', method: 'post'}, action: 'ugf', actionBack: 'ugfr'}, // 收藏列表
     {name: 'setCollect', data: {url: '/api/v1/user/', method: 'post'}, action: 'ucf', actionBack: 'ucfr'}, // 添加，取消收藏
   ],
+  search: [
+    {name: 'search', data: {url: '/api/v1/search/', method: 'post'}, action: 'sgr', actionBack: 'sgrr'}, // 搜索
+  ],
 }

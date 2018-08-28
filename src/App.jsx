@@ -56,7 +56,6 @@ export default class App extends Component {
         const projectManage = ({match, history}) =>
             <ProjectManage match={match} history={history}/>;
 
-
         const articleManage = ({match, history}) =>
             <ArticleManage match={match} history={history}/>;
 

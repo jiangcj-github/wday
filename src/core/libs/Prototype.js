@@ -80,7 +80,7 @@ Array.prototype.subArray = function(size){
 };
 
 // 格式化小数点, isCompletion -不足是否补0
-Object.prototype.fix = function (n, isCompletion = true) {
+String.prototype.fix = function (n, isCompletion = true) {
   let txt = this.toString();
   let i = txt.indexOf(".");
   if(n <= 0){
@@ -94,6 +94,10 @@ Object.prototype.fix = function (n, isCompletion = true) {
     return isCompletion ? txt + "0".repeat(n - this.length + i + 1) : txt;
   }
   return txt.substr(0, i + n + 1);
+};
+
+Number.prototype.fix = function (n, isCompletion) {
+  return this.toString().fix(n, isCompletion);
 };
 
 export default {

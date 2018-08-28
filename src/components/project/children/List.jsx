@@ -41,9 +41,9 @@ export default class List extends ViewBase {
     }
 
     async toPage(page){
-        let {pageSize,tabItem} = this.state;
-        let type = {1:1, 2:2, 3:3}[tabItem];
-        let data = await ProjectController().getProjectList(page,pageSize,type);
+        let {pageSize,tabItem,sortByTime} = this.state;
+        let type = {0:0, 1:1, 2:2, 3:3}[tabItem];
+        let data = await ProjectController().getProjectList(page,pageSize,type,sortByTime);
         if(!data.msg){
           let {total,list} = data;
           this.setState({projects: list, total: total, curPage: page});
