@@ -72,20 +72,6 @@ export default class Thumbs extends ViewBase {
 
   }
 
-  componentDidMount() {
-    // let {goodCount, badCount, goodClicked, badClicked, share, clickGoodDo, clickBadDo} = this.props;
-    // this.setState({
-    //   goodCount: goodCount,
-    //   badCount: badCount,
-    //   goodClicked: goodClicked,
-    //   badClicked: badClicked,
-    //   share: share,
-    //   clickGoodDo: clickGoodDo,
-    //   clickBadDo: clickBadDo
-    // });
-    // console.log("after set", this.state);
-  }
-
   render() {
     return (
       <div className="thumbs">

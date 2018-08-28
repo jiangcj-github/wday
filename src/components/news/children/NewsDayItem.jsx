@@ -10,6 +10,7 @@ import {
 
 import "../stylus/newsdayitem.styl"
 import Thumbs from "../../../common/components/thumbs/index";
+import Alert from "../../../common/components/Alert";
 
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
@@ -22,16 +23,31 @@ export default class NewsDayItem extends ViewBase {
         cardDay: time.dateHandle("dd"),
         cardDayis: mark,
         cardWeek: time.dateHandle("www"),
-        showList: showList
+        showList: showList,
+        showAlert: false
       };
     this.copyLink = this.copyLink.bind(this);
   }
 
-  copyLink() {
+  copyLink(msg) {
     console.log('copy ing');
+    let input = document.createElement("input");
+    input.id = "ddd";
+    input.value = msg;
+    document.body.appendChild(input);
+    if(this.copy(input)) {
+      this.setState({
+        showAlert: true
+      });
+      setTimeout(()=>this.setState({
+        showAlert: false
+      }), 2000);
+    }
+    document.body.removeChild(input);
   }
   render() {
     let { history, titleLen, contentLen, news } = this.props;
+    console.log(history);
     return (
       <div className="news-day-item">
         {/* 每天的日历卡片 */}
@@ -74,12 +90,17 @@ export default class NewsDayItem extends ViewBase {
                   </div>
                 </div>
                 <div className="news-thumbs">
-                  <Thumbs goodCount={v.like} badCount={v.dislike} share={this.copyLink}/>
+                  <Thumbs goodCount={v.like} badCount={v.dislike} share={this.copyLink.bind(this, `${v.title} ${window.location.origin}/news/detail?id=${v.id}`)}/>
                 </div>
               </div>
 
             </div>
           )
+        }
+        {/* 提示 */}
+        {
+          this.state.showAlert && <Alert content="复制成功"/>
+
         }
 
       </div>

@@ -8,11 +8,10 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom'
-
-import "../stylus/newslistcomponent.styl";
 import NewsController from "../../../class/news/NewsController";
 import NewsDayItem from "../../news/children/NewsDayItem";
 import ConfigController from "../../../class/config/ConfigController";
+import "../stylus/newslistcomponent.styl";
 
 export default class NewsListComponent extends ViewBase {
   constructor(props) {
