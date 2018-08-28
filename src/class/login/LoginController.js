@@ -51,9 +51,7 @@ class LoginController extends ExchangeControllerBase {
 
     // 获取图像验证码
     async getImgCode(){
-        let data = await this.store.getCode({
-            typ: 1,
-        });
+        let data = await this.store.getCode({typ: 1});
         if(data.ret !== 0) {
             return {msg: Error(data.ret)};
         }
@@ -66,11 +64,7 @@ class LoginController extends ExchangeControllerBase {
         if(!/^1[23456789]\d{9}$/.test(phone)) {
             return {msg: "请输入正确的手机号", tip: "phone"};
         }
-
-        let data = await this.store.getCode({
-            typ: 2,
-            phe: phone
-        });
+        let data = await this.store.getCode({typ: 2, phe: phone});
         if(data.ret !== 0) {
             return {msg: Error(data.ret), tip: "pc"};
         }
