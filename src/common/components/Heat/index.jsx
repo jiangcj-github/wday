@@ -7,7 +7,7 @@ import ViewBase from "../../../components/ViewBase";
 export default class Heat extends ViewBase {
 
     render() {
-        let {width, height, step} = this.props;
+        let {width, height, step=0} = this.props;
         let fillHeight = height * step / 100;
         return (
             <div className="heat-wrap" style={{width: width, height: height}}>
