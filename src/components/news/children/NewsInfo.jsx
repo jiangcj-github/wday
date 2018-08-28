@@ -11,14 +11,43 @@ import {
 import "../stylus/newsinfo.styl"
 import Thumbs from "../../../common/components/thumbs/index";
 import NewsController from "../../../class/news/NewsController";
+import Alert from "../../../common/components/Alert";
 
 export default class NewsInfo extends ViewBase {
   constructor(props) {
     super(props);
     this.state = {
-      newsDetail: {}
-    }
+      newsDetail: {},
+      showAlert: false
+    };
+    this.today = Math.round(new Date().getTime()/1000);
+    this.copyLink = this.copyLink.bind(this);
+    this.compareDate = this.compareDate.bind(this);
+  }
 
+  compareDate(time) {
+    console.log( `today= ${this.today}  time = ${time} today-time = ${this.today - time}`);
+    if(this.today - time < 86400) {
+      return "今天";
+    }
+    return this.today - time > 86400 && this.today - time < 172800 ? "昨天" : new Date(time * 1000).dateHandle("MM-dd");
+  }
+
+  copyLink(msg) {
+    console.log('copy ing');
+    let input = document.createElement("input");
+    input.id = "ddd";
+    input.value = msg;
+    document.body.appendChild(input);
+    if(this.copy(input)) {
+      this.setState({
+        showAlert: true
+      });
+      setTimeout(()=>this.setState({
+        showAlert: false
+      }), 2000);
+    }
+    document.body.removeChild(input);
   }
 
   async componentDidMount() {
@@ -33,7 +62,6 @@ export default class NewsInfo extends ViewBase {
 
   render() {
     let detail = this.state.newsDetail;
-    console.log("detail", detail);
     return (
 
       <div className="news">
@@ -45,7 +73,7 @@ export default class NewsInfo extends ViewBase {
                 <p className="day">{detail && detail.cardDay}</p>
               </div>
               <div className="date-card-other">
-                <p className="date-is">{detail && detail.cardDayis}</p>
+                <p className="date-is">{detail && this.compareDate(detail.cardDayis)}</p>
                 <p className="week">{detail && detail.cardWeek}</p>
               </div>
             </div>
@@ -56,7 +84,10 @@ export default class NewsInfo extends ViewBase {
               <Thumbs goodCount={detail.like} badCount={detail.dislike}/>
             </div>
           </div>
-
+        }
+        {
+          this.state.showAlert &&
+            <Alert content="复制成功"/>
         }
       </div>
     )

@@ -204,7 +204,7 @@ export default class NewsListComponent extends ViewBase {
             this.state.newsList && this.state.newsList.map((v, index) => {
               // TODO 判断 <今天> <昨天>
               // 若是第一条  根据情况设置跳转按钮显示
-              return <NewsDayItem key={index} mark={index} ref={`Day${index}`} dayDate={v.dayDate} showList={index === 0 && show}
+              return <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={index === 0 && show}
                              news={v.news}
                              history={history} titleLen={titleLen} contentLen={contentLen}/>
             })

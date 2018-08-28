@@ -15,18 +15,25 @@ import Alert from "../../../common/components/Alert";
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
     super(props);
-    let {dayDate, news, showList, mark} = props;
-    console.log(news);
+    let {dayDate, news, showList} = props;
     let time = new Date(dayDate * 1000);
     this.state = {
         cardMonth: time.dateHandle("M") + "月",
         cardDay: time.dateHandle("dd"),
-        cardDayis: mark,
+        cardDayis: dayDate,
         cardWeek: time.dateHandle("www"),
         showList: showList,
         showAlert: false
       };
+    this.today = Math.round(new Date().getTime()/1000);
     this.copyLink = this.copyLink.bind(this);
+  }
+
+  compareDate(time) {
+    if(this.today - time < 86400) {
+        return "今天";
+    }
+    return this.today - time > 86400 && this.today - time < 172800 ? "昨天" : new Date(time * 1000).dateHandle("MM-dd");
   }
 
   copyLink(msg) {
@@ -45,9 +52,9 @@ export default class NewsDayItem extends ViewBase {
     }
     document.body.removeChild(input);
   }
+
   render() {
     let { history, titleLen, contentLen, news } = this.props;
-    console.log(history);
     return (
       <div className="news-day-item">
         {/* 每天的日历卡片 */}
@@ -57,7 +64,7 @@ export default class NewsDayItem extends ViewBase {
             <p className="day">{this.state.cardDay}</p>
           </div>
           <div className="date-card-other">
-            <p className="date-is">{this.state.cardDayis}</p>
+            <p className="date-is">{this.compareDate(this.state.cardDayis)}</p>
             <p className="week">{this.state.cardWeek}</p>
           </div>
           {

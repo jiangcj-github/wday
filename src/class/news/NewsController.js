@@ -31,20 +31,18 @@ export default class NewsController extends ExchangeControllerBase {
 
   async getNewsDetail(id) {
     let result = await this.store.getNewsDetail(id);
-    console.log(211,result);
-    let resultR = result.data && {
-      id: result.data.id,
-      time: new Date(result.data.iss * 1000).dateHandle("HH:mm"),
-      title: result.data.tit,
-      content: result.data.ctt,
-      like: result.data.like,
-      dislike: result.data.dlk,
-      cardMonth:  new Date(result.data.iss * 1000).dateHandle("M") + "月",
-      cardDay:  new Date(result.data.iss * 1000).dateHandle("dd"),
-      cardDayis:  new Date(result.data.iss * 1000).dateHandle("MM-dd"),
-      cardWeek: new Date(result.data.iss * 1000).dateHandle("www"),
+    let resultR = result && {
+      id: result.id,
+      time: new Date(result.iss * 1000).dateHandle("HH:mm"),
+      title: result.tit,
+      content: result.ctt,
+      like: result.lik,
+      dislike: result.dlk,
+      cardMonth: new Date(result.iss * 1000).dateHandle("M") + "月",
+      cardDay: new Date(result.iss * 1000).dateHandle("dd"),
+      cardDayis: result.iss,
+      cardWeek: new Date(result.iss * 1000).dateHandle("www"),
     };
-    console.log(2112,resultR);
     return resultR;
   }
 
