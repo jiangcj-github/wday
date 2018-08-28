@@ -1,7 +1,8 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
 import NewsStore from "./NewsStore";
+import Error from "../Error";
 
-export default class NewsController extends ExchangeControllerBase {
+class NewsController extends ExchangeControllerBase {
   constructor(props) {
     super(props);
     this.store = new NewsStore();
@@ -46,4 +47,30 @@ export default class NewsController extends ExchangeControllerBase {
     return resultR;
   }
 
+  // 利好利空
+  // relateId - 资讯ID,  bool - true(利好),false(利空)
+  async voteNews(relateId, bool){
+    let data = await this.store.voteNews();
+    if(data.ret !== 0){
+      //return {msg: Error(data.ret)};
+    }
+    this.store.saveVote(relateId, bool);
+    return {};
+  }
+
+  // 是否投票
+  isVote(relateId, bool){
+    return this.store.isVote(relateId, bool);
+  }
+
+}
+
+//静态实例
+NewsController.instance = null;
+
+export default function() {
+  if(!NewsController.instance){
+    NewsController.instance = new NewsController();
+  }
+  return NewsController.instance;
 }

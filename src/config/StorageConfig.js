@@ -21,5 +21,7 @@ export default {
   storageList: [
     {name: 'language', duration: 0, expiryTime: 0 },//语言设置
     {name: 'loginInfo', duration: 0, expiryTime: 0, default: null, useDefault: true},// 登录信息
+    {name: 'voteGoods', duration: 0, expiryTime: 0, default: null, useDefault: true},// 利好投票
+    {name: 'voteBads', duration: 0, expiryTime: 0, default: null, useDefault: true},// 利空投票
   ]
 }
