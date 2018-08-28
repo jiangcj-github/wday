@@ -85,24 +85,26 @@ export default class NewsListComponent extends ViewBase {
     let sc_result = this.state.newsList;
     let target = document.documentElement;
     let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
+
     if (day) {
       if (day.getBoundingClientRect().top <= 0) {
         this.setState({
-          cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
-          cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
-          cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
-          // TODO 今天是哪天
+          cardMonth: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].cardMonth,
+          cardDay: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].cardDay,
+          cardWeek: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].cardWeek,
           cardDayis: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis,
         });
-        this.nowIndex++;
+        if(this.nowIndex < sc_result.length -1 ){
+          this.nowIndex++;
+        }
         return;
       }
-      else if (this.nowIndex !== 0) {
+      else if ( this.nowIndex !== 0) {
         this.nowIndex--;
         this.setState({
-          cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
-          cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
-          cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
+          cardMonth: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].cardMonth,
+          cardDay: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].cardDay,
+          cardWeek: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].cardWeek,
           cardDayis: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis,
         });
       }
@@ -110,12 +112,11 @@ export default class NewsListComponent extends ViewBase {
 
     // window滚动需要删除卡片 非空才删除，否则会报在已经卸载的页面setState的错误
     if (document.documentElement.scrollTop < 100 && this.state.cardMonth) {
-      // console.log("clear card", document.documentElement.scrollTop );
       this.setState({
         cardMonth: ""
       });
+      this.nowIndex = 0;
     }
-
     // 滑动到底部需要加载更多
     // scrollTop + clientHeight == scrollHeight
     if (target.scrollTop + target.clientHeight === target.scrollHeight) {
@@ -202,7 +203,6 @@ export default class NewsListComponent extends ViewBase {
         <div className="news-list-by-day">
           {
             this.state.newsList && this.state.newsList.map((v, index) => {
-              // TODO 判断 <今天> <昨天>
               // 若是第一条  根据情况设置跳转按钮显示
               return <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} dayis={v.dayCardis} showList={index === 0 && show}
                              news={v.news}

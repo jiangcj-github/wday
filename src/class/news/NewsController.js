@@ -22,8 +22,11 @@ class NewsController extends ExchangeControllerBase {
     let resultR = [];
     result && Object.keys(result).length >0 && Object.keys(result).forEach(
       key => resultR.push({
-        dayCardis: this.compareDate(key),
         dayDate: key,
+        dayCardis: this.compareDate(key),
+        cardMonth: new Date(key * 1000).dateHandle("MM"),
+        cardDay: new Date(key * 1000).dateHandle("dd"),
+        cardWeek: new Date(key * 1000).dateHandle("www"),
         news: result[key].map(v => {
           return {
             id: v.id,
@@ -49,7 +52,7 @@ class NewsController extends ExchangeControllerBase {
       content: result.ctt,
       like: result.lik,
       dislike: result.dlk,
-      cardMonth: new Date(result.iss * 1000).dateHandle("M") + "月",
+      cardMonth: new Date(result.iss * 1000).dateHandle("MM"),
       cardDay: new Date(result.iss * 1000).dateHandle("dd"),
       cardDayis: this.compareDate(result.iss),
       cardWeek: new Date(result.iss * 1000).dateHandle("www"),
