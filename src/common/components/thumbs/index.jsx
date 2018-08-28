@@ -17,6 +17,7 @@ export default class Thumbs extends ViewBase {
   constructor(props) {
     super(props);
     let {goodCount, badCount, goodClicked, badClicked, share, clickGoodDo, clickBadDo} = props;
+
     this.state = {
       goodCount: goodCount,
       badCount: badCount,
@@ -71,25 +72,39 @@ export default class Thumbs extends ViewBase {
 
   }
 
+  componentDidMount() {
+    // let {goodCount, badCount, goodClicked, badClicked, share, clickGoodDo, clickBadDo} = this.props;
+    // this.setState({
+    //   goodCount: goodCount,
+    //   badCount: badCount,
+    //   goodClicked: goodClicked,
+    //   badClicked: badClicked,
+    //   share: share,
+    //   clickGoodDo: clickGoodDo,
+    //   clickBadDo: clickBadDo
+    // });
+    // console.log("after set", this.state);
+  }
+
   render() {
     return (
       <div className="thumbs">
         <div onClick={this.changeGood} className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good"}>
           <div className={(this.state.goodClicked ? "clicked " : "normal ") + "good-div"}></div>
-          <span className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good-span"}>利好 {this.state.goodCount}</span>
+          <span className={(this.state.goodClicked ? "clicked " : "normal ") + "thumbs-good-span"}>利好 {this.props.goodCount}</span>
         </div>
 
         <div onClick={this.changeBad.bind(this)}
              className={(this.state.badClicked ? "clicked " : "normal ") + "thumbs-bad"}>
           <div className={(this.state.badClicked ? "clicked " : "normal ") + "bad-div"}></div>
-          <span className={(this.state.badClicked ? "clicked " : "normal ") + "thumbs-bad-span" }>利空 {this.state.badCount}</span>
+          <span className={(this.state.badClicked ? "clicked " : "normal ") + "thumbs-bad-span" }>利空 {this.props.badCount}</span>
         </div>
 
 
         <div className="thumbs-share">
           <div className="thumbs-share-div"></div>
           <div className="share-div">
-            <div className="copyContent">
+            <div className="copyContent" onClick={this.state.share}>
               <img className="thumbs-share-img" src={this.imageDict.$_pop_link}/>
               <span className="thumbs-share-span">复制快讯</span>
             </div>

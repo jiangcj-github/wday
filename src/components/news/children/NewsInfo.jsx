@@ -22,8 +22,9 @@ export default class NewsInfo extends ViewBase {
   }
 
   async componentDidMount() {
+    let id = this.getQuery("id");
     let controller = new NewsController();
-    let result = await controller.getNewsDetail();
+    let result = await controller.getNewsDetail(id);
     this.setState({
       newsDetail: result
     });
@@ -31,26 +32,28 @@ export default class NewsInfo extends ViewBase {
   }
 
   render() {
+    let detail = this.state.newsDetail;
+    console.log("detail", detail);
     return (
 
       <div className="news">
-        {this.state && this.state.newsDetail &&
+        {this.state.newsDetail &&
           <div className="news-main">
             <div className="date-card">
               <div className="date-card-main">
-                <p className="month">7月</p>
-                <p className="day">05</p>
+                <p className="month">{detail && detail.cardMonth}</p>
+                <p className="day">{detail && detail.cardDay}</p>
               </div>
               <div className="date-card-other">
-                <p className="date-is">今天</p>
-                <p className="week">星期五</p>
+                <p className="date-is">{detail && detail.cardDayis}</p>
+                <p className="week">{detail && detail.cardWeek}</p>
               </div>
             </div>
-            <div className="news-date">19:00</div>
-            <div className="news-title">i和阿嘎尔哦估计哦阿瓦达</div>
-            <div className="news-content">过600个BCD全节点，这将使得比特币钻石区块链安全性及稳定性得到提升。暴风播酷云是暴风新影的核心硬件设备，并其可在非工作状态下利用闲置的存储空间和带宽帮助暴风系列软件，第三方CDN业务，第三方区块链业务进行超大文件网络加速甚至区块链网络全节点的部署并同时赚取BFC积分。</div>
+            <div className="news-date">{detail && detail.time}</div>
+            <div className="news-title">{detail && detail.title}</div>
+            <div className="news-content">{detail && detail.content}</div>
             <div className="news-thumbs">
-              <Thumbs />
+              <Thumbs goodCount={detail.like} badCount={detail.dislike}/>
             </div>
           </div>
 

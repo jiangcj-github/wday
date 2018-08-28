@@ -7,34 +7,45 @@ export default class NewsController extends ExchangeControllerBase {
     this.store = new NewsStore();
   }
 
-
-  async getNewsList() {
-    let result = await this.store.getNewsList();
+  async getNewsList(page, pageSize) {
+    let result = await this.store.getNewsList(page, pageSize);
     let resultR = [];
-
-    result && result.map((v, index) => {
-      resultR.push({
-        dayDate: v.dte,
-        news: v.dta.map((item, index2) => {
+    result && Object.keys(result).length >0 && Object.keys(result).forEach(
+      key => resultR.push({
+        dayDate: key,
+        news: result[key].map(v => {
           return {
-            id: item.id,
-            title: item.tit,
-            content: item.ctt,
-            issueTime: item.ist,
-            like: item.lik,
-            dislike: item.dsl
-            // TODO 收藏字段
-          };
+            id: v.id,
+            title: v.tit,
+            content: v.ctt,
+            issueTime: v.iss,
+            like: v.lik,
+            dislike: v.dlk
+          }
         })
       })
-    });
+    );
+    console.log("快讯接口返回 = ", resultR);
     return resultR;
   }
 
-  async getNewsDetail() {
-    let result = await this.store.getNewsDetail();
-    console.log(result);
-    return result;
+  async getNewsDetail(id) {
+    let result = await this.store.getNewsDetail(id);
+    console.log(211,result);
+    let resultR = result.data && {
+      id: result.data.id,
+      time: new Date(result.data.iss * 1000).dateHandle("HH:mm"),
+      title: result.data.tit,
+      content: result.data.ctt,
+      like: result.data.like,
+      dislike: result.data.dlk,
+      cardMonth:  new Date(result.data.iss * 1000).dateHandle("M") + "月",
+      cardDay:  new Date(result.data.iss * 1000).dateHandle("dd"),
+      cardDayis:  new Date(result.data.iss * 1000).dateHandle("MM-dd"),
+      cardWeek: new Date(result.data.iss * 1000).dateHandle("www"),
+    };
+    console.log(2112,resultR);
+    return resultR;
   }
 
 }

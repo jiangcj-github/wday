@@ -32,8 +32,8 @@ export default {
 
   ],
   news: [
-    {name: 'getNewsList', data: {url: 'newsflash', method: 'post'}, action: 'hgr', actionBack: 'hgrr'}, //获取快讯列表
-    {name: 'getNewsDetail', data: {url: 'newsflash', method: 'post'}, action: 'ngi', actionBack: 'ngir'}, //获取快讯详情
+    {name: 'getNewsList', data: {url: '/api/v1/newsflash/', method: 'post'}, action: 'ngl', actionBack: 'nglr'}, //获取快讯列表
+    {name: 'getNewsDetail', data: {url: '/api/v1/newsflash/', method: 'post'}, action: 'ngi', actionBack: 'ngir'}, //获取快讯详情
   ],
   project: [
     {name: 'getProjectList', data: {url: '/api/v1/project/', method: 'post'}, action: 'pgl', actionBack: 'pglr'}, // 获取项目列表

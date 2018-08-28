@@ -2,13 +2,14 @@ import ExchangeStoreBase from '../ExchangeStoreBase';
 
 export default class NewsStore extends ExchangeStoreBase {
   constructor(props) {
-
     super(props);
-
+    super('news', 'general');
     this.state = {}
   }
 
-  async getNewsList() {
+  async getNewsList(page, pageSize) {
+    let resultR = await this.Proxy.getNewsList({ps: pageSize, cp: page});
+    console.log(666, resultR.data);
     let result = [
       {
         "dte": 1934833541,
@@ -43,10 +44,11 @@ export default class NewsStore extends ExchangeStoreBase {
       {
         "dte": 1522833541, "dta": [{"id": "5", "tit": "让他很疼很疼任何人提及一天又一天一天", "ctt": "让他很疼很疼任何人提及一天又一天一天让他很疼很疼任何人提及一天又一天一天让他很疼很疼任何人提及一天又一天一天让他很疼很疼任何人提及一天又一天一天", "ist": 0, "lik": 0, "dsl": 0}]
       }];
-    return result;
+    return resultR.data;
   }
 
-  async getNewsDetail() {
+  async getNewsDetail(id) {
+    let resultR = this.Proxy.getNewsDetail({id: id});
     let result = {
       id: 3,
       title: "生态福建 交出绿色答卷",
@@ -54,7 +56,7 @@ export default class NewsStore extends ExchangeStoreBase {
       author: "赵四",
       date: "18-01-13"
     };
-    return result;
+    return resultR;
   }
 
 }

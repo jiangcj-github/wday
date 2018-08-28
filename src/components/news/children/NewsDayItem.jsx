@@ -15,19 +15,23 @@ export default class NewsDayItem extends ViewBase {
   constructor(props) {
     super(props);
     let {dayDate, news, showList, mark} = props;
+    console.log(news);
     let time = new Date(dayDate * 1000);
     this.state = {
         cardMonth: time.dateHandle("M") + "月",
         cardDay: time.dateHandle("dd"),
         cardDayis: mark,
         cardWeek: time.dateHandle("www"),
-        news: news,
         showList: showList
       };
+    this.copyLink = this.copyLink.bind(this);
   }
 
+  copyLink() {
+    console.log('copy ing');
+  }
   render() {
-    let { history, titleLen, contentLen } = this.props;
+    let { history, titleLen, contentLen, news } = this.props;
     return (
       <div className="news-day-item">
         {/* 每天的日历卡片 */}
@@ -49,13 +53,13 @@ export default class NewsDayItem extends ViewBase {
         </div>
         {/* 每天的快讯*/}
         {
-          this.state.news && this.state.news.map((v, index) =>
+          news && news.map((v, index) =>
             <div className="news-item" key={index}>
               <div className="news-time">
                 <span>19: 00</span>
               </div>
               {/* 时间线 最后一个没有样式，实现快讯之间相连 */}
-              <div className={"time-line" + ((index ===this.state.news.length -1) ? "last" : "") }><i></i></div>
+              <div className={"time-line" + ((index === news.length -1) ? "last" : "") }><i></i></div>
               <div className="news-main">
                 <div className="for-hover">
                   <div className="news-title" onClick={()=>history.push(`/news/detail?id=${v.id}`)} >
@@ -70,7 +74,7 @@ export default class NewsDayItem extends ViewBase {
                   </div>
                 </div>
                 <div className="news-thumbs">
-                  <Thumbs />
+                  <Thumbs goodCount={v.like} badCount={v.dislike} share={this.copyLink}/>
                 </div>
               </div>
 

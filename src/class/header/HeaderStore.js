@@ -7,7 +7,7 @@ export default class HeaderStore extends ExchangeStoreBase {
   }
 
   async getMarket(params){
-    return await this.Proxy.getMarket(params);
+    // return await this.Proxy.getMarket(params);
   }
 
 }
