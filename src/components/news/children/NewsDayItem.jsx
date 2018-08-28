@@ -15,12 +15,12 @@ import Alert from "../../../common/components/Alert";
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
     super(props);
-    let {dayDate, news, showList} = props;
+    let {dayDate, news, showList, dayis} = props;
     let time = new Date(dayDate * 1000);
     this.state = {
         cardMonth: time.dateHandle("M") + "月",
         cardDay: time.dateHandle("dd"),
-        cardDayis: dayDate,
+        cardDayis: dayis,
         cardWeek: time.dateHandle("www"),
         showList: showList,
         showAlert: false
@@ -62,13 +62,12 @@ export default class NewsDayItem extends ViewBase {
             <p className="day">{this.state.cardDay}</p>
           </div>
           <div className="date-card-other">
-            <p className="date-is">{this.compareDate(this.state.cardDayis)}</p>
+            <p className="date-is">{this.state.cardDayis}</p>
             <p className="week">{this.state.cardWeek}</p>
           </div>
           {
             this.state.showList &&
             <div className="jump" onClick={()=>history.push('/news/list')}>
-            <img src={this.imageDict.$_news_next_normal}/>
             </div>
           }
         </div>

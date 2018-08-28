@@ -17,7 +17,6 @@ export default class Thumbs extends ViewBase {
   constructor(props) {
     super(props);
     let {goodCount, badCount, goodClicked, badClicked, clickGoodDo, clickBadDo} = props;
-    console.log('666');
     this.state = {
       goodCount: goodCount,
       badCount: badCount,

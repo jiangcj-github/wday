@@ -6,6 +6,15 @@ class NewsController extends ExchangeControllerBase {
   constructor(props) {
     super(props);
     this.store = new NewsStore();
+    this.today = Math.round(new Date().getTime()/1000);
+  }
+
+  compareDate(time) {
+    console.log( `today= ${this.today}  time = ${time} today-time = ${this.today - time}`);
+    if(this.today - time < 86400) {
+      return "今天";
+    }
+    return this.today - time > 86400 && this.today - time < 172800 ? "昨天" : new Date(time * 1000).dateHandle("MM-dd");
   }
 
   async getNewsList(page, pageSize) {
@@ -13,6 +22,7 @@ class NewsController extends ExchangeControllerBase {
     let resultR = [];
     result && Object.keys(result).length >0 && Object.keys(result).forEach(
       key => resultR.push({
+        dayCardis: this.compareDate(key),
         dayDate: key,
         news: result[key].map(v => {
           return {
@@ -41,7 +51,7 @@ class NewsController extends ExchangeControllerBase {
       dislike: result.dlk,
       cardMonth: new Date(result.iss * 1000).dateHandle("M") + "月",
       cardDay: new Date(result.iss * 1000).dateHandle("dd"),
-      cardDayis: result.iss,
+      cardDayis: this.compareDate(result.iss),
       cardWeek: new Date(result.iss * 1000).dateHandle("www"),
     };
     return resultR;

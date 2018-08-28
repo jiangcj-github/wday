@@ -92,7 +92,7 @@ export default class NewsListComponent extends ViewBase {
           cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
           cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
           // TODO 今天是哪天
-          cardDayis: this.nowIndex,
+          cardDayis: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis,
         });
         this.nowIndex++;
         return;
@@ -103,7 +103,7 @@ export default class NewsListComponent extends ViewBase {
           cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
           cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
           cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
-          cardDayis: this.nowIndex,
+          cardDayis: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis,
         });
       }
     }
@@ -132,12 +132,12 @@ export default class NewsListComponent extends ViewBase {
     let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
     if (day) {
       if (target.offsetTop >= day.getBoundingClientRect().top -110) {
+        console.log("eee", sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis);
         this.setState({
           cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
           cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
           cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
-          // TODO 今天是哪天
-          cardDayis: this.nowIndex,
+          cardDayis: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis,
         });
         this.nowIndex++;
         return;
@@ -147,7 +147,7 @@ export default class NewsListComponent extends ViewBase {
           cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
           cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),
           cardWeek: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("www"),
-          cardDayis: this.nowIndex,
+          cardDayis: sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis,
         });
       }
     }
@@ -204,7 +204,7 @@ export default class NewsListComponent extends ViewBase {
             this.state.newsList && this.state.newsList.map((v, index) => {
               // TODO 判断 <今天> <昨天>
               // 若是第一条  根据情况设置跳转按钮显示
-              return <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} showList={index === 0 && show}
+              return <NewsDayItem key={index} ref={`Day${index}`} dayDate={v.dayDate} dayis={v.dayCardis} showList={index === 0 && show}
                              news={v.news}
                              history={history} titleLen={titleLen} contentLen={contentLen}/>
             })
@@ -228,7 +228,6 @@ export default class NewsListComponent extends ViewBase {
                 {
                   show ?
                     <div className="jump" onClick={() => history.push("/news/list")}>
-                      <img src={this.imageDict.$_news_next_normal}/>
                     </div>
                     : null
                 }
