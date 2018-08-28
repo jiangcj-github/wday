@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Progress from "../../../common/components/Progress"
 import Heat from "../../../common/components/Heat"
+import Alert from "../../../common/components/Alert"
 import ProjectController from "../../../class/project/ProjectController";
 import UserController from "../../../class/user/UserController";
 import LoginController from "../../../class/login/LoginController";
@@ -16,6 +17,10 @@ export default class List extends ViewBase {
             tab: 0,         //tab选中项
             project: {},
             isFold: true,  // 是否查看全部
+            scoreGroup: [],         //打分
+
+            showAlert: false,
+            alertContent: "",
         };
 
         //滚动事件,固定tab
@@ -52,12 +57,20 @@ export default class List extends ViewBase {
         this.setState({tab: tab});
     }
 
+    async submitScore(){
+        let scoreGroup = this.state.scoreGroup;
+
+        this.setState({showAlert: true, alertContent: "打分成功"});
+    }
+
     render() {
-        let {tab,isFold} = this.state;
+        let {tab,isFold,showAlert,alertContent} = this.state;
         let project = this.state.project || {};
+        let scoreGroup = this.state.scoreGroup;
         //是否登录
         let isLogin = !!LoginController().loginInfo.userPhone;
-        project.teams = [{},{},{},{},{},{},{}]
+        // 打分
+        let scoreMap = {9:"很高",7:"高", 5:"一般",3:"低",1:"很低"};
 
         return (
             <div className="project-detail">
@@ -398,48 +411,68 @@ export default class List extends ViewBase {
                                 <tbody>
                                   <tr>
                                     <td>市场潜力 (10分)</td>
-                                    <td><span className="radio yes">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
+                                    {Object.keys(scoreMap).map((key,index) =>
+                                        <td key={index}>
+                                          <span className={`radio ${scoreGroup[0] === key ? "yes" : "no"}`} 
+                                                onClick={()=>{
+                                                    scoreGroup[0] = key;
+                                                    this.setState({});
+                                                }}>{scoreMap[key]}</span>
+                                        </td>
+                                    )}
                                   </tr>
                                   <tr>
                                     <td>商业模式 (10分)</td>
-                                    <td><span className="radio yes">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
+                                    {Object.keys(scoreMap).map((key,index) =>
+                                      <td key={index}>
+                                          <span className={`radio ${scoreGroup[1] === key ? "yes" : "no"}`}
+                                                onClick={()=>{
+                                                  scoreGroup[1] = key;
+                                                  this.setState({});
+                                                }}>{scoreMap[key]}</span>
+                                      </td>
+                                    )}
                                   </tr>
                                   <tr>
                                     <td>产品创新性 (10分)</td>
-                                    <td><span className="radio yes">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
+                                    {Object.keys(scoreMap).map((key,index) =>
+                                      <td key={index}>
+                                          <span className={`radio ${scoreGroup[2] === key ? "yes" : "no"}`}
+                                                onClick={()=>{
+                                                  scoreGroup[2] = key;
+                                                  this.setState({});
+                                                }}>{scoreMap[key]}</span>
+                                      </td>
+                                    )}
                                   </tr>
                                   <tr>
                                     <td>白皮书可信性 (10分)</td>
-                                    <td><span className="radio yes">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
+                                    {Object.keys(scoreMap).map((key,index) =>
+                                      <td key={index}>
+                                          <span className={`radio ${scoreGroup[3] === key ? "yes" : "no"}`}
+                                                onClick={()=>{
+                                                  scoreGroup[3] = key;
+                                                  this.setState({});
+                                                }}>{scoreMap[key]}</span>
+                                      </td>
+                                    )}
                                   </tr>
                                   <tr>
                                     <td>风险承受能力 (10分)</td>
-                                    <td><span className="radio yes">很高</span></td>
-                                    <td><span className="radio no">高</span></td>
-                                    <td><span className="radio no">一般</span></td>
-                                    <td><span className="radio no">低</span></td>
-                                    <td><span className="radio no">很低</span></td>
+                                    {Object.keys(scoreMap).map((key,index) =>
+                                      <td key={index}>
+                                          <span className={`radio ${scoreGroup[4] === key ? "yes" : "no"}`}
+                                                onClick={()=>{
+                                                  scoreGroup[4] = key;
+                                                  this.setState({});
+                                                }}>{scoreMap[key]}</span>
+                                      </td>
+                                    )}
                                   </tr>
                                 </tbody>
                             </table>
                             <div className="submit">
-                                <button>提交</button>
+                                <button onClick={()=>this.submitScore()}>提交</button>
                             </div>
                         </div>}
                     {/*用户打分-已结束*/}
@@ -490,7 +523,7 @@ export default class List extends ViewBase {
                                     <tr key={index}>
                                        {arr.map((item, index2)=>
                                           <td key={index2}>
-                                              <a href="#" target="_blank"><img className="headimg" src={item.logo}/></a>
+                                              <a href={""} target="_blank"><img className="headimg" src={item.logo}/></a>
                                               <img className="linkedin" src={this.imageDict.$_icon_project_linkedIn}/>
                                               <b>{item.name}</b>
                                               <i>{item.position}</i>
@@ -529,6 +562,10 @@ export default class List extends ViewBase {
 
                     {/*相关文章*/}
                 </div>
+
+                {/*弹框*/}
+                {showAlert &&
+                    <Alert content={alertContent} onClose={()=>this.setState({showAlert: false})}/>}
             </div>)
     }
 }

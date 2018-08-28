@@ -195,7 +195,7 @@ export default class List extends ViewBase {
 
                 {/*提示*/}
                 {showAlert &&
-                    <Alert content={alertContent}/>}
+                    <Alert content={alertContent} onClose={()=>this.setState({showAlert: false})}/>}
 
             </div>)
     }

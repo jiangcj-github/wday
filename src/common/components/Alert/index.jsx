@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ViewBase from "../../../components/ViewBase";
 /*
  *  content 文本内容
+ *  onClose 关闭回调
  */
 
 export default class Alert extends ViewBase {
