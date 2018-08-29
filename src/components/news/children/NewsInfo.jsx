@@ -6,9 +6,8 @@ import {
   Link,
   Redirect,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 
-import "../stylus/newsinfo.styl"
 import Thumbs from "../../../common/components/thumbs/index";
 import NewsController from "../../../class/news/NewsController";
 import Alert from "../../../common/components/Alert";

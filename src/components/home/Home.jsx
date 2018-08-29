@@ -5,8 +5,7 @@ import "./stylus/home.styl"
 import ViewBase from "../ViewBase";
 import ProjectList from "./children/ProjectList";
 import ArticleList from "../article/children/ArticleList";
-import NewsListComponent from "./children/NewsListComponent";
-import Rich from "../../common/components/rich";
+import NewsListComponent from "../news/children/NewsListComponent";
 
 export default class Home extends ViewBase {
   constructor(props) {

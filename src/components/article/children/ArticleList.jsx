@@ -6,14 +6,12 @@ import {
   Link,
   Redirect,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 
-import "../stylus/articlelist.styl"
-import ArticleController from "../../../class/article/ArticleController"
+import ArticleController from "../../../class/article/ArticleController";
 import LoginController from "../../../class/login/LoginController";
 import UserController from "../../../class/user/UserController";
 import Alert from "../../../common/components/Alert";
-import NewsController from "../../../class/news/NewsController";
 
 export default class ArticleList extends ViewBase {
   constructor(props) {

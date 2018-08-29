@@ -7,7 +7,6 @@ import {
   Switch
 } from 'react-router-dom';
 
-import "../stylus/newsdayitem.styl"
 import Thumbs from "../../../common/components/thumbs/index";
 import Alert from "../../../common/components/Alert";
 import NewsController from "../../../class/news/NewsController";

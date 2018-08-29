@@ -7,6 +7,7 @@ import {
 import ViewBase from "../../components/ViewBase";
 import List from "./children/NewsList";
 import Detail from "./children/NewsInfo";
+import "./stylus/news.styl";
 
 export default class NewsManage extends ViewBase {
   constructor(props) {

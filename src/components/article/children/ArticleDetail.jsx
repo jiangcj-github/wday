@@ -8,7 +8,6 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "../stylus/articleDetail.styl";
 import ArticleController from "../../../class/article/ArticleController"
 
 export default class ArticleDetail extends ViewBase {

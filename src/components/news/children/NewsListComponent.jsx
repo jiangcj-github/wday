@@ -7,11 +7,10 @@ import {
   Link,
   Redirect,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 import NewsController from "../../../class/news/NewsController";
 import NewsDayItem from "../../news/children/NewsDayItem";
 import ConfigController from "../../../class/config/ConfigController";
-import "../stylus/newslistcomponent.styl";
 
 export default class NewsListComponent extends ViewBase {
   constructor(props) {
@@ -41,7 +40,6 @@ export default class NewsListComponent extends ViewBase {
     this.setState({curPage: this.state.curPage+1});
     let result = await controller.getNewsList(this.state.page, this.state.pageSize);
     this.can = true;
-    // TODO TODO1 上次的数据  最后一天时间戳 === 更多数据 第一天的时间戳    then 合并两个
     if (this.state.newsList[this.state.newsList.length - 1].dayDate === (result && result[0] && result[0].dayDate)) {
       let newData = result, oldDate = this.state.newsList;
       oldDate[oldDate.length-1].news = oldDate[oldDate.length-1].news.concat(newData.shift().news);
@@ -133,7 +131,6 @@ export default class NewsListComponent extends ViewBase {
     let day = ReactDom.findDOMNode(this.refs[`Day${this.nowIndex}`]);
     if (day) {
       if (target.offsetTop >= day.getBoundingClientRect().top -110) {
-        console.log("eee", sc_result && sc_result[this.nowIndex] && sc_result[this.nowIndex].dayCardis);
         this.setState({
           cardMonth: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("MM"),
           cardDay: sc_result && sc_result[this.nowIndex] && new Date(sc_result[this.nowIndex].dayDate * 1000).dateHandle("dd"),

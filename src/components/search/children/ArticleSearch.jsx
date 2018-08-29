@@ -34,7 +34,6 @@ export default class ArticleSearch extends ViewBase {
     let {pageSize} = this.state;
     let result = await ArticleController().getSearchArticleList(page, pageSize);
     if(!result.msg){
-      console.log('eee', result);
       this.setState({articleList: result, total: result.total, curPage: page});
     }
   }

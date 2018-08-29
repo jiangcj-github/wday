@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import ViewBase from "../../ViewBase";
-import ReactDom from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Redirect,
   Switch
-} from 'react-router-dom'
-import NewsListComponent from "../../home/children/NewsListComponent";
-import "../stylus/newslist.styl";
+} from 'react-router-dom';
+import NewsListComponent from "./NewsListComponent";
+
 
 export default class NewsList extends ViewBase{
   constructor(props) {
