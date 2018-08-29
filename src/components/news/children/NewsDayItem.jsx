@@ -10,6 +10,7 @@ import {
 import "../stylus/newsdayitem.styl"
 import Thumbs from "../../../common/components/thumbs/index";
 import Alert from "../../../common/components/Alert";
+import NewsController from "../../../class/news/NewsController";
 
 export default class NewsDayItem extends ViewBase {
   constructor(props) {
@@ -85,7 +86,8 @@ export default class NewsDayItem extends ViewBase {
                   </div>
                 </div>
                 <div className="news-thumbs">
-                  <Thumbs goodCount={v.like} badCount={v.dislike} share={this.copyLink.bind(this, `${v.title} ${window.location.origin}/news/detail?id=${v.id}`)}/>
+
+                  <Thumbs id={v.id} goodCount={v.like} badCount={v.dislike} share={this.copyLink.bind(this, `${v.title} ${window.location.origin}/news/detail?id=${v.id}`)}/>
                 </div>
               </div>
 

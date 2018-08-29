@@ -68,7 +68,7 @@ export default class NewsInfo extends ViewBase {
             <div className="news-title">{detail.title}</div>
             <div className="news-content">{detail.content}</div>
             <div className="news-thumbs">
-              <Thumbs goodCount={detail.like} badCount={detail.dislike} share={this.copyLink.bind(this, detail.title )}/>
+              <Thumbs  id={detail.id} goodCount={detail.like} badCount={detail.dislike} share={this.copyLink.bind(this, detail.title )}/>
 
             </div>
           </div>

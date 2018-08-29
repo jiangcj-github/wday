@@ -71,6 +71,11 @@ class NewsController extends ExchangeControllerBase {
     return {};
   }
 
+  saveVote(relateId, bool){
+    this.store.saveVote(relateId, bool);
+
+  }
+
   // 是否投票
   isVote(relateId, bool){
     return this.store.isVote(relateId, bool);

@@ -11,6 +11,9 @@ import {
 import "../stylus/articlelist.styl"
 import ArticleController from "../../../class/article/ArticleController"
 import LoginController from "../../../class/login/LoginController";
+import UserController from "../../../class/user/UserController";
+import Alert from "../../../common/components/Alert";
+import NewsController from "../../../class/news/NewsController";
 
 export default class ArticleList extends ViewBase {
   constructor(props) {
@@ -19,10 +22,12 @@ export default class ArticleList extends ViewBase {
       articleList: [],
     };
     this.page = 1;
+    this.can = true;
     this.changeFav = this.changeFav.bind(this);
     this.scrollFunction = this.scrollFunction.bind(this);
     this.addMoreArticle = this.addMoreArticle.bind(this);
-    this.can = true;
+    this.loginCheck = this.loginCheck.bind(this);
+
   }
 
   //滚动函数
@@ -56,14 +61,39 @@ export default class ArticleList extends ViewBase {
       articleList: result
     });
 
+    // TODO 检查登录状态并且设置localstorage
+    //
+
     //对文章滑到底部的滚动检测
     window.addEventListener("scroll", this.scrollFunction);
 
   }
 
+  loginCheck() {
+    let loginInfo = LoginController().loginInfo;
+    return !!loginInfo.userPhone;
+  }
+
   // 改变文章收藏状态
-  changeFav(id) {
+  changeFav(id, isCollect) {
     console.log(this.loginCheck(), id);
+    UserController().setCollect(2, id, !isCollect).then(data =>{
+      if(data.msg){
+        this.setState({showAlert: true, alertContent: data.msg});
+        return;
+      }
+      console.log(this.state.articleList);
+      let list = this.state.articleList;
+      list && list.forEach(v => {
+        if(v.id === id) {
+          v.isCollect = !v.isCollect
+        }
+      });
+      this.setState({
+        articleList: list
+      });
+      this.setState({showAlert: true, alertContent: "收藏成功"});
+    })
   }
 
   componentWillUnmount() {
@@ -72,6 +102,7 @@ export default class ArticleList extends ViewBase {
 
   render() {
     let {history} = this.props;
+    let {showAlert, alertContent} = this.state;
     let isLogin = !!LoginController().isLogin();
     return (
       <div className="article">
@@ -127,9 +158,9 @@ export default class ArticleList extends ViewBase {
                   {/* 收藏 */}
                   {
                     isLogin ?
-                      <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
-                           onClick={this.changeFav.bind(this, v.id)}>
-                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
+                      <div className={(v.isCollect ? "isfav " : "notfav ") + "favourite"}
+                           onClick={this.changeFav.bind(this, v.id, v.isCollect)}>
+                        <div className={(v.isCollect ? "isfav " : "notfav ") + "favourite-div"}></div>
                         <span className="favourite-span">收藏</span>
                       </div> :
                       <div className="notfav favourite"
@@ -147,6 +178,10 @@ export default class ArticleList extends ViewBase {
           <span>加载更多</span>
 
         </div>
+
+        {/*弹框*/}
+        {showAlert &&
+        <Alert content={alertContent} onClose={()=>this.setState({showAlert: false})}/>}
       </div>
     )
   }
