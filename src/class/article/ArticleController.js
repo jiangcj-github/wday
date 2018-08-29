@@ -20,9 +20,9 @@ class ArticleController extends ExchangeControllerBase {
         content: v.pre,
         // content: v.content,
         img: v.img && (v.img.indexOf("http") >-1 ? v.img : `http://192.168.55.125/image/origin/${v.img}`),
-        like: v.lke,
-        read: v.rad,
-        date: new Date(v.ist * 1000).dateHandle("MM-dd HH:mm")
+        like: v.ln,
+        read: v.rn,
+        date: new Date(v.iss * 1000).dateHandle("MM-dd HH:mm")
       })
     });
 
@@ -37,12 +37,11 @@ class ArticleController extends ExchangeControllerBase {
       content: result.ctt,
       author: result.aut,
       speak: result.aut,
-      date: new Date(result.ist * 1000).dateHandle("MM-dd HH:mm"),
+      date: new Date(result.iss * 1000).dateHandle("MM-dd HH:mm"),
       // 根据图片有无http 来判断显示网络图片还是服务器图片
       topImg: result.img && (result.img.indexOf("http") >-1 ? result.img : `http://192.168.55.125/image/origin/${result.img}`),
       tags: result.lab,
-      read: result.red,
-      like: result.lke
+      like: result.ln
     }: {};
 
     return resultR;

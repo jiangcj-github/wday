@@ -56,7 +56,6 @@ export default class ArticleList extends ViewBase {
   async componentDidMount() {
     let controller = new ArticleController();
     let result = await controller.getArticleList(this.page, 1);
-    console.log(result);
     this.setState({
       articleList: result
     });
