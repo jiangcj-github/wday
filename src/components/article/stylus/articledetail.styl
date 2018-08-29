@@ -13,6 +13,10 @@
     top 60px
     padding 15px 15px 0 15px
     text-align center
+    -webkit-user-select none
+    -moz-user-select none
+    -ms-user-select none
+    user-select none
     .love-div
       background-image $_icon_article_love
       background-size cover
@@ -32,6 +36,7 @@
       margin 10px 0 20px 0
       color $_article_color_light
     .favourite
+      cursor pointer
       .favourite-div.notfav
         background-image $_icon_article_favourite_normal
         background-size contain
@@ -128,6 +133,10 @@
         justify-content space-between
         width 30%
         margin-top 30px
+        -webkit-user-select none
+        -moz-user-select none
+        -ms-user-select none
+        user-select none
         .love
           .love-div
             display inline-block
@@ -153,6 +162,7 @@
             font-size 14px
             color $_article_color_light
         .favourite
+          cursor pointer
           span
             color $_article_color_light
           .favourite-div.notfav
