@@ -39,7 +39,7 @@ export default class ArticleSearch extends ViewBase {
 
   render() {
     let {history} = this.props;
-    let isLogin = !!LoginController().loginInfo.userPhone;
+    let isLogin = LoginController().isLogin();
     return (
       <div className="article-search">
         <div className="article">

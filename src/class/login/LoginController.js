@@ -35,6 +35,7 @@ class LoginController extends ExchangeControllerBase {
           userToken:  data.tkn,
           userPhone:  data.phe,
           userId: data.uid,
+          loginTime: Date.now(),
         });
         return {};
     }
@@ -72,8 +73,14 @@ class LoginController extends ExchangeControllerBase {
     }
 
     // 获取登录信息
-    get loginInfo(){
-        return this.store.loginInfo;
+    getLoginInfo(){
+        return this.store.loginInfo || {};
+    }
+
+    isLogin(){
+        let isLogin = this.store.isLogin();
+        !isLogin && this.store.clearLogin();
+        return isLogin;
     }
 }
 

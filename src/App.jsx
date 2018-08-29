@@ -30,12 +30,6 @@ export default class App extends Component {
         };
     }
 
-    //检查是否登录
-    loginCheck(){
-        let loginInfo = LoginController().loginInfo;
-        return !!loginInfo.userPhone;
-    }
-
     componentDidMount(){
         setTimeout(v=>this.setState({
             init:true
@@ -66,7 +60,7 @@ export default class App extends Component {
           <Search match={match} history={history} />;
 
         const personManage = ({ match, history }) =>{
-            if(!this.loginCheck()){
+            if(!LoginController().isLogin()){
                 return <Redirect to="/home"/>;
             }
             return <PersonManage match={match} history={history} />;

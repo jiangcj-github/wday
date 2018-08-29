@@ -46,7 +46,7 @@ export default class Header extends ViewBase {
 
     componentDidMount() {
         //获取loginInfo
-        let {userPhone} = this.controller.loginInfo;
+        let {userPhone} = this.controller.getLoginInfo();
         this.setState({phone: userPhone});
 
         //轮播

@@ -68,7 +68,7 @@ export default class List extends ViewBase {
         let project = this.state.project || {};
         let scoreGroup = this.state.scoreGroup;
         //是否登录
-        let isLogin = !!LoginController().loginInfo.userPhone;
+        let isLogin = LoginController().isLogin();
         // 打分
         let scoreMap = {9:"很高",7:"高", 5:"一般",3:"低",1:"很低"};
 

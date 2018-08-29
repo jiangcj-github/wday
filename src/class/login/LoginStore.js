@@ -19,8 +19,13 @@ export default class LoginStore extends ExchangeStoreBase {
         return this.Proxy.logout({token: token});
     }
 
+    // 获取图像验证码
+    async getCode(params){
+        return await this.Proxy.getCode(params);
+    }
+
     // 获取登录信息
-    get loginInfo(){
+    getLoginInfo(){
         return Object.assign({},this.state.loginInfo);
     }
 
@@ -37,8 +42,11 @@ export default class LoginStore extends ExchangeStoreBase {
         this.state.loginInfo = {};
     }
 
-    // 获取图像验证码
-    async getCode(params){
-        return await this.Proxy.getCode(params);
+    //是否登录
+    isLogin(){
+        let loginInfo = this.state.loginInfo;
+        return loginInfo.userToken && Date.now() - loginInfo.loginTime < 24 * 24 * 60 * 1000;
     }
+
+
 }

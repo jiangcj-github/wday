@@ -72,7 +72,7 @@ export default class ArticleList extends ViewBase {
 
   render() {
     let {history} = this.props;
-    let isLogin = !!LoginController().loginInfo.userPhone;
+    let isLogin = !!LoginController().isLogin();
     return (
       <div className="article">
         <ul>

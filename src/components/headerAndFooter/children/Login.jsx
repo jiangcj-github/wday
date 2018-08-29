@@ -44,7 +44,6 @@ export default class Login extends ViewBase {
     async updateImageCode(){
         let data = await this.controller.getImgCode();
         if(!data.msg){
-            console.log(data);
             this.setState({picture: data.pcode, pid: data.pid});
         }
     }

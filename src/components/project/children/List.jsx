@@ -68,7 +68,7 @@ export default class List extends ViewBase {
         let {showAlert, alertContent} = this.state;
         let projectList = this.state.projects || [];
         //是否登录
-        let isLogin = !!LoginController().loginInfo.userPhone;
+        let isLogin = LoginController().isLogin();
         //是否显示空数据提示
         let showLoginEmpty = (tabItem === 0 && !isLogin);
         let showEmpty = (tabItem === 0 && isLogin && projectList.length<=0) || (tabItem !== 0 && projectList.length<=0);
