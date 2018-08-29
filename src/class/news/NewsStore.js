@@ -41,7 +41,6 @@ export default class NewsStore extends ExchangeStoreBase {
   // 判断是否投票
   isVote(relateId, bool){
     let voteStr = bool ? "voteGoods" : "voteBads";
-    console.log("check vote ing", relateId, bool);
     let votes = this.state[voteStr];
     return votes[relateId] && Date.now() - votes[relateId] < 24 * 60 * 60 * 1000;
   }

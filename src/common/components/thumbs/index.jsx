@@ -69,7 +69,6 @@ export default class Thumbs extends ViewBase {
     let {id, goodCount, badCount, share} = this.props;
     let goodC = NewsController().isVote(id, true);
     let badC = NewsController().isVote(id, false);
-    console.log('gg', goodC, 'badc', badC);
       return (
       <div className="thumbs">
         <div onClick={this.changeGood.bind(this, id, goodC, badC)} className={(goodC ? "clicked " : "normal ") + "thumbs-good"}>
