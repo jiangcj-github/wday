@@ -8,6 +8,15 @@ class ArticleController extends ExchangeControllerBase {
 
   }
 
+  async getSearchArticleList(page, pageSize) {
+    // let result = await this.store.getSearchArticleList(page, pageSize);
+    let result = await this.getArticleList(page, pageSize);
+    result.total = 221;
+    console.log('search article', result);
+    return result;
+
+  }
+
   async getArticleList(page, num) {
     let result = await this.store.getArticleList(page, num);
     console.log("result in controller", result);

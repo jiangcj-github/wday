@@ -11,6 +11,8 @@ import {
 import "../stylus/articleSearch.styl"
 import ArticleController from "../../../class/article/ArticleController"
 import LoginController from "../../../class/login/LoginController";
+import Pagination from "../../../common/components/Pagination";
+import Alert from "../../../common/components/Alert";
 
 export default class ArticleSearch extends ViewBase {
   constructor(props) {
@@ -18,18 +20,27 @@ export default class ArticleSearch extends ViewBase {
     this.state = {
       articleList: [],
       tags : ["数字数字", "你瞅啥"],
-      page: 1
+      total: 1,
+      curPage: 1,
+      pageSize: 20,
+
+      showAlert: false,
+      alertContent: "",
+    };
+    this.toPage = this.toPage.bind(this);
+  }
+
+  async toPage(page){
+    let {pageSize} = this.state;
+    let result = await ArticleController().getSearchArticleList(page, pageSize);
+    if(!result.msg){
+      console.log('eee', result);
+      this.setState({articleList: result, total: result.total, curPage: page});
     }
   }
 
   async componentDidMount() {
-    let controller = new ArticleController();
-    let result = await controller.getArticleList({ct: this.state.page, ps: 10, issue: 1534687251});
-    console.log(result);
-    this.setState({
-      articleList: result
-    });
-
+    await this.toPage(1);
   }
 
   // 改变文章收藏状态
@@ -38,6 +49,8 @@ export default class ArticleSearch extends ViewBase {
   }
 
   render() {
+    let {articleList, total, pageSize, curPage ,showAlert, alertContent} = this.state;
+    console.log('emm', articleList);
     let {history} = this.props;
     let isLogin = LoginController().isLogin();
     return (
@@ -121,6 +134,16 @@ export default class ArticleSearch extends ViewBase {
           </ul>
 
         </div>
+        {/*翻页*/}
+        {total>pageSize &&
+        <div className="page">
+          <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page=>this.toPage(page)}/>
+        </div>}
+
+        {/*提示*/}
+        {showAlert &&
+        <Alert content={alertContent} onClose={()=>this.setState({showAlert: false})}/>}
+
       </div>
 
     )
