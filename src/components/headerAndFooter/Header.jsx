@@ -71,7 +71,7 @@ export default class Header extends ViewBase {
     render() {
         let {showLogin, top1, top2, word} = this.state;
         let isLogin = LoginController().isLogin();
-        let {userPhone} = LoginController().getLoginInfo();
+        let {userPhone} = LoginController().loginInfo;
         let marketList = this.state.marketList || [];
 
         return (
