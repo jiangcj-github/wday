@@ -23,11 +23,11 @@ export default class LoginStore extends ExchangeStoreBase {
       let data = await this.Proxy.getCollect({
         uid: userId,
       });
-      if(data.msg === 0){
+      if(data.ret === 0){
         data = data.data;
-        this.state.collectProjects = data && data.pro || [];
+        this.state.collectProjects = data && data.act || [];
         this.state.collectArticles = data && data.art || [];
-        this.state.collectNews = data && data.nsf || [];
+        this.state.collectNews = data && data.nfs || [];
         this.state.initCollect = true;
       }
   }

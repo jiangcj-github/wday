@@ -29,25 +29,30 @@ class ProjectController extends ExchangeControllerBase {
         if(data){
             await UserController().initCollect();
             newData.total = data.all;
-            data.pas && data.pas.forEach(item => newData.list.push({
-              id:           item.id,
-              logo:         item.lgo,
-              name:         item.nme,
-              fullName:     item.enm,
-              badgeList:    item.cw || [],
-              minNum:       item.min && item.min.value,
-              minUnit:      item.min && item.min.unit,
-              maxNum:       item.max && item.max.value,
-              maxUnit:      item.max && item.max.unit,
-              actualNum :   item.act && item.act.value,
-              actualUnit:   item.act && item.act.unit,
-              startTime:    item.sd * 1000,
-              endTime:      item.fd * 1000,
-              recvCoin:     item.cur || [],
-              heat:          item.hot,
-              icoPrices:    [],
-              isCollect:    UserController().isCollect(1, item.id),
-            }));
+            data.pas && data.pas.forEach(item => {
+                let resItem = {
+                    id:             item.id,
+                    logo:           item.lgo,
+                    name:           item.nme,
+                    fullName:       item.enm,
+                    badgeList:      item.cw || [],
+                    minNum:         item.min && item.min.value,
+                    minUnit:        item.min && item.min.unit,
+                    maxNum:         item.max && item.max.value,
+                    maxUnit:        item.max && item.max.unit,
+                    actualNum:      item.act && item.act.value,
+                    actualUnit:     item.act && item.act.unit,
+                    startTime:      item.sd * 1000,
+                    endTime:        item.fd * 1000,
+                    recvCoin:       item.cur || [],
+                    heat:           item.hot,
+                    icoPrices:      [],
+                    isCollect:      UserController().isCollect(1, item.id),
+                    type:           type,
+                };
+                resItem.step = resItem.maxNum && (resItem.actualNum / resItem.maxNum * 100).fix(0);
+                newData.list.push(resItem);
+            });
         }
         return newData;
     }

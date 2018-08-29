@@ -36,14 +36,12 @@ export default class List extends ViewBase {
     }
 
     async componentDidMount() {
-        window.addEventListener("scroll", this.onScroll);
-
-        let id = this.getQuery("id");
-        let data = await ProjectController().getProjectDetail(id);
+        let data = await ProjectController().getProjectDetail(this.getQuery("id"));
         if(data.msg){
-            //this.props.history.push("/error");
+            this.props.history.push("/error");
         }
         this.setState({project: data});
+        window.addEventListener("scroll", this.onScroll);
     }
 
     componentWillUnmount() {
@@ -63,6 +61,20 @@ export default class List extends ViewBase {
         this.setState({showAlert: true, alertContent: "打分成功"});
     }
 
+    async addCollect(project){
+        if(!LoginController().isLogin()){
+            this.bus.emit("showLoginDialog");
+            return;
+        }
+        let data = await UserController().setCollect(1, project.id, !project.isCollect);
+        if(data.msg){
+            this.setState({showAlert: true, alertContent: data.msg});
+            return;
+        }
+        project.isCollect = !project.isCollect;
+        this.setState({showAlert: true, alertContent: project.isCollect ? "收藏成功" : "取消收藏成功"});
+    }
+
     render() {
         let {tab,isFold,showAlert,alertContent} = this.state;
         let project = this.state.project || {};
@@ -74,7 +86,6 @@ export default class List extends ViewBase {
 
         return (
             <div className="project-detail">
-
                 {/*顶部-项目简介*/}
                 <div className="profile-wrap">
                     <div className="profile">
@@ -97,20 +108,7 @@ export default class List extends ViewBase {
                                     <i className="fb"/>
                                     <i className="share"/>
                                     <i className="br"/>
-                                    <i className={`collect ${project.isCollect ? "yes":"no"}`} onClick={()=>{
-                                      if(!isLogin){
-                                        this.bus.emit("showLoginDialog");
-                                        return;
-                                      }
-                                      UserController().setCollect(1, project.id, !project.isCollect).then(data =>{
-                                        if(data.msg){
-                                          this.setState({showAlert: true, alertContent: data.msg});
-                                          return;
-                                        }
-                                        project.isCollect = !project.isCollect;
-                                        this.setState({showAlert: true, alertContent: "收藏成功"});
-                                      })}
-                                    }>收藏</i>
+                                    <i className={`collect ${project.isCollect ? "yes":"no"}`} onClick={()=>this.addCollect(project)}>收藏</i>
                                 </p>
                             </div>
                         </div>

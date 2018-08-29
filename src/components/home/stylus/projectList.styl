@@ -10,18 +10,23 @@
     background $project-bg
     border-radius 2px
     box-shadow 0 0 4px 0 $project-shadow
-    .doing
-      color $project-color-doing
-    .prepare
-      color $project-color-prepare
-    .finish
-      color $project-color-finish
+    &.doing
+      h3,.num,.percent
+        color $project-color-doing
+    &.prepare
+      h3,.num
+        color $project-color-prepare
+    &.finish
+      h3,.num,.percent
+        color $project-color-finish
+      .progress-wrap
+        background $project-color-finish-bg
+        .progress-step
+          background $project-color-light
 
     h3
       padding 20px 20px 0 20px
       font-size 14px
-      color $project-color-title
-
     .pi
       padding 20px 20px 0 20px
       cursor pointer

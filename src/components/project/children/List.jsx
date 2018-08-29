@@ -52,18 +52,18 @@ export default class List extends ViewBase {
     }
 
     //添加收藏
-    async addCollect(id, bool){
+    async addCollect(item){
         if(!LoginController().isLogin()){
             this.bus.emit("showLoginDialog");
             return;
         }
-        let data = await UserController().setCollect(1, id, bool);
+        let data = await UserController().setCollect(1, item.id, !item.isCollect);
         if(data.msg){
             this.setState({showAlert: true, alertContent: data.msg});
             return;
         }
         item.isCollect = !item.isCollect;
-        this.setState({showAlert: true, alertContent: "收藏成功"});
+        this.setState({showAlert: true, alertContent: item.isCollect ? "收藏成功" : "取消收藏成功"});
     }
 
     async componentDidMount() {
@@ -159,11 +159,16 @@ export default class List extends ViewBase {
                                     <p>高：{item.maxNum} {item.maxUnit}</p>
                                 </div>
                                 {/*实际进度*/}
-                                <div className="step">
-                                    <p>{item.actualNum} {item.actualUnit}</p>
-                                    <Progress step={item.maxNum && 100 * item.actualNum / item.maxNum}/>
-                                    <i>{item.maxNum && 100 * item.actualNum / item.maxNum}%</i>
-                                </div>
+                                {item.type !== 2 ?
+                                    <div className="step">
+                                      <p>{item.actualNum} {item.actualUnit}</p>
+                                      <Progress step={item.step}/>
+                                      <i>{item.step}%</i>
+                                    </div>
+                                    :
+                                    <div className="step">
+                                      <p>倒计时: {new Date(item.endTime).remain()}</p>
+                                    </div>}
                                 {/*接受币种*/}
                                 <div className="coin">
                                     <p>
@@ -177,7 +182,7 @@ export default class List extends ViewBase {
                                 </div>
                                 {/*收藏*/}
                                 <div className="collect">
-                                    <i className={item.isCollect ? "yes" : "no"} onClick={()=>this.addCollect(item.id, !item.isCollect)} />
+                                    <i className={item.isCollect ? "yes" : "no"} onClick={()=>this.addCollect(item)} />
                                 </div>
                             </div>
                         )}

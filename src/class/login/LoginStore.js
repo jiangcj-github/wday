@@ -16,7 +16,7 @@ export default class LoginStore extends ExchangeStoreBase {
     // 退出登录
     logout(){
         let token = this.state.loginInfo.userToken;
-        return this.Proxy.logout({token: token});
+        return this.Proxy.logout({tok: token});
     }
 
     // 获取图像验证码
