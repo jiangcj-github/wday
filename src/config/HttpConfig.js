@@ -29,11 +29,12 @@ export default {
   article: [
     {name: 'getArticleList', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgl', actionBack: 'hgrlr'}, // 获取首页文章列表
     {name: 'getArticleDetail', data: {url: '/api/v1/home/', method: 'post'}, action: 'hgr', actionBack: 'hgrr'}, // 获取首页文章列表
-
+    {name: 'getSearchArticleList', data: {url: '/api/v1/search/', method: 'post'}, action: 'sgr', actionBack: 'sgrr'}, // 获取文章搜索列表
   ],
   news: [
     {name: 'getNewsList', data: {url: '/api/v1/newsflash/', method: 'post'}, action: 'ngl', actionBack: 'nglr'}, //获取快讯列表
     {name: 'getNewsDetail', data: {url: '/api/v1/newsflash/', method: 'post'}, action: 'ngi', actionBack: 'ngir'}, //获取快讯详情
+    {name: 'getSearchNewsList', data: {url: '/api/v1/search/', method: 'post'}, action: 'sgr', actionBack: 'sgrr'}, // 获取快讯搜索列表
     {name: 'voteNews', data: {url: '', method: 'post'}, action: '', actionBack: ''}, //利好利空
   ],
   project: [

@@ -20,6 +20,7 @@ export default class ArticleList extends ViewBase {
       articleList: [],
     };
     this.page = 1;
+    this.pageSize = 5; // 每页数据条数
     this.can = true;
     this.changeFav = this.changeFav.bind(this);
     this.scrollFunction = this.scrollFunction.bind(this);
@@ -34,7 +35,7 @@ export default class ArticleList extends ViewBase {
       return;
     }
     let dom = document.querySelector(".article");
-    if (dom.scrollHeight - document.documentElement.scrollTop < 400) {
+    if (dom.scrollHeight - document.documentElement.scrollTop < 800) {
       this.addMoreArticle(this.page, 1);
     }
   }
@@ -53,7 +54,7 @@ export default class ArticleList extends ViewBase {
 
   async componentDidMount() {
     let controller = new ArticleController();
-    let result = await controller.getArticleList(this.page, 1);
+    let result = await controller.getArticleList(this.page, this.pageSize);
     this.setState({
       articleList: result
     });

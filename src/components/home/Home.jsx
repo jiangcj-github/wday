@@ -44,7 +44,6 @@ export default class Home extends ViewBase {
           {/*文章列表*/}
           <div className="article-wrap">
             <ArticleList history={history}/>
-            {/*<Rich/>*/}
           </div>
           {/*快讯列表*/}
           <div className="remove-scroll-bar">
