@@ -19,7 +19,7 @@ export default class List extends ViewBase {
             sortByTime: 0 ,      // 时间排序
             tabItem: 0,        //选中tab项, 0-收藏，1-进行中，2-即将开始，3-已结束
 
-            projects: {},
+            projects: [],
             total: 1,
             curPage: 1,
             pageSize: 20,
@@ -41,13 +41,29 @@ export default class List extends ViewBase {
     }
 
     async toPage(page){
-        let {pageSize,tabItem,sortByTime} = this.state;
-        let type = {0:0, 1:1, 2:2, 3:3}[tabItem];
-        let data = await ProjectController().getProjectList(page,pageSize,type,sortByTime);
-        if(!data.msg){
-          let {total,list} = data;
-          this.setState({projects: list, total: total, curPage: page});
+        let {pageSize, tabItem, sortByTime} = this.state;
+        let data = await ProjectController().getProjectList(page, pageSize, tabItem, sortByTime+1);
+        if(data.msg){
+          this.setState({projects: [], total: 0, curPage: 0});
+          return;
         }
+        let {total, list} = data;
+        this.setState({projects: list, total: total, curPage: page});
+    }
+
+    //添加收藏
+    async addCollect(id, bool){
+        if(!LoginController().isLogin()){
+            this.bus.emit("showLoginDialog");
+            return;
+        }
+        let data = await UserController().setCollect(1, id, bool);
+        if(data.msg){
+            this.setState({showAlert: true, alertContent: data.msg});
+            return;
+        }
+        item.isCollect = !item.isCollect;
+        this.setState({showAlert: true, alertContent: "收藏成功"});
     }
 
     async componentDidMount() {
@@ -102,7 +118,8 @@ export default class List extends ViewBase {
                     <div className="table">
                         <div className="thead">
                             <p className="name">项目名称</p>
-                            <p className="time sortable" onClick={()=>this.setState({sortByTime: ++sortByTime%3})}>
+                            <p className="time sortable"
+                               onClick={()=>this.setState({sortByTime: ++sortByTime%3},()=>this.toPage(1))}>
                                 时间<i className={["none","up","down"][sortByTime]}/>
                             </p>
                             <p className="price">众筹价格</p>
@@ -113,13 +130,15 @@ export default class List extends ViewBase {
                             <p className="collect">收藏</p>
                         </div>
                         {projectList.map((item,index)=>
-                            <div className="tr" onClick={()=>history.push(`/project/detail?id=${id}`)} key={index}>
+                            <div className="tr" key={index}>
                                 {/*项目名称*/}
                                 <div className="name">
-                                    <img src={item.logo}/>
+                                    <img src={item.logo} onClick={()=>history.push(`/project/detail?id=${item.id}`)}/>
                                     <p className="p1">
-                                        <b>{item.name}</b>
-                                        <span>{item.fullName}</span>
+                                        <a onClick={()=>history.push(`/project/detail?id=${item.id}`)}>
+                                          <b>{item.name}</b>
+                                          <span>{item.fullName}</span>
+                                        </a>
                                     </p>
                                     <p className="p2">
                                         {item.badgeList && item.badgeList.map((item,index2) => <i key={index2}>#{item}#</i>)}
@@ -158,20 +177,7 @@ export default class List extends ViewBase {
                                 </div>
                                 {/*收藏*/}
                                 <div className="collect">
-                                    <i className={item.isCollect ? "yes" : "no"} onClick={()=>{
-                                        if(!isLogin){
-                                            this.bus.emit("showLoginDialog");
-                                            return;
-                                        }
-                                        UserController().setCollect(1, item.id, !item.isCollect).then(data =>{
-                                            if(data.msg){
-                                                this.setState({showAlert: true, alertContent: data.msg});
-                                                return;
-                                            }
-                                            item.isCollect = !item.isCollect;
-                                            this.setState({showAlert: true, alertContent: "收藏成功"});
-                                        });
-                                    }} />
+                                    <i className={item.isCollect ? "yes" : "no"} onClick={()=>this.addCollect(item.id, !item.isCollect)} />
                                 </div>
                             </div>
                         )}

@@ -24,19 +24,22 @@ class HomeController extends ExchangeControllerBase {
       soonAll: 0,
       soonList: [],
     };
-    let parseItem = item =>({
-      id: item.id,
-      logo: item.src,
-      name: item.nam,
-      fullName: item.enm,
-      badgeList: item.cw || [],
-      totalNum: item.ta && item.ta.value,
-      totalUnit:  item.ta && item.ta.unit,
-      actualNum:  item.act && item.act.value,
-      actualUnit:  item.act && item.act.unit,
-      endTime:  item.fd * 1000,
-      step: item.pro,
-    });
+    let parseItem = item =>{
+      let returnItem = {
+        id: item.id,
+        logo: item.lgo,
+        name: item.nam,
+        fullName: item.enm,
+        badgeList: item.cw || [],
+        totalNum: item.ta && item.ta.value,
+        totalUnit:  item.ta && item.ta.unit,
+        actualNum:  item.act && item.act.value,
+        actualUnit:  item.act && item.act.unit,
+        endTime:  item.fd * 1000,
+      };
+      returnItem.step = returnItem.totalNum && (returnItem.actualNum / returnItem.totalNum * 100).fix(0);
+      return returnItem;
+    };
     if(data && data.fa){
       newData.finishAll = data.fa.all;
       data.fa.lst && data.fa.lst.forEach(item =>newData.finishList.push(parseItem(item)));
