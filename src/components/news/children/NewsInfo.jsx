@@ -30,9 +30,6 @@ export default class NewsInfo extends ViewBase {
       this.setState({
         showAlert: true
       });
-      setTimeout(()=>this.setState({
-        showAlert: false
-      }), 2000);
     }
     document.body.removeChild(input);
   }
@@ -74,7 +71,8 @@ export default class NewsInfo extends ViewBase {
         }
         {
           this.state.showAlert &&
-            <Alert content="复制成功"/>
+            <Alert content="复制成功" onClose={()=>this.setState({showAlert: false})}/>}
+
         }
       </div>
     )

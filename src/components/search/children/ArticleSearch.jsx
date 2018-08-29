@@ -72,7 +72,7 @@ export default class ArticleSearch extends ViewBase {
 
                         </p>
                       </div>
-                      <div>
+                      <div className="img-div">
                         <img src={v.img}/>
                       </div>
                     </div>

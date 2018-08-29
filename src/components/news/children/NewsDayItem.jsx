@@ -35,9 +35,6 @@ export default class NewsDayItem extends ViewBase {
       this.setState({
         showAlert: true
       });
-      setTimeout(()=>this.setState({
-        showAlert: false
-      }), 2000);
     }
     document.body.removeChild(input);
   }
@@ -95,8 +92,8 @@ export default class NewsDayItem extends ViewBase {
         }
         {/* 提示 */}
         {
-          this.state.showAlert && <Alert content="复制成功"/>
-
+          this.state.showAlert &&
+          <Alert content="复制成功" onClose={()=>this.setState({showAlert: false})}/>}
         }
 
       </div>
