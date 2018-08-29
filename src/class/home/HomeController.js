@@ -17,12 +17,12 @@ class HomeController extends ExchangeControllerBase {
     data = data.data;
 
     let newData = {
-      finishAll: 0,
-      finishList: [],
-      runAll: 0,
-      runList: [],
-      soonAll: 0,
-      soonList: [],
+      finishAll:    0,
+      finishList:   [],
+      runAll:       0,
+      runList:      [],
+      soonAll:      0,
+      soonList:     [],
     };
     let parseItem = item =>{
       let resItem = {

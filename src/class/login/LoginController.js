@@ -20,22 +20,22 @@ class LoginController extends ExchangeControllerBase {
             return {msg: "短信验证码错误", tip: "pc"};
         }
         let data = await this.store.login({
-            act: phone,
-            pwd: "",
-            pid: picId,
-            phe: phone,
-            pcd: imgCode,
-            hcd: phoneCode
+            act:    phone,
+            pwd:    "",
+            pid:    picId,
+            phe:    phone,
+            pcd:    imgCode,
+            hcd:    phoneCode
         });
         if(data.ret !== 0) {
             return {msg: Error(data.ret), tip: "other"};
         }
         data = data.data;
         this.store.saveLogin({
-          userToken:  data.tkn,
-          userPhone:  data.phe,
-          userId: data.uid,
-          loginTime: Date.now(),
+          userToken:    data.tkn,
+          userPhone:    data.phe,
+          userId:       data.uid,
+          loginTime:    Date.now(),
         });
         return {};
     }

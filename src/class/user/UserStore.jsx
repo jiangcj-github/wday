@@ -7,8 +7,8 @@ export default class LoginStore extends ExchangeStoreBase {
     this.state = {
         collectArticles: null,
         collectProjects: null,
-        collectNews: null,
-        initCollect: false,     // 是否初始化收藏
+        collectNews:    null,
+        initCollect:    false,     // 是否初始化收藏
     };
   }
 

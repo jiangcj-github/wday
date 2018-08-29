@@ -18,10 +18,10 @@ class UserController extends ExchangeControllerBase {
     // type=1 项目, type=2 文章, type=3  快讯     op=true 收藏 op=false 取消收藏
     async setCollect(type,relateId,bool){
         let data = await this.store.setCollect({
-            typ: type,
-            oid: relateId,
-            op: bool,
-            uid: LoginController().loginInfo.userId,
+            typ:    type,
+            oid:    relateId,
+            op:     bool,
+            uid:    LoginController().loginInfo.userId,
         });
         if(data.ret !== 0){
             return {msg: Error(data.ret)};

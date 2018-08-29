@@ -12,10 +12,10 @@ class ProjectController extends ExchangeControllerBase {
     // 获取项目列表
     async getProjectList(curPage, pageSize, type, sort){
         let data = await this.store.getProjectList({
-          cp: curPage,
-          ps: pageSize,
-          typ: type,
-          srt: sort,
+          cp:     curPage,
+          ps:     pageSize,
+          typ:    type,
+          srt:    sort,
         });
         if(data.ret !== 0){
             return {msg: Error(data.ret)};
@@ -23,8 +23,8 @@ class ProjectController extends ExchangeControllerBase {
         data = data.data;
 
         let newData = {
-            total: 0,
-            list: [],
+            total:  0,
+            list:   [],
         };
         if(data){
             await UserController().initCollect();
@@ -50,7 +50,7 @@ class ProjectController extends ExchangeControllerBase {
                     isCollect:      UserController().isCollect(1, item.id),
                     type:           type,
                 };
-                resItem.step = resItem.maxNum && (resItem.actualNum / resItem.maxNum * 100).fix(0);
+                resItem.step = resItem.maxNum && (resItem.actualNum / resItem.maxNum * 100).fix(0);     // 进度
                 newData.list.push(resItem);
             });
         }
@@ -71,73 +71,73 @@ class ProjectController extends ExchangeControllerBase {
         if(data){
             await UserController().initCollect();
             Object.assign(newData,{
-                type:   data.type,
-                name:   data.nme,
-                id:     data.id,
-                badgeList:  data.cw || [],
-                logo:   data.logo,
-                startTime:  data.sd * 1000,
-                endTime:    data.fd * 1000,
-                minNum: data.lp && data.lp.value,
-                minUnit: data.lp && data.lp.unit,
-                maxNum: data.hp && data.hp.value,
-                maxUnit: data.hp && data.hp.unit,
-                actualNum:  data.ap && data.ap.value,
-                actualUnit:  data.ap && data.ap.unit,
-                recvCoin:   data.cur || [],
-                step:   data.pro,
-                heat:   data.hot,
-                website:    data.url,
-                whiteSkin:  data.wb,
-                profile:    data.int,
-                platform:   data.pla,
-                area:   data.ara,
-                icoPrice:   data.ip || [],
-                icoNum: data.ia,
-                publicNum:  data.pub,
-                advantages: data.adv || {},          //项目优势
-                heatRatings: data.rnk || {},        //热度评级
-                scores: data.sco || {},             //用户打分
-                routes: data.rut || [],
-                isCollect:    UserController().isCollect(1, data.id),
+                type:           data.type,
+                name:           data.nme,
+                id:             data.id,
+                badgeList:      data.cw || [],
+                logo:           data.logo,
+                startTime:      data.sd * 1000,
+                endTime:        data.fd * 1000,
+                minNum:         data.lp && data.lp.value,
+                minUnit:        data.lp && data.lp.unit,
+                maxNum:         data.hp && data.hp.value,
+                maxUnit:        data.hp && data.hp.unit,
+                actualNum:      data.ap && data.ap.value,
+                actualUnit:     data.ap && data.ap.unit,
+                recvCoin:       data.cur || [],
+                step:           data.pro,
+                heat:           data.hot,
+                website:        data.url,
+                whiteSkin:      data.wb,
+                profile:        data.int,
+                platform:       data.pla,
+                area:           data.ara,
+                icoPrice:       data.ip || [],
+                icoNum:         data.ia,
+                publicNum:      data.pub,
+                advantages:     data.adv || {},          //项目优势
+                heatRatings:    data.rnk || {},        //热度评级
+                scores:         data.sco || {},             //用户打分
+                routes:         data.rut || [],
+                isCollect:      UserController().isCollect(1, data.id),
             });
             newData.teams = [];
             data.tm && data.tm.forEach(item => newData.teams.push({
-                logo:   item.lgo,
-                name:   item.nme,
-                position:   item.pos,
-                link:   item.li,
+                logo:         item.lgo,
+                name:         item.nme,
+                position:     item.pos,
+                link:         item.li,
             }));
             newData.articles = [];
             data.art && data.art.forEach(item => newData.articles.push({
-                id: item.id,
-                title:  item.title,
-                content:    item.ctt,
-                picture:    item.pic,
-                author: item.aut,
-                timestamp:  item.iss,
-                readNum:    item.red,
-                praiseNum:  item.lik,
+                id:           item.id,
+                title:        item.title,
+                content:      item.ctt,
+                picture:      item.pic,
+                author:       item.aut,
+                timestamp:    item.iss,
+                readNum:      item.red,
+                praiseNum:    item.lik,
             }));
             newData.markets = {};
             data.mkt && Object.assign(newData.markets, {
-                curPrice:   data.mkt.np,
-                highPrice:  data.mkt.hp,
-                lowPrice:   data.mkt.lp,
-                rise:   data.mkt.ris,
-                volume: data.mkt.vol,
-                turnover:   data.mkt.dp,
-                marketValue:    data.mkt.val,
-                num:    data.mkt.num,
-                source: data.mkt.sos,
+                curPrice:     data.mkt.np,
+                highPrice:    data.mkt.hp,
+              lowPrice:       data.mkt.lp,
+                rise:         data.mkt.ris,
+                volume:       data.mkt.vol,
+                turnover:     data.mkt.dp,
+                marketValue:  data.mkt.val,
+                num:          data.mkt.num,
+                source:       data.mkt.sos,
             });
             newData.returns = {};
             data.ret && Object.assign(newData.returns, {
-                icoPrice:   data.ret.ip || [],
-                curPrice:   data.ret.np || [],
-                usdProfit:   data.ret.usd,
-                btcProfit:  data.ret.btc,
-                etcProfit:  data.ret.etc,
+                icoPrice:     data.ret.ip || [],
+                curPrice:     data.ret.np || [],
+                usdProfit:    data.ret.usd,
+                btcProfit:    data.ret.btc,
+                etcProfit:    data.ret.etc,
             });
         }
         return newData;
