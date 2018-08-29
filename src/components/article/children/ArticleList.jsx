@@ -70,8 +70,7 @@ export default class ArticleList extends ViewBase {
   }
 
   loginCheck() {
-    let loginInfo = LoginController().loginInfo;
-    return !!loginInfo.userPhone;
+    return LoginController().isLogin();
   }
 
   // 改变文章收藏状态

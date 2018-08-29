@@ -25,7 +25,7 @@ export default class LoginStore extends ExchangeStoreBase {
     }
 
     // 获取登录信息
-    getLoginInfo(){
+    get loginInfo(){
         return Object.assign({},this.state.loginInfo);
     }
 
