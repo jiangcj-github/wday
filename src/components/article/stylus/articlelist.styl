@@ -69,6 +69,10 @@
           display flex
           justify-content space-between
           width 210px
+          -webkit-user-select none
+          -moz-user-select none
+          -ms-user-select none
+          user-select none
           .watch
             .watch-div
               display inline-block
@@ -94,6 +98,7 @@
               font-size 14px
               color $_article_color_light
           .favourite
+            cursor pointer
             .favourite-div.notfav
               display inline-block
               background-image $_icon_article_favourite_normal
