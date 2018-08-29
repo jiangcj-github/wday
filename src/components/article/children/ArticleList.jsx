@@ -22,7 +22,7 @@ export default class ArticleList extends ViewBase {
     this.page = 1;
     this.pageSize = 5; // 每页数据条数
     this.can = true;
-    this.changeFav = this.changeFav.bind(this);
+    this.addCollect = this.addCollect.bind(this);
     this.scrollFunction = this.scrollFunction.bind(this);
     this.addMoreArticle = this.addMoreArticle.bind(this);
     this.loginCheck = this.loginCheck.bind(this);
@@ -36,7 +36,7 @@ export default class ArticleList extends ViewBase {
     }
     let dom = document.querySelector(".article");
     if (dom.scrollHeight - document.documentElement.scrollTop < 800) {
-      this.addMoreArticle(this.page, 1);
+      this.addMoreArticle(this.page, this.pageSize);
     }
   }
 
@@ -71,27 +71,21 @@ export default class ArticleList extends ViewBase {
     return LoginController().isLogin();
   }
 
-  // 改变文章收藏状态
-  changeFav(id, isCollect) {
-    console.log(this.loginCheck(), id);
-    UserController().setCollect(2, id, !isCollect).then(data =>{
-      if(data.msg){
-        this.setState({showAlert: true, alertContent: data.msg});
-        return;
-      }
-      console.log(this.state.articleList);
-      let list = this.state.articleList;
-      list && list.forEach(v => {
-        if(v.id === id) {
-          v.isCollect = !v.isCollect
-        }
-      });
-      this.setState({
-        articleList: list
-      });
-      this.setState({showAlert: true, alertContent: "收藏成功"});
-    })
+  //添加收藏
+  async addCollect(item){
+    if(!LoginController().isLogin()){
+      this.bus.emit("showLoginDialog");
+      return;
+    }
+    let data = await UserController().setCollect(2, item.id, !item.isCollect);
+    if(data.msg){
+      this.setState({showAlert: true, alertContent: data.msg});
+      return;
+    }
+    item.isCollect = !item.isCollect;
+    this.setState({showAlert: true, alertContent: item.isCollect ? "收藏成功" : "取消收藏成功"});
   }
+
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollFunction);
@@ -99,12 +93,12 @@ export default class ArticleList extends ViewBase {
 
   render() {
     let {history} = this.props;
-    let {showAlert, alertContent} = this.state;
+    let {articleList, showAlert, alertContent} = this.state;
     let isLogin = !!LoginController().isLogin();
     return (
       <div className="article">
         <ul>
-          {this.state && this.state.articleList && this.state.articleList.map((v, index) => (
+          {articleList && articleList.map((v, index) => (
             <li key={index}>
               {/* 根据是否有文章大图 切换显示 */}
               {
@@ -154,15 +148,9 @@ export default class ArticleList extends ViewBase {
                   </div>
                   {/* 收藏 */}
                   {
-                    isLogin ?
                       <div className={(v.isCollect ? "isfav " : "notfav ") + "favourite"}
-                           onClick={this.changeFav.bind(this, v.id, v.isCollect)}>
+                           onClick={this.addCollect.bind(this, v)}>
                         <div className={(v.isCollect ? "isfav " : "notfav ") + "favourite-div"}></div>
-                        <span className="favourite-span">收藏</span>
-                      </div> :
-                      <div className="notfav favourite"
-                           onClick={() => this.bus.emit("showLoginDialog")}>
-                        <div className="notfav favourite-div"></div>
                         <span className="favourite-span">收藏</span>
                       </div>
                   }

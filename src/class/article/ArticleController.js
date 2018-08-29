@@ -1,5 +1,6 @@
 import ExchangeControllerBase from '../ExchangeControllerBase'
 import ArticleStore from "./ArticleStore";
+import UserController from  "../user/UserController";
 
 class ArticleController extends ExchangeControllerBase {
   constructor(props) {
@@ -21,7 +22,9 @@ class ArticleController extends ExchangeControllerBase {
     let result = await this.store.getArticleList(page, num);
     console.log("result in controller", result);
     let resultR = [];
+    await UserController().initCollect();
     result && result.map((v, index) => {
+
       resultR.push({
         id: v.id,
         author: v.aut,
@@ -31,10 +34,11 @@ class ArticleController extends ExchangeControllerBase {
         img: v.img && (v.img.indexOf("http") >-1 ? v.img : `http://192.168.55.125/image/origin/${v.img}`),
         like: v.ln,
         read: v.rn,
-        date: new Date(v.iss * 1000).dateHandle("MM-dd HH:mm")
+        date: new Date(v.iss * 1000).dateHandle("MM-dd HH:mm"),
+        isCollect: UserController().isCollect(2, v.id)
       })
     });
-
+    console.log("result in view", resultR);
     return resultR;
   }
 
