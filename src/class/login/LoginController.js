@@ -74,7 +74,7 @@ class LoginController extends ExchangeControllerBase {
 
     // 获取登录信息
     getLoginInfo(){
-        return this.store.loginInfo || {};
+        return this.store.getLoginInfo();
     }
 
     isLogin(){

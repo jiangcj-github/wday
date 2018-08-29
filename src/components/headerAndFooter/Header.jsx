@@ -19,21 +19,18 @@ export default class Header extends ViewBase {
     constructor(props) {
       super(props);
       this.state = {
-        phone: "",            //当前手机号-未登录为空
         showLogin: false,     //是否显示登录框
         top1: 0,              //轮播参数
         top2: 40,
         word: "",          //搜索框-输入
-        pollingTimer: "",       //轮询-计时器
         marketList: [],
       };
-      this.controller = LoginController();
-      this.headerController = HeaderController();
+      this.pollingTimer = null;       //轮询-计时器
     }
 
     async pollingMarket(){
         this.pollingTimer && clearTimeout(this.pollingTimer);
-        let data = await this.headerController.getMarket();
+        let data = await HeaderController().getMarket();
         if(!data.msg){
           let {markets,newsNum} = data;
           this.setState({marketList: markets});
@@ -45,10 +42,6 @@ export default class Header extends ViewBase {
     }
 
     componentDidMount() {
-        //获取loginInfo
-        let {userPhone} = this.controller.getLoginInfo();
-        this.setState({phone: userPhone});
-
         //轮播
         let {top1, top2} = this.state;
         this.swiper("carousel", top1, top2, [0, 40], 5, 5000,(layer,layerCache)=>{
@@ -69,15 +62,16 @@ export default class Header extends ViewBase {
     }
 
     async logout(){
-        let data = await this.controller.logout();
+        let data = await LoginController().logout();
         if(!data.msg){
           location.reload();
         }
     }
 
     render() {
-        let {history} = this.props;
-        let {showLogin, top1, top2, phone,word} = this.state;
+        let {showLogin, top1, top2, word} = this.state;
+        let isLogin = LoginController().isLogin();
+        let {userPhone} = LoginController().getLoginInfo();
         let marketList = this.state.marketList || [];
 
         return (
@@ -118,7 +112,7 @@ export default class Header extends ViewBase {
                                       value={word}
                                       onInput={e=>this.setState({word: e.target.value})}/>
                               <i onClick={()=>{
-                                history.push(`/search?word=${word}`);
+                                this.props.history.push(`/search?word=${word}`);
                                 this.bus.emit("onSearch",word);
                               }}/>
                           </p>
@@ -137,15 +131,15 @@ export default class Header extends ViewBase {
                               </div>
                           </div>
                           {/*登录注册, 个人中心*/}
-                          {!phone ?
+                          {!isLogin ?
                               <div className="ri">
                                   <a onClick={()=>this.setState({showLogin: true})}>登录/注册</a>
                               </div>
                                 :
                               <div className="ri">
-                                  <a>{phone && phone.formatPhone()}</a>
+                                  <a>{userPhone && userPhone.formatPhone()}</a>
                                   <ul className="drop person-drop">
-                                      <li onClick={()=>history.push("/person/collect")}>
+                                      <li onClick={()=>this.props.history.push("/person/collect")}>
                                           <img src={this.imageDict.$icon_collect_big_normal}/>
                                           <span>我的收藏</span>
                                       </li>
