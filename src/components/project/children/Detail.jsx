@@ -40,6 +40,7 @@ export default class List extends ViewBase {
         if(data.msg){
             this.props.history.push("/error");
         }
+        console.log(data);
         this.setState({project: data});
         window.addEventListener("scroll", this.onScroll);
     }

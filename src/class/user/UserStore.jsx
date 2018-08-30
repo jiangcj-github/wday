@@ -12,6 +12,10 @@ export default class LoginStore extends ExchangeStoreBase {
     };
   }
 
+  async getCollectList(params){
+      return this.Proxy.getCollectList(params);
+  }
+
   // 添加,取消收藏
   async setCollect(params){
       return await this.Proxy.setCollect(params);

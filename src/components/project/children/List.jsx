@@ -40,11 +40,25 @@ export default class List extends ViewBase {
         };
     }
 
+    async toCollectPage(page){
+        let {pageSize} = this.state;
+        let data = await UserController().getCollectList(1, page, pageSize);
+        if(data.msg){
+            this.setState({projects: [], total: 0, curPage: 1});
+            return;
+        }
+        console.log(data);
+    }
+
     async toPage(page){
         let {pageSize, tabItem, sortByTime} = this.state;
+        if(tabItem === 0){
+            this.toCollectPage(page);
+            return;
+        }
         let data = await ProjectController().getProjectList(page, pageSize, tabItem, sortByTime+1);
         if(data.msg){
-          this.setState({projects: [], total: 0, curPage: 0});
+          this.setState({projects: [], total: 0, curPage: 1});
           return;
         }
         let {total, list} = data;

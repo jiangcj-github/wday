@@ -10,16 +10,6 @@ import ViewBase from "../../../components/ViewBase";
 export default class Pagination extends ViewBase {
   constructor(props) {
     super(props);
-
-    let {total, pageSize, curPage} = this.props;
-    let totalPage = Math.ceil(total/pageSize);
-    let pageList = this.list(totalPage, curPage);
-
-    this.total = total;
-    this.pageSize = pageSize;
-    this.curPage = curPage;
-    this.totalPage = totalPage;
-    this.pageList = pageList;
   }
 
   list(totalPage, curPage) {
@@ -38,15 +28,16 @@ export default class Pagination extends ViewBase {
   }
 
   toPage(p){
-    let {totalPage} = this;
-    let {onChange} = this.props;
-
-    if(p<1 || p>this.totalPage || p === "...") return;
+    let {total, pageSize, onChange} = this.props;
+    let totalPage = Math.ceil(total/pageSize);
+    if(p < 1 || p > totalPage || p === "...") return;
     onChange && onChange(p);
   }
 
   render() {
-    let {total, pageSize, curPage, totalPage, pageList} = this;
+    let {total, pageSize, curPage} = this.props;
+    let totalPage = Math.ceil(total/pageSize);
+    let pageList = this.list(totalPage, curPage);
     return (
       <div className="pagination-wrap" style={{"display": total<=pageSize ? 'none' : ''}}>
         <ul className="pagination">
