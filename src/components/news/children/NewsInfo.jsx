@@ -71,8 +71,7 @@ export default class NewsInfo extends ViewBase {
         }
         {
           this.state.showAlert &&
-            <Alert content="复制成功" onClose={()=>this.setState({showAlert: false})}/>}
-
+            <Alert content="复制成功" onClose={()=>this.setState({showAlert: false})}/>
         }
       </div>
     )
