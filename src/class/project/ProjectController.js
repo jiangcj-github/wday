@@ -50,7 +50,7 @@ class ProjectController extends ExchangeControllerBase {
                     isCollect:      UserController().isCollect(1, item.id),
                     type:           type,
                 };
-                resItem.step = resItem.maxNum && (resItem.actualNum / resItem.maxNum * 100).fix(0);     // 进度
+                resItem.step = resItem.minNum && (resItem.actualNum / resItem.minNum * 100).fix(0);     // 进度
                 newData.list.push(resItem);
             });
         }

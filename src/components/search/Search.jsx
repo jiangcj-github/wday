@@ -64,16 +64,13 @@ export default class Search2 extends ViewBase {
         <div className="search-tab">
           <ul className="tab-ul">
             <li className={tabSelect === "article" ? "active" : ""}
-                onClick={()=>this.switchTab("article")}>文章
-            </li>
+                onClick={()=>this.switchTab("article")}>文章</li>
             <li className={tabSelect === "news" ? "active" : ""}
-                onClick={()=>this.switchTab("news")}>快讯
-            </li>
+                onClick={()=>this.switchTab("news")}>快讯</li>
             <li className={tabSelect === "project" ? "active" : ""}
-                onClick={()=>this.switchTab("project")}>项目
-            </li>
+                onClick={()=>this.switchTab("project")}>项目</li>
           </ul>
-          <span className="tip">关于“区块链”共 12 条相关信息</span>
+          <span className="tip">关于“{this.word}”共 {total} 条相关信息</span>
         </div>
         {/* 搜索结果-文章*/}
         {
@@ -93,10 +90,7 @@ export default class Search2 extends ViewBase {
           (resultList.length > 0 ?
               <ProjectSearch
                   history = {history}
-                  resultList = {resultList}
-                  pageSize = {pageSize}
-                  total = {total}
-                  curPage = {curPage}
+                  data = {Object.assign({}, this.state)}
                   onSearch = {p => this.searchContent(p)} />
               :
               <Empty/>)

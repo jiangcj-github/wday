@@ -15,10 +15,19 @@ export default class ProjectSearch extends ViewBase {
         };
     }
 
+    highLight(word, txt){
+        let txtArr = txt.split(word);
+        let resJsx = "";
+        for(let i=0; i<txtArr.length-1; i++){
+            resJsx += txtArr[i] + <i>{word}</i>;
+        }
+        return resJsx + txtArr[txtArr.length-1];
+    }
+
     render() {
-        let {history,curPage,total,pageSize,onSearch} = this.props;
+        let {history, onSearch} = this.props;
+        let {curPage, total, pageSize, word, resultList} = this.props.data;
         let {sortByTime} = this.state;
-        let resultList = this.props.resultList;
 
         return (
             <div className="project-search">
@@ -44,7 +53,8 @@ export default class ProjectSearch extends ViewBase {
                                 <p className="p1">
                                     <img src={item.logo}
                                          onClick={()=>history.push(`/project/detail?id=${item.id}`)}/>
-                                    <b onClick={()=>history.push(`/project/detail?id=${item.id}`)}>{item.name}</b>
+                                    <b onClick={()=>history.push(`/project/detail?id=${item.id}`)}>
+                                        {this.highLight(word, item.name)}</b>
                                 </p>
                                 <p className="p2">
                                     <i>#智能合约#</i>
