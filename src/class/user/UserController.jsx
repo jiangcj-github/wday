@@ -44,8 +44,8 @@ class UserController extends ExchangeControllerBase {
                 recvCoin:       item.cur || [],
                 heat:           item.hot,
                 icoPrices:      [],
+                type:           item.sta,
                 isCollect:      this.isCollect(1, item.id),
-                type:           0,
             };
             resItem.step = resItem.minNum && (resItem.actualNum / resItem.minNum * 100).fix(0);     // 进度
             return resItem;

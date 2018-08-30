@@ -52,7 +52,7 @@ class SearchController extends ExchangeControllerBase {
             heat:           item.hot,
             icoPrices:      [],
             isCollect:      UserController().isCollect(1, item.id),
-            type:           type,
+            type:           item.sta,
         };
         resItem.step = resItem.minNum && (resItem.actualNum / resItem.minNum * 100).fix(0);     // 进度
         return resItem;
