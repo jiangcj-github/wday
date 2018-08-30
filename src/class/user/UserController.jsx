@@ -12,7 +12,7 @@ class UserController extends ExchangeControllerBase {
 
     // 收藏内容列表-接口
     async getCollectList(type, curPage, pageSize){
-        let result = this.store.getCollectList({
+        let result = await this.store.getCollectList({
             uid:    this.loginInfo.userId,
             typ:    type,
             cp:     curPage,
@@ -44,8 +44,8 @@ class UserController extends ExchangeControllerBase {
                 recvCoin:       item.cur || [],
                 heat:           item.hot,
                 icoPrices:      [],
-                isCollect:      UserController().isCollect(1, item.id),
-                type:           type,
+                isCollect:      this.isCollect(1, item.id),
+                type:           0,
             };
             resItem.step = resItem.minNum && (resItem.actualNum / resItem.minNum * 100).fix(0);     // 进度
             return resItem;
@@ -59,15 +59,15 @@ class UserController extends ExchangeControllerBase {
             like:         item.ln,
             read:         item.rn,
             date:         new Date(v.iss * 1000).dateHandle("MM-dd HH:mm"),
-            isCollect:    UserController().isCollect(2, v.id),
+            isCollect:    this.isCollect(2, v.id),
         });
         let parseNews = item =>({
 
 
         });
-        let parseFunc = {1: "parseProject", 2: "parseArticle", 3: "parseNews"}[type];
+        let parseFunc = {1: parseProject, 2: parseArticle, 3: parseNews}[type];
         if(data){
-            await UserController().initCollect();
+            await this.initCollect();
             resultR.total = data.all;
             data.lst && data.lst.forEach(item => resultR.list.push(parseFunc(item)));
         }

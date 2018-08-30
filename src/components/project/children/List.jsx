@@ -43,7 +43,7 @@ export default class List extends ViewBase {
     //收藏
     async toCollectPage(page){
         if(!LoginController().isLogin()){
-            this.setState({projects: []});
+            this.setState({projects: [], total: 0, curPage: 1});
             return;
         }
         let {pageSize} = this.state;
@@ -52,7 +52,8 @@ export default class List extends ViewBase {
             this.setState({projects: [], total: 0, curPage: 1});
             return;
         }
-        console.log(data);
+        let {list,total} = data;
+        this.setState({projects: list, total: total, curPage: page});
     }
 
     //进行中，即将开始，已结束
@@ -77,12 +78,17 @@ export default class List extends ViewBase {
             this.bus.emit("showLoginDialog");
             return;
         }
+
         let data = await UserController().setCollect(1, item.id, !item.isCollect);
         if(data.msg){
             this.setState({showAlert: true, alertContent: data.msg});
             return;
         }
         item.isCollect = !item.isCollect;
+        let {tabItem, projects} = this.state;
+        if(tabItem === 0 && !item.isCollect){
+            projects.includes(item) && projects.splice(projects.indexOf(item),1);
+        }
         this.setState({showAlert: true, alertContent: item.isCollect ? "收藏成功" : "取消收藏成功"});
     }
 
