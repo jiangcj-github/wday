@@ -13,49 +13,40 @@ export default class Search2 extends ViewBase {
     super(props);
     this.state = {
       tabSelect: "project",
-      articleList: [
-        {
-          id: 1,
-          title: "习近平谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战谈如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战如何打赢脱贫攻坚战",
-          content: "坚决打赢脱贫攻坚战，让贫困人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让贫困人口和贫困地贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进坚决打赢脱贫攻坚战，让贫困人口和贫困地区同全国一道进入全面小康社会是我们党的庄严承诺。",
-          author: "赵四",
-          date: "18-01-11",
-          favourite: true
-        },
-        {
-          id: 2,
-          title: "最高法：妥善审理民间借贷纠纷案件 防范审理民间借贷纠纷案件 防范审理民间借贷纠纷案件 防范审理民间借贷纠纷案件 防范化解各类风险",
-          content: "新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥新华社北京8月12日电（记者罗沙）记者12日从最高人民法院获悉，最高法日前下发关于依法妥善审理民间借贷案件的通知。",
-          author: "赵四",
-          date: "18-01-11",
-          img: "https://bpic.588ku.com/element_banner/20/18/08/351737d428923be2f258e5b6b58c806d.jpg",
-          favourite: false
-        },
-        {
-          id: 3,
-          title: "生态福建 交出绿色答卷",
-          content: "2016年8月，中共中央办公厅、国务院办公厅印发《关于设立统一规范的国家生态文明试验区的意见》。",
-          author: "赵四",
-          date: "18-01-11",
-          favourite: true
-        },
-      ],
-      tags: ["数字数字", "你瞅啥"],
-      projectList: [],
-    }
+
+      resultList: [],       //搜索结果
+      total: 0,
+      pageSize: 20,
+      curPage:  1,
+    };
+    this.word = "";     // 搜索关键词
   }
 
-  async searchContent(word){
-    let data = await SearchController().search(word);
-    console.log("搜索结果：",data);
-    if(!data.msg){
-      this.setState({});
+  async searchContent(page){
+    let {pageSize,tabSelect} = this.state;
+    let type = {"project":1,"article":2,"news":3}[tabSelect];
+    let data = await SearchController().search(this.word, type, page, pageSize);
+    if(data.msg){
+      this.setState({resultList: [], total: 0, curPage: page});
+      return
     }
+    let {total, list} = data;
+    this.setState({resultList: list, total: total, curPage: page});
   }
 
   componentDidMount() {
-    this.searchContent(this.getQuery("word"));
-    this.bus.on("onSearch","search",word => this.searchContent(word));
+    //监听搜索消息
+    this.bus.on("onSearch","search",word =>{
+        this.word = word;
+        this.searchContent(1);
+    });
+    //
+    this.word = this.getQuery("word");
+    this.searchContent(1);
+  }
+
+  switchTab(tab){
+      this.setState({tabSelect: tab}, () => this.searchContent(1));
   }
 
   componentWillUnmount() {
@@ -64,25 +55,22 @@ export default class Search2 extends ViewBase {
 
   render() {
     let {history} = this.props;
-    let {tabSelect} = this.state;
-    //let projectList = this.state.projectList || [];
-    let projectList = [1, 2, 3, 4, 5, 6, 7];
-    let newsList = [1, 2, 3, 4, 5, 6, 7];
-    let articleList = [1, 2, 3, 4, 5, 6, 7];
+    let {tabSelect,curPage,pageSize,total} = this.state;
+    let resultList = this.state.resultList || [];
 
     return (
       <div className="search-main">
         {/* 搜索结果-tab */}
         <div className="search-tab">
           <ul className="tab-ul">
-            <li onClick={() => this.setState({tabSelect: "article"})}
-                className={(tabSelect === "article" ? "active" : "")}>文章
+            <li className={tabSelect === "article" ? "active" : ""}
+                onClick={()=>this.switchTab("article")}>文章
             </li>
-            <li onClick={() => this.setState({tabSelect: "news"})}
-                className={(tabSelect === "news" ? "active" : "")}>快讯
+            <li className={tabSelect === "news" ? "active" : ""}
+                onClick={()=>this.switchTab("news")}>快讯
             </li>
-            <li onClick={() => this.setState({tabSelect: "project"})}
-                className={(tabSelect === "project" ? "active" : "")}>项目
+            <li className={tabSelect === "project" ? "active" : ""}
+                onClick={()=>this.switchTab("project")}>项目
             </li>
           </ul>
           <span className="tip">关于“区块链”共 12 条相关信息</span>
@@ -90,19 +78,28 @@ export default class Search2 extends ViewBase {
         {/* 搜索结果-文章*/}
         {
           tabSelect === "article" &&
-          (articleList.length > 0 ? <ArticleSearch history={history}/>: <Empty /> )
+          (resultList.length > 0 ? <ArticleSearch history={history} data={resultList}/>: <Empty /> )
         }
 
         {/* 搜索结果-快讯*/}
         {
           tabSelect === "news" &&
-          (newsList.length > 0 ? <NewsSearch history={history}/> : <Empty />)
+          (resultList.length > 0 ? <NewsSearch history={history} data={resultList}/> : <Empty />)
         }
 
         {/* 搜索结果-项目*/}
         {
           tabSelect === "project" &&
-          (projectList.length > 0 ? <ProjectSearch history={history}/> : <Empty/>)
+          (resultList.length > 0 ?
+              <ProjectSearch
+                  history = {history}
+                  resultList = {resultList}
+                  pageSize = {pageSize}
+                  total = {total}
+                  curPage = {curPage}
+                  onSearch = {p => this.searchContent(p)} />
+              :
+              <Empty/>)
         }
       </div>
     );

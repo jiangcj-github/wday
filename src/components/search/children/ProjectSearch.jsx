@@ -16,9 +16,9 @@ export default class ProjectSearch extends ViewBase {
     }
 
     render() {
-        let {history} = this.props;
+        let {history,curPage,total,pageSize,onSearch} = this.props;
         let {sortByTime} = this.state;
-        let projectList = [1,2,3,4,5,6,7,8,9];
+        let resultList = this.props.resultList;
 
         return (
             <div className="project-search">
@@ -26,7 +26,8 @@ export default class ProjectSearch extends ViewBase {
                     {/*表头*/}
                     <div className="thead">
                         <p className="name">项目名称</p>
-                        <p className="time sortable" onClick={()=>this.setState({sortByTime: ++sortByTime%3})}>
+                        <p className="time sortable"
+                           onClick={()=>this.setState({sortByTime: ++sortByTime%3})}>
                             时间<i className={["none","up","down"][sortByTime]}/>
                         </p>
                         <p className="price">众筹价格</p>
@@ -36,13 +37,14 @@ export default class ProjectSearch extends ViewBase {
                         <p className="collect">收藏</p>
                     </div>
                     {/*项目列表*/}
-                    {projectList.map(({},index)=>
-                        <div className="tr" onClick={()=>history.push("/project/detail?id=xxx")} key={index}>
+                    {resultList.map((item,index)=>
+                        <div className="tr" key={index}>
                             {/*项目名称*/}
                             <div className="name">
                                 <p className="p1">
-                                    <img src="/static/web/icon_coin_five@3x.png"/>
-                                    <b>ISU</b>
+                                    <img src={item.logo}
+                                         onClick={()=>history.push(`/project/detail?id=${item.id}`)}/>
+                                    <b onClick={()=>history.push(`/project/detail?id=${item.id}`)}>{item.name}</b>
                                 </p>
                                 <p className="p2">
                                     <i>#智能合约#</i>
@@ -83,7 +85,7 @@ export default class ProjectSearch extends ViewBase {
                 </div>
                 {/*翻页*/}
                 <div className="page">
-                    <Pagination curPage={2} total={201} pageSize={20}/>
+                    <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={p=>onSearch(p)}/>
                 </div>
             </div>
         );

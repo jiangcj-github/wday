@@ -24,7 +24,7 @@ export default class List extends ViewBase {
             curPage: 1,
             pageSize: 20,
 
-            showAlert: false,
+            showAlert: false,     //提示框
             alertContent: "",
         };
 
