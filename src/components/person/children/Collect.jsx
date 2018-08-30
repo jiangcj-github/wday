@@ -23,17 +23,22 @@ export default class Collect extends ViewBase {
     this.addCollect = this.addCollect.bind(this);
   }
 
-  //添加收藏
-  async addCollect(item){
-    if(!LoginController().isLogin()){
+  //移除收藏
+  async addCollect(item) {
+    if (!LoginController().isLogin()) {
       this.bus.emit("showLoginDialog");
       return;
     }
     let data = await UserController().setCollect(2, item.id, !item.isCollect);
-    if(data.msg){
+    if (data.msg) {
       this.setState({showAlert: true, alertContent: data.msg});
       return;
     }
+    this.state.articleList.forEach((v,index,a) => {
+      if(v.id === item.id) {
+        a.splice(index,1);
+      }
+    });
     item.isCollect = !item.isCollect;
     this.setState({showAlert: true, alertContent: item.isCollect ? "收藏成功" : "取消收藏成功"});
   }
@@ -54,20 +59,21 @@ export default class Collect extends ViewBase {
   render() {
     let {history} = this.props;
     let {articleList, total, pageSize, curPage, showAlert, alertContent} = this.state;
+    console.log("LLL", articleList);
     return (
       <div className="collect">
         <h3>我的收藏</h3>
         <div className="content">
 
           <ul>
-            { articleList && articleList.map((v,index) =>(
+            {articleList && articleList.map((v, index) => (
               <li key={index}>
                 {/* 根据是否有文章大图 切换显示 */}
                 {v.img ?
                   (
                     <div className="article-has-img">
                       <div>
-                        <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
+                        <p className="article-title" onClick={() => history.push(`/article/detail?id=${v.id}`)}>
                           {v.title && v.title.toString().length > 36 ? v.title.toString().shearStr(36) : v.title.toString()}
 
                         </p>
@@ -76,13 +82,13 @@ export default class Collect extends ViewBase {
 
                         </p>
                       </div>
-                      <div className="img-div"  onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
+                      <div className="img-div" onClick={() => history.push(`/article/detail?id=${v.id}`)}>
                         <img src={v.img}/>
                       </div>
                     </div>
                   ) :
                   (<div className="article-no-img">
-                    <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
+                    <p className="article-title" onClick={() => history.push(`/article/detail?id=${v.id}`)}>
                       {v.title && v.title.toString().length > 29 ? v.title.toString().shearStr(29) : v.title.toString()}
 
                     </p>
@@ -95,7 +101,7 @@ export default class Collect extends ViewBase {
                 <div className="article-info">
                   <div className="left-info">
                     {/* 作者 */}
-                    <span className="article-author">{v.author}</span>
+                    <span className="article-author">{v.id}</span>
                     {/* 文章日期 */}
                     <span className="article-date">{v.date}</span>
                     {/* 文章标签 */}
@@ -118,11 +124,11 @@ export default class Collect extends ViewBase {
                     </div>
                     {/* 收藏 */}
                     {
-                        <div className={"isfav favourite"}
-                             onClick={this.addCollect.bind(this, v.id)}>
-                          <div className={"isfav favourite-div"}></div>
-                          <span className="favourite-span">收藏</span>
-                        </div>
+                      <div className={"isfav favourite"}
+                           onClick={this.addCollect.bind(this, v)}>
+                        <div className={"isfav favourite-div"}></div>
+                        <span className="favourite-span">收藏</span>
+                      </div>
                     }
                   </div>
                 </div>
@@ -131,18 +137,18 @@ export default class Collect extends ViewBase {
           </ul>
 
           {/* 分页 */}
-          {total>pageSize &&
+          {total > pageSize &&
           <div className="page">
-            <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page=>this.toPage(page)}/>
+            <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page => this.toPage(page)}/>
           </div>}
 
           {/*提示*/}
           {showAlert &&
-          <Alert content={alertContent} onClose={()=>this.setState({showAlert: false})}/>}
+          <Alert content={alertContent} onClose={() => this.setState({showAlert: false})}/>}
 
           {/* 无结果 */}
           {
-            articleList.length === 0  && <div className="no-result">还没有收藏过内容，快去收藏吧</div>
+            articleList.length === 0 && <div className="no-result">还没有收藏过内容，快去收藏吧</div>
           }
 
         </div>

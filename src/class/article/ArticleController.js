@@ -6,16 +6,6 @@ class ArticleController extends ExchangeControllerBase {
   constructor(props) {
     super(props);
     this.store = new ArticleStore();
-
-  }
-
-  async getSearchArticleList(page, pageSize) {
-    // let result = await this.store.getSearchArticleList(page, pageSize);
-    let result = await this.getArticleList(page, pageSize);
-    result.total = 221;
-    console.log('search article', result);
-    return result;
-
   }
 
   async getArticleList(page, num) {
@@ -36,14 +26,15 @@ class ArticleController extends ExchangeControllerBase {
         isCollect: UserController().isCollect(2, v.id)
       })
     });
-    console.log("result in view", resultR);
     return resultR;
   }
 
   async getArticleDetail(id) {
     let result = await this.store.getArticleDetail(id);
-    console.log("result",result);
+    await UserController().initCollect();
+    console.log("DDDDDD", result);
     let resultR = Object.keys(result).length > 0 ? {
+      id: result.id,
       title: result.tit,
       content: result.ctt,
       author: result.aut,
@@ -52,12 +43,12 @@ class ArticleController extends ExchangeControllerBase {
       // 根据图片有无http 来判断显示网络图片还是服务器图片
       topImg: result.img && (result.img.indexOf("http") >-1 ? result.img : `http://192.168.55.125/image/origin/${result.img}`),
       tags: result.lab,
-      like: result.ln
+      like: result.ln,
+      isCollect: UserController().isCollect(2, result.id)
     }: {};
-
+    console.log("detail ",resultR);
     return resultR;
   }
-
 }
 
 //静态实例

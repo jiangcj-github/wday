@@ -13,7 +13,6 @@ export default class ArticleStore extends ExchangeStoreBase {
 
   async getArticleDetail(id) {
     let resultR = await this.Proxy.getArticleDetail({id:id});
-    console.log(resultR);
     let result =  {
       id: 2,
       title: "最高法：妥善审理民间借贷纠纷案件 防范化解各类风险",

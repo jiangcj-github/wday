@@ -23,7 +23,7 @@ class UserController extends ExchangeControllerBase {
         }
         let data = result.data;
         let resultR = {
-            total:      data.all,
+            total:      data && data.all,
             list:       [],
         };
         let parseProject = item =>{
@@ -68,7 +68,6 @@ class UserController extends ExchangeControllerBase {
             resultR.total = data.all;
             data.lst && data.lst.forEach(item => resultR.list.push(parseFunc(item)));
         }
-        console.log("收藏接口中: ",resultR);
         return resultR;
     }
 
