@@ -51,6 +51,7 @@ export default {
     {name: 'getCollect', data: {url: '/api/v1/user/', method: 'post'}, action: 'ugf', actionBack: 'ugfr'}, // 收藏ID列表
     {name: 'setCollect', data: {url: '/api/v1/user/', method: 'post'}, action: 'ucf', actionBack: 'ucfr'}, // 添加，取消收藏
     {name: 'getCollectList', data: {url: '/api/v1/user/', method: 'post'}, action: 'ufl', actionBack: 'uflr'}, // 收藏内容列表
+    {name: 'scoreProject', data: {url: '/api/v1/user/', method: 'post'}, action: 'usp', actionBack: 'uspr'}, // 项目打分
   ],
   search: [
     {name: 'search', data: {url: '/api/v1/search/', method: 'post'}, action: 'sgr', actionBack: 'sgrr'}, // 搜索

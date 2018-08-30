@@ -22,10 +22,10 @@ class UserController extends ExchangeControllerBase {
             return {msg: Error(result.ret)};
         }
         let data = result.data;
-        let resultR = {};
-
-        console.log(data);
-        /*
+        let resultR = {
+            total:      data.all,
+            list:       [],
+        };
         let parseProject = item =>{
             let resItem = {
                 id:             item.id,
@@ -71,8 +71,24 @@ class UserController extends ExchangeControllerBase {
             resultR.total = data.all;
             data.lst && data.lst.forEach(item => resultR.list.push(parseFunc(item)));
         }
-        */
         return resultR;
+    }
+
+    // 项目打分
+    async scoreProject(projectId, {potential,mode,innovate,truth,risky}){
+        let data = await this.store.scoreProject({
+            uid:    this.loginInfo.userId,
+            pid:    projectId,
+            pot:    potential,
+            mod:    mode,
+            inn:    innovate,
+            tru:    truth,
+            rsk:    risky,
+        });
+        if(data.ret !== 0){
+            return {msg: Error(data.ret)};
+        }
+        return {};
     }
 
     async initCollect(){

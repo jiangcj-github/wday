@@ -86,7 +86,6 @@ String.prototype.fix = function (n, isCompletion = true) {
   if(n <= 0){
     return i < 0 ? txt : txt.substring(0,i);
   }
-  console.log(txt,"sdfsfsfsdfs");
   if(i < 0){
     return isCompletion ? txt + "."+"0".repeat(n) : txt;
   }

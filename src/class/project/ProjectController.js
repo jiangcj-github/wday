@@ -111,7 +111,7 @@ class ProjectController extends ExchangeControllerBase {
             newData.market = {};
             Object.assign(newData.market, {
                 price:          data.pri && data.pri.value,
-                unit:           data.pri && data.pri.unit,
+                priceUnit:      data.pri && data.pri.unit,
                 maxPrice:       data["24a"] && data["24a"].value,
                 maxUnit:        data["24a"] && data["24a"].unit,
                 minPrice:       data["24m"] && data["24m"].value,
@@ -120,6 +120,12 @@ class ProjectController extends ExchangeControllerBase {
                 riseUnit:       data.ris && data.ris.unit,
                 volume:         data.vol && data.vol.value,
                 volumeUnit:     data.vol && data.vol.unit,
+                turn:           data.to && data.to.value,
+                turnUnit:       data.to && data.to.unit,
+                circle:         data.mv && data.mv.value,
+                circleUnit:     data.mv && data.mv.unit,
+                exchangeNum:    data.exg,
+                source:         data.src,
             });
             newData.return = {};
             Object.assign(newData.return, {

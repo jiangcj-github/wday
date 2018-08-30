@@ -40,7 +40,12 @@ export default class List extends ViewBase {
         };
     }
 
+    //收藏
     async toCollectPage(page){
+        if(!LoginController().isLogin()){
+            this.setState({projects: []});
+            return;
+        }
         let {pageSize} = this.state;
         let data = await UserController().getCollectList(1, page, pageSize);
         if(data.msg){
@@ -50,6 +55,7 @@ export default class List extends ViewBase {
         console.log(data);
     }
 
+    //进行中，即将开始，已结束
     async toPage(page){
         let {pageSize, tabItem, sortByTime} = this.state;
         if(tabItem === 0){
@@ -196,7 +202,7 @@ export default class List extends ViewBase {
                                 </div>
                                 {/*收藏*/}
                                 <div className="collect">
-                                    <i className={item.isCollect ? "yes" : "no"} onClick={()=>this.addCollect(item)} />
+                                    <i className={item.isCollect ? "yes" : "no"} onClick={this.addCollect.bind(this,item)} />
                                 </div>
                             </div>
                         )}

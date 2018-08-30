@@ -6,28 +6,49 @@ import {
 import Pagination from "../../../common/components/Pagination"
 import Progress from "../../../common/components/Progress"
 import Heat from "../../../common/components/Heat"
+import UserController from "../../../class/user/UserController";
+import LoginController from "../../../class/login/LoginController";
 
 export default class ProjectSearch extends ViewBase {
     constructor() {
         super();
         this.state = {
             sortByTime: 0 ,      // 时间排序
+
+            showAlert: false,     //提示框
+            alertContent: "",
         };
     }
 
     highLight(word, txt){
         let txtArr = txt.split(word);
-        let resJsx = "";
+        let resJsx = [];
         for(let i=0; i<txtArr.length-1; i++){
-            resJsx += txtArr[i] + <i>{word}</i>;
+            resJsx.push(txtArr[i],<i>{word}</i>);
         }
-        return resJsx + txtArr[txtArr.length-1];
+        resJsx.push(txtArr[txtArr.length-1]);
+        return resJsx;
+    }
+
+    //添加收藏
+    async addCollect(item){
+        if(!LoginController().isLogin()){
+            this.bus.emit("showLoginDialog");
+            return;
+        }
+        let data = await UserController().setCollect(1, item.id, !item.isCollect);
+        if(data.msg){
+            this.setState({showAlert: true, alertContent: data.msg});
+            return;
+        }
+        item.isCollect = !item.isCollect;
+        this.setState({showAlert: true, alertContent: item.isCollect ? "收藏成功" : "取消收藏成功"});
     }
 
     render() {
         let {history, onSearch} = this.props;
         let {curPage, total, pageSize, word, resultList} = this.props.data;
-        let {sortByTime} = this.state;
+        let {sortByTime, showAlert, alertContent} = this.state;
 
         return (
             <div className="project-search">
@@ -57,39 +78,37 @@ export default class ProjectSearch extends ViewBase {
                                         {this.highLight(word, item.name)}</b>
                                 </p>
                                 <p className="p2">
-                                    <i>#智能合约#</i>
+                                    {item.recvCoin && item.recvCoin.map((item,index) => <i key={index}>#{item}#</i>)}
                                 </p>
                             </div>
                             {/*时间*/}
                             <div className="time">
-                                <p>始：06-25</p>
-                                <p>终：07-25</p>
+                                <p>始：{item.startTime && new Date(item.startTime).end()}</p>
+                                <p>终：{item.endTime && new Date(item.endTime).end()}</p>
                             </div>
                             {/*众筹价格*/}
                             <div className="price">
-                                <p>$1.234</p>
-                                <p>$1.234</p>
-                                <p>$1.234</p>
+                                {item.icoPrices && item.icoPrices.map((item,index) => <p key={index}>$1.234</p>)}
                             </div>
                             {/*目标金额*/}
                             <div className="minmax">
-                                <p>低：100万 USD</p>
-                                <p>高：1000万 USD</p>
+                                <p>低：{item.minNum}{item.minUnit}</p>
+                                <p>高：{item.maxNum}{item.maxUnit}</p>
                             </div>
                             {/*实际进度*/}
                             <div className="step">
-                                <p>500万 USD</p>
-                                <Progress step={30}/>
-                                <i>85%</i>
+                                <p>{item.actualNum}{item.actualUnit}</p>
+                                <Progress step={item.step}/>
+                                <i>{item.step}%</i>
                             </div>
                             {/*热度*/}
                             <div className="heat">
-                                <Heat width={20} height={60} step={80}/>
-                                <i>80</i>
+                                <Heat width={20} height={60} step={item.heat}/>
+                                <i>{item.heat}</i>
                             </div>
                             {/*收藏*/}
                             <div className="collect">
-                                <i className={["yes","no"][0]}/>
+                                <i className={item.isCollect ? "yes" : "no"} onClick={this.addCollect.bind(this,item)}/>
                             </div>
                         </div>)}
                 </div>
@@ -97,6 +116,10 @@ export default class ProjectSearch extends ViewBase {
                 <div className="page">
                     <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={p=>onSearch(p)}/>
                 </div>
+                {/*提示*/}
+                {showAlert &&
+                    <Alert content={alertContent} onClose={()=>this.setState({showAlert: false})}/>}
+
             </div>
         );
     }

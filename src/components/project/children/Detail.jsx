@@ -40,7 +40,6 @@ export default class List extends ViewBase {
         if(data.msg){
             this.props.history.push("/error");
         }
-        console.log(data);
         this.setState({project: data});
         window.addEventListener("scroll", this.onScroll);
     }
@@ -57,8 +56,23 @@ export default class List extends ViewBase {
     }
 
     async submitScore(){
+        if(!LoginController().isLogin()){
+            this.bus.emit("showLoginDialog");
+            return;
+        }
+        let {id} = this.state.project;
         let scoreGroup = this.state.scoreGroup;
-
+        let data = await UserController().scoreProject(id, {
+            potential:      parseInt(scoreGroup[0]),
+            mode:           parseInt(scoreGroup[1]),
+            innovate:       parseInt(scoreGroup[2]),
+            truth:          parseInt(scoreGroup[3]),
+            risky:          parseInt(scoreGroup[4]),
+        });
+        if(data.msg){
+            this.setState({showAlert: true, alertContent: data.msg});
+            return;
+        }
         this.setState({showAlert: true, alertContent: "打分成功"});
     }
 
@@ -82,7 +96,7 @@ export default class List extends ViewBase {
         let scoreGroup = this.state.scoreGroup;
         //是否登录
         let isLogin = LoginController().isLogin();
-        // 打分
+        // 打分映射
         let scoreMap = {9:"很高",7:"高", 5:"一般",3:"低",1:"很低"};
 
         return (
@@ -93,10 +107,10 @@ export default class List extends ViewBase {
                         {/*项目名称，分享，收藏*/}
                         <div className="d1">
                             <div className="d1-l">
-                                <img src="/static/web/icon_coin_five@3x.png"/>
+                                <img src={project.logo}/>
                                 <p className="name">
                                     <b>{project.name}</b>
-                                    <span>{}</span>
+                                    <span>{project.fullName}</span>
                                 </p>
                                 <p className="badge">
                                     {project.badgeList && project.badgeList.map((item,index) => <i key={index}>#{item}#</i>)}
@@ -105,11 +119,11 @@ export default class List extends ViewBase {
                             <div className="d1-r">
                                 <p className="status">{{1:"进行中",2:"即将开始",3:"已结束"}[project.type]}</p>
                                 <p className="share-wrap">
-                                    <i className="tw"/>
-                                    <i className="fb"/>
-                                    <i className="share"/>
-                                    <i className="br"/>
-                                    <i className={`collect ${project.isCollect ? "yes":"no"}`} onClick={()=>this.addCollect(project)}>收藏</i>
+                                    <a className="tw" target="_blank" href={project.twitter}/>
+                                    <a className="fb" target="_blank" href={project.facebook}/>
+                                    <a className="share" target="_blank" href={project.telegram}/>
+                                    <a className="br"/>
+                                    <a className={`collect ${project.isCollect ? "yes":"no"}`} onClick={()=>this.addCollect(project)}>收藏</a>
                                 </p>
                             </div>
                         </div>
@@ -132,9 +146,7 @@ export default class List extends ViewBase {
                                     <p>高：{project.maxUnit}{project.maxNum}</p>
                                 </div>
                                 <div className="recvCoin">
-                                    <p>
-                                      {project.recvCoin && project.recvCoin.map((item,index)=><span key={index}>{item}</span>)}
-                                    </p>
+                                    {project.recvCoin && project.recvCoin.join(",")}
                                 </div>
                                 <div className="step">
                                     <p>{project.actualUnit}{project.actualNum}</p>
@@ -187,7 +199,7 @@ export default class List extends ViewBase {
                     {/*代币详情*/}
                     <div className="para para2">
                         <h3>
-                            <img src={project.logo}/>
+                            <img src={this.imageDict.$_icon_project_dbxq}/>
                             <span>代币详情</span>
                         </h3>
                         <table>
@@ -199,25 +211,25 @@ export default class List extends ViewBase {
                                     </td>
                                     <td>
                                         <b>ICO价格：</b>
-                                        <i>{project.icoPrice}</i>
+                                        <i>{project.icoPriceUnit}{project.icoPrice}</i>
                                     </td>
                                     <td>
-                                        <b>名称：</b>
-                                        <i>{project.name}</i>
+                                        <b>目标金额(低)：</b>
+                                        <i>{project.minUnit}{project.minNum}</i>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <b>简称：</b>
-                                        <i>{project.name}</i>
+                                        <i>{project.fullName}</i>
                                     </td>
                                     <td>
                                         <b>ICO总量：</b>
-                                        <i>{project.icoNum}</i>
+                                        <i>{project.icoVolumeUnit}{project.icoVolume}</i>
                                     </td>
                                     <td>
                                         <b>目标金额(高)：</b>
-                                        <i>- -</i>
+                                        <i>{project.maxUnit}{project.maxNum}</i>
                                     </td>
                                 </tr>
                                 <tr>
@@ -227,11 +239,11 @@ export default class List extends ViewBase {
                                     </td>
                                     <td>
                                         <b>发行总量：</b>
-                                        <i>{project.publicNum}</i>
+                                        <i>{project.publishUnit}{project.publish}</i>
                                     </td>
                                     <td>
                                         <b>实际金额：</b>
-                                        <i>{project.icoNum}</i>
+                                        <i>{project.actualUnit}{project.actualNum}</i>
                                     </td>
                                 </tr>
                                 <tr>
@@ -251,84 +263,83 @@ export default class List extends ViewBase {
                             </tbody>
                         </table>
                         {/*已结束部分-行情,回报*/}
-                        <h3 className="p2-h3">
-                          <i/><span>行情</span>
-                        </h3>
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <b>现价：</b>
-                                <i>{project.markets && project.markets.curPrice}</i></td>
-                              <td>
-                                <b>24h涨跌幅：</b>
-                                <i>{project.markets && project.markets.rise}%</i>
-                              </td>
-                              <td>
-                                <b>流通市值：</b>
-                                <i>{project.markets && project.markets.marketValue}</i>
-                              </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>24h最低价：</b>
-                                    <i>{project.markets && project.markets.lowPrice}</i>
-                                </td>
-                                <td>
-                                    <b>24h成交量：</b>
-                                    <i>{project.markets && project.markets.volume}</i>
-                                </td>
-                                <td>
-                                    <b>上架交易所：</b>
-                                    <i>{project.markets && project.markets.num}</i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>24h最高价：</b>
-                                    <i>{project.markets && project.markets.highPrice}</i>
-                                </td>
-                                <td>
-                                    <b>24h成交额：</b>
-                                    <i>{project.markets && project.markets.turnover}</i>
-                                </td>
-                                <td>
-                                    <b>数据来源：</b>
-                                    <i>{project.markets && project.markets.source}</i>
-                                </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <h3 className="p2-h3">
-                            <i/><span>回报</span>
-                        </h3>
-                        <div className="hb-c">
-                            <div className="price">
-                                <label>ICO价格：</label>
-                                <div>
-                                  {project.returns && project.returns.icoPrice && project.returns.icoPrice.map((item,index)=> <p key={index}>{item}</p>)}
+                        {project.type === 3 &&
+                            <div>
+                                <h3 className="p2-h3">
+                                    <i/><span>行情</span>
+                                </h3>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>现价：</b>
+                                            <i>{project.market && project.market.priceUnit + "" + project.market.price}</i>
+                                        </td>
+                                        <td>
+                                            <b>24h涨跌幅：</b>
+                                            <i>{project.market && project.market.riseUnit + "" + project.market.rise}%</i>
+                                        </td>
+                                        <td>
+                                            <b>流通市值：</b>
+                                            <i>{project.market && project.market.circleUnit + "" + project.market.circle}</i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>24h最低价：</b>
+                                            <i>{project.market && project.market.minUnit + "" + project.market.minPrice}</i>
+                                        </td>
+                                        <td>
+                                            <b>24h成交量：</b>
+                                            <i>{project.market && project.market.volumeUnit + "" + project.market.volume}</i>
+                                        </td>
+                                        <td>
+                                            <b>上架交易所：</b>
+                                            <i>{project.market && project.market.exchangeNum}</i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>24h最高价：</b>
+                                            <i>{project.market && project.market.maxUnit + "" + project.market.maxPrice}</i>
+                                        </td>
+                                        <td>
+                                            <b>24h成交额：</b>
+                                            <i>{project.market && project.market.turnUnit + "" + project.market.turn}</i>
+                                        </td>
+                                        <td>
+                                            <b>数据来源：</b>
+                                            <i>{project.market && project.market.source}</i>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <h3 className="p2-h3">
+                                    <i/><span>回报</span>
+                                </h3>
+                                <div className="hb-c">
+                                    <div className="price">
+                                        <label>ICO价格：</label>
+                                        <div>{project.icoPriceUnit}{project.icoPrice}</div>
+                                    </div>
+                                    <div className="price">
+                                        <label>现价：</label>
+                                        <div>{project.market && project.market.priceUnit + "" + project.market.price}</div>
+                                    </div>
+                                    <p className="profit">
+                                        <label>USD收益率</label>
+                                        <i>{project.return && project.return.usd}</i>
+                                    </p>
+                                    <p className="profit">
+                                        <label>BTC收益率</label>
+                                        <i>{project.return && project.return.btc}</i>
+                                    </p>
+                                    <p className="profit">
+                                        <label>ETH收益率</label>
+                                        <i>{project.return && + project.return.eth}</i>
+                                    </p>
                                 </div>
-                            </div>
-                            <div className="price">
-                                <label>现价：</label>
-                                <div>
-                                  {project.returns && project.returns.curPrice && project.returns.curPrice.map((item,index)=> <p key={index}>{item}</p>)}
-                                </div>
-                            </div>
-                            <p className="profit">
-                                <label>USD收益率</label>
-                                <i>{project.returns && project.returns.usdProfit}</i>
-                            </p>
-                            <p className="profit">
-                                <label>BTC收益率</label>
-                                <i>{project.returns && project.returns.btcProfit}</i>
-                            </p>
-                            <p className="profit">
-                                <label>ETH收益率</label>
-                                <i>{project.returns && project.returns.etcProfit}</i>
-                            </p>
-                        </div>
-
+                            </div>}
                     </div>
 
                     {/*项目优势*/}
@@ -337,8 +348,7 @@ export default class List extends ViewBase {
                             <img src={this.imageDict.$_icon_project_xmys}/>
                             <span>项目优势</span>
                         </h3>
-                        {project.advantages && Object.keys(project.advantages).map((item,index)=>
-                          <p key={index}>{item}：{project.advantages[item]}</p>)}
+                        {project.advantage && project.advantage.content}
                     </div>
 
                     {/*热度评级*/}
@@ -355,45 +365,45 @@ export default class List extends ViewBase {
                             <ul>
                                 <li>
                                     <label>媒体报道 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.media}分</span>
                                 </li>
                                 <li>
                                     <label>搜索热度 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.hot}分</span>
                                 </li>
                                 <li>
                                     <label>社群建设 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.community}分</span>
                                 </li>
                                 <li>
                                     <label>团队背景 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.team}分</span>
                                 </li>
                                 <li>
                                     <label>技术可行性 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.technique}分</span>
                                 </li>
                             </ul>
                             <ul>
                                 <li>
                                     <label>市场潜力 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.potential}分</span>
                                 </li>
                                 <li>
                                     <label>商业模式 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.mode}分</span>
                                 </li>
                                 <li>
                                     <label>产品创新性 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.innovate}分</span>
                                 </li>
                                 <li>
                                     <label>白皮书可信性 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.truth}分</span>
                                 </li>
                                 <li>
                                     <label>风险承受能力 (10分)</label>
-                                    <span>{}分</span>
+                                    <span>{project.score && project.score.risky}分</span>
                                 </li>
                             </ul>
                         </div>
@@ -485,23 +495,23 @@ export default class List extends ViewBase {
                             <tbody>
                               <tr>
                                 <td>市场潜力 (10分)</td>
-                                <td>评价分 {}分</td>
+                                <td>评价分 {project.score && project.score.potential}分</td>
                               </tr>
                               <tr>
                                 <td>商业模式 (10分)</td>
-                                <td>评价分 {}分</td>
+                                <td>评价分 {project.score && project.score.mode}分</td>
                               </tr>
                               <tr>
                                 <td>产品创新性 (10分)</td>
-                                <td>评价分 {}分</td>
+                                <td>评价分 {project.score && project.score.innovate}分</td>
                               </tr>
                               <tr>
                                 <td>白皮书可信性 (10分)</td>
-                                <td>评价分 {}分</td>
+                                <td>评价分 {project.score && project.score.truth}分</td>
                               </tr>
                               <tr>
                                 <td>风险承受能力 (10分)</td>
-                                <td>评价分 {}分</td>
+                                <td>评价分 {project.score && project.score.risky}分</td>
                               </tr>
                             </tbody>
                           </table>
@@ -522,7 +532,7 @@ export default class List extends ViewBase {
                                     <tr key={index}>
                                        {arr.map((item, index2)=>
                                           <td key={index2}>
-                                              <a href={""} target="_blank"><img className="headimg" src={item.logo}/></a>
+                                              <a href={item.linkedin} target="_blank"><img className="headimg" src={item.headimg}/></a>
                                               <img className="linkedin" src={this.imageDict.$_icon_project_linkedIn}/>
                                               <b>{item.name}</b>
                                               <i>{item.position}</i>
@@ -539,27 +549,17 @@ export default class List extends ViewBase {
                             <span>路线图</span>
                         </h3>
                         <div className="route-line">
-                            <p>
-                                <span className="s1">2016-06-29</span>
-                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
-                            </p>
-                            <p>
-                                <span className="s1">2016-06-29</span>
-                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
-                            </p>
-                            <p>
-                                <span className="s1">2016-06-29</span>
-                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一</span>
-                            </p>
-                            <p>
-                                <span className="s1">2016-06-29</span>
-                                <span className="s2">阶段目标一阶段目标一阶段目标一阶段目标一阶段目阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一阶段目标一标一</span>
-                            </p>
+                            {project.routeLine && project.routeLine.map((item,index) =>
+                                <p key={index}>
+                                    <span className="s1">{new Date(item.time).dateHandle("yyy-MM-dd")}</span>
+                                    <span className="s2">{item.event}</span>
+                                </p>)}
                             <i className="line"/>
                         </div>
                     </div>
 
                     {/*相关文章*/}
+
                 </div>
 
                 {/*弹框*/}

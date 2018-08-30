@@ -40,9 +40,10 @@ export default class Collect extends ViewBase {
 
   async toPage(page) {
     let {pageSize} = this.state;
-    let result = await ArticleController().getArticleList(page, pageSize);
+    let result = await UserController().getCollectList(2, page, pageSize);
     if (!result.msg) {
-      this.setState({articleList: result, total: result.total, curPage: page});
+      let {total, list} = result;
+      this.setState({articleList: list, total: total, curPage: page});
     }
   }
 
