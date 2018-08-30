@@ -51,7 +51,7 @@ export default class LoginStore extends ExchangeStoreBase {
   // 获取本地收藏列表
   getLocalCollect(type){
       let collectList = this.state[{1:"collectProjects",2:"collectArticles",3:"collectNews"}[type]] || [];
-      return  collectList.map(item =>item);
+      return collectList.map(item =>item);
   }
 
 }
