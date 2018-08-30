@@ -23,6 +23,7 @@ export default class Search2 extends ViewBase {
   }
 
   async searchContent(page){
+    console.log(999, page);
     let {pageSize,tabSelect} = this.state;
     let type = {"project":1,"article":2,"news":3}[tabSelect];
     let data = await SearchController().search(this.word, type, page, pageSize);
@@ -47,6 +48,7 @@ export default class Search2 extends ViewBase {
   }
 
   switchTab(tab){
+      console.log("切换");
       this.setState({tabSelect: tab}, () => this.searchContent(1));
   }
 
@@ -55,7 +57,6 @@ export default class Search2 extends ViewBase {
   }
 
   render() {
-    console.log(777 ,this.state);
     let {history} = this.props;
     let {tabSelect,curPage,pageSize,total} = this.state;
     let resultList = this.state.resultList || [];

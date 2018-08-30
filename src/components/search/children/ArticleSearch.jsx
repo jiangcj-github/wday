@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ViewBase from "../../ViewBase";
 import {
   BrowserRouter as Router,
@@ -8,44 +8,89 @@ import {
   Switch
 } from 'react-router-dom'
 
-import "../stylus/articleSearch.styl"
-import ArticleController from "../../../class/article/ArticleController"
+import "../stylus/articleSearch.styl";
 import LoginController from "../../../class/login/LoginController";
 import Pagination from "../../../common/components/Pagination";
 import Alert from "../../../common/components/Alert";
+import UserController from "../../../class/user/UserController";
 
 export default class ArticleSearch extends ViewBase {
   constructor(props) {
     super(props);
     this.state = {
-      tags : ["数字数字", "你瞅啥"],
       showAlert: false,
       alertContent: "",
     };
+    this.highLight = this.highLight.bind(this);
+    this.highLightTag = this.highLightTag.bind(this);
+    this.addCollect = this.addCollect.bind(this);
+  }
+
+  highLight(word, txt){
+    let txtArr = txt.split(word);
+    let resJsx = [];
+    for(let i=0; i<txtArr.length-1; i++){
+      resJsx.push(txtArr[i],<i key={i} className="light">{word}</i>);
+    }
+    resJsx.push(txtArr[txtArr.length-1]);
+    return resJsx;
+  }
+
+  highLightTag(word, tagTxt) {
+    console.log(2210, tagTxt);
+    if(!tagTxt) return null;
+    let txtArr = tagTxt.split(word);
+    console.log(2211, txtArr);
+    let resJsx = [];
+    for(let i=0; i<txtArr.length-1; i++){
+      resJsx.push(txtArr[i],<i key={i} className="light">{word}</i>);
+    }
+    resJsx.push(txtArr[txtArr.length-1]);
+    let span = <span className={txtArr.length > 1 ? "tag-choose" : "tag-name"}>{resJsx}</span>;
+    console.log(2212, resJsx);
+
+    return resJsx;
+  }
+
+  async addCollect(item) {
+    if (!LoginController().isLogin()) {
+      this.bus.emit("showLoginDialog");
+      return;
+    }
+    console.log(123,item, );
+    let data = await UserController().setCollect(2, item.id, !item.isCollect);
+    if (data.msg) {
+      this.setState({showAlert: true, alertContent: data.msg});
+      return;
+    }
+    item.isCollect = !item.isCollect;
+    this.setState({showAlert: true, alertContent: item.isCollect ? "收藏成功" : "取消收藏成功"});
   }
 
   render() {
     let {showAlert, alertContent} = this.state;
     let {history, onSearch} = this.props;
     let {curPage, total, pageSize, word, resultList} = this.props.data;
+    console.log("render ArticleList", resultList);
 
     return (
       <div className="article-search">
         <div className="article">
           <ul>
-            {resultList && resultList.map((v,index) =>(
+            {resultList && resultList.map((v, index) => (
               <li key={index}>
                 {/* 根据是否有文章大图 切换显示 */}
                 {v.img ?
                   (
                     <div className="article-has-img">
                       <div>
-                        <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
-                          {v.title && v.title.toString().length > 36 ? v.title.toString().shearStr(36) : v.title.toString()}
+                        <p className="article-title" onClick={() => history.push(`/article/detail?id=${v.id}`)}>
+                          {v.title && v.title.length > 36 ? v.title.shearStr(36) : this.highLight("", v.title) }
 
                         </p>
+
                         <p className="article-content">
-                          {v.content && v.content.toString().length > 100 ? v.content.toString().shearStr(100) : v.content.toString()}
+                          {v.content && v.content.length > 100 ? v.content.shearStr(100) : v.content}
 
                         </p>
                       </div>
@@ -55,12 +100,12 @@ export default class ArticleSearch extends ViewBase {
                     </div>
                   ) :
                   (<div className="article-no-img">
-                    <p className="article-title" onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
-                      {v.title && v.title.toString().length > 29 ? v.title.toString().shearStr(29) : v.title.toString()}
+                    <p className="article-title" onClick={() => history.push(`/article/detail?id=${v.id}`)}>
+                      {v.title && v.title.length > 29 ? v.title.shearStr(29) : v.title}
 
                     </p>
                     <p className="article-content">
-                      {v.content && v.content.toString().length > 75 ? v.content.toString().shearStr(75) : v.content.toString()}
+                      {v.content && v.content.length > 75 ? v.content.shearStr(75) : v.content}
                     </p>
                   </div>)
                 }
@@ -71,10 +116,13 @@ export default class ArticleSearch extends ViewBase {
                     <span className="article-author">{v.id}</span>
                     {/* 文章日期 */}
                     <span className="article-date">{v.date}</span>
-                    {/* 文章标签 */}
+                    {/* 文章标签 <span key={index} className="tag-name">{v}</span> */}
                     {
-                      this.state.tags && this.state.tags.map((v, index) => (
-                        <span key={index} className="tag-name">{v}</span>
+                      v.tags && v.tags.map((v, index) =>(
+                        <div>{
+                          this.highLightTag("美国",v)
+                        }
+                        </div>
                       ))
                     }
                   </div>
@@ -91,10 +139,12 @@ export default class ArticleSearch extends ViewBase {
                     </div>
                     {/* 收藏 */}
                     {
-                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}>
-                          <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
-                          <span className="favourite-span">收藏</span>
-                        </div>
+                      <div className={(v.isCollect ? "isfav " : "notfav ") + "favourite"}
+                           onClick={this.addCollect.bind(this, v)}
+                      >
+                        <div className={(v.isCollect ? "isfav " : "notfav ") + "favourite-div"}></div>
+                        <span className="favourite-span">收藏</span>
+                      </div>
                     }
                   </div>
                 </div>
@@ -104,14 +154,14 @@ export default class ArticleSearch extends ViewBase {
 
         </div>
         {/*翻页*/}
-        {total>pageSize &&
+        {total > pageSize &&
         <div className="page">
-          <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page=>onSearch(page)}/>
+          <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page => onSearch(page)}/>
         </div>}
 
         {/*提示*/}
         {showAlert &&
-        <Alert content={alertContent} onClose={()=>this.setState({showAlert: false})}/>}
+        <Alert content={alertContent} onClose={() => this.setState({showAlert: false})}/>}
 
       </div>
 

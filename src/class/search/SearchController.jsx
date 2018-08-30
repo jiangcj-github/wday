@@ -65,6 +65,7 @@ class SearchController extends ExchangeControllerBase {
         img:          item.img && (item.img.indexOf("http") >-1 ? item.img : `http://192.168.55.125/image/origin/${item.img}`),
         like:         item.ln,
         read:         item.rn,
+        tags:         item.lab || ["美国XXX", "你美国a"],
         date:         new Date(item.iss * 1000).dateHandle("MM-dd HH:mm"),
         isCollect:    UserController().isCollect(2, item.id),
     });

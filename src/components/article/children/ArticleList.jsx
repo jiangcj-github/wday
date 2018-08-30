@@ -25,8 +25,6 @@ export default class ArticleList extends ViewBase {
     this.addCollect = this.addCollect.bind(this);
     this.scrollFunction = this.scrollFunction.bind(this);
     this.addMoreArticle = this.addMoreArticle.bind(this);
-    this.loginCheck = this.loginCheck.bind(this);
-
   }
 
   //滚动函数
@@ -43,8 +41,7 @@ export default class ArticleList extends ViewBase {
   // 加载函数
   async addMoreArticle(page, num) {
     this.can = false;
-    let controller = new ArticleController();
-    let result2 = await controller.getArticleList(page + 1, num);
+    let result2 = await ArticleController().getArticleList(page + 1, num);
     this.can = true;
     this.setState({
       articleList: this.state.articleList.concat(result2),
@@ -53,22 +50,14 @@ export default class ArticleList extends ViewBase {
   }
 
   async componentDidMount() {
-    let controller = new ArticleController();
-    let result = await controller.getArticleList(this.page, this.pageSize);
+    let result = await ArticleController().getArticleList(this.page, this.pageSize);
     this.setState({
       articleList: result
     });
 
-    // TODO 检查登录状态并且设置localstorage
-    //
-
     //对文章滑到底部的滚动检测
     window.addEventListener("scroll", this.scrollFunction);
 
-  }
-
-  loginCheck() {
-    return LoginController().isLogin();
   }
 
   //添加收藏
@@ -130,7 +119,7 @@ export default class ArticleList extends ViewBase {
               <div className="article-info">
                 <div className="left-info">
                   {/* 作者 */}
-                  <span className="article-author">{v.author}</span>
+                  <span className="article-author">{v.id}</span>
                   {/* 文章日期 */}
                   <span className="article-date">{v.date}</span>
 
