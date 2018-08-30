@@ -16,7 +16,7 @@ export default class Search2 extends ViewBase {
 
       resultList: [],       //搜索结果
       total: 0,
-      pageSize: 20,
+      pageSize: 3,
       curPage:  1,
     };
     this.word = "";     // 搜索关键词
@@ -30,6 +30,7 @@ export default class Search2 extends ViewBase {
       this.setState({resultList: [], total: 0, curPage: page});
       return
     }
+    console.log(1111, data);
     let {total, list} = data;
     this.setState({resultList: list, total: total, curPage: page});
   }
@@ -54,6 +55,7 @@ export default class Search2 extends ViewBase {
   }
 
   render() {
+    console.log(777 ,this.state);
     let {history} = this.props;
     let {tabSelect,curPage,pageSize,total} = this.state;
     let resultList = this.state.resultList || [];
@@ -75,13 +77,25 @@ export default class Search2 extends ViewBase {
         {/* 搜索结果-文章*/}
         {
           tabSelect === "article" &&
-          (resultList.length > 0 ? <ArticleSearch history={history} data={resultList}/>: <Empty /> )
+          (resultList.length > 0 ?
+            <ArticleSearch
+              history = {history}
+              data = {Object.assign({}, this.state)}
+              onSearch = {p => this.searchContent(p)} />
+            :
+            <Empty /> )
         }
 
         {/* 搜索结果-快讯*/}
         {
           tabSelect === "news" &&
-          (resultList.length > 0 ? <NewsSearch history={history} data={resultList}/> : <Empty />)
+          (resultList.length > 0 ?
+            <NewsSearch
+              history = {history}
+              data = {Object.assign({}, this.state)}
+              onSearch = {p => this.searchContent(p)} />
+            :
+            <Empty />)
         }
 
         {/* 搜索结果-项目*/}

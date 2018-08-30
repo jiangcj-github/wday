@@ -18,45 +18,22 @@ export default class ArticleSearch extends ViewBase {
   constructor(props) {
     super(props);
     this.state = {
-      articleList: [],
       tags : ["数字数字", "你瞅啥"],
-      total: 1,
-      curPage: 1,
-      pageSize: 20,
-
       showAlert: false,
       alertContent: "",
     };
-    this.toPage = this.toPage.bind(this);
-  }
-
-  async toPage(page){
-    let {pageSize} = this.state;
-    let result = await ArticleController().getSearchArticleList(page, pageSize);
-    if(!result.msg){
-      this.setState({articleList: result, total: result.total, curPage: page});
-    }
-  }
-
-  async componentDidMount() {
-    await this.toPage(1);
-  }
-
-  // 改变文章收藏状态
-  changeFav(id) {
-
   }
 
   render() {
-    let {articleList, total, pageSize, curPage ,showAlert, alertContent} = this.state;
-    console.log('emm', articleList);
-    let {history, data} = this.props;
-    let isLogin = LoginController().isLogin();
+    let {showAlert, alertContent} = this.state;
+    let {history, onSearch} = this.props;
+    let {curPage, total, pageSize, word, resultList} = this.props.data;
+
     return (
       <div className="article-search">
         <div className="article">
           <ul>
-            {this.state && this.state.articleList && this.state.articleList.map((v,index) =>(
+            {resultList && resultList.map((v,index) =>(
               <li key={index}>
                 {/* 根据是否有文章大图 切换显示 */}
                 {v.img ?
@@ -91,7 +68,7 @@ export default class ArticleSearch extends ViewBase {
                 <div className="article-info">
                   <div className="left-info">
                     {/* 作者 */}
-                    <span className="article-author">{v.author}</span>
+                    <span className="article-author">{v.id}</span>
                     {/* 文章日期 */}
                     <span className="article-date">{v.date}</span>
                     {/* 文章标签 */}
@@ -114,15 +91,8 @@ export default class ArticleSearch extends ViewBase {
                     </div>
                     {/* 收藏 */}
                     {
-                      isLogin ?
-                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}
-                             onClick={this.changeFav.bind(this, v.id)}>
+                        <div className={(v.favourite ? "isfav " : "notfav ") + "favourite"}>
                           <div className={(v.favourite ? "isfav " : "notfav ") + "favourite-div"}></div>
-                          <span className="favourite-span">收藏</span>
-                        </div> :
-                        <div className="notfav favourite"
-                             onClick={()=>this.bus.emit("showLoginDialog")}>
-                          <div className="notfav favourite-div"></div>
                           <span className="favourite-span">收藏</span>
                         </div>
                     }
@@ -136,7 +106,7 @@ export default class ArticleSearch extends ViewBase {
         {/*翻页*/}
         {total>pageSize &&
         <div className="page">
-          <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page=>this.toPage(page)}/>
+          <Pagination curPage={curPage} total={total} pageSize={pageSize} onChange={page=>onSearch(page)}/>
         </div>}
 
         {/*提示*/}
