@@ -50,7 +50,7 @@ export default class ArticleSearch extends ViewBase {
   render() {
     let {articleList, total, pageSize, curPage ,showAlert, alertContent} = this.state;
     console.log('emm', articleList);
-    let {history} = this.props;
+    let {history, data} = this.props;
     let isLogin = LoginController().isLogin();
     return (
       <div className="article-search">
