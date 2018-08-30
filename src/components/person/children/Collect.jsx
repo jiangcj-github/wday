@@ -76,7 +76,7 @@ export default class Collect extends ViewBase {
 
                         </p>
                       </div>
-                      <div className="img-div">
+                      <div className="img-div"  onClick={()=>history.push(`/article/detail?id=${v.id}`)}>
                         <img src={v.img}/>
                       </div>
                     </div>

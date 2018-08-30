@@ -20,11 +20,9 @@ class ArticleController extends ExchangeControllerBase {
 
   async getArticleList(page, num) {
     let result = await this.store.getArticleList(page, num);
-    console.log("result in controller", result);
     let resultR = [];
     await UserController().initCollect();
-    result && result.map((v, index) => {
-
+    result.list && result.list.map((v, index) => {
       resultR.push({
         id: v.id,
         author: v.aut,
