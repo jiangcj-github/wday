@@ -8,7 +8,6 @@ export default class ArticleStore extends ExchangeStoreBase {
 
   async getArticleList(page, num) {
     let resultR = await this.Proxy.getArticleList({cp:page, ps:num});
-
     return resultR.data || [];
   }
 
