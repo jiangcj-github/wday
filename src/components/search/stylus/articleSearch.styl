@@ -12,6 +12,7 @@
         display flex
         justify-content space-between
         margin-bottom 15px
+
         .img-div
           margin-left 20px
           img
@@ -26,6 +27,9 @@
           margin-bottom 10px
           cursor pointer
           color $sa_color_weight
+          i.light
+            color $sa_color_active
+            font-size 20px
         .article-content
           font-size 14px
           line-height 28px
@@ -63,7 +67,21 @@
             height 32px
             min-width 60px
             padding 5px 10px
+            font-size 14px
             color $sa_color_light
+          span.tag-choose
+            margin-left 20px
+            background $sa_link_bg
+            border-radius 100px
+            height 32px
+            min-width 60px
+            padding 5px 10px
+            color $sa_color_light
+            font-size 14px
+
+            i.light
+              color $sa_color_active
+
 
         .right-info
           display flex

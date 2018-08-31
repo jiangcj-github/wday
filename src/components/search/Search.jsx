@@ -13,13 +13,12 @@ export default class Search2 extends ViewBase {
     super(props);
     this.state = {
       tabSelect: "project",
-
+      word: "",  // 搜索关键词
       resultList: [],       //搜索结果
       total: 0,
       pageSize: 3,
       curPage:  1,
     };
-    this.word = "";     // 搜索关键词
   }
 
   async searchContent(page){
@@ -38,11 +37,11 @@ export default class Search2 extends ViewBase {
   componentDidMount() {
     //监听搜索消息
     this.bus.on("onSearch","search",word =>{
-        this.word = word;
+        this.state.word = word;
         this.searchContent(1);
     });
     let {word} = this.props.location.state || {};
-    this.word = word;
+    this.state.word = word;
     this.searchContent(1);
   }
 
@@ -57,7 +56,7 @@ export default class Search2 extends ViewBase {
 
   render() {
     let {history} = this.props;
-    let {tabSelect,curPage,pageSize,total} = this.state;
+    let {tabSelect,curPage,pageSize,total,word} = this.state;
     let resultList = this.state.resultList || [];
 
     return (
@@ -72,7 +71,7 @@ export default class Search2 extends ViewBase {
             <li className={tabSelect === "project" ? "active" : ""}
                 onClick={()=>this.switchTab("project")}>项目</li>
           </ul>
-          <span className="tip">关于“{this.word}”共 {total} 条相关信息</span>
+          <span className="tip">关于“{word}”共 {total} 条相关信息</span>
         </div>
         {/* 搜索结果-文章*/}
         {

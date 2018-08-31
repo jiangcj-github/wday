@@ -3,9 +3,9 @@ import ViewBase from "../../../components/ViewBase";
 import {
     NavLink,
 } from "react-router-dom";
-import Pagination from "../../../common/components/Pagination"
-import Progress from "../../../common/components/Progress"
-import Heat from "../../../common/components/Heat"
+import Pagination from "../../../common/components/Pagination";
+import Progress from "../../../common/components/Progress";
+import Heat from "../../../common/components/Heat";
 import UserController from "../../../class/user/UserController";
 import LoginController from "../../../class/login/LoginController";
 

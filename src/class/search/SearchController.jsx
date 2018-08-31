@@ -69,23 +69,13 @@ class SearchController extends ExchangeControllerBase {
         date:         new Date(item.iss * 1000).dateHandle("MM-dd HH:mm"),
         isCollect:    UserController().isCollect(2, item.id),
     });
-    let parseNews = item =>({
-      // dayDate: item,
-      // dayCardis: this.compareDate(item),
-      // cardMonth: new Date(item * 1000).dateHandle("MM"),
-      // cardDay: new Date(item * 1000).dateHandle("dd"),
-      // cardWeek: new Date(item * 1000).dateHandle("www"),
-      // news: result[item].map(v => {
-      //   return {
-      //     id: v.id,
-      //     title: v.tit,
-      //     content: v.ctt,
-      //     issueTime: v.iss,
-      //     like: v.lik,
-      //     dislike: v.dlk
-      //   }
-      // })
-
+    let parseNews = v =>({
+      id: v.id,
+      time: v.iss,
+      title: v.tit,
+      content: v.ctt,
+      like: v.lik,
+      dislike: v.dlk
     });
     let parseFunc = {1: parseProject, 2: parseArticle, 3: parseNews}[type];
     if(data){

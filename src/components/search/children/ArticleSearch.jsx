@@ -37,19 +37,15 @@ export default class ArticleSearch extends ViewBase {
   }
 
   highLightTag(word, tagTxt) {
-    console.log(2210, tagTxt);
     if(!tagTxt) return null;
     let txtArr = tagTxt.split(word);
-    console.log(2211, txtArr);
     let resJsx = [];
     for(let i=0; i<txtArr.length-1; i++){
       resJsx.push(txtArr[i],<i key={i} className="light">{word}</i>);
     }
     resJsx.push(txtArr[txtArr.length-1]);
     let span = <span className={txtArr.length > 1 ? "tag-choose" : "tag-name"}>{resJsx}</span>;
-    console.log(2212, resJsx);
-
-    return resJsx;
+    return span;
   }
 
   async addCollect(item) {
@@ -57,7 +53,6 @@ export default class ArticleSearch extends ViewBase {
       this.bus.emit("showLoginDialog");
       return;
     }
-    console.log(123,item, );
     let data = await UserController().setCollect(2, item.id, !item.isCollect);
     if (data.msg) {
       this.setState({showAlert: true, alertContent: data.msg});
@@ -71,7 +66,6 @@ export default class ArticleSearch extends ViewBase {
     let {showAlert, alertContent} = this.state;
     let {history, onSearch} = this.props;
     let {curPage, total, pageSize, word, resultList} = this.props.data;
-    console.log("render ArticleList", resultList);
 
     return (
       <div className="article-search">
@@ -85,7 +79,7 @@ export default class ArticleSearch extends ViewBase {
                     <div className="article-has-img">
                       <div>
                         <p className="article-title" onClick={() => history.push(`/article/detail?id=${v.id}`)}>
-                          {v.title && v.title.length > 36 ? v.title.shearStr(36) : this.highLight("", v.title) }
+                          {v.title && v.title.length > 36 ? v.title.shearStr(36) : this.highLight(word, v.title) }
 
                         </p>
 
@@ -116,13 +110,14 @@ export default class ArticleSearch extends ViewBase {
                     <span className="article-author">{v.id}</span>
                     {/* 文章日期 */}
                     <span className="article-date">{v.date}</span>
-                    {/* 文章标签 <span key={index} className="tag-name">{v}</span> */}
+                    {/* 文章标签 */}
                     {
                       v.tags && v.tags.map((v, index) =>(
-                        <div>{
-                          this.highLightTag("美国",v)
-                        }
-                        </div>
+                        <span key={index}>
+                          {
+                            this.highLightTag(word,v)
+                          }
+                        </span>
                       ))
                     }
                   </div>
