@@ -17,19 +17,17 @@ export default class ViewBase extends React.Component {
   /**
    *  轮播方法
    *  key: 标识
-   *  layer:      显示层
+   *  layer:          显示层
    *  layerCache:     缓冲层
-   *  layerArr:   边界数组，包含layer的最大和最小值，[min,max]
-   *  speed:  单次轮播量，每隔0.1秒layer变化量为speed
+   *  layerArr:       边界数组，包含layer的最大和最小值，[min,max]
+   *  speed:          单次轮播量，每隔0.1秒layer变化量为speed
    *  displayTime:    轮播间隔时间
-   *  func:   回调函数
+   *  func:           回调函数
    */
   swiper(key, layer, layerCache, layerArr, speed, displayTime, func) {
     this.Loop[key].clear();
     this.Loop[key].setDelayTime(displayTime);
     this.Loop[key].set(async () => {
-
-      let obj = {};
       layer -= speed;
       layerCache -= speed;
       func && func(layer,layerCache);
@@ -51,9 +49,9 @@ export default class ViewBase extends React.Component {
 
   /**
    *  倒计时方法
-   *  key: 标识
-   *  count: 初始计数
-   *  func: 回调函数，每秒触发，接收一个参数
+   *  key:      标识
+   *  count:    初始计数
+   *  func:     回调函数，每秒触发，接收一个参数
    */
   countDown(key, count, func) {
     this.Loop[key].clear();
@@ -71,11 +69,11 @@ export default class ViewBase extends React.Component {
 
   /**
    *  页面滚动到顶部，过渡效果
-   *  key:    标识
-   *  initPos:    初始位置
-   *  endPos:     结束位置
-   *  speed:      滚动速度，每0.01秒滚动speed值
-   *  func:       回调函数
+   *  key:          标识
+   *  initPos:      初始位置
+   *  endPos:       结束位置
+   *  speed:        滚动速度，每0.01秒滚动speed值
+   *  func:         回调函数
    */
   scroll(key, initPos, endPos, speed, func){
     this.Loop[key].clear();
@@ -102,8 +100,8 @@ export default class ViewBase extends React.Component {
 
   /**
    * 复制到剪贴板
-   * el: input, 或textarea表单元素
-   * return true成功或false
+   * el:        input, 或textarea表单元素
+   * return     true成功或false
    */
   copy(el) {
     el.select(); // 选择对象
