@@ -56,8 +56,8 @@ export default class App extends Component {
         const newsManage = ({match, history}) =>
             <NewsManage match={match} history={history}/>;
 
-        const search = ({ match, history }) =>
-          <Search match={match} history={history} />;
+        const search = ({ match, history, location}) =>
+          <Search match={match} history={history} location={location}/>;
 
         const personManage = ({ match, history }) =>{
             if(!LoginController().isLogin()){

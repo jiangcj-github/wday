@@ -31,7 +31,6 @@ export default class Search2 extends ViewBase {
       this.setState({resultList: [], total: 0, curPage: page});
       return
     }
-    console.log(1111, data);
     let {total, list} = data;
     this.setState({resultList: list, total: total, curPage: page});
   }
@@ -42,8 +41,8 @@ export default class Search2 extends ViewBase {
         this.word = word;
         this.searchContent(1);
     });
-    //
-    this.word = this.getQuery("word");
+    let {word} = this.props.location.state || {};
+    this.word = word;
     this.searchContent(1);
   }
 

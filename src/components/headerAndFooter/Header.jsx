@@ -112,7 +112,7 @@ export default class Header extends ViewBase {
                                       value={word}
                                       onInput={e=>this.setState({word: e.target.value})}/>
                               <i onClick={()=>{
-                                this.props.history.push(`/search?word=${word}`);
+                                this.props.history.push({pathname: "/search", state:{word: word}});
                                 this.bus.emit("onSearch",word);
                               }}/>
                           </p>
